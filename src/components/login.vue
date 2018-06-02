@@ -1,5 +1,6 @@
 <template>
 <Row  type="flex" justify="center" align="middle">
+    
     <Col  :xs="20" :sm="10" :md="6" :lg="6" class="form_container login">
     
 	<i-form ref="formInline" :model="formInline" :rules="ruleInline" >
@@ -7,12 +8,12 @@
 			<h1 >wallet 登入</h1>
 		</form-item>
 		<form-item prop="user">
-			<i-input type="text" v-model="formInline.user" placeholder="使用者帳號" clearable>
+			<i-input type="text" :value="username" @input="updateUsername" placeholder="使用者帳號" clearable>
 				<icon type="person" size="20" slot="prepend"></icon>
 			</i-input>
 		</form-item>
 		<form-item prop="password">
-			<i-input type="password" v-model="formInline.password" placeholder="使用者密碼" clearable>
+			<i-input type="password" :value="password" @input="updatePassword" placeholder="使用者密碼" clearable>
 				<icon type="locked" size="20" slot="prepend"></icon>
 			</i-input>
 		</form-item>
@@ -23,9 +24,9 @@
             </router-link>
 		</form-item>
 		<form-item>
-            <router-link to="/userPage">
-			<i-button class="loginButton" >登录</i-button>
-            </router-link>
+            
+			<i-button class="loginButton" @click="login()">登入</i-button>
+         
 		</form-item>
 	</i-form>
     </Col>
@@ -33,17 +34,15 @@
 </template>
 
 <script>
+import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	export default {
 	props : [''],
 		data() {
 			return {
-				formItem: {
-					username: '',
-					password: '',
-				},
 				formInline: {
 					user: '',
-					password: ''
+                    password: '',
+                
 				},
 				ruleInline: {
 					user: [{
@@ -63,24 +62,26 @@
 							trigger: 'blur'
 						}
 					],
-					// code: [{
-					// 		required: true,
-					// 		message: 'Please fill in the code.',
-					// 		trigger: 'blur'
-					// 	},
-					// 	{
-					// 		type: 'string',
-					// 		min: 4,
-					// 		max: 4,
-					// 		message: 'code must be 4',
-					// 		trigger: 'blur'
-					// 	}
-					// ]
 				}
 			}
-		},
+        },
+        computed:{
+             ...mapState({
+                    password: state => state.user.password , 
+                    username: state => state.user.username
+                })
+        },
 		methods:{
-			
+          ...mapActions({
+            'login' : 'login'
+            }),
+            updatePassword (password) {
+               
+                this.$store.commit('updatePassword', password)
+            },
+            updateUsername (username) {
+                this.$store.commit('updateUsername', username)
+            }
 		}
 	}
 </script>
@@ -117,6 +118,7 @@
 		display: inline-block;
 	}
     .login {
-        padding: 20px
+        padding: 20px;
+        margin-top: 100px
     }
 </style>

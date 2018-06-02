@@ -2,25 +2,71 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import login from '@/components/login'
 import sigin from '@/components/signIn'
-import userPage from '@/components/page/userPage'
+import store from '@/store'
+import index from '@/components/page/index'
+import userIndex from '@/components/page/userIndex'
+import userProfile from '@/components/page/userProfile'
 
 Vue.use(Router)
 
-export default new Router({
+const vueRouter = new Router({
+    mode: 'history',
+    base: __dirname,
     routes: [{
             path: '/',
             name: 'login',
-            component: login
+            component: login,
+            meta: { requiresAuth: false },
         },
         {
             path: '/sigin',
-            name: 'login',
+            name: 'sigin',
             component: sigin
         },
         {
-            path: '/userPage',
-            name: 'login',
-            component: userPage
-        }
+            path: '/index',
+            name: 'index',
+            component: index,
+            meta: { requiresAuth: true },
+            children: [{
+                    path: '',
+                    name: 'userIndex',
+                    component: userIndex,
+                    meta: { requiresAuth: true },
+                },
+                {
+                    path: 'userProfile',
+                    name: 'userProfile',
+                    component: userProfile,
+                    meta: { requiresAuth: true },
+                }
+            ]
+        },
+        // { path: '/*', redirect: '/login' }
     ]
 })
+
+
+
+export default vueRouter
+vueRouter.beforeEach((to, from, next) => {
+    // 如果 router 轉跳的頁面需要驗證 requiresAuth: true
+
+    console.log('to=', to.fullPath, '| from=', from.fullPath);
+    if (to.matched.some(record => {
+            console.log(record.name, record.meta.requiresAuth);
+            return record.meta.requiresAuth;
+        })) {
+        // 如果沒有 token 
+        console.log('token?', store.state.user.token);
+        if (store.state.user.token === '') {
+            // 轉跳到 login page
+            next({ path: '/' });
+        } else {
+            next(); // 往下繼續執行
+        }
+    } else {
+        next(); // 往下繼續執行
+    }
+
+});
