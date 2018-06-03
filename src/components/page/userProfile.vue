@@ -1,6 +1,6 @@
 <template>
  <div>
-     <Row type="flex" justify="end" align="top" class="userLine">
+     <!-- <Row type="flex" justify="end" align="top" class="userLine">
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Row type="flex" justify="end" align="top">
             <Col :xs="24" :sm="8" :md="8" :lg="6">使用者：<span class="user">yoyo</span></Col>
@@ -8,15 +8,50 @@
             </Row>
         </Col>
 
-        </Row>
+        </Row> -->
         <Row type="flex" justify="center" align="middle">
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
-            <TabPane label="交易紀錄" name="name1">
-                <Table height="400" :columns="columns1" :data="data2"></Table>
+            <TabPane label="用戶設定" name="name1">
+                <Row type="flex" justify="center" align="middle">
+                    <Col :xs="20" :sm="16" :md="16" :lg="16">
+                        <i-form ref="formInline" :model="formInline" :rules="ruleInline" >
+                            
+                            <form-item prop="user">
+                                <i-input  v-model="formInline.user" :placeholder="formInline.user" placeholder="用戶名稱"  clearable>
+                                    <icon type="happy" size="20" slot="prepend"></icon>
+                                </i-input>
+                            </form-item>
+                            <form-item >
+                                <i-input  v-model="formInline.email" :placeholder="formInline.email" pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" disabled>
+                                    <icon type="email" size="20" slot="prepend"></icon>    
+                                </i-input>
+                            </form-item>
+                            <form-item >
+                                <i-input  v-model="formInline.phone" :placeholder="formInline.phone" disabled>
+                                    <Icon type="ios-telephone" size="20" slot="prepend"></Icon>
+                                </i-input>
+                            </form-item>
+                            <form-item prop="username">
+                                <i-input  v-model="formInline.username" :placeholder="formInline.username" placeholder="用戶帳號"  clearable>
+                                    <icon type="person" size="20" slot="prepend"></icon>
+                                </i-input>
+                            </form-item>
+                            <form-item prop="password">
+                                <i-input ref="togglePassword" :type="type"  v-model="formInline.password" :placeholder="formInline.password" placeholder="用戶密碼" >
+                                    <icon type="locked" size="20" slot="prepend"></icon>
+                                    <Icon ref="toggleIcon" @click="toggleIcon" :type="eyesIcon" size="20" slot="append"></Icon>
+                                    
+                                </i-input>
+                            </form-item>
+                            <form-item>
+                                <i-button type="primary"  >儲存變更</i-button>
+                            </form-item>
+                        </i-form>
+                    </Col>
+                </Row>
             </TabPane>
-            <TabPane label="轉帳" name="name2">标签二的内容</TabPane>
-        </Tabs>
+            </Tabs>
         </Col>
     </Row>
  </div>
@@ -28,71 +63,41 @@ export default {
   data () {
      return {
         isCollapsed: false,
-        columns1: [
-                    {
-                        title: '轉出/轉入',
-                        key: '轉出/轉入'
-                    },
-                    {
-                        title: '金額',
-                        key: '金額'
-                    },
-                    {
-                        title: '時間',
-                        key: '時間'
-                    }
-                ],
-        data2: [
-                    {
-                        name: 'John Brown',
-                        age: 18,
-                        address: 'New York No. 1 Lake Park',
-                        date: '2016-10-03'
-                    },
-                    {
-                        name: 'Jim Green',
-                        age: 24,
-                        address: 'London No. 1 Lake Park',
-                        date: '2016-10-01'
-                    },
-                    {
-                        name: 'Joe Black',
-                        age: 30,
-                        address: 'Sydney No. 1 Lake Park',
-                        date: '2016-10-02'
-                    },
-                    {
-                        name: 'Jon Snow',
-                        age: 26,
-                        address: 'Ottawa No. 2 Lake Park',
-                        date: '2016-10-04'
-                    },
-                    {
-                        name: 'John Brown',
-                        age: 18,
-                        address: 'New York No. 1 Lake Park',
-                        date: '2016-10-03'
-                    },
-                    {
-                        name: 'Jim Green',
-                        age: 24,
-                        address: 'London No. 1 Lake Park',
-                        date: '2016-10-01'
-                    },
-                    {
-                        name: 'Joe Black',
-                        age: 30,
-                        address: 'Sydney No. 1 Lake Park',
-                        date: '2016-10-02'
-                    },
-                    {
-                        name: 'Jon Snow',
-                        age: 26,
-                        address: 'Ottawa No. 2 Lake Park',
-                        date: '2016-10-04'
-                    }
-                ]
-    };
+        eyesIcon: 'eye-disabled',
+        type: 'password',
+        formInline: {
+            user: 'yoyo',
+            email: 'doid@doijd.dsio',
+            phone: '09109999999',
+            password: '1234',
+            username: 'yoyo01'
+        },
+        ruleInline: {
+            user: [{
+                required: true,
+                message: '請填入姓名',
+                trigger: 'blur'
+            }],
+            email: [{
+                    required: true,
+                    message: '請填入信箱',
+                    trigger: 'blur'
+                }
+            ],
+            phone:[{
+                required: true,
+                message: '請填入電話號碼',
+                trigger: 'blur'
+            },
+            {
+                type: 'string',
+                min: 10,
+                max:10,
+                message: '請填入手機號碼共10碼',
+                trigger: 'blur'
+            }]
+        }
+    }
   },
   computed: {
       menuitemClasses: function () {
@@ -101,8 +106,23 @@ export default {
               this.isCollapsed ? 'collapsed-menu' : ''
           ]
       }
-  }
+  },
+  methods: {
+      toggleIcon(){
+          this.eyesIcon = this.eyesIcon === 'eye-disabled' ? 'eye' : 'eye-disabled'
+          this.type = this.type === 'password' ? 'text' : 'password'
+         
+        // if (this.eyesIcon = 'eye'){
+        //   return  this.eyesIcon = 'eye-disabled'
+        // }else {
+        //  return  this.eyesIcon = 'eye'
+        // }
+        
+      }
+  
 }
+}
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

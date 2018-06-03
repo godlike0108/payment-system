@@ -3,7 +3,7 @@
      <Row type="flex" justify="end" align="top" class="userLine">
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Row type="flex" justify="end" align="top">
-            <Col :xs="24" :sm="8" :md="8" :lg="6">使用者：<span class="user">yoyo</span></Col>
+            <Col :xs="24" :sm="8" :md="8" :lg="6">用戶：<span class="user">yoyo</span></Col>
             <Col :xs="24" :sm="8" :md="8" :lg="6">剩餘金額：<span class="money">5000</span></Col>
             </Row>
         </Col>
@@ -15,7 +15,21 @@
             <TabPane label="交易紀錄" name="name1">
                 <Table height="400" :columns="columns1" :data="data2"></Table>
             </TabPane>
-            <TabPane label="轉帳" name="name2">标签二的内容</TabPane>
+            <TabPane label="轉帳" name="name2">
+                <Form ref="formCustom" :model="formCustom" :rules="ruleCustom" :label-width="80">
+                    <FormItem label="轉出帳號" prop="passwd">
+                        <Input type="text" v-model="formCustom.passwd"></Input>
+                    </FormItem>
+                    
+                    <FormItem label="轉出金額" prop="age">
+                        <Input type="text" v-model="formCustom.age" number></Input>
+                    </FormItem>
+                    <FormItem>
+                        <Button type="primary" @click="handleSubmit('formCustom')">送出</Button>
+                        <Button type="ghost" @click="handleReset('formCustom')" style="margin-left: 8px">重新設定</Button>
+                    </FormItem>
+                </Form>
+            </TabPane>
         </Tabs>
         </Col>
     </Row>
@@ -26,8 +40,56 @@
 export default {
   name: 'HelloWorld',
   data () {
+    const validatePass = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('請填入轉出帳號'));
+            } else {
+                
+                callback();
+            }
+        };
+    // const validatePassCheck = (rule, value, callback) => {
+    //     if (value === '') {
+    //         callback(new Error('Please enter your password again'));
+    //     } else if (value !== this.formCustom.passwd) {
+    //         callback(new Error('The two input passwords do not match!'));
+    //     } else {
+    //         callback();
+    //     }
+    // };
+    const validateAge = (rule, value, callback) => {
+        if (!value || value <= 0) {
+            return callback(new Error('轉出金額不能為空'));
+        }
+        // 模拟异步验证效果
+        setTimeout(() => {
+            if (!Number.isInteger(value)) {
+                callback(new Error('請填入數字'));
+            } else {
+                
+                    callback();
+                
+            }
+        }, 1000);
+    };
      return {
         isCollapsed: false,
+       formCustom: {
+            passwd: '',
+            // passwdCheck: '',
+            age: ''
+        },
+        ruleCustom: {
+            passwd: [
+                { validator: validatePass, trigger: 'blur' }
+            ],
+            // passwdCheck: [
+            //     { validator: validatePassCheck, trigger: 'blur' }
+            // ],
+            age: [
+                { validator: validateAge, trigger: 'blur' }
+            ]
+        },
         columns1: [
                     {
                         title: '轉出/入',
@@ -91,7 +153,8 @@ export default {
                         address: 'Ottawa No. 2 Lake Park',
                         date: '2016-10-04'
                     }
-                ]
+                ],
+            
     };
   },
   computed: {
@@ -101,7 +164,21 @@ export default {
               this.isCollapsed ? 'collapsed-menu' : ''
           ]
       }
-  }
+  },
+   methods: {
+            handleSubmit (name) {
+                this.$refs[name].validate((valid) => {
+                    if (valid) {
+                        this.$Message.success('Success!');
+                    } else {
+                        this.$Message.error('Fail!');
+                    }
+                })
+            },
+            handleReset (name) {
+                this.$refs[name].resetFields();
+            }
+        }
 }
 </script>
 

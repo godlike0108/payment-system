@@ -5,11 +5,15 @@
                 <Menu active-name="1-1" theme="dark" width="auto" :class="menuitemClasses">
                   
                     <MenuItem name="1-1"  @click.native="toIndex()">
-                        <Icon type="ios-navigate"></Icon>
+                        <Icon type="ios-navigate" ></Icon>
                         <span>首頁</span>
                     </MenuItem>
                   
-                    <MenuItem name="1-2" @click.native="toProfile()">
+                    <MenuItem name="1-2" @click.native="toTranstion()">
+                        <Icon type="ios-calculator" size="18"></Icon>
+                        <span>出金</span>
+                    </MenuItem>
+                    <MenuItem name="1-3" @click.native="toProfile()">
                         <Icon type="happy"></Icon>
                         <span>用戶設定</span>
                     </MenuItem>
@@ -21,7 +25,7 @@
                 <Header class="layout-header-bar">
                   <Row type="flex" justify="start" align="middle">
                     <Col :xs="4" :sm="4" :md="4" :lg="4">
-                    <span class="title">Wallet</span> </Col>
+                    <span class="title" @click="getData()">Wallet</span> </Col>
                     <Col :xs="16" :sm="16" :md="16" :lg="16"></Col>
                     <Col :xs="4" :sm="4" :md="4" :lg="4" >
                     <Icon type="log-out" size="22" :style="{color: '#fff'}"></Icon></Col>
@@ -38,6 +42,7 @@
 </template>
 
 <script>
+import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 export default {
   name: 'HelloWorld',
   data () {
@@ -46,6 +51,7 @@ export default {
     };
   },
   computed: {
+      
       menuitemClasses: function () {
           return [
               'menu-item',
@@ -55,13 +61,18 @@ export default {
   },
   methods: {
       toProfile(){
-          
           this.$router.push('/index/userProfile')
       },
       toIndex(){
          
           this.$router.push('/index/')
-      }
+      },
+      toTranstion(){
+        this.$router.push('/index/transations')
+      },
+      ...mapGetters({
+        'getData': 'getData'
+      }),
   }
 }
 </script>

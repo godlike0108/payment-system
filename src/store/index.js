@@ -14,14 +14,23 @@ const state = {
         creat: ''
     }
 }
-const getters = {}
+const getters = {
+    // getData() {
+    //     let data = sessionStorage.getItem('data')
+    //     console.log(data)
+    // }
+}
 const mutations = {
-    setToken(state, payload) {
-        state.user.name = payload.name
-        state.user.email = payload.email
-        state.user.token = payload.api_token
-            // state.user.creat = payload.name
-            // console.log(payload)
+    setToken(state) {
+        let token = sessionStorage.getItem('token')
+            // state.user.name = payload.name
+            // state.user.email = payload.email
+        let data = sessionStorage.getItem('data')
+        console.log(data)
+        state.user.token = token
+
+        // state.user.creat = payload.name
+        // console.log(payload)
     },
     updatePassword(state, password) {
         state.user.password = password

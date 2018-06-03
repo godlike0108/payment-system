@@ -6,6 +6,7 @@ import store from '@/store'
 import index from '@/components/page/index'
 import userIndex from '@/components/page/userIndex'
 import userProfile from '@/components/page/userProfile'
+import transations from '@/components/page/transations'
 
 Vue.use(Router)
 
@@ -39,6 +40,12 @@ const vueRouter = new Router({
                     name: 'userProfile',
                     component: userProfile,
                     meta: { requiresAuth: true },
+                },
+                {
+                    path: 'transations',
+                    name: 'transations',
+                    component: transations,
+                    meta: { requiresAuth: true },
                 }
             ]
         },
@@ -51,15 +58,15 @@ const vueRouter = new Router({
 export default vueRouter
 vueRouter.beforeEach((to, from, next) => {
     // 如果 router 轉跳的頁面需要驗證 requiresAuth: true
-
+    let token = sessionStorage.getItem('token')
     console.log('to=', to.fullPath, '| from=', from.fullPath);
     if (to.matched.some(record => {
-            console.log(record.name, record.meta.requiresAuth);
+            // console.log(record.name, record.meta.requiresAuth);
             return record.meta.requiresAuth;
         })) {
         // 如果沒有 token 
-        console.log('token?', store.state.user.token);
-        if (store.state.user.token === '') {
+        // console.log('token?', token);
+        if (token === '') {
             // 轉跳到 login page
             next({ path: '/' });
         } else {
