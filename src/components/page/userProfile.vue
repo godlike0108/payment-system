@@ -9,27 +9,27 @@
                         <i-form >
                             
                             <form-item >
-                                <i-input  v-model="this.$store.state.updateProfile.name" :placeholder=" '用戶名稱'"   clearable>
+                                <i-input  @input="setProfileName" :value="name" :placeholder=" '用戶名稱'"   clearable>
                                     <icon type="happy" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             <form-item >
-                                <i-input  v-model="this.$store.state.user.email" :placeholder="this.$store.state.user.email"  disabled>
+                                <i-input   :placeholder="email"  disabled>
                                     <icon type="email" size="20" slot="prepend"></icon>    
                                 </i-input>
                             </form-item>
                             <form-item >
-                                <i-input  v-model="this.$store.state.user.mobile" :placeholder="this.$store.state.user.mobile" disabled>
+                                <i-input  :placeholder="mobile" disabled>
                                     <Icon type="ios-telephone" size="20" slot="prepend"></Icon>
                                 </i-input>
                             </form-item>
                             <form-item>
-                                <i-input  v-model="this.$store.state.updateProfile.username" :placeholder=" '用戶帳號'"   clearable>
+                                <i-input @input="setProfileUsername" :value="username" :placeholder=" '用戶帳號'"   clearable>
                                     <icon type="person" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             <form-item >
-                                <i-input ref="togglePassword"   v-model="this.$store.state.updateProfile.password" :placeholder=" '用戶密碼'"  >
+                                <i-input ref="togglePassword" @input="setProfilePassword"  :value="password" :placeholder=" '用戶密碼'"  >
                                     <icon type="locked" size="20" slot="prepend"></icon>
                                     <Icon ref="toggleIcon" @click="toggleIcon" :type="eyesIcon" size="20" slot="append"></Icon>
                                     
@@ -59,10 +59,19 @@ export default {
     }
   },
   computed: {
+      ...mapState({
+                    name: state => state.user.name , 
+                    username: state => state.user.username,
+                    password: state => state.user.password,
+                    email: state => state.user.email,
+                    mobile: state => state.user.mobile,                    
+                                     
+				}),
       menuitemClasses: function () {
           return [
               'menu-item',
               this.isCollapsed ? 'collapsed-menu' : ''
+
           ]
       }
   },
@@ -73,7 +82,16 @@ export default {
         toggleIcon(){
             this.eyesIcon = this.eyesIcon === 'eye-disabled' ? 'eye' : 'eye-disabled'
             this.type = this.type === 'password' ? 'text' : 'password'
-        }
+        },
+        setProfileName(name) {
+                this.$store.commit('setProfileName', name)
+            },
+        setProfileUsername(username) {
+                this.$store.commit('setProfileUsername', username)
+            },
+         setProfilePassword(password) {
+                this.$store.commit('setProfilePassword', password)
+            },
   
 }
 }

@@ -154,6 +154,19 @@ const mutations = {
         state.transition.data = data
         console.log(state.transition)
     },
+    setProfileName(state, name) {
+        state.updateProfile.name = name
+        console.log(state.updateProfile.name)
+    },
+    setProfileUsername(state, username) {
+        state.updateProfile.username = username
+        console.log(state.updateProfile.username)
+    },
+    setProfilePassword(state, password) {
+        state.updateProfile.password = password
+        console.log(state.updateProfile.password)
+    },
+
     log_out(state) {
         let email = sessionStorage.removeItem('email')
         let token = sessionStorage.removeItem('token')

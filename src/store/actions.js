@@ -88,7 +88,7 @@ export default {
         }
     },
     updateProfile({ commit, state }) {
-
+        console.log(state.updateProfile.name, state.updateProfile.username, state.updateProfile.password)
         axios.post(`${baseURL}/api/users`, {
                 name: state.updateProfile.name,
                 username: state.updateProfile.username,
