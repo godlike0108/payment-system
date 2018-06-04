@@ -74,7 +74,7 @@ vueRouter.beforeEach((to, from, next) => {
         })) {
         // 如果沒有 token 
         // console.log('token?', token);
-        if (token === '') {
+        if (token === null) {
             // 轉跳到 login page
             next({ path: '/' });
         } else if (role_id === '0') {

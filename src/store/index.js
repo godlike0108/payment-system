@@ -117,6 +117,24 @@ const mutations = {
     firstChagePassword(state, password) {
         state.user.password = password
         console.log(state.user.password)
+    },
+    log_out(state) {
+        let email = sessionStorage.removeItem('email')
+        let token = sessionStorage.removeItem('token')
+        let mobile = sessionStorage.removeItem('mobile')
+        let name = sessionStorage.removeItem('name')
+        let username = sessionStorage.removeItem('username')
+        let password = sessionStorage.removeItem('password')
+        let role_id = sessionStorage.removeItem('role_id')
+
+        state.user.email = email
+        state.user.token = token
+        state.user.mobile = mobile
+        state.user.name = name
+        state.user.username = username
+        state.user.password = password
+        state.user.role_id = role_id
+        console.log(state.user)
     }
 }
 

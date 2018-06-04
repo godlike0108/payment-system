@@ -28,7 +28,7 @@
                     <span class="title" @click="getData()">Wallet</span> </Col>
                     <Col :xs="16" :sm="16" :md="16" :lg="16"></Col>
                     <Col :xs="4" :sm="4" :md="4" :lg="4" >
-                    <Icon type="log-out" size="22" :style="{color: '#fff'}"></Icon></Col>
+                    <Icon @click="log_out()" type="log-out" size="22" :style="{color: '#fff'}"></Icon></Col>
                   </Row>
                    
                 </Header>
@@ -69,6 +69,11 @@ export default {
       },
       toTranstion(){
         this.$router.push('/index/checkout')
+      },
+      log_out(){
+          this.$store.commit('log_out')
+          this.$router.push('/')
+
       },
       ...mapGetters({
         'getData': 'getData'
