@@ -7,6 +7,8 @@ import index from '@/components/page/index'
 import userIndex from '@/components/page/userIndex'
 import userProfile from '@/components/page/userProfile'
 import checkout from '@/components/page/checkout'
+import firstlogin from '@/components/firstLogin'
+
 
 Vue.use(Router)
 
@@ -23,6 +25,11 @@ const vueRouter = new Router({
             path: '/sigin',
             name: 'sigin',
             component: sigin
+        },
+        {
+            path: '/firstlogin',
+            name: 'firstlogin',
+            component: firstlogin
         },
         {
             path: '/index',
@@ -59,6 +66,7 @@ export default vueRouter
 vueRouter.beforeEach((to, from, next) => {
     // 如果 router 轉跳的頁面需要驗證 requiresAuth: true
     let token = sessionStorage.getItem('token')
+    let role_id = sessionStorage.getItem('role_id')
     console.log('to=', to.fullPath, '| from=', from.fullPath);
     if (to.matched.some(record => {
             // console.log(record.name, record.meta.requiresAuth);
@@ -69,6 +77,8 @@ vueRouter.beforeEach((to, from, next) => {
         if (token === '') {
             // 轉跳到 login page
             next({ path: '/' });
+        } else if (role_id === '0') {
+            next({ path: '/firstlogin' });
         } else {
             next(); // 往下繼續執行
         }

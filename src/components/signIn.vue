@@ -26,13 +26,14 @@
 			<i-input  :value="email" @input="updateEmail" placeholder="使用者信箱"  clearable>
 				<icon type='email' size="20" slot="prepend"></icon>    
 			</i-input>
+			<span v-if="Notemail">email 格式錯誤</span>
 		</form-item>
         <form-item prop="phone">
 			<i-input  :value="mobile" @input="updateMobile"  placeholder="使用者手機"  clearable>
 				<span slot="prepend">+886</span>
                 <!-- <Icon  type="ios-telephone" size="20" slot="prepend"></Icon> -->
-				
 			</i-input>
+			<span v-if="NotMobil">手機格式錯誤</span>
 		</form-item>
         <form-item >
             <i-button @click="getSms()">取得手機驗證碼</i-button>
@@ -40,14 +41,26 @@
         <form-item >
             <i-input  :value="sms" class="phonePassword" @input="updateSms"  placeholder="請填入驗證碼共五碼"   clearable></i-input>
         </form-item>
-		<form-item  v-show="sms.length === 5 || isSubmit === true">
+		<form-item  v-show=" name !='' && email !=''&& mobile.length === 9 && sms.length === 5 ">
 			<i-button class="loginButton" @click="submitSignIn()">提出申請</i-button>
          
 		</form-item>
 	</i-form>
-    <Row v-if="isSubmit">
-        <Col class="loading">
-            <Spin fix>
+    <Row >
+		<Col v-if="status_mobile" >
+		<Icon type="close-circled" class="error" size="20"></Icon>
+			<div class="error">手機號碼已註冊</div>
+		</Col>
+		<Col v-if="status_sms">
+		<Icon type="close-circled" class="error" size="20"></Icon>
+			<div class="error">簡訊驗證碼錯誤</div>
+		</Col>
+		<Col v-if="sign_success">
+		<Icon type="checkmark-circled" class="success" size="20"></Icon>
+			<div class="success">註冊成功</div>
+		</Col>
+        <Col class="loading" v-if="isSubmit">
+            <Spin fix >
                 <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
                 <div>Loading</div>
             </Spin>
@@ -65,7 +78,9 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	props : [''],
 		data() {
 			return {
-                isSubmit: false,
+				isSubmit: false,
+				Notemail:false,
+				NotMobil: false,
 				ruleInline: {
 					// user: [{
 					// 	required: true,
@@ -94,6 +109,10 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 					email: state => state.signIn.email,
 					mobile: state => state.signIn.mobile,
 					sms : state => state.signIn.sms,
+					status_mobile: state => state.signup_status.phone_is_singup,
+					status_sms: state => state.signup_status.wrong_sms,
+					sign_success: state => state.signup_status.success,					
+					
 				}),
 			
         },
@@ -102,33 +121,42 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 			'getSms' : 'getSms',
 			'submitSignIn':'submitSignIn'
 			}),
-            submit () {
-                this.isSubmit = !this.isSubmit
-			},
 			updateName(name){
 				this.$store.commit('updateName', name)
 			},
 			updateEmail(email){
 				
-  				var reEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+				  var reEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+				  console.log(email.match(reEmail))
 				if(email.match(reEmail) === null){
+					setTimeout(()=>{
+						this.Notemail = true
+					},1500)
 					
+				}else{
+					this.Notemail = false
+					this.$store.commit('updateEmail', email)
 				}
 
-				this.$store.commit('updateEmail', email)
+				
 			},
 			updateMobile(mobile){
 				// if(mobile.length === 10){
 				// 	let a = mobile.replace(/0/g, "886");
 				// console.log(a)
-				let reMobile09 = /^09[0-9]{8}$/
+				let reMobile09 = /^0[0-9]{9}$/
 				let reMobile9 = /^9[0-9]{8}$/
+				// console.log(mobile.match(reMobile09))
 				console.log(mobile.match(reMobile9))
-				this.$store.commit('updateMobile', mobile)
-				
-				
+				if (mobile.match(reMobile9) === null ){
+						this.NotMobil = true
+				}else {
+					this.NotMobil = false
+					this.$store.commit('updateMobile', mobile)
+				}
 			},
 			updateSms(sms){
+				
 				this.$store.commit('updateSms', sms)
 			},
 		}
@@ -189,4 +217,12 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
         padding: 20px;
         margin-top: 100px
     }
+	.success {
+		color: #19be6b;
+		font-size: 1.2em
+	}
+	.error {
+		color:#ed3f14;
+		font-size:1.2em
+	}
 </style>

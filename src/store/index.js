@@ -12,7 +12,12 @@ const state = {
         name: '',
         email: '',
         mobile: '',
-        sms: ''
+        sms: '',
+    },
+    signup_status: {
+        success: null,
+        phone_is_singup: null,
+        wrong_sms: null
     },
     user: {
         username: '',
@@ -47,6 +52,21 @@ const getters = {
 const mutations = {
     wrong_login(state) {
         state.login.wrongLogin = true
+    },
+    success_signup(state) {
+        state.signup_status.phone_is_singup = null
+        state.signup_status.wrong_sms = null
+        state.signup_status.success = true
+    },
+    wrong_signup_sms(state) {
+        state.signup_status.wrong_sms = true
+        state.signup_status.phone_is_singup = null
+        state.signup_status.success = true
+    },
+    phone_is_singup(state) {
+        state.signup_status.phone_is_singup = true
+        state.signup_status.wrong_sms = null
+        state.signup_status.success = null
     },
     setData(state) {
         let email = sessionStorage.getItem('email')
@@ -91,6 +111,10 @@ const mutations = {
     },
     updateSms(state, sms) {
         state.signIn.sms = sms
+    },
+    firstChagePassword(state, password) {
+        state.user.password = password
+        console.log(state.user.password)
     }
 }
 

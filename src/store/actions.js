@@ -44,7 +44,7 @@ export default {
     },
     getSms({ commit, state }) {
         axios.post(`${baseURL}/api/sms`, {
-                mobile: state.signIn.mobile
+                mobile: 886 + state.signIn.mobile
             })
             .then((response) => {
                 console.log(response)
@@ -57,11 +57,18 @@ export default {
         axios.post(`${baseURL}/api/signup`, {
                 name: state.signIn.name,
                 email: state.signIn.email,
-                mobile: state.signIn.mobile,
+                mobile: 886 + state.signIn.mobile,
                 sms: state.signIn.sms,
             })
             .then((response) => {
                 console.log(response)
+                commit('success_signup')
+            }).catch(() => {
+                if (status = '400') {
+                    commit('wrong_signup_sms')
+                } else if (status = '422') {
+                    commit('phone_is_singup')
+                }
             })
     },
     updateProfile({ commit, state }) {
