@@ -22,9 +22,11 @@ export default {
                 let username = data.username
                 let password = state.user.password
                 let role_id = data.role_id
+                let balance = data.wallets["0"].balance
 
 
                 console.log(data)
+                console.log(balance)
                 sessionStorage.setItem('password', password)
                 sessionStorage.setItem('email', email)
                 sessionStorage.setItem('token', token)
@@ -32,6 +34,7 @@ export default {
                 sessionStorage.setItem('name', name)
                 sessionStorage.setItem('username', username)
                 sessionStorage.setItem('role_id', role_id)
+                sessionStorage.setItem('balance', balance)
 
                 commit('setData')
                 if (role_id === 1 || role_id === 2) {

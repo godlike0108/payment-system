@@ -27,7 +27,8 @@ const state = {
         email: '',
         token: '',
         mobile: '',
-        role_id: ''
+        role_id: '',
+        balance: ''
     },
     updateProfile: {
         name: '',
@@ -87,6 +88,8 @@ const mutations = {
         let username = sessionStorage.getItem('username')
         let password = sessionStorage.getItem('password')
         let role_id = sessionStorage.getItem('role_id')
+        let balance = sessionStorage.getItem('balance')
+
 
         state.user.email = email
         state.user.token = token
@@ -95,6 +98,7 @@ const mutations = {
         state.user.username = username
         state.user.password = password
         state.user.role_id = role_id
+        state.user.balance = balance
 
         state.updateProfile.name = name
         state.updateProfile.username = username
