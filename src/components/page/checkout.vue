@@ -34,7 +34,7 @@
                             </form-item>
                             
                             <form-item>
-                                <i-button type="primary"  >送出申請</i-button>
+                                <i-button type="primary" @click="userCheckout" >送出申請</i-button>
                             </form-item>
                         </i-form>
                     </Col>
@@ -141,7 +141,8 @@ export default {
   },
   methods: {
       ...mapActions({
-			'getSms' : 'getSms',
+            'getSms' : 'getSms',
+            'userCheckout':'userCheckout'
 			}),
   },
   created(){

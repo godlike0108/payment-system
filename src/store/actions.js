@@ -140,6 +140,18 @@ export default {
                 console.log(response)
             })
     },
+    userCheckout({ commit, state }) {
+        axios.post(`${baseURL}/api/checkouts`, {
+                name: '',
+                bank: '',
+                bank_account: '',
+                amount: '',
+                sms: ''
+            })
+            .then((response) => {
+                console.log(response)
+            })
+    },
     admins({ commit, state }) {
         axios.get(`${baseURL}/api/admins`, {
                 headers: {
