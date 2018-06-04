@@ -88,16 +88,17 @@ export default {
         }
     },
     updateProfile({ commit, state }) {
+
         axios.post(`${baseURL}/api/users`, {
-            name: state.updateProfile.name,
-            username: state.updateProfile.username,
-            password: state.updateProfile.password,
-            email: state.user.email,
-            mobile: state.user.mobile,
-            role_id: state.user.role_id
+                name: state.updateProfile.name,
+                username: state.updateProfile.username,
+                password: state.updateProfile.password,
 
-
-        })
+            })
+            .then((response) => {
+                console.log(response)
+                console.log(password, username, name)
+            })
     },
     userGetChekout({ commit, state }) {
         let role_id = sessionStorage.getItem('role_id')
@@ -112,6 +113,31 @@ export default {
                 let data = response.data.data
                 commit('userChekout', data)
 
+            })
+    },
+    userGetTransactions({ commit, state }) {
+        // let role_id = sessionStorage.getItem('role_id')
+        let token = sessionStorage.getItem('token')
+
+        axios.get(`${baseURL}/api/transactions`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then((response) => {
+                let data = response.data.data
+                console.log(data)
+                commit('userGetTransactions', data)
+
+            })
+    },
+    userTransactions({ commit, state }) {
+        axios.post(`${baseURL}/api/transactions`, {
+                to_username: state.transition.to_username,
+                amount: state.transition.amount
+            })
+            .then((response) => {
+                console.log(response)
             })
     },
     admins({ commit, state }) {

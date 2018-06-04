@@ -12,20 +12,20 @@
         <Row type="flex" justify="center" align="middle">
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
-            <TabPane label="交易紀錄" name="name1">
-                <Table height="400" :columns="columns1" :data="data2"></Table>
+            <TabPane label="轉帳紀錄" name="name1">
+                <Table height="400" :columns="columns1" :data="getTransition"></Table>
             </TabPane>
             <TabPane label="轉帳" name="name2">
-                <Form ref="formCustom" :model="formCustom" :rules="ruleCustom" :label-width="80">
+                <Form ref="formCustom"  :label-width="80">
                     <FormItem label="轉出帳號" prop="passwd">
-                        <Input type="text" v-model="formCustom.passwd"></Input>
+                        <Input type="text"  @input="updateToUserName"></Input>
                     </FormItem>
                     
                     <FormItem label="轉出金額" prop="age">
-                        <Input type="text" v-model="formCustom.age" number></Input>
+                        <Input type="text" @input="updateToAmount"  number></Input>
                     </FormItem>
                     <FormItem>
-                        <Button type="primary" @click="handleSubmit('formCustom')">送出</Button>
+                        <Button type="primary" @click="handleSubmit('formCustom');userTransactions()">送出</Button>
                         <Button type="ghost" @click="handleReset('formCustom')" style="margin-left: 8px">重新設定</Button>
                     </FormItem>
                 </Form>
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 export default {
   name: 'HelloWorld',
   data () {
@@ -74,11 +75,7 @@ export default {
     };
      return {
         isCollapsed: false,
-       formCustom: {
-            passwd: '',
-            // passwdCheck: '',
-            age: ''
-        },
+       
         ruleCustom: {
             passwd: [
                 { validator: validatePass, trigger: 'blur' }
@@ -92,69 +89,14 @@ export default {
         },
         columns1: [
                     {
-                        title: '轉出/入',
+                        title: '轉出帳號',
                         key: 'name'
                     },
                     {
                         title: '金額',
                         key: 'age'
-                    },
-                    {
-                        title: '時間',
-                        key: 'address'
-                    }
-                ],
-        data2: [
-                    {
-                        name: 'John Brown',
-                        age: 18,
-                        address: 'New York No. 1 Lake Park',
-                        date: '2016-10-03'
-                    },
-                    {
-                        name: 'Jim Green',
-                        age: 24,
-                        address: 'London No. 1 Lake Park',
-                        date: '2016-10-01'
-                    },
-                    {
-                        name: 'Joe Black',
-                        age: 30,
-                        address: 'Sydney No. 1 Lake Park',
-                        date: '2016-10-02'
-                    },
-                    {
-                        name: 'Jon Snow',
-                        age: 26,
-                        address: 'Ottawa No. 2 Lake Park',
-                        date: '2016-10-04'
-                    },
-                    {
-                        name: 'John Brown',
-                        age: 18,
-                        address: 'New York No. 1 Lake Park',
-                        date: '2016-10-03'
-                    },
-                    {
-                        name: 'Jim Green',
-                        age: 24,
-                        address: 'London No. 1 Lake Park',
-                        date: '2016-10-01'
-                    },
-                    {
-                        name: 'Joe Black',
-                        age: 30,
-                        address: 'Sydney No. 1 Lake Park',
-                        date: '2016-10-02'
-                    },
-                    {
-                        name: 'Jon Snow',
-                        age: 26,
-                        address: 'Ottawa No. 2 Lake Park',
-                        date: '2016-10-04'
-                    }
-                ],
-            
+                    },      
+                ]
     };
   },
   computed: {
@@ -163,25 +105,41 @@ export default {
               'menu-item',
               this.isCollapsed ? 'collapsed-menu' : ''
           ]
-      }
+      },
+      ...mapGetters({
+          getTransition: 'getTransition'
+      })
   },
    methods: {
-            handleSubmit (name) {
-                this.$refs[name].validate((valid) => {
-                    if (valid) {
-                        this.$Message.success('Success!');
-                    } else {
-                        this.$Message.error('Fail!');
-                    }
-                })
-            },
-            handleReset (name) {
-                this.$refs[name].resetFields();
+       updateToUserName(to_username){
+          this.$store.commit('updateToUserName', to_username)
+          console.log(to_username)
+      },
+      updateToAmount(amount){
+          this.$store.commit('updateToAmount', amount)
+      },
+    handleSubmit (name) {
+        this.$refs[name].validate((valid) => {
+            if (valid) {
+                this.$Message.success('Success!');
+            } else {
+                this.$Message.error('Fail!');
             }
-        },
-        created(){
-            this.$store.dispatch('userGetChekout')
-        }
+        })
+    },
+    handleReset (name) {
+        this.$refs[name].resetFields();
+    },
+    ...mapActions({
+        'userTransactions' : 'userTransactions',
+    })
+    },
+    created(){
+        this.$store.dispatch('userGetChekout')
+        this.$store.dispatch('userGetTransactions')
+        
+        
+    }
 }
 </script>
 

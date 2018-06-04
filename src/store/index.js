@@ -36,7 +36,11 @@ const state = {
         password: ''
     },
     checkout: null,
-    transition: null,
+    transition: {
+        data: null,
+        to_username: null,
+        amount: null
+    },
     Admins: {
         admins: null
     },
@@ -58,6 +62,9 @@ const getters = {
     },
     getCheckout() {
         return state.checkout
+    },
+    getTransition() {
+        return state.transition.data
     }
 }
 const mutations = {
@@ -107,7 +114,7 @@ const mutations = {
     },
     updatePassword(state, password) {
         state.user.password = password
-            // console.log(state.user.password)
+        console.log(state.user.password)
     },
     updateUsername(state, username) {
         state.user.username = username
@@ -127,6 +134,14 @@ const mutations = {
     updateSms(state, sms) {
         state.signIn.sms = sms
     },
+    updateToUserName(state, to_username) {
+        state.transition.to_username = to_username
+        console.log(state.transition.to_username)
+    },
+    updateToAmount(state, amount) {
+        state.transition.amount = amount
+        console.log(state.transition.amount)
+    },
     firstChagePassword(state, password) {
         state.user.password = password
         console.log(state.user.password)
@@ -134,6 +149,10 @@ const mutations = {
     userChekout(state, data) {
         state.checkout = data
         console.log(state.checkout)
+    },
+    userGetTransactions(state, data) {
+        state.transition.data = data
+        console.log(state.transition)
     },
     log_out(state) {
         let email = sessionStorage.removeItem('email')
