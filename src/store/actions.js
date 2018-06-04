@@ -54,26 +54,30 @@ export default {
             })
     },
     submitSignIn({ commit, state }) {
-        axios.post(`${baseURL}/api/signup`, {
-                name: state.signIn.name,
-                email: state.signIn.email,
-                mobile: 886 + state.signIn.mobile,
-                sms: state.signIn.sms,
-            })
-            .then((response) => {
-                console.log(response)
+        if (state.signIn.email === null) {
 
-                if (status = '200') {
-                    commit('success_signup')
-                }
-            }).catch((error) => {
-                console.log(error.response.status)
-                if (error.response.status === 400) {
-                    commit('wrong_signup_sms')
-                } else if (error.response.status === 422) {
-                    commit('phone_is_singup')
-                }
-            })
+        } else {
+            axios.post(`${baseURL}/api/signup`, {
+                    name: state.signIn.name,
+                    email: state.signIn.email,
+                    mobile: 886 + state.signIn.mobile,
+                    sms: state.signIn.sms,
+                })
+                .then((response) => {
+                    console.log(response)
+
+                    if (status = '200') {
+                        commit('success_signup')
+                    }
+                }).catch((error) => {
+                    console.log(error.response.status)
+                    if (error.response.status === 400) {
+                        commit('wrong_signup_sms')
+                    } else if (error.response.status === 422) {
+                        commit('phone_is_singup')
+                    }
+                })
+        }
     },
     updateProfile({ commit, state }) {
         axios.post(`${baseURL}/api/users`, {

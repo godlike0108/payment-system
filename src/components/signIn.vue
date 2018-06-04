@@ -41,7 +41,7 @@
         <form-item >
             <i-input  :value="sms" class="phonePassword" @input="updateSms"  placeholder="請填入驗證碼共五碼"   clearable></i-input>
         </form-item>
-		<form-item  v-show=" name !='' && email != 'null' && mobile.length === 9 && sms.length === 5 ">
+		<form-item  v-show=" name !=''   && mobile.length === 9 && sms.length === 5 ">
 			<i-button class="loginButton" @click="submitSignIn()">提出申請</i-button>
          
 		</form-item>
@@ -109,6 +109,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 					email: state => state.signIn.email,
 					mobile: state => state.signIn.mobile,
 					sms : state => state.signIn.sms,
+					isemail: state => state.signIn.isemail,
 					status_mobile: state => state.signup_status.phone_is_singup,
 					status_sms: state => state.signup_status.wrong_sms,
 					sign_success: state => state.signup_status.success,					

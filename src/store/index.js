@@ -13,6 +13,7 @@ const state = {
         email: '',
         mobile: '',
         sms: '',
+
     },
     signup_status: {
         success: null,
