@@ -21,7 +21,7 @@
                                 </i-input>
                             </form-item>
                             <form-item prop="bank">
-                                <i-input type="number" v-model="formInline.bank" :placeholder="formInline.bank || '銀行代碼'"    clearable>
+                                <i-input v-model="formInline.bank" :placeholder="formInline.bank || '銀行名稱'"    clearable>
                                     <icon type="card" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
@@ -40,8 +40,9 @@
                     </Col>
                 </Row>
             </TabPane>
-            <TabPane label="出金回報" name="name2"></TabPane>
-            
+            <TabPane label="出金回報" name="name2">
+            <Table height="400" :columns="columns1" :data="getCheckout"></Table>
+            </TabPane>
             </Tabs>
         </Col>
     </Row>
@@ -57,6 +58,28 @@ export default {
         isCollapsed: false,
         eyesIcon: 'eye-disabled',
         type: 'password',
+        columns1: [
+                    {
+                        title: '銀行用戶名稱',
+                        key: 'name'
+                    },
+                    {
+                        title: '銀行名稱',
+                        key: 'bank'
+                    },
+                    {
+                        title: '銀行帳號',
+                        key: 'bank_account'
+                    },
+                    {
+                        title: '出金金額',
+                        key: 'amount'
+                    },
+                    {
+                        title: '處理狀態',
+                        key: 'checkout_status_id'
+                    }
+                ],
         formInline: {
             user: '',
             amount: '',
@@ -65,6 +88,7 @@ export default {
             sms:''
 
         },
+        
         ruleInline: {
             user: [{
                 required: true,
@@ -78,16 +102,17 @@ export default {
             }],
             bank: [{
                 required: true,
-                message: '請填入銀行代碼',
+                message: '請填入銀行名稱',
                 trigger: 'blur'
             },
-            {
-                type: 'number',
-                min: 3,
-                max:3,
-                message: '請填入銀行代碼共3碼',
-                trigger: 'blur'
-            }],
+            // {
+            //     type: 'number',
+            //     min: 3,
+            //     max:3,
+            //     message: '請填入銀行代碼共3碼',
+            //     trigger: 'blur'
+            // }
+            ],
             bank_account: [{
                 required: true,
                 message: '請填入銀行帳號',
@@ -109,12 +134,18 @@ export default {
               'menu-item',
               this.isCollapsed ? 'collapsed-menu' : ''
           ]
-      }
+      },
+      ...mapGetters({
+          getCheckout: 'getCheckout'
+      })
   },
   methods: {
       ...mapActions({
 			'getSms' : 'getSms',
 			}),
+  },
+  created(){
+    this.$store.dispatch('userGetChekout')
   }
 }
 </script>

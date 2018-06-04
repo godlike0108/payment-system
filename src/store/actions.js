@@ -99,6 +99,21 @@ export default {
 
         })
     },
+    userGetChekout({ commit, state }) {
+        let role_id = sessionStorage.getItem('role_id')
+        let token = sessionStorage.getItem('token')
+
+        axios.get(`${baseURL}/api/checkouts?role_id=${role_id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then((response) => {
+                let data = response.data.data
+                commit('userChekout', data)
+
+            })
+    },
     admins({ commit, state }) {
         axios.get(`${baseURL}/api/admins`, {
                 headers: {

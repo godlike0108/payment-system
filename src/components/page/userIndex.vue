@@ -178,6 +178,9 @@ export default {
             handleReset (name) {
                 this.$refs[name].resetFields();
             }
+        },
+        created(){
+            this.$store.dispatch('userGetChekout')
         }
 }
 </script>

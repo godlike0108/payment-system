@@ -35,12 +35,8 @@ const state = {
         username: '',
         password: ''
     },
-    checkout: {
-
-    },
-    transition: {
-
-    },
+    checkout: null,
+    transition: null,
     Admins: {
         admins: null
     },
@@ -59,6 +55,9 @@ const getters = {
     },
     getAllusers() {
         return state.Allusers
+    },
+    getCheckout() {
+        return state.checkout
     }
 }
 const mutations = {
@@ -131,6 +130,10 @@ const mutations = {
     firstChagePassword(state, password) {
         state.user.password = password
         console.log(state.user.password)
+    },
+    userChekout(state, data) {
+        state.checkout = data
+        console.log(state.checkout)
     },
     log_out(state) {
         let email = sessionStorage.removeItem('email')
