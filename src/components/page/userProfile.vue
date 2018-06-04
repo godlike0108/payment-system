@@ -18,34 +18,34 @@
                         <i-form ref="formInline" :model="formInline" :rules="ruleInline" >
                             
                             <form-item prop="user">
-                                <i-input  v-model="formInline.user" :placeholder="formInline.user" placeholder="用戶名稱"  clearable>
+                                <i-input  v-model="this.$store.state.updateProfile.name" :placeholder="this.$store.state.updateProfile.name || '用戶名稱'"   clearable>
                                     <icon type="happy" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             <form-item >
-                                <i-input  v-model="formInline.email" :placeholder="formInline.email" pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" disabled>
+                                <i-input  v-model="this.$store.state.user.email" :placeholder="this.$store.state.user.email" pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" disabled>
                                     <icon type="email" size="20" slot="prepend"></icon>    
                                 </i-input>
                             </form-item>
                             <form-item >
-                                <i-input  v-model="formInline.phone" :placeholder="formInline.phone" disabled>
+                                <i-input  v-model="this.$store.state.user.mobile" :placeholder="this.$store.state.user.mobile" disabled>
                                     <Icon type="ios-telephone" size="20" slot="prepend"></Icon>
                                 </i-input>
                             </form-item>
                             <form-item prop="username">
-                                <i-input  v-model="formInline.username" :placeholder="formInline.username" placeholder="用戶帳號"  clearable>
+                                <i-input  v-model="this.$store.state.updateProfile.username" :placeholder="this.$store.state.updateProfile.username || '用戶帳號'"   clearable>
                                     <icon type="person" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             <form-item prop="password">
-                                <i-input ref="togglePassword" :type="type"  v-model="formInline.password" :placeholder="formInline.password" placeholder="用戶密碼" >
+                                <i-input ref="togglePassword" :type="type"  v-model="this.$store.state.updateProfile.password" :placeholder="this.$store.state.updateProfile.password || '用戶密碼'"  >
                                     <icon type="locked" size="20" slot="prepend"></icon>
                                     <Icon ref="toggleIcon" @click="toggleIcon" :type="eyesIcon" size="20" slot="append"></Icon>
                                     
                                 </i-input>
                             </form-item>
                             <form-item>
-                                <i-button type="primary"  >儲存變更</i-button>
+                                <i-button type="primary"  @click="updateProfile">儲存變更</i-button>
                             </form-item>
                         </i-form>
                     </Col>
@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 export default {
   name: 'HelloWorld',
   data () {
@@ -108,6 +109,9 @@ export default {
       }
   },
   methods: {
+        ...mapActions({
+        'updateProfile' : 'updateProfile',
+        }),
       toggleIcon(){
           this.eyesIcon = this.eyesIcon === 'eye-disabled' ? 'eye' : 'eye-disabled'
           this.type = this.type === 'password' ? 'text' : 'password'

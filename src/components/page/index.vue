@@ -68,12 +68,16 @@ export default {
           this.$router.push('/index/')
       },
       toTranstion(){
-        this.$router.push('/index/transations')
+        this.$router.push('/index/checkout')
       },
       ...mapGetters({
         'getData': 'getData'
       }),
-  }
+  },
+   created() {
+    this.$store.commit('setData')
+ 
+}
 }
 </script>
 

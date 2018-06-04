@@ -3,7 +3,7 @@
     
     <Col  :xs="20" :sm="10" :md="6" :lg="6" class="form_container login">
     
-	<i-form ref="formInline" :model="formInline" :rules="ruleInline" >
+	<i-form ref="formInline"  :rules="ruleInline" >
 		<form-item class="icon_group">
 			<h1 >wallet 登入</h1>
 		</form-item>
@@ -24,10 +24,11 @@
             </router-link>
 		</form-item>
 		<form-item>
-            
 			<i-button class="loginButton" @click="login()">登入</i-button>
-         
 		</form-item>
+		<div v-show="getWrongLogin" class="worngLogin">
+			帳號密碼錯誤!
+		</div>
 	</i-form>
     </Col>
 </Row>
@@ -39,29 +40,25 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	props : [''],
 		data() {
 			return {
-				formInline: {
-					user: '',
-                    password: '',
-                
-				},
+				
 				ruleInline: {
-					user: [{
-						required: true,
-						message: '請填入帳號',
-						trigger: 'blur'
-					}],
-					password: [{
-							required: true,
-							message: '請填入密碼',
-							trigger: 'blur'
-						},
-						{
-							type: 'string',
-							min: 6,
-							message: '密碼至少6位數',
-							trigger: 'blur'
-						}
-					],
+					// user: [{
+					// 	required: true,
+					// 	message: '請填入帳號',
+					// 	trigger: 'blur'
+					// }],
+					// password: [{
+					// 		required: true,
+					// 		message: '請填入密碼',
+					// 		trigger: 'blur'
+					// 	},
+					// 	{
+					// 		type: 'string',
+					// 		min: 6,
+					// 		message: '密碼至少6位數',
+					// 		trigger: 'blur'
+					// 	}
+					// ],
 				}
 			}
         },
@@ -69,7 +66,10 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
              ...mapState({
                     password: state => state.user.password , 
                     username: state => state.user.username
-                })
+				}),
+			...mapGetters({
+				getWrongLogin: 'getWrongLogin'
+			})
         },
 		methods:{
           ...mapActions({
@@ -87,6 +87,10 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 </script>
 
 <style scoped>
+.worngLogin {
+	color: red;
+	font-size: 1.2em
+}
 .form_container {
 		/* padding: 15px 0px 15px 50px; */
 		position: relative;

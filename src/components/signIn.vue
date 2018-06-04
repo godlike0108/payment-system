@@ -2,9 +2,9 @@
 
 <Row  type="flex" justify="center" align="middle">
 
-    <Col  :xs="20" :sm="10" :md="6" :lg="6" class="form_container login">
+    <Col  :xs="20" :sm="10" :md="6" :lg="6" class="form_container signIn">
     
-	<i-form ref="formInline" :model="formInline" :rules="ruleInline" >
+	<i-form ref="formInline"  :rules="ruleInline" >
 		<form-item class="icon_group">
             <Row>
                 <Col :xs="2" :sm="2" :md="2" :lg="2">
@@ -18,30 +18,30 @@
             </Row>
 		</form-item>
 		<form-item prop="user">
-			<i-input  v-model="formInline.user" placeholder="使用者姓名" clearable>
+			<i-input  :value="name" @input="updateName" placeholder="使用者姓名" clearable>
 				<icon type="person" size="20" slot="prepend"></icon>
 			</i-input>
 		</form-item>
 		<form-item prop="email">
-			<i-input  v-model="formInline.email" placeholder="使用者信箱" pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" clearable>
-				<icon type="email" size="20" slot="prepend"></icon>    
+			<i-input  :value="email" @input="updateEmail" placeholder="使用者信箱"  clearable>
+				<icon type='email' size="20" slot="prepend"></icon>    
 			</i-input>
 		</form-item>
         <form-item prop="phone">
-			<i-input  v-model="formInline.phone" placeholder="使用者手機" clearable>
-			
-                <Icon type="ios-telephone" size="20" slot="prepend"></Icon>
-                
+			<i-input  :value="mobile" @input="updateMobile"  placeholder="使用者手機"  clearable>
+				<span slot="prepend">+886</span>
+                <!-- <Icon  type="ios-telephone" size="20" slot="prepend"></Icon> -->
+				
 			</i-input>
 		</form-item>
-        <form-item v-show="formInline.phone.length === 10">
-            <i-button>取得手機驗證碼</i-button>
+        <form-item >
+            <i-button @click="getSms()">取得手機驗證碼</i-button>
         </form-item>
-        <form-item v-show="formInline.phone.length === 10">
-            <i-input class="phonePassword" v-model="formInline.password" placeholder="請填入驗證碼共四碼"  clearable></i-input>
+        <form-item >
+            <i-input  :value="sms" class="phonePassword" @input="updateSms"  placeholder="請填入驗證碼共五碼"   clearable></i-input>
         </form-item>
-		<form-item  v-show="formInline.password.length === 4 || isSubmit === true">
-			<i-button class="loginButton" @click="submit()">提出申請</i-button>
+		<form-item  v-show="sms.length === 5 || isSubmit === true">
+			<i-button class="loginButton" @click="submitSignIn()">提出申請</i-button>
          
 		</form-item>
 	</i-form>
@@ -60,66 +60,77 @@
 </template>
 
 <script>
+import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	export default {
 	props : [''],
 		data() {
 			return {
                 isSubmit: false,
-				formItem: {
-					username: '',
-                    password: '',
-                   
-				},
-				formInline: {
-					user: '',
-                    email: '',
-                    phone: '',
-                    password: ''
-				},
 				ruleInline: {
-					user: [{
-						required: true,
-						message: '請填入姓名',
-						trigger: 'blur'
-					}],
-					email: [{
-							required: true,
-							message: '請填入信箱',
-							trigger: 'blur'
-						}
-                    ],
-                    phone:[{
-                        required: true,
-						message: '請填入電話號碼',
-						trigger: 'blur'
-                    },
-                    {
-                        type: 'string',
-                        min: 10,
-                        max:10,
-                        message: '請填入手機號碼共10碼',
-                        trigger: 'blur'
-                    }]
-					// code: [{
+					// user: [{
+					// 	required: true,
+					// 	message: '請填入姓名',
+					// 	trigger: 'blur'
+					// }],
+					// email: [{
 					// 		required: true,
-					// 		message: 'Please fill in the code.',
-					// 		trigger: 'blur'
-					// 	},
-					// 	{
-					// 		type: 'string',
-					// 		min: 4,
-					// 		max: 4,
-					// 		message: 'code must be 4',
+					// 		message: '請填入信箱',
 					// 		trigger: 'blur'
 					// 	}
-					// ]
+                    // ],
+                    // phone:[{
+                    //     required: true,
+					// 	message: '請填入電話號碼',
+					// 	trigger: 'blur'
+                    // }
+                    // ]
+					
 				}
 			}
 		},
+		computed:{
+             ...mapState({
+                    name: state => state.signIn.name , 
+					email: state => state.signIn.email,
+					mobile: state => state.signIn.mobile,
+					sms : state => state.signIn.sms,
+				}),
+			
+        },
 		methods:{
+			...mapActions({
+			'getSms' : 'getSms',
+			'submitSignIn':'submitSignIn'
+			}),
             submit () {
                 this.isSubmit = !this.isSubmit
-            }  
+			},
+			updateName(name){
+				this.$store.commit('updateName', name)
+			},
+			updateEmail(email){
+				
+  				var reEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+				if(email.match(reEmail) === null){
+					
+				}
+
+				this.$store.commit('updateEmail', email)
+			},
+			updateMobile(mobile){
+				// if(mobile.length === 10){
+				// 	let a = mobile.replace(/0/g, "886");
+				// console.log(a)
+				let reMobile09 = /^09[0-9]{8}$/
+				let reMobile9 = /^9[0-9]{8}$/
+				console.log(mobile.match(reMobile9))
+				this.$store.commit('updateMobile', mobile)
+				
+				
+			},
+			updateSms(sms){
+				this.$store.commit('updateSms', sms)
+			},
 		}
 	}
 </script>
@@ -172,9 +183,10 @@
 		display: inline-block;
 	}
     .phonePassword {
-        width: 100px
+        width: 140px
     }
-    .login {
-        padding: 20px
+    .signIn {
+        padding: 20px;
+        margin-top: 100px
     }
 </style>

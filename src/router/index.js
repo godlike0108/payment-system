@@ -6,7 +6,7 @@ import store from '@/store'
 import index from '@/components/page/index'
 import userIndex from '@/components/page/userIndex'
 import userProfile from '@/components/page/userProfile'
-import transations from '@/components/page/transations'
+import checkout from '@/components/page/checkout'
 
 Vue.use(Router)
 
@@ -42,9 +42,9 @@ const vueRouter = new Router({
                     meta: { requiresAuth: true },
                 },
                 {
-                    path: 'transations',
-                    name: 'transations',
-                    component: transations,
+                    path: 'checkout',
+                    name: 'checkout',
+                    component: checkout,
                     meta: { requiresAuth: true },
                 }
             ]

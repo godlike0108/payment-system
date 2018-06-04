@@ -3,7 +3,7 @@
      <Row type="flex" justify="end" align="top" class="userLine">
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Row type="flex" justify="end" align="top">
-            <Col :xs="24" :sm="8" :md="8" :lg="6">用戶：<span class="user">yoyo</span></Col>
+            <Col :xs="24" :sm="8" :md="8" :lg="6">用戶：<span class="user">{{this.$store.state.user.name}}</span></Col>
             <Col :xs="24" :sm="8" :md="8" :lg="6">剩餘金額：<span class="money">5000</span></Col>
             </Row>
         </Col>

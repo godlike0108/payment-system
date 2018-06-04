@@ -1,0 +1,182 @@
+<template>
+ <div>
+    
+        <Row type="flex" justify="center" align="middle">
+        <Col :xs="20" :sm="16" :md="16" :lg="16">
+            <Tabs value="name1">
+            <TabPane label="出金申請" name="name1">
+                <Row type="flex" justify="center" align="middle">
+                    <Col :xs="20" :sm="16" :md="16" :lg="16">
+                        <i-form ref="formInline" :model="formInline" :rules="ruleInline" >
+                            
+                            <form-item prop="user">
+                                <i-input  v-model="formInline.user" :placeholder="formInline.user || '銀行用戶名稱'"   clearable>
+                                    <icon type="happy" size="20" slot="prepend"></icon>
+                                </i-input>
+                            </form-item>
+                            
+                            <form-item prop="amount">
+                                <i-input type="number" v-model="formInline.amount" :placeholder="formInline.amount || '填入出金金額'"   clearable>
+                                    <icon type="cash" size="20" slot="prepend"></icon>
+                                </i-input>
+                            </form-item>
+                            <form-item prop="bank">
+                                <i-input type="number" v-model="formInline.bank" :placeholder="formInline.bank || '銀行代碼'"    clearable>
+                                    <icon type="card" size="20" slot="prepend"></icon>
+                                </i-input>
+                            </form-item>
+                            <form-item prop="bank_account">
+                                <i-input type="number" v-model="formInline.bank_account" :placeholder="formInline.bank_account || '銀行帳號'"   > </i-input>
+                            </form-item>
+                            <form-item >
+                                <i-button @click="getSms">取得手機驗證碼</i-button>
+                                <i-input prop="sms" class="phonePassword" v-model="formInline.sms" placeholder="請填入驗證碼共五碼"  clearable></i-input>
+                            </form-item>
+                            
+                            <form-item>
+                                <i-button type="primary"  >送出申請</i-button>
+                            </form-item>
+                        </i-form>
+                    </Col>
+                </Row>
+            </TabPane>
+            <TabPane label="出金回報" name="name2"></TabPane>
+            
+            </Tabs>
+        </Col>
+    </Row>
+ </div>
+</template>
+
+<script>
+import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
+export default {
+  name: 'HelloWorld',
+  data () {
+     return {
+        isCollapsed: false,
+        eyesIcon: 'eye-disabled',
+        type: 'password',
+        formInline: {
+            user: '',
+            amount: '',
+            bank: '',
+            bank_account: '',
+            sms:''
+
+        },
+        ruleInline: {
+            user: [{
+                required: true,
+                message: '請填入用戶姓名',
+                trigger: 'blur'
+            }],
+            amount: [{
+                required: true,
+                message: '請填入金額',
+                trigger: 'blur'
+            }],
+            bank: [{
+                required: true,
+                message: '請填入銀行代碼',
+                trigger: 'blur'
+            },
+            {
+                type: 'number',
+                min: 3,
+                max:3,
+                message: '請填入銀行代碼共3碼',
+                trigger: 'blur'
+            }],
+            bank_account: [{
+                required: true,
+                message: '請填入銀行帳號',
+                trigger: 'blur'
+            },
+            {
+                type: 'number',
+                min:11,
+                max:14,
+                message: '請填入銀行帳號共11~14碼',
+                trigger: 'blur'
+            }]
+        }
+    };
+  },
+  computed: {
+      menuitemClasses: function () {
+          return [
+              'menu-item',
+              this.isCollapsed ? 'collapsed-menu' : ''
+          ]
+      }
+  },
+  methods: {
+      ...mapActions({
+			'getSms' : 'getSms',
+			}),
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.money {
+  color: red;
+  font-size: 2em
+}
+.user {
+  font-size: 2em
+}
+.title {
+  color: #fff;
+  font-size: 2em;
+  font-weight: 600
+}
+.userLine {
+  margin: 10px 0 20px 0
+}
+.phonePassword {
+        width: 150px
+    }
+ .layout{
+        border: 1px solid #d7dde4;
+        background: #f5f7f9;
+        position: relative;
+        border-radius: 4px;
+        overflow: hidden;
+        min-height: 100vh
+    }
+    .container {
+      min-height:100vh
+    }
+    .layout-header-bar{
+        background-image: linear-gradient(to right, #0acffe 0%, #495aff 100%);
+        box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    }
+    .menu-item span{
+        display: inline-block;
+        overflow: hidden;
+        width: 69px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: bottom;
+        transition: width .2s ease .2s;
+    }
+    .menu-item i{
+        transform: translateX(0px);
+        transition: font-size .2s ease, transform .2s ease;
+        vertical-align: middle;
+        font-size: 16px;
+    }
+    .collapsed-menu span{
+        width: 0px;
+        transition: width .2s ease;
+    }
+    .collapsed-menu i{
+        transform: translateX(5px);
+        transition: font-size .2s ease .2s, transform .2s ease .2s;
+        vertical-align: middle;
+        font-size: 22px;
+    }
+</style>
