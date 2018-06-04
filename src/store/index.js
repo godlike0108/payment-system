@@ -39,7 +39,11 @@ const state = {
     },
     transition: {
 
-    }
+    },
+    Admins: {
+        admins: null
+    },
+    Allusers: null
 }
 const getters = {
     getData() {
@@ -48,6 +52,12 @@ const getters = {
     },
     getWrongLogin() {
         return state.login.wrongLogin
+    },
+    getAdmins() {
+        return state.Admins.admins
+    },
+    getAllusers() {
+        return state.Allusers
     }
 }
 const mutations = {
@@ -135,6 +145,14 @@ const mutations = {
         state.user.password = password
         state.user.role_id = role_id
         console.log(state.user)
+    },
+    setAdmins(state, data) {
+        state.Admins.admins = data
+        console.log(data)
+    },
+    setAllusers(state, data) {
+        state.Allusers = data
+        console.log(data)
     }
 }
 

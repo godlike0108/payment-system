@@ -2,7 +2,7 @@ import axios from 'axios'
 import router from '@/router'
 
 const baseURL = 'http://wallet-staging.ap-northeast-1.elasticbeanstalk.com'
-
+let token = sessionStorage.getItem('token')
 export default {
     login({ commit, state }) {
         console.log('login')
@@ -21,7 +21,7 @@ export default {
                 let name = data.name
                 let username = data.username
                 let password = state.user.password
-                let role_id = data.user_status_id
+                let role_id = data.role_id
 
 
                 console.log(data)
@@ -34,7 +34,12 @@ export default {
                 sessionStorage.setItem('role_id', role_id)
 
                 commit('setData')
-                router.push('/index')
+                if (role_id === 1 || role_id === 2) {
+                    router.push('/dashboard/index')
+                } else if (role_id === 3) {
+                    router.push('/index')
+                }
+
             }).catch(() => {
                 if (status = '403') {
                     commit('wrong_login')
@@ -90,5 +95,30 @@ export default {
 
 
         })
+    },
+    admins({ commit, state }) {
+        axios.get(`${baseURL}/api/admins`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then((response) => {
+                let data = response.data.data
+                commit('setAdmins', data)
+
+            })
+    },
+    getAlluser({ commit, state }) {
+        axios.get(`${baseURL}/api/users`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then((response) => {
+                let data = response.data.data
+                console.log(data)
+                commit('setAllusers', data)
+
+            })
     }
 }

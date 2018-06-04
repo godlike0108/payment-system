@@ -5,7 +5,7 @@
     
 	<i-form ref="formInline"  :rules="ruleInline" >
 		<form-item class="icon_group">
-			<h1 >wallet 登入</h1>
+			<h1 >wallet管理員 登入</h1>
 		</form-item>
 		<form-item prop="user">
 			<i-input type="text" :value="username" @input="updateUsername" placeholder="使用者帳號" clearable>
@@ -19,7 +19,7 @@
 		</form-item>
 		
 		<form-item style="margin-bottom:4px;">
-            <router-link to="/sigin">
+            <router-link to="/dashboard/sigin">
 			<a href="" class="loginA">申請帳號</a>
             </router-link>
 		</form-item>
@@ -87,7 +87,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 </script>
 
 <style scoped>
-
 .worngLogin {
 	color: red;
 	font-size: 1.2em

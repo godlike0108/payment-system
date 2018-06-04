@@ -1,20 +1,37 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
-    
+    {{bodyclass}}
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data(){
+    return {
+
+      }
+     },
+    computed: {
+      bodyclass(){
+        let path = this.$router.history.current.fullPath
+        console.log(path)
+        if(path === '/'){
+          window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #0acffe 0%, #495aff 100%); ");
+        }else if (path === '/dashboard') {
+          window.document.body.setAttribute("style", "background-image:linear-gradient(to left, #1e3c72 0%, #2a5298 100%);; ");
+        }
+      }
+    }
+ 
 }
 </script>
 
 <style>
 body {
-  background-image: linear-gradient(to right, #0acffe 0%, #495aff 100%);
+  /* background-image: linear-gradient(to right, #0acffe 0%, #495aff 100%); */
 
 }
 #app {
