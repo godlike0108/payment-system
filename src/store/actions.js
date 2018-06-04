@@ -62,11 +62,15 @@ export default {
             })
             .then((response) => {
                 console.log(response)
-                commit('success_signup')
-            }).catch(() => {
-                if (status = '400') {
+
+                if (status = '200') {
+                    commit('success_signup')
+                }
+            }).catch((error) => {
+                console.log(error.response.status)
+                if (error.response.status === 400) {
                     commit('wrong_signup_sms')
-                } else if (status = '422') {
+                } else if (error.response.status === 422) {
                     commit('phone_is_singup')
                 }
             })

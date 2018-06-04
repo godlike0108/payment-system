@@ -61,7 +61,7 @@ const mutations = {
     wrong_signup_sms(state) {
         state.signup_status.wrong_sms = true
         state.signup_status.phone_is_singup = null
-        state.signup_status.success = true
+        state.signup_status.success = null
     },
     phone_is_singup(state) {
         state.signup_status.phone_is_singup = true
@@ -108,6 +108,7 @@ const mutations = {
     },
     updateEmail(state, email) {
         state.signIn.email = email
+        console.log(email)
     },
     updateSms(state, sms) {
         state.signIn.sms = sms

@@ -41,7 +41,7 @@
         <form-item >
             <i-input  :value="sms" class="phonePassword" @input="updateSms"  placeholder="請填入驗證碼共五碼"   clearable></i-input>
         </form-item>
-		<form-item  v-show=" name !='' && email !=''&& mobile.length === 9 && sms.length === 5 ">
+		<form-item  v-show=" name !='' && email != 'null' && mobile.length === 9 && sms.length === 5 ">
 			<i-button class="loginButton" @click="submitSignIn()">提出申請</i-button>
          
 		</form-item>
@@ -127,15 +127,19 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 			updateEmail(email){
 				
 				  var reEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-				  console.log(email.match(reEmail))
+				//   console.log(email.match(reEmail))
+				//   console.log(email)
 				if(email.match(reEmail) === null){
 					setTimeout(()=>{
 						this.Notemail = true
 					},1500)
+					this.$store.commit('updateEmail', email.match(reEmail))
+				  	
 					
 				}else{
 					this.Notemail = false
 					this.$store.commit('updateEmail', email)
+					
 				}
 
 				
@@ -147,7 +151,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 				let reMobile09 = /^0[0-9]{9}$/
 				let reMobile9 = /^9[0-9]{8}$/
 				// console.log(mobile.match(reMobile09))
-				console.log(mobile.match(reMobile9))
+				// console.log(mobile.match(reMobile9))
 				if (mobile.match(reMobile9) === null ){
 						this.NotMobil = true
 				}else {
