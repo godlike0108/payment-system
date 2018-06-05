@@ -31,7 +31,6 @@
                             <form-item >
                                 <i-input ref="togglePassword" @input="setProfilePassword"  :value="password" :placeholder=" '用戶密碼'"  >
                                     <icon type="locked" size="20" slot="prepend"></icon>
-                                    <Icon ref="toggleIcon" @click="toggleIcon" :type="eyesIcon" size="20" slot="append"></Icon>
                                     
                                 </i-input>
                             </form-item>

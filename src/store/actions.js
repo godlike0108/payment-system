@@ -147,7 +147,6 @@ export default {
             amount: this.state.transition.amount
         })
         let token = sessionStorage.getItem('token')
-        console.log(token)
         axios.post(`${baseURL}/api/transactions`, data, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -165,17 +164,22 @@ export default {
             })
     },
     userCheckout({ commit, state }) {
+        let data = JSON.stringify({
+            name: state.checkout.name,
+            bank: state.checkout.bank,
+            bank_account: state.checkout.bank_account,
+            amount: state.checkout.amount,
+            sms: state.checkout.sms
+        })
         let token = sessionStorage.getItem('token')
 
-        axios.post(`${baseURL}/api/checkouts`, {
+        axios.post(`${baseURL}/api/checkouts`, data, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                name: state.checkout.name,
-                bank: state.checkout.bank,
-                bank_account: state.checkout.bank_account,
-                amount: state.checkout.amount,
-                sms: state.checkout.sms
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                }
+
             })
             .then((response) => {
                 console.log(response)
