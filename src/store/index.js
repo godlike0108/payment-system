@@ -46,7 +46,11 @@ const state = {
     transition: {
         data: null,
         to_username: null,
-        amount: null
+        amount: null,
+        status: {
+            success: null,
+            wrongUserName: null
+        }
     },
     Admins: {
         admins: null
@@ -77,7 +81,16 @@ const getters = {
 }
 const mutations = {
     wrong_login(state) {
-        state.login.wrongLogin = true
+        state.login.wrongLogin = true,
+            state.login.success = false
+    },
+    wrong_transactions(state) {
+        state.transition.wrongUserName = true,
+            state.transition.success = false
+    },
+    success_transactions(state) {
+        state.transition.wrongUserName = false,
+            state.transition.success = true
     },
     success_signup(state) {
         state.signup_status.phone_is_singup = null
@@ -121,7 +134,6 @@ const mutations = {
     },
     updatePassword(state, password) {
         state.user.password = password
-        console.log(state.user.password)
     },
     updateUsername(state, username) {
         state.user.username = username

@@ -13,7 +13,7 @@
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
             <TabPane label="轉帳紀錄" name="name1">
-                <Table height="500" :columns="columns1" :data="getTransition"></Table>
+                <Table height="500" :columns="columns1" :data="getTransition" ></Table>
             </TabPane>
             <TabPane label="轉帳" name="name2">
                 <Form ref="formCustom"  :label-width="80">
@@ -78,11 +78,11 @@ export default {
         columns1: [
                     {
                         title: '轉出帳號',
-                        key: 'from_user'
+                        key: 'from_username'
                     },
                     {
                         title: '轉入帳號',
-                        key: 'to_user'
+                        key: 'to_username'
                     },
                     {
                         title: '金額',
@@ -102,18 +102,13 @@ export default {
               this.isCollapsed ? 'collapsed-menu' : ''
           ]
       },
-      getTransition(){
-          this.$store.getters.getTransition.map((item)=>{
-              
-              let from_user = item.from_user.username
-              let to_user = item.to_user.username
-              let amount = item.amount
-              let created_at = item.created_at
-              
-              console.log(item)
-          }
-          )
-          
+      getTransition: function(){
+         return this.$store.getters.getTransition.map(item=>{
+             console.log(item)
+              item.from_username = item.from_user.username
+              item.to_username = item.to_user.username
+             return item
+          })
       }
   },
    methods: {
@@ -143,8 +138,6 @@ export default {
     created(){
         this.$store.dispatch('userGetChekout')
         this.$store.dispatch('userGetTransactions')
-        
-        
     }
 }
 </script>

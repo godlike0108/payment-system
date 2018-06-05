@@ -107,7 +107,7 @@ export default {
             })
             .then((response) => {
                 console.log(response)
-                console.log(password, username, name)
+                    // console.log(password, username, name)
             })
     },
     userGetChekout({ commit, state }) {
@@ -157,9 +157,10 @@ export default {
             })
             .then((response) => {
                 console.log(response)
+                commit('success_transactions')
             }).catch(() => {
                 if (error.response.status === 404) {
-                    commit()
+                    commit('wrong_transactions')
                 }
             })
     },
