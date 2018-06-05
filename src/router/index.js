@@ -12,10 +12,16 @@ import firstlogin from '@/components/firstLogin'
 import dashboard_login from '@/components/dashboard/login'
 import dashboard_signin from '@/components/dashboard/signIn'
 import dashboard_index from '@/components/dashboard/page/index'
-import adminsProfile from '@/components/dashboard/page/adminsProfile'
-import adminsCheckout from '@/components/dashboard/page/checkout'
-import adminIndex from '@/components/dashboard/page/adminIndex'
 
+import admins from '@/components/dashboard/page/admins'
+import members from '@/components/dashboard/page/members'
+import signupRequests from '@/components/dashboard/page/signupRequests'
+import checkoutsLevel1 from '@/components/dashboard/page/checkoutsLevel1'
+import checkoutsLevel2 from '@/components/dashboard/page/checkoutsLevel2'
+import checkoutsApproval from '@/components/dashboard/page/checkoutsApproval'
+import distributions from '@/components/dashboard/page/distributions'
+import wallet from '@/components/dashboard/page/wallet'
+import walletHistories from '@/components/dashboard/page/walletHistories'
 
 
 
@@ -88,22 +94,50 @@ const vueRouter = new Router({
             meta: { requiresAuth: true },
             children: [{
                     path: '',
-                    name: 'dashboard_adminIndex',
-                    component: adminIndex,
+                    name: 'dashboard_wallet',
+                    component: wallet,
                     meta: { requiresAuth: true },
                 },
                 {
-                    path: 'adminsProfile',
-                    name: 'dashboard_adminsProfile',
-                    component: adminsProfile,
-                    meta: { requiresAuth: true },
+                    path: 'admins',
+                    name: 'dashboard_admins',
+                    component: admins
                 },
                 {
-                    path: 'checkout',
-                    name: 'dashboard_checkout',
-                    component: adminsCheckout,
-                    meta: { requiresAuth: true },
-                }
+                    path: 'members',
+                    name: 'dashboard_members',
+                    component: members
+                },
+                {
+                    path: 'checkoutsLevel1',
+                    name: 'dashboard_checkoutsLevel1',
+                    component: checkoutsLevel2
+                },
+                {
+                    path: 'checkoutsLevel2',
+                    name: 'dashboard_checkoutsLevel2',
+                    component: checkoutsLevel2
+                },
+                {
+                    path: 'checkoutsApproval',
+                    name: 'dashboard_checkoutsLevel1',
+                    component: checkoutsLevel1
+                },
+                {
+                    path: 'distributions',
+                    name: 'dashboard_distributions',
+                    component: distributions
+                },
+                {
+                    path: 'wallet',
+                    name: 'dashboard_wallet',
+                    component: wallet
+                }, 
+                {
+                    path: 'walletHistories',
+                    name: 'dashboard_walletHistories',
+                    component: walletHistories
+                },
             ]
         },
         // { path: '/*', redirect: '/login' }
