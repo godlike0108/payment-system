@@ -9,35 +9,35 @@
                         <span>註冊申請</span>
                     </MenuItem>
                   
-                    <MenuItem name="1-2" @click.native="toTranstion()">
+                    <MenuItem name="1-2" @click.native="toCheckoutsLevel1()">
                         <Icon type="ios-calculator" size="18"></Icon>
                         <span>出金初審</span>
                     </MenuItem>
-                    <MenuItem name="1-3" @click.native="toProfile()">
+                    <MenuItem name="1-3" @click.native="toCheckoutsLevel2()">
                         <Icon type="happy"></Icon>
                         <span>出金覆核</span>
                     </MenuItem>
-                    <MenuItem name="1-4" @click.native="toProfile()">
+                    <MenuItem name="1-4" @click.native="toCheckoutsApproval()">
                         <Icon type="happy"></Icon>
                         <span>代撥款項</span>
                     </MenuItem>
-                    <MenuItem name="1-5" @click.native="toProfile()">
+                    <MenuItem name="1-5" @click.native="toDistributions()">
                         <Icon type="happy"></Icon>
                         <span>出金紀錄查詢</span>
                     </MenuItem>
-                    <MenuItem name="1-6" @click.native="toProfile()">
+                    <MenuItem name="1-6" @click.native="toWallet()">
                         <Icon type="happy"></Icon>
                         <span>撥款</span>
                     </MenuItem>
-                    <MenuItem name="1-9" @click.native="toProfile()">
+                    <MenuItem name="1-9" @click.native="toWalletHistories()">
                         <Icon type="happy"></Icon>
                         <span>撥款紀錄</span>
                     </MenuItem>
-                    <MenuItem name="1-10" @click.native="toProfile()">
+                    <MenuItem name="1-10" @click.native="toMembers()">
                         <Icon type="happy"></Icon>
                         <span>會員管理</span>
                     </MenuItem>
-                    <MenuItem name="1-11" @click.native="toProfile()">
+                    <MenuItem name="1-11" @click.native="toAdmins()">
                         <Icon type="happy"></Icon>
                         <span>後台管理</span>
                     </MenuItem>
@@ -84,24 +84,44 @@ export default {
       }
   },
   methods: {
-      toProfile(){
-          this.$router.push('/dashboard/index/adminsProfile')
-      },
-      toIndex(){
-         
-          this.$router.push('/dashboard/index/')
-      },
-      toTranstion(){
-        this.$router.push('/dashboard/index/checkout')
-      },
-      log_out(){
-          this.$store.commit('log_out')
-          this.$router.push('/dashboard')
+    toSignupRequests(){
+      this.$router.push('/dashboard/index/signupRequests');
+    },
+    toCheckoutsLevel1(){
+      this.$router.push('/dashboard/index/checkoutsLevel1');
+    },
+    toCheckoutsLevel2(){
+      this.$router.push('/dashboard/index/checkoutsLevel2');
+    },
+    toCheckoutsApproval(){
+      this.$router.push('/dashboard/index/checkoutsApproval');;
+    },
+    toDistributions(){
+      this.$router.push('/dashboard/index/distributions');
+    },
+    toWallet(){
+      this.$router.push('/dashboard/index/wallet');
+    },
+    toWalletHistories(){
+      this.$router.push('/dashboard/index/walletHistories');
+    },
+    toAdmins(){
+      this.$router.push('/dashboard/index/admins');
+    },
+    toMembers(){
+      this.$router.push('/dashboard/index/members');
+    },
+    toIndex(){
+        this.$router.push('/dashboard/index/')
+    },
+    log_out(){
+        this.$store.commit('log_out')
+        this.$router.push('/dashboard')
 
-      },
-      ...mapGetters({
-        'getData': 'getData'
-      }),
+    },
+    ...mapGetters({
+      'getData': 'getData'
+    }),
   },
    created() {
     this.$store.commit('setData')
