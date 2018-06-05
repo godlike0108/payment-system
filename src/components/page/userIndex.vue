@@ -104,7 +104,7 @@ export default {
       },
       getTransition: function(){
          return this.$store.getters.getTransition.map(item=>{
-             console.log(item)
+            //  console.log(item)
               item.from_username = item.from_user.username
               item.to_username = item.to_user.username
              return item

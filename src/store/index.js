@@ -72,7 +72,9 @@ const getters = {
         return state.Allusers
     },
     getCheckout() {
+
         return state.checkout.data
+
     },
     getTransition() {
         // console.log(state.transition.data)
@@ -167,6 +169,7 @@ const mutations = {
     },
     userChekout(state, data) {
         state.checkout.data = data
+        console.log(data)
 
     },
     userGetTransactions(state, data) {

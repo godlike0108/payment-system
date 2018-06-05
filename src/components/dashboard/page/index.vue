@@ -6,16 +6,40 @@
                   
                     <MenuItem name="1-1"  @click.native="toIndex()">
                         <Icon type="ios-navigate" ></Icon>
-                        <span>首頁</span>
+                        <span>註冊申請</span>
                     </MenuItem>
                   
                     <MenuItem name="1-2" @click.native="toTranstion()">
                         <Icon type="ios-calculator" size="18"></Icon>
-                        <span>出金</span>
+                        <span>出金初審</span>
                     </MenuItem>
                     <MenuItem name="1-3" @click.native="toProfile()">
                         <Icon type="happy"></Icon>
-                        <span>帳號管理</span>
+                        <span>出金覆核</span>
+                    </MenuItem>
+                    <MenuItem name="1-4" @click.native="toProfile()">
+                        <Icon type="happy"></Icon>
+                        <span>代撥款項</span>
+                    </MenuItem>
+                    <MenuItem name="1-5" @click.native="toProfile()">
+                        <Icon type="happy"></Icon>
+                        <span>出金紀錄查詢</span>
+                    </MenuItem>
+                    <MenuItem name="1-6" @click.native="toProfile()">
+                        <Icon type="happy"></Icon>
+                        <span>撥款</span>
+                    </MenuItem>
+                    <MenuItem name="1-9" @click.native="toProfile()">
+                        <Icon type="happy"></Icon>
+                        <span>撥款紀錄</span>
+                    </MenuItem>
+                    <MenuItem name="1-10" @click.native="toProfile()">
+                        <Icon type="happy"></Icon>
+                        <span>會員管理</span>
+                    </MenuItem>
+                    <MenuItem name="1-11" @click.native="toProfile()">
+                        <Icon type="happy"></Icon>
+                        <span>後台管理</span>
                     </MenuItem>
                   
                 </Menu>
