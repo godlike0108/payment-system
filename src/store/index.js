@@ -35,7 +35,14 @@ const state = {
         username: '',
         password: ''
     },
-    checkout: null,
+    checkout: {
+        data: null,
+        name: null,
+        bank: null,
+        bank_account: null,
+        amount: null,
+        sms: null
+    },
     transition: {
         data: null,
         to_username: null,
@@ -61,9 +68,10 @@ const getters = {
         return state.Allusers
     },
     getCheckout() {
-        return state.checkout
+        return state.checkout.data
     },
     getTransition() {
+        // console.log(state.transition.data)
         return state.transition.data
     }
 }
@@ -95,7 +103,6 @@ const mutations = {
         let password = sessionStorage.getItem('password')
         let role_id = sessionStorage.getItem('role_id')
         let balance = sessionStorage.getItem('balance')
-
 
         state.user.email = email
         state.user.token = token
@@ -136,23 +143,23 @@ const mutations = {
     },
     updateToUserName(state, to_username) {
         state.transition.to_username = to_username
-        console.log(state.transition.to_username)
+            // console.log(state.transition.to_username)
     },
     updateToAmount(state, amount) {
         state.transition.amount = amount
-        console.log(state.transition.amount)
+            // console.log(state.transition.amount)
     },
     firstChagePassword(state, password) {
         state.user.password = password
         console.log(state.user.password)
     },
     userChekout(state, data) {
-        state.checkout = data
-        console.log(state.checkout)
+        state.checkout.data = data
+
     },
     userGetTransactions(state, data) {
         state.transition.data = data
-        console.log(state.transition)
+            // console.log(state.transition)
     },
     setProfileName(state, name) {
         state.updateProfile.name = name
@@ -166,7 +173,22 @@ const mutations = {
         state.updateProfile.password = password
         console.log(state.updateProfile.password)
     },
-
+    //commit checkout input value
+    setCheckoutName(state, name) {
+        state.checkout.name = name
+    },
+    setCheckoutBank(state, bank) {
+        state.checkout.bank = bank
+    },
+    setCheckout_bank_account(state, bank_account) {
+        state.checkout.bank_account = bank_account
+    },
+    setCheckout_amount(state, amount) {
+        state.checkout.amount = amount
+    },
+    setCheckout_sms(state, sms) {
+        state.checkout.sms = sms
+    },
     log_out(state) {
         let email = sessionStorage.removeItem('email')
         let token = sessionStorage.removeItem('token')

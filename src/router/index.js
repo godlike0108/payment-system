@@ -117,7 +117,7 @@ vueRouter.beforeEach((to, from, next) => {
     // 如果 router 轉跳的頁面需要驗證 requiresAuth: true
     let token = sessionStorage.getItem('token')
     let role_id = sessionStorage.getItem('role_id')
-    console.log('to=', to.fullPath, '| from=', from.fullPath);
+        // console.log('to=', to.fullPath, '| from=', from.fullPath);
 
 
     if (to.matched.some(record => {

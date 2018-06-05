@@ -7,30 +7,30 @@
             <TabPane label="出金申請" name="name1">
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="20" :sm="16" :md="16" :lg="16">
-                        <i-form ref="formInline" :model="formInline" :rules="ruleInline" >
+                        <i-form ref="formInline" >
                             
-                            <form-item prop="user">
-                                <i-input  v-model="formInline.user" :placeholder="formInline.user || '銀行用戶名稱'"   clearable>
+                            <form-item>
+                                <i-input  @input="setCheckoutName" :placeholder=" '銀行用戶名稱'"   clearable>
                                     <icon type="happy" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             
-                            <form-item prop="amount">
-                                <i-input type="number" v-model="formInline.amount" :placeholder="formInline.amount || '填入出金金額'"   clearable>
+                            <form-item >
+                                <i-input  @input="setCheckout_amount" :placeholder=" '填入出金金額'"   clearable>
                                     <icon type="cash" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
-                            <form-item prop="bank">
-                                <i-input v-model="formInline.bank" :placeholder="formInline.bank || '銀行名稱'"    clearable>
+                            <form-item >
+                                <i-input @input="setCheckoutBank" :placeholder="'銀行名稱'"    clearable>
                                     <icon type="card" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
-                            <form-item prop="bank_account">
-                                <i-input type="number" v-model="formInline.bank_account" :placeholder="formInline.bank_account || '銀行帳號'"   > </i-input>
+                            <form-item >
+                                <i-input  @input="setCheckout_bank_account" :placeholder=" '銀行帳號'"   > </i-input>
                             </form-item>
                             <form-item >
-                                <i-button @click="getSms">取得手機驗證碼</i-button>
-                                <i-input prop="sms" class="phonePassword" v-model="formInline.sms" placeholder="請填入驗證碼共五碼"  clearable></i-input>
+                                <i-button @click="getUserSms">取得手機驗證碼</i-button>
+                                <i-input @input="setCheckout_sms" class="phonePassword"  placeholder="請填入驗證碼共五碼"  clearable></i-input>
                             </form-item>
                             
                             <form-item>
@@ -141,9 +141,24 @@ export default {
   },
   methods: {
       ...mapActions({
-            'getSms' : 'getSms',
+            'getUserSms' : 'getUserSms',
             'userCheckout':'userCheckout'
-			}),
+            }),
+        setCheckoutName(name){
+            this.$store.commit('setCheckoutName',name)
+        },
+        setCheckoutBank(bank){
+            this.$store.commit('setCheckoutBank',bank)
+        },
+        setCheckout_bank_account(bank_account){
+            this.$store.commit('setCheckout_bank_account',bank_account)
+        },
+        setCheckout_amount(amount){
+            this.$store.commit('setCheckout_amount',amount)
+        },
+        setCheckout_sms(sms){
+            this.$store.commit('setCheckout_sms',sms)
+        },
   },
   created(){
     this.$store.dispatch('userGetChekout')

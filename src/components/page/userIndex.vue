@@ -13,7 +13,7 @@
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
             <TabPane label="轉帳紀錄" name="name1">
-                <Table height="400" :columns="columns1" :data="getTransition"></Table>
+                <Table height="500" :columns="columns1" :data="getTransition"></Table>
             </TabPane>
             <TabPane label="轉帳" name="name2">
                 <Form ref="formCustom"  :label-width="80">
@@ -22,7 +22,7 @@
                     </FormItem>
                     
                     <FormItem label="轉出金額" prop="age">
-                        <Input type="text" @input="updateToAmount"  number></Input>
+                        <Input type="text" @input="updateToAmount"  ></Input>
                     </FormItem>
                     <FormItem>
                         <Button type="primary" @click="handleSubmit('formCustom');userTransactions()">送出</Button>
@@ -75,26 +75,22 @@ export default {
     };
      return {
         isCollapsed: false,
-       
-        ruleCustom: {
-            passwd: [
-                { validator: validatePass, trigger: 'blur' }
-            ],
-            // passwdCheck: [
-            //     { validator: validatePassCheck, trigger: 'blur' }
-            // ],
-            age: [
-                { validator: validateAge, trigger: 'blur' }
-            ]
-        },
         columns1: [
                     {
                         title: '轉出帳號',
-                        key: 'name'
+                        key: 'from_user'
+                    },
+                    {
+                        title: '轉入帳號',
+                        key: 'to_user'
                     },
                     {
                         title: '金額',
-                        key: 'age'
+                        key: 'amount'
+                    }, 
+                    {
+                        title: '轉出時間',
+                        key: 'created_at'
                     },      
                 ]
     };
@@ -106,14 +102,24 @@ export default {
               this.isCollapsed ? 'collapsed-menu' : ''
           ]
       },
-      ...mapGetters({
-          getTransition: 'getTransition'
-      })
+      getTransition(){
+          this.$store.getters.getTransition.map((item)=>{
+              
+              let from_user = item.from_user.username
+              let to_user = item.to_user.username
+              let amount = item.amount
+              let created_at = item.created_at
+              
+              console.log(item)
+          }
+          )
+          
+      }
   },
    methods: {
        updateToUserName(to_username){
           this.$store.commit('updateToUserName', to_username)
-          console.log(to_username)
+        //   console.log(to_username)
       },
       updateToAmount(amount){
           this.$store.commit('updateToAmount', amount)

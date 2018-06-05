@@ -26,7 +26,6 @@ export default {
 
 
                 console.log(data)
-                console.log(balance)
                 sessionStorage.setItem('password', password)
                 sessionStorage.setItem('email', email)
                 sessionStorage.setItem('token', token)
@@ -53,6 +52,17 @@ export default {
     getSms({ commit, state }) {
         axios.post(`${baseURL}/api/sms`, {
                 mobile: 886 + state.signIn.mobile
+            })
+            .then((response) => {
+                console.log(response)
+            })
+            .catch(() => {
+
+            })
+    },
+    getUserSms({ commit, state }) {
+        axios.post(`${baseURL}/api/sms`, {
+                mobile: state.user.mobile
             })
             .then((response) => {
                 console.log(response)
@@ -126,27 +136,45 @@ export default {
             })
             .then((response) => {
                 let data = response.data.data
-                console.log(data)
+                    // console.log(data)
                 commit('userGetTransactions', data)
 
             })
     },
     userTransactions({ commit, state }) {
-        axios.post(`${baseURL}/api/transactions`, {
-                to_username: state.transition.to_username,
-                amount: state.transition.amount
+        let data = JSON.stringify({
+            to_username: this.state.transition.to_username,
+            amount: this.state.transition.amount
+        })
+        let token = sessionStorage.getItem('token')
+        console.log(token)
+        axios.post(`${baseURL}/api/transactions`, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                }
             })
             .then((response) => {
                 console.log(response)
+            }).catch(() => {
+                if (error.response.status === 404) {
+                    commit()
+                }
             })
     },
     userCheckout({ commit, state }) {
+        let token = sessionStorage.getItem('token')
+
         axios.post(`${baseURL}/api/checkouts`, {
-                name: '',
-                bank: '',
-                bank_account: '',
-                amount: '',
-                sms: ''
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                name: state.checkout.name,
+                bank: state.checkout.bank,
+                bank_account: state.checkout.bank_account,
+                amount: state.checkout.amount,
+                sms: state.checkout.sms
             })
             .then((response) => {
                 console.log(response)
