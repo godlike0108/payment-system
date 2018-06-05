@@ -6,7 +6,7 @@
                   
                     <MenuItem name="1-1"  @click.native="toIndex()">
                         <Icon type="ios-navigate" ></Icon>
-                        <span>首頁</span>
+                        <span>轉帳</span>
                     </MenuItem>
                   
                     <MenuItem name="1-2" @click.native="toTranstion()">

@@ -76,21 +76,22 @@ export default {
      return {
         isCollapsed: false,
         columns1: [
+                    
                     {
-                        title: '轉出帳號',
-                        key: 'from_username'
+                        title: '進/出帳',
+                        key: 'type'
                     },
                     {
-                        title: '轉入帳號',
-                        key: 'to_username'
+                        title: '進/出帳號',
+                        key: 'relative_username'
                     },
                     {
                         title: '金額',
                         key: 'amount'
                     }, 
                     {
-                        title: '轉出時間',
-                        key: 'created_at'
+                        title: '餘額',
+                        key: 'wallet_balance'
                     },      
                 ]
     };
@@ -102,14 +103,20 @@ export default {
               this.isCollapsed ? 'collapsed-menu' : ''
           ]
       },
-      getTransition: function(){
+   
+      getTransition(){
          return this.$store.getters.getTransition.map(item=>{
-            //  console.log(item)
-              item.from_username = item.from_user.username
-              item.to_username = item.to_user.username
+             if(item.type=== 1 ){
+                item.type = '轉入'
+                
+             } else if (item.type===2) {
+                 item.type = '轉出'
+             };
+             item.relative_username = item.relative_user.username
              return item
           })
-      }
+      
+  }
   },
    methods: {
        updateToUserName(to_username){
@@ -137,7 +144,7 @@ export default {
     },
     created(){
         this.$store.dispatch('userGetChekout')
-        this.$store.dispatch('userGetTransactions')
+        this.$store.dispatch('userGetwalletHistories')
     }
 }
 </script>

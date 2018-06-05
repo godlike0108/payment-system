@@ -121,24 +121,24 @@ export default {
             })
             .then((response) => {
                 let data = response.data.data
-                console.log(data)
+                    // console.log(data)
                 commit('userChekout', data)
 
             })
     },
-    userGetTransactions({ commit, state }) {
+    userGetwalletHistories({ commit, state }) {
         // let role_id = sessionStorage.getItem('role_id')
         let token = sessionStorage.getItem('token')
 
-        axios.get(`${baseURL}/api/transactions`, {
+        axios.get(`${baseURL}/api/wallet-histories`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
             .then((response) => {
-                let data = response.data.data
-                    // console.log(data)
-                commit('userGetTransactions', data)
+                let data = response.data
+                console.log(response.data)
+                commit('userGetwalletHistories', data)
 
             })
     },

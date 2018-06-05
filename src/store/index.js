@@ -52,6 +52,9 @@ const state = {
             wrongUserName: null
         }
     },
+    wallet: {
+        histories: null
+    },
     Admins: {
         admins: null
     },
@@ -78,7 +81,7 @@ const getters = {
     },
     getTransition() {
         // console.log(state.transition.data)
-        return state.transition.data
+        return state.wallet.histories
     }
 }
 const mutations = {
@@ -172,9 +175,9 @@ const mutations = {
         console.log(data)
 
     },
-    userGetTransactions(state, data) {
-        state.transition.data = data
-            // console.log(state.transition)
+    userGetwalletHistories(state, data) {
+        state.wallet.histories = data
+        console.log(state.wallet.histories)
     },
     setProfileName(state, name) {
         state.updateProfile.name = name
