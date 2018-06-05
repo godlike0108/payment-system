@@ -172,12 +172,12 @@ const mutations = {
     },
     userChekout(state, data) {
         state.checkout.data = data
-        console.log(data)
+            // console.log(data)
 
     },
     userGetwalletHistories(state, data) {
         state.wallet.histories = data
-        console.log(state.wallet.histories)
+            // console.log(state.wallet.histories)
     },
     setProfileName(state, name) {
         state.updateProfile.name = name

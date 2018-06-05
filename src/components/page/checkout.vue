@@ -41,7 +41,7 @@
                 </Row>
             </TabPane>
             <TabPane label="出金回報" name="name2">
-            <Table height="400" :columns="columns1" :data="getCheckout1"></Table>
+            <Table height="400" :columns="columns1" :data="getCheckout"></Table>
             </TabPane>
             </Tabs>
         </Col>
@@ -136,28 +136,27 @@ export default {
           ]
       },
       getCheckout: function(){
-          console.log(this.$store.getters.getCheckout.map() )
-        //  return this.$store.getters.getCheckout.map(item=>{
-        //      if (item.checkout_status_id === 0)
-        //      {
-        //      return    item.checkout_status_id === '審核中'
+         return this.$store.getters.getCheckout.map(item=>{
+             if (item.checkout_status_id === 0)
+             {
+                item.checkout_status_id = '審核中'
 
-        //      } else if(item.checkout_status_id === -1)
-        //      {
-        //         item.checkout_status_id === '拒絕'
+             } else if(item.checkout_status_id === -1)
+             {
+                item.checkout_status_id = '拒絕'
 
-        //      } else if(item.checkout_status_id === 1)
-        //      {
-        //         item.checkout_status_id === '撥款中'
+             } else if(item.checkout_status_id === 1)
+             {
+                item.checkout_status_id = '撥款中'
 
-        //      }else if(item.checkout_status_id === 2)
-        //      {
-        //         item.checkout_status_id === '已撥款'
-        //      }
-        //      console.log(item)
+             }else if(item.checkout_status_id === 2)
+             {
+                item.checkout_status_id = '已撥款'
+             }
+             console.log(item)
               
-        //      return item
-        //   })
+             return item
+          })
       }
   },
   methods: {

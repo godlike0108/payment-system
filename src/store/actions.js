@@ -116,12 +116,12 @@ export default {
 
         axios.get(`${baseURL}/api/checkouts?role_id=${role_id}`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    'Authorization': `Bearer ${token}`
                 }
             })
             .then((response) => {
                 let data = response.data.data
-                    // console.log(data)
+                console.log(response)
                 commit('userChekout', data)
 
             })
@@ -137,7 +137,7 @@ export default {
             })
             .then((response) => {
                 let data = response.data
-                console.log(response.data)
+                    // console.log(response.data)
                 commit('userGetwalletHistories', data)
 
             })
