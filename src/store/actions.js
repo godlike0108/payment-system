@@ -142,7 +142,7 @@ export default {
             })
             .then((response) => {
                 let data = response.data
-                console.log(response.data)
+                    // console.log(response.data)
                 commit('userGetwalletHistories', data)
 
             })

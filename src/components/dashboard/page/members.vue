@@ -84,57 +84,83 @@ export default {
   },
   methods: {
       show (index) {
-                let _vm = this
-                this.$Modal.confirm({
-                    onOk: () => {
-                        this.$Message.info('確認送出');
-                        _vm.put_administrator_id(index)
-                    },
-                    render: (h) => {
-                        return h('div', [h('Input', {
-                            props: {
-                                value: this.value,
-								autofocus: true,
-								value: this.$store.state.Admins.admins[index].username,
-                                placeholder: '管理員帳號 6~12位英文數字'
-                            },
-                            on: {
-                                input: (val) => {
-                                    // this.value = val;
-                                //   set_user_review_id(val)
-                                
-                                this.$store.state.admin.reset_administrator.username = val
-                                //    console.log(this.$store.state.admin.user_review_id) 
-                                }
-                            },   
-                        }),h('Input', {
-                            props: {
-                                value: this.value,
-                                autofocus: true,
-                                placeholder: '管理員密碼 6~12位英文數字'
-							},
-							style: {
-                                        marginTop: '15px'
-                                    },
-                            on: {
-                                input: (val) => {
-                                    // this.value = val;
-                                //   set_user_review_id(val)
-                                
-                                this.$store.state.admin.reset_administrator.password = val
-                                //    console.log(this.$store.state.admin.user_review_id) 
-                                }
-                            },
+          console.log()
+            let _vm = this
+            this.$Modal.confirm({
+                onOk: () => {
+                    this.$Message.info('確認送出');
+                    _vm.reset_user_id(index)
+                },
+                render: (h) => {
+                    return h('div', [h('Input', {
+                        props: {
+                            value: this.value,
+                            autofocus: true,
+                            value: this.$store.state.admin.user_list[index].username,
+                            placeholder: '管理員帳號 6~12位英文數字'
+                        },
+                        on: {
+                            input: (val) => {
+                                // this.value = val;
+                            //   set_user_review_id(val)
                             
-						})
-						])
-                    }
-                })
+                            this.$store.state.admin.reset_user.username = val
+                            //    console.log(this.$store.state.admin.user_review_id) 
+                            }
+                        },   
+                    }),h('Input', {
+                        props: {
+                            value: this.value,
+                            autofocus: true,
+                            placeholder: '管理員密碼 6~12位英文數字'
+                        },
+                        style: {
+                                    marginTop: '15px'
+                                },
+                        on: {
+                            input: (val) => {
+                                // this.value = val;
+                            //   set_user_review_id(val)
+                            
+                            this.$store.state.admin.reset_user.password = val
+                            //    console.log(this.$store.state.admin.user_review_id) 
+                            }
+                        },
+                        
+                    })
+                    ])
+                }
+            })
             },
             remove(index){
-                this.$store.commit('set_user_infor_index',index)
-                this.$store.dispatch('remove_user')
-            }
+                 let _vm = this
+                this.$Modal.confirm({
+                     title: `刪除會員資料 `,
+                    content: `<p style="font-size:1.4em">確認刪除<h2>${this.$store.state.admin.user_list[index].name}</h2>的會員資料嗎？</p>`,
+                    onOk: () => {
+                        this.$Message.info('確認送出');
+                        _vm.$store.commit('set_user_infor_index',index)
+                        _vm.$store.dispatch('remove_user')
+                    },
+                    // render: (h) => {
+                    //     return h('div', [h('Input', {
+                    //         props: {
+                    //             value: this.value,
+                    //             autofocus: true,
+                    //             value: this.$store.state.admin.user_list[index].username,
+                    //             placeholder: '管理員帳號 6~12位英文數字'
+                    //         },
+                            
+                    //     })
+                    //     ])
+                    // }
+            })
+               
+            },
+            reset_user_id(index){
+			this.$store.state.admin.reset_user.user_id = this.$store.state.admin.user_list[index].id
+            this.$store.dispatch('update_user_id')
+		   },
   },
 	created(){
     this.$store.dispatch('show_user')

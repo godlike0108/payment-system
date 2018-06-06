@@ -18,19 +18,19 @@
                         <span>出金覆核</span>
                     </MenuItem>
                     <MenuItem name="1-4" @click.native="toCheckoutsApproval()">
-                        <Icon type="happy"></Icon>
+                        <Icon type="ios-calculator" size="18"></Icon>
                         <span>代撥款項</span>
                     </MenuItem>
                     <MenuItem name="1-5" @click.native="toDistributions()">
-                        <Icon type="happy"></Icon>
+                        <Icon type="filing" size="18"></Icon>
                         <span>出金查詢</span>
                     </MenuItem>
                     <MenuItem name="1-6" @click.native="toWallet()">
-                        <Icon type="happy"></Icon>
+                        <Icon type="filing" size="18"></Icon>
                         <span>撥款</span>
                     </MenuItem>
                     <MenuItem name="1-9" @click.native="toWalletHistories()">
-                        <Icon type="happy"></Icon>
+                        <Icon type="filing" size="18"></Icon>
                         <span>撥款紀錄</span>
                     </MenuItem>
                     <MenuItem name="1-10" @click.native="toMembers()">

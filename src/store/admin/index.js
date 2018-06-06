@@ -14,9 +14,15 @@ export default {
             password: null,
             administrator_id: null
         },
+        reset_user: {
+            username: null,
+            password: null,
+            user_id: null
+        },
+        edit_user_infor: null,
         approval_levels_amount: null,
         new_approval_amount: null,
-        edit_user_infor: null
+
     },
     getters: {
         get_user_list(state) {
@@ -76,7 +82,7 @@ export default {
                 })
                 .then((response) => {
                     let data = response.data.data
-                    console.log(data)
+                        // console.log(response)
                     commit('set_user_list', data)
                 })
         },
@@ -115,6 +121,24 @@ export default {
                     console.log(response)
                 })
 
+        },
+        update_user_id({ commit, state }) {
+            let token = sessionStorage.getItem('token')
+            let id = state.reset_user.user_id
+            let username = state.reset_user.username
+            let password = state.reset_user.password
+            console.log(id, username, password)
+            let data = JSON.stringify({ username: username, password: password })
+            axios.put(`${baseURL}/api/users/${id}`, data, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then((response) => {
+                    this.dispatch('show_user')
+                    console.log(response)
+                })
         },
         approval_levels({ commit, state }) {
             let token = sessionStorage.getItem('token')
