@@ -45,7 +45,6 @@ export default {
         },
         update_new_approval_amount(state, amount) {
             state.new_approval_amount = amount
-            console.log(state.new_approval_amount)
 
         }
     },
@@ -89,7 +88,7 @@ export default {
                     }
                 })
                 .then((response) => {
-                    dispatch('userReview')
+                    this.dispatch('userReview')
                     console.log(response)
                 })
         },
@@ -107,7 +106,7 @@ export default {
                     }
                 })
                 .then((response) => {
-                    dispatch('admins')
+                    this.dispatch('admins')
                     console.log(response)
                 })
 
@@ -128,7 +127,7 @@ export default {
         update_approval_amount({ commit, state }) {
             let token = sessionStorage.getItem('token')
             let amount = state.new_approval_amount
-            console.log(amount)
+                // console.log(amount)
             let data = JSON.stringify({ amount: amount })
             axios.put(`${baseURL}/api/approval_levels/2`, data, {
                 headers: {
@@ -136,9 +135,11 @@ export default {
                     'Content-Type': 'application/json',
                 }
             }).then((response) => {
-                // let data = response.data.amount
                 console.log(response)
-                dispatch('approval_levels')
+                    // let data = response.data.amount
+                    // this._actions.approval_levels()
+                this.dispatch('approval_levels')
+
             })
         },
     }
