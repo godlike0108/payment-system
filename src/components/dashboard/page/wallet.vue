@@ -3,7 +3,7 @@
      <Row type="flex" justify="end" align="top" class="userLine">
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Row type="flex" justify="end" align="top">
-            <Col :xs="24" :sm="8" :md="8" :lg="6">身份：<span class="user">{{this.$store.state.user.name}}</span></Col>
+            <Col :xs="24" :sm="8" :md="8" :lg="6">身份：<span class="user">{{this.$store.state.user.name}}{{this.$store.state.admin.user}}</span></Col>
             <!-- <Col :xs="24" :sm="8" :md="8" :lg="6">剩餘金額：<span class="money">5000</span></Col> -->
             </Row>
         </Col>
@@ -12,23 +12,8 @@
         <Row type="flex" justify="center" align="middle">
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
-            <TabPane label="交易紀錄" name="name1">
-                <Table height="400" :columns="columns1" :data="data2"></Table>
-            </TabPane>
-            <TabPane label="轉帳" name="name2">
-                <Form ref="formCustom" :model="formCustom" :rules="ruleCustom" :label-width="80">
-                    <FormItem label="轉出帳號" prop="passwd">
-                        <Input type="text" v-model="formCustom.passwd"></Input>
-                    </FormItem>
-                    
-                    <FormItem label="轉出金額" prop="age">
-                        <Input type="text" v-model="formCustom.age" number></Input>
-                    </FormItem>
-                    <FormItem>
-                        <Button type="primary" @click="handleSubmit('formCustom')">送出</Button>
-                        <Button type="ghost" @click="handleReset('formCustom')" style="margin-left: 8px">重新設定</Button>
-                    </FormItem>
-                </Form>
+            <TabPane label="註冊申請" name="name1">
+                <Table height="400" :columns="columns1" :data="get_user_review_list"></Table>
             </TabPane>
         </Tabs>
         </Col>
@@ -92,68 +77,44 @@ export default {
         },
         columns1: [
                     {
-                        title: '轉出/入',
+                        title: '申請人',
                         key: 'name'
                     },
                     {
-                        title: '金額',
-                        key: 'age'
+                        title: 'email',
+                        key: 'email'
                     },
                     {
-                        title: '時間',
-                        key: 'address'
+                        title: '手機',
+                        key: 'mobile'
+                    },
+                    {
+                        title: '申請時間',
+                        key: 'updated_at'
+                    },
+                    {
+                        title: '申請確認',
+                        render: (h, params) => {
+                            return h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.show(params.index)
+                                        }
+                                    }
+                                }, '申請確認'),
+                            ]);
+                        }
                     }
                 ],
-        data2: [
-                    {
-                        name: 'John Brown',
-                        age: 18,
-                        address: 'New York No. 1 Lake Park',
-                        date: '2016-10-03'
-                    },
-                    {
-                        name: 'Jim Green',
-                        age: 24,
-                        address: 'London No. 1 Lake Park',
-                        date: '2016-10-01'
-                    },
-                    {
-                        name: 'Joe Black',
-                        age: 30,
-                        address: 'Sydney No. 1 Lake Park',
-                        date: '2016-10-02'
-                    },
-                    {
-                        name: 'Jon Snow',
-                        age: 26,
-                        address: 'Ottawa No. 2 Lake Park',
-                        date: '2016-10-04'
-                    },
-                    {
-                        name: 'John Brown',
-                        age: 18,
-                        address: 'New York No. 1 Lake Park',
-                        date: '2016-10-03'
-                    },
-                    {
-                        name: 'Jim Green',
-                        age: 24,
-                        address: 'London No. 1 Lake Park',
-                        date: '2016-10-01'
-                    },
-                    {
-                        name: 'Joe Black',
-                        age: 30,
-                        address: 'Sydney No. 1 Lake Park',
-                        date: '2016-10-02'
-                    },
-                    {
-                        name: 'Jon Snow',
-                        age: 26,
-                        address: 'Ottawa No. 2 Lake Park',
-                        date: '2016-10-04'
-                    }
-                ],
+        
             
     };
   },
@@ -163,6 +124,10 @@ export default {
               'menu-item',
               this.isCollapsed ? 'collapsed-menu' : ''
           ]
+      },
+      get_user_review_list(){
+          console.log(this.$store.getters.get_user_review_list)
+          return this.$store.getters.get_user_review_list
       }
   },
    methods: {
@@ -177,7 +142,49 @@ export default {
             },
             handleReset (name) {
                 this.$refs[name].resetFields();
-            }
+            },
+             show (index) {
+                 
+                let _vm = this
+                this.$Modal.confirm({
+                    onOk: () => {
+                        this.$Message.info('確認送出');
+                        _vm.put_user_id(index)
+                        console.log()
+                    },
+                    render: (h) => {
+                        return h('Input', {
+                            props: {
+                                value: this.value,
+                                autofocus: true,
+                                placeholder: '用戶帳號 6~12位英文數字'
+                            },
+                            on: {
+                                input: (val) => {
+                                    // this.value = val;
+                                //   set_user_review_id(val)
+                                
+                                this.$store.state.admin.user_review_id = val
+                                //    console.log(this.$store.state.admin.user_review_id) 
+                                }
+                            },
+                            
+                        })
+                    }
+                })
+            },
+           put_user_id(index){
+            this.$store.state.admin.user_review_id_index = this.$store.state.admin.user_review_list[index].id
+            this.$store.dispatch('put_user_id')
+            // setTimeout(()=>{
+            //     this.$store.dispatch('userReview')  
+            // },2500)
+            
+           } 
+        },
+        created(){
+           this.$store.dispatch('userReview')
+             
         }
 }
 </script>

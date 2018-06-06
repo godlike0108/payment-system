@@ -132,7 +132,7 @@ const vueRouter = new Router({
                     path: 'wallet',
                     name: 'dashboard_wallet',
                     component: wallet
-                }, 
+                },
                 {
                     path: 'walletHistories',
                     name: 'dashboard_walletHistories',

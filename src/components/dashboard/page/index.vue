@@ -5,16 +5,16 @@
                 <Menu active-name="1-1" theme="dark" width="auto" :class="menuitemClasses">
                   
                     <MenuItem name="1-1"  @click.native="toIndex()">
-                        <Icon type="ios-navigate" ></Icon>
+                    <Icon type="person-add" size="18"></Icon>
                         <span>註冊申請</span>
                     </MenuItem>
                   
-                    <MenuItem name="1-2" @click.native="toCheckoutsLevel1()">
+                    <MenuItem v-if="this.$store.state.user.role_id === '2'" name="1-2" @click.native="toCheckoutsLevel1()">
                         <Icon type="ios-calculator" size="18"></Icon>
                         <span>出金初審</span>
                     </MenuItem>
-                    <MenuItem name="1-3" @click.native="toCheckoutsLevel2()">
-                        <Icon type="happy"></Icon>
+                    <MenuItem v-if="this.$store.state.user.role_id === '1'" name="1-3" @click.native="toCheckoutsLevel2()">
+                        <Icon type="ios-calculator" size="18"></Icon>
                         <span>出金覆核</span>
                     </MenuItem>
                     <MenuItem name="1-4" @click.native="toCheckoutsApproval()">
@@ -23,7 +23,7 @@
                     </MenuItem>
                     <MenuItem name="1-5" @click.native="toDistributions()">
                         <Icon type="happy"></Icon>
-                        <span>出金紀錄查詢</span>
+                        <span>出金查詢</span>
                     </MenuItem>
                     <MenuItem name="1-6" @click.native="toWallet()">
                         <Icon type="happy"></Icon>
@@ -34,11 +34,11 @@
                         <span>撥款紀錄</span>
                     </MenuItem>
                     <MenuItem name="1-10" @click.native="toMembers()">
-                        <Icon type="happy"></Icon>
+                       <Icon type="person-stalker" size="18"></Icon>
                         <span>會員管理</span>
                     </MenuItem>
-                    <MenuItem name="1-11" @click.native="toAdmins()">
-                        <Icon type="happy"></Icon>
+                    <MenuItem v-if="this.$store.state.user.role_id === '1'" name="1-11" @click.native="toAdmins()">
+                        <Icon type="coffee" size="18"></Icon>
                         <span>後台管理</span>
                     </MenuItem>
                   
@@ -125,8 +125,8 @@ export default {
   },
    created() {
     this.$store.commit('setData')
-    this.$store.dispatch('getAlluser')
     this.$store.dispatch('admins')
+    this.$store.dispatch('show_user')
  
 }
 }

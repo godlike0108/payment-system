@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import loading from 'vuex-loading-plug';
 import actions from './actions'
+import admin from './admin/index'
 
 Vue.use(Vuex)
 const state = {
@@ -134,7 +135,7 @@ const mutations = {
         state.updateProfile.name = name
         state.updateProfile.username = username
         state.updateProfile.password = password
-        console.log(state.user)
+            // console.log(state.user)
 
     },
     updatePassword(state, password) {
@@ -227,11 +228,11 @@ const mutations = {
     },
     setAdmins(state, data) {
         state.Admins.admins = data
-        console.log(data)
+            // console.log(data)
     },
     setAllusers(state, data) {
         state.Allusers = data
-        console.log(data)
+            // console.log(data)
     }
 }
 
@@ -239,5 +240,8 @@ export default new Vuex.Store({
     state,
     getters,
     actions,
-    mutations
+    mutations,
+    modules: {
+        admin: admin
+    }
 })

@@ -98,12 +98,17 @@ export default {
         }
     },
     updateProfile({ commit, state }) {
+        let data = JSON.stringify({
+            name: this.state.updateProfile.name,
+            username: this.state.updateProfile.username,
+            password: this.state.updateProfile.password
+        });
+        let token = sessionStorage.getItem('token')
         console.log(state.updateProfile.name, state.updateProfile.username, state.updateProfile.password)
-        axios.post(`${baseURL}/api/users`, {
-                name: state.updateProfile.name,
-                username: state.updateProfile.username,
-                password: state.updateProfile.password,
-
+        axios.post(`${baseURL}/api/users`, data, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             })
             .then((response) => {
                 console.log(response)
@@ -121,7 +126,7 @@ export default {
             })
             .then((response) => {
                 let data = response.data.data
-                console.log(response)
+                    // console.log(response)
                 commit('userChekout', data)
 
             })
@@ -137,7 +142,7 @@ export default {
             })
             .then((response) => {
                 let data = response.data
-                    // console.log(response.data)
+                console.log(response.data)
                 commit('userGetwalletHistories', data)
 
             })
@@ -183,17 +188,21 @@ export default {
 
             })
             .then((response) => {
-                console.log(response)
+                // console.log(response)
             })
     },
     admins({ commit, state }) {
+        let token = sessionStorage.getItem('token')
         axios.get(`${baseURL}/api/admins`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
                 }
             })
             .then((response) => {
                 let data = response.data.data
+                console.log(data)
                 commit('setAdmins', data)
 
             })

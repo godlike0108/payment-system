@@ -18,11 +18,11 @@
 			</i-input>
 		</form-item>
 		
-		<form-item style="margin-bottom:4px;">
+		<!-- <form-item style="margin-bottom:4px;">
             <router-link to="/dashboard/sigin">
 			<a href="" class="loginA">申請帳號</a>
             </router-link>
-		</form-item>
+		</form-item> -->
 		<form-item>
 			<i-button class="loginButton" @click="login()">登入</i-button>
 		</form-item>

@@ -92,7 +92,11 @@ export default {
                     {
                         title: '餘額',
                         key: 'wallet_balance'
-                    },      
+                    },  
+                    {
+                        title: '時間',
+                        key: 'updated_at'
+                    }    
                 ]
     };
   },
@@ -112,7 +116,8 @@ export default {
              } else if (item.type===2) {
                  item.type = '轉出'
              };
-             item.relative_username = item.relative_user.username
+             item.relative_username = item.relative_user.username,
+             item.updated_at = item.relative_user.updated_at
              return item
           })
       
