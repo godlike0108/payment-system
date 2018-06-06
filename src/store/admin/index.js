@@ -1,5 +1,6 @@
 import axios from 'axios'
 import router from '@/router'
+import { isNull } from 'util';
 
 const baseURL = 'http://wallet-staging.ap-northeast-1.elasticbeanstalk.com'
 export default {
@@ -14,7 +15,8 @@ export default {
             administrator_id: null
         },
         approval_levels_amount: null,
-        new_approval_amount: null
+        new_approval_amount: null,
+        edit_user_infor: null
     },
     getters: {
         get_user_list(state) {
@@ -46,6 +48,10 @@ export default {
         update_new_approval_amount(state, amount) {
             state.new_approval_amount = amount
 
+        },
+        set_user_infor_index(state, index) {
+            state.edit_user_infor = state.user_list[index].id
+            console.log(state.edit_user_infor)
         }
     },
     actions: {
@@ -70,8 +76,7 @@ export default {
                 })
                 .then((response) => {
                     let data = response.data.data
-                        // console.log(data)
-
+                    console.log(data)
                     commit('set_user_list', data)
                 })
         },
@@ -142,5 +147,23 @@ export default {
 
             })
         },
+        remove_user({ commit, state }) {
+            let token = sessionStorage.getItem('token')
+            let id = state.edit_user_infor
+            console.log(id)
+            axios.delete(`${baseURL}/api/users/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    }
+                })
+                .then((response) => {
+                    let data = response.data.data
+                        // console.log(data)
+                    this.dispatch('show_user')
+
+                })
+        }
     }
 }

@@ -37,6 +37,42 @@ export default {
                         title: '創建時間',
                         key: 'created_at'
                     },  
+                    {
+                        title: '修改/刪除',
+                        width: 170,
+                        
+                        render: (h, params) => {
+                            return h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small'
+                                        
+                                    },
+                                    style: {
+                                        marginRight: '15px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.show(params.index)
+                                        }
+                                    }
+                                }, '修改'), h('Button', {
+                                    props: {
+                                        type: 'error',
+                                        size: 'small'
+                                        
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.remove(params.index)
+                                        }
+                                    }
+                                }, '刪除')
+                               
+                            ]);
+                        }
+                    }
                    
                 ]
     }
@@ -45,6 +81,60 @@ export default {
 	  get_user_list(){
 		  return this.$store.getters.get_user_list
 	  }
+  },
+  methods: {
+      show (index) {
+                let _vm = this
+                this.$Modal.confirm({
+                    onOk: () => {
+                        this.$Message.info('確認送出');
+                        _vm.put_administrator_id(index)
+                    },
+                    render: (h) => {
+                        return h('div', [h('Input', {
+                            props: {
+                                value: this.value,
+								autofocus: true,
+								value: this.$store.state.Admins.admins[index].username,
+                                placeholder: '管理員帳號 6~12位英文數字'
+                            },
+                            on: {
+                                input: (val) => {
+                                    // this.value = val;
+                                //   set_user_review_id(val)
+                                
+                                this.$store.state.admin.reset_administrator.username = val
+                                //    console.log(this.$store.state.admin.user_review_id) 
+                                }
+                            },   
+                        }),h('Input', {
+                            props: {
+                                value: this.value,
+                                autofocus: true,
+                                placeholder: '管理員密碼 6~12位英文數字'
+							},
+							style: {
+                                        marginTop: '15px'
+                                    },
+                            on: {
+                                input: (val) => {
+                                    // this.value = val;
+                                //   set_user_review_id(val)
+                                
+                                this.$store.state.admin.reset_administrator.password = val
+                                //    console.log(this.$store.state.admin.user_review_id) 
+                                }
+                            },
+                            
+						})
+						])
+                    }
+                })
+            },
+            remove(index){
+                this.$store.commit('set_user_infor_index',index)
+                this.$store.dispatch('remove_user')
+            }
   },
 	created(){
     this.$store.dispatch('show_user')

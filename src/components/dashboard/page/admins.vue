@@ -42,7 +42,7 @@ export default {
                         key: 'updated_at'
                     },
                     {
-                        title: '申請確認',
+                        title: '修改資料',
                         render: (h, params) => {
                             return h('div', [
                                 h('Button', {
