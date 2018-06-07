@@ -151,7 +151,7 @@ export default {
 		   },
   },
 	created(){
-    this.$store.dispatch('show_user')
+    // this.$store.dispatch('show_user')
 		
 	}
   }

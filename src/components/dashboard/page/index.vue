@@ -1,5 +1,5 @@
 <template>
-    <div class="layout">
+    <div class="layout" >
         <Layout class="container">
             <Sider breakpoint="md" collapsible :collapsed-width="78" v-model="isCollapsed">
                 <Menu active-name="1-1" theme="dark" width="auto" :class="menuitemClasses">
@@ -128,6 +128,14 @@ export default {
     this.$store.dispatch('admins')
     this.$store.dispatch('show_user')
     this.$store.dispatch('userGetwalletHistories',1)
+    this.$store.dispatch('userReview')
+    this.$store.dispatch('get_checkout_level1',1)
+    this.$store.dispatch('get_checkout_level2',1)
+    this.$store.dispatch('get_checkout_approval',1)
+    this.$store.dispatch('get_checkout_history',1)			
+    this.$store.dispatch('approval_levels')	
+    this.$store.dispatch('getAlluser')
+    
     
     
  

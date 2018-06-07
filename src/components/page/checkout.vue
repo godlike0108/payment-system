@@ -189,7 +189,7 @@ export default {
         },
   },
   created(){
-    this.$store.dispatch('userGetChekout',1)
+    // this.$store.dispatch('userGetChekout',1)
   }
 }
 </script>

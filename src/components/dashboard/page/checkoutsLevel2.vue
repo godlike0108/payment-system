@@ -101,8 +101,8 @@ export default {
                     content: `<p style="font-size:1.4em">確認刪除<h2>${this.$store.state.admin.user_list[index].name}</h2>的會員資料嗎？</p>`,
                     onOk: () => {
                         this.$Message.info('確認送出');
-                        _vm.$store.commit('set_user_infor_index',index)
-                        _vm.$store.dispatch('remove_user')
+                        _vm.$store.commit('set_checkout_level2_index',index)
+                        _vm.$store.commit('set_checkout_level2_status',1)
                     },
             })
                
@@ -114,8 +114,8 @@ export default {
                     content: `<p style="font-size:1.4em">確認刪除<h2>${this.$store.state.admin.user_list[index].name}</h2>的會員資料嗎？</p>`,
                     onOk: () => {
                         this.$Message.info('確認送出');
-                        _vm.$store.commit('set_user_infor_index',index)
-                        _vm.$store.dispatch('remove_user')
+                        _vm.$store.commit('set_checkout_level2_index',index)
+                        _vm.$store.commit('set_checkout_level2_status',-1)
                     },
             })
                
@@ -123,7 +123,7 @@ export default {
 		},
 
 		created(){
-			this.$store.dispatch('get_checkout_level2',1)
+			// this.$store.dispatch('get_checkout_level2',1)
 		}
 }
 </script>

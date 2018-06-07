@@ -108,8 +108,8 @@ export default {
   
 },
 created(){
-    this.$store.dispatch('admins')
-    this.$store.dispatch('getAlluser')
+    // this.$store.dispatch('admins')
+    // this.$store.dispatch('getAlluser')
         
 }
 }

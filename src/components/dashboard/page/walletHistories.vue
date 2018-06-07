@@ -59,11 +59,11 @@ export default {
 		methods: {
 			change(page){
             this.$store.dispatch('userGetwalletHistories',page)           
-            //    console.log(page)
+               console.log(page)
             },
 		},
 		created(){
-			this.$store.dispatch('userGetwalletHistories',1)
+			// this.$store.dispatch('userGetwalletHistories',1)
 		}
 }
 </script>

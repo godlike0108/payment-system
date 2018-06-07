@@ -62,7 +62,7 @@ export default {
         },
 
 		created(){
-			this.$store.dispatch('get_checkout_history',1)
+			// this.$store.dispatch('get_checkout_history',1)
 		}
 }
 </script>

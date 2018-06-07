@@ -146,8 +146,8 @@ export default {
     })
     },
     created(){
-        this.$store.dispatch('userGetChekout')
-        this.$store.dispatch('userGetwalletHistories',1)
+        // this.$store.dispatch('userGetChekout')
+        // this.$store.dispatch('userGetwalletHistories',1)
     }
 }
 </script>

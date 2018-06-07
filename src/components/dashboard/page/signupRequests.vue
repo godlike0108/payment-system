@@ -183,7 +183,17 @@ export default {
            } 
         },
         created(){
-           this.$store.dispatch('userReview')
+		//    this.$store.dispatch('userReview')
+		// 	this.$store.dispatch('get_checkout_level1',1)
+		// 	this.$store.dispatch('get_checkout_level2',1)
+		// 	this.$store.dispatch('get_checkout_approval',1)
+		// 	this.$store.dispatch('get_checkout_approval',1)
+		// 	this.$store.dispatch('get_checkout_history',1)			
+		// 	this.$store.dispatch('admins')	
+		// 	this.$store.dispatch('approval_levels')	
+    	// 	this.$store.dispatch('getAlluser')
+			
+		   
              
         }
 }

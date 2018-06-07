@@ -142,8 +142,8 @@ export default {
 		   
   },
   created(){
-	this.$store.dispatch('admins')	
-	this.$store.dispatch('approval_levels')	
+	// this.$store.dispatch('admins')	
+	// this.$store.dispatch('approval_levels')	
 	
 	  
   }

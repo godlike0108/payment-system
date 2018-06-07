@@ -28,15 +28,22 @@ export default {
         },
         checkout_approval: {
             data: null,
-            page_total: null
+            page_total: null,
+            index: null,
+            status: null
         },
         checkout_level2: {
             data: null,
-            page_total: null
+            page_total: null,
+            index: null,
+            status: null
+
         },
         checkout_level1: {
             data: null,
-            page_total: null
+            page_total: null,
+            index: null,
+            status: null
         }
 
     },
@@ -99,6 +106,48 @@ export default {
             state.edit_user_infor = state.user_list[index].id
             console.log(state.edit_user_infor)
         },
+        set_checkout_level1_index(state, index) {
+            state.checkout_level1.index = state.checkout_level1.data[index].checkout_reviews[0].id
+            console.log(state.checkout_level1.data[index].checkout_reviews[0].id)
+
+        },
+        set_checkout_level1_status(state, status) {
+            state.checkout_level1.status = status
+            console.log(status)
+        },
+        set_checkout_level1(state, data) {
+            state.checkout_level1.data = data.data
+            state.checkout_level1.page_total = data.last_page * 10
+            console.log(state.checkout_level1.data)
+        },
+        set_checkout_level2_index(state, index) {
+            state.checkout_level2.index = state.checkout_level2.data[index].checkout_reviews[0].id
+            console.log(state.checkout_level2.data[index].checkout_reviews[0].id)
+
+        },
+        set_checkout_level2_status(state, status) {
+            state.checkout_level2.status = status
+            console.log(status)
+        },
+        set_checkout_level2(state, data) {
+            state.checkout_level2.data = data.data
+            state.checkout_level2.page_total = data.last_page * 10
+                // console.log(state.checkout_level2.data)
+        },
+        set_checkout_approval(state, data) {
+            state.checkout_approval.data = data.data
+            state.checkout_approval.page_total = data.last_page * 10
+            console.log(state.checkout_approval)
+        },
+        set_checkout_approval_index(state, index) {
+            state.checkout_approval.index = state.checkout_approval.data[index].checkout_reviews[0].id
+            console.log(state.checkout_approval.data[index].checkout_reviews[0].id)
+
+        },
+        set_checkout_approval_status(state, status) {
+            state.checkout_approval.status = status
+            console.log(status)
+        },
         set_checkout_history(state, data) {
             state.checkout_history.data = data.data
             state.checkout_history.page_total = data.last_page * 10
@@ -106,21 +155,8 @@ export default {
                 // console.log(state.checkout_history.page_total)
 
         },
-        set_checkout_approval(state, data) {
-            state.checkout_approval.data = data.data
-            state.checkout_approval.page_total = data.last_page * 10
-            console.log(state.checkout_approval)
-        },
-        set_checkout_level2(state, data) {
-            state.checkout_level2.data = data.data
-            state.checkout_level2.page_total = data.last_page * 10
-                // console.log(state.checkout_level2.data)
-        },
-        set_checkout_level1(state, data) {
-            state.checkout_level1.data = data.data
-            state.checkout_level1.page_total = data.last_page * 10
-            console.log(state.checkout_level1.data)
-        }
+
+
     },
     actions: {
         userReview({ commit, state }) {

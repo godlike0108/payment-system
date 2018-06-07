@@ -181,7 +181,7 @@ export default {
         } 
     },
     created(){
-        this.$store.dispatch('userReview')
+        // this.$store.dispatch('userReview')
             
     }
 }

@@ -125,7 +125,7 @@ export default {
 		},
 
 		created(){
-			this.$store.dispatch('get_checkout_approval',1)
+			// this.$store.dispatch('get_checkout_approval',1)
 		}
 }
 </script>
