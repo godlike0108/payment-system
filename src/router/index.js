@@ -13,6 +13,7 @@ import dashboard_login from '@/components/dashboard/login'
 import dashboard_signin from '@/components/dashboard/signIn'
 import dashboard_index from '@/components/dashboard/page/index'
 
+import signup_requests from '@/components/dashboard/page/signupRequests'
 import admins from '@/components/dashboard/page/admins'
 import members from '@/components/dashboard/page/members'
 import signupRequests from '@/components/dashboard/page/signupRequests'
@@ -94,8 +95,8 @@ const vueRouter = new Router({
             meta: { requiresAuth: true },
             children: [{
                     path: '',
-                    name: 'dashboard_wallet',
-                    component: wallet,
+                    name: 'signup_requests',
+                    component: signup_requests,
                     meta: { requiresAuth: true },
                 },
                 {
@@ -111,7 +112,7 @@ const vueRouter = new Router({
                 {
                     path: 'checkoutsLevel1',
                     name: 'dashboard_checkoutsLevel1',
-                    component: checkoutsLevel2
+                    component: checkoutsLevel1
                 },
                 {
                     path: 'checkoutsLevel2',
@@ -121,7 +122,7 @@ const vueRouter = new Router({
                 {
                     path: 'checkoutsApproval',
                     name: 'dashboard_checkoutsLevel1',
-                    component: checkoutsLevel1
+                    component: checkoutsApproval
                 },
                 {
                     path: 'distributions',

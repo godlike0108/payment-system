@@ -1,5 +1,6 @@
 <template>
-  <div id="app">
+  <div id="app" >
+    {{bg_colir}}
     <!-- <img src="./assets/logo.png"> -->
     <router-view/>
   </div>
@@ -14,15 +15,22 @@ export default {
       }
      },
     computed: {
-      
-    },created(){
-      
-        let path = this.$router.history.current.fullPath
-        if(path === '/'){
+      bg_colir(){
+      let path = this.$router.history.current.fullPath
+        if(path === '/'|| path === '/firstlogin'){
           window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #0acffe 0%, #495aff 100%); ");
         }else if (path === '/dashboard') {
           window.document.body.setAttribute("style", "background-image:linear-gradient(to left, #1e3c72 0%, #2a5298 100%);; ");
         }
+      }
+    },created(){
+      
+        // let path = this.$router.history.current.fullPath
+        // if(path === '/'|| path === '/firstlogin'){
+        //   window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #0acffe 0%, #495aff 100%); ");
+        // }else if (path === '/dashboard') {
+        //   window.document.body.setAttribute("style", "background-image:linear-gradient(to left, #1e3c72 0%, #2a5298 100%);; ");
+        // }
       
     }
  

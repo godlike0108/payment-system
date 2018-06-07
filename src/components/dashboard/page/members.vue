@@ -142,18 +142,6 @@ export default {
                         _vm.$store.commit('set_user_infor_index',index)
                         _vm.$store.dispatch('remove_user')
                     },
-                    // render: (h) => {
-                    //     return h('div', [h('Input', {
-                    //         props: {
-                    //             value: this.value,
-                    //             autofocus: true,
-                    //             value: this.$store.state.admin.user_list[index].username,
-                    //             placeholder: '管理員帳號 6~12位英文數字'
-                    //         },
-                            
-                    //     })
-                    //     ])
-                    // }
             })
                
             },

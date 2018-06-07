@@ -9,7 +9,7 @@
                         <span>註冊申請</span>
                     </MenuItem>
                   
-                    <MenuItem v-if="this.$store.state.user.role_id === '2'" name="1-2" @click.native="toCheckoutsLevel1()">
+                    <MenuItem  name="1-2" @click.native="toCheckoutsLevel1()">
                         <Icon type="ios-calculator" size="18"></Icon>
                         <span>出金初審</span>
                     </MenuItem>
@@ -19,10 +19,10 @@
                     </MenuItem>
                     <MenuItem name="1-4" @click.native="toCheckoutsApproval()">
                         <Icon type="ios-calculator" size="18"></Icon>
-                        <span>代撥款項</span>
+                        <span>待撥款項</span>
                     </MenuItem>
                     <MenuItem name="1-5" @click.native="toDistributions()">
-                        <Icon type="filing" size="18"></Icon>
+                        <Icon type="ios-calculator" size="18"></Icon>
                         <span>出金查詢</span>
                     </MenuItem>
                     <MenuItem name="1-6" @click.native="toWallet()">
@@ -127,6 +127,9 @@ export default {
     this.$store.commit('setData')
     this.$store.dispatch('admins')
     this.$store.dispatch('show_user')
+    this.$store.dispatch('userGetwalletHistories')
+    
+    
  
 }
 }

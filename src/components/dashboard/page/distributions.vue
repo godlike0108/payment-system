@@ -1,11 +1,58 @@
 <template>
  <div>
- 	撥款紀錄
+ 	<Row type="flex" justify="center" align="middle">
+        <Col :xs="20" :sm="16" :md="16" :lg="16">
+            <Tabs value="name1">
+            <TabPane label="出金紀錄" name="name1">
+                <Table height="500" :columns="columns1" :data="get_checkout_history" ></Table>
+            </TabPane>
+            </Tabs>
+		</Col>
+	</Row>
  </div>
 </template>
 
 <script>
+import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
+export default {
+		data() {
+			return {
+				 columns1: [
+                    
+                    {
+                        title: '帳戶名稱',
+                        key: 'name'
+                    },
+                    {
+                        title: '出金金額',
+                        key: 'amount'
+					},
+					{
+                        title: '銀行',
+                        key: 'bank'
+                    },
+                    {
+                        title: '銀行帳戶',
+                        key: 'bank_account'
+                    }, 
+                    {
+                        title: '申請時間',
+                        key: 'created_at'
+                    },  
+                   
+				]}
+		},
+		computed:{
+			get_checkout_history(){
+				console.log(this.$store.getters.get_checkout_history)
+				 return this.$store.getters.get_checkout_history
+			}
+		},
 
+		created(){
+			this.$store.dispatch('get_checkout_history')
+		}
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

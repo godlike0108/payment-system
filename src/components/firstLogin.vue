@@ -16,9 +16,13 @@
                     </Row>
                 </form-item>
                 <form-item >
-                    <i-input  @input="firstChagePassword" :value="password"  placeholder=" 請變更密碼" clearable>
+                    <i-input  @input="firstChagePassword" :value="password"  placeholder=" 請變更密碼 6~12位英文數字混合" clearable>
                         <icon type="person" size="20" slot="prepend"></icon>
                     </i-input>
+                    <div>請變更密碼 6~12位英文數字混合</div>
+                </form-item>
+                <form-item >
+                    <Button type="primary" @click="put_firstChagePassword"  size="large">確認送出</Button>
                 </form-item>
              </i-form>
             </Col>
@@ -41,8 +45,19 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
       })
   },
   methods:{
-      firstChagePassword(){
-          commit('firstChagePassword')
+      firstChagePassword(password){
+        //   console.log(password)
+          let reg=/^([a-zA-Z]+\d+|\d+[a-zA-Z]+)[a-zA-Z0-9]*$/
+          if(reg.test(password) && password.length>= 6 && password.length<= 12){
+               this.$store.commit('firstChagePassword',password)
+          }
+        //   
+      },
+      put_firstChagePassword(){
+          if(this.$store.state.user.username.length >0 ){
+          this.$store.dispatch('put_firstChagePassword')
+          }
+
       }
   },
    created() {

@@ -1,19 +1,24 @@
 <template>
  <div>
-     <Row type="flex" justify="end" align="top" class="userLine">
-        <Col :xs="20" :sm="16" :md="16" :lg="16">
-            <Row type="flex" justify="end" align="top">
-            <Col :xs="24" :sm="8" :md="8" :lg="6">身份：<span class="user">{{this.$store.state.user.name}}{{this.$store.state.admin.user}}</span></Col>
-            <!-- <Col :xs="24" :sm="8" :md="8" :lg="6">剩餘金額：<span class="money">5000</span></Col> -->
-            </Row>
-        </Col>
-
-        </Row>
+     
         <Row type="flex" justify="center" align="middle">
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
-            <TabPane label="註冊申請" name="name1">
-                <Table height="400" :columns="columns1" :data="get_user_review_list"></Table>
+            <TabPane label="撥款" name="name1">
+                 <Form ref="formCustom"  :label-width="80">
+                    <FormItem label="轉出帳號" prop="passwd">
+                        <Input type="text"  @input="updateToUserName"></Input>
+                    </FormItem>
+                    
+                    <FormItem label="轉出金額" prop="age">
+                        <Input type="text" @input="updateToAmount"  ></Input>
+                        <div v-if="this.notNaN" style="text-align:left;color:#ed3f14" >請輸入數字</div>
+                    </FormItem>
+                    <FormItem>
+                        <Button type="primary" @click="handleSubmit('formCustom');userTransactions()">送出</Button>
+                        <Button type="ghost" @click="handleReset('formCustom')" style="margin-left: 8px">重新設定</Button>
+                    </FormItem>
+                </Form>
             </TabPane>
         </Tabs>
         </Col>
@@ -22,6 +27,7 @@
 </template>
 
 <script>
+import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 export default {
   name: 'HelloWorld',
   data () {
@@ -59,6 +65,7 @@ export default {
     };
      return {
         isCollapsed: false,
+        notNaN:null,
        formCustom: {
             passwd: '',
             // passwdCheck: '',
@@ -131,61 +138,52 @@ export default {
       }
   },
    methods: {
-            handleSubmit (name) {
-                this.$refs[name].validate((valid) => {
-                    if (valid) {
-                        this.$Message.success('Success!');
-                    } else {
-                        this.$Message.error('Fail!');
-                    }
-                })
-            },
-            handleReset (name) {
-                this.$refs[name].resetFields();
-            },
-             show (index) {
-                 
-                let _vm = this
-                this.$Modal.confirm({
-                    onOk: () => {
-                        this.$Message.info('確認送出');
-                        _vm.put_user_id(index)
-                        console.log()
-                    },
-                    render: (h) => {
-                        return h('Input', {
-                            props: {
-                                value: this.value,
-                                autofocus: true,
-                                placeholder: '用戶帳號 6~12位英文數字'
-                            },
-                            on: {
-                                input: (val) => {
-                                    // this.value = val;
-                                //   set_user_review_id(val)
-                                
-                                this.$store.state.admin.user_review_id = val
-                                //    console.log(this.$store.state.admin.user_review_id) 
-                                }
-                            },
-                            
-                        })
-                    }
-                })
-            },
-           put_user_id(index){
-            this.$store.state.admin.user_review_id_index = this.$store.state.admin.user_review_list[index].id
-            this.$store.dispatch('put_user_id')
-            // setTimeout(()=>{
-            //     this.$store.dispatch('userReview')  
-            // },2500)
-            
-           } 
+       ...mapActions({
+        'userTransactions' : 'userTransactions',
+    }),
+       updateToUserName(to_username){
+          this.$store.commit('updateToUserName', to_username)
+      },
+      updateToAmount(amount){
+          let r = /^[0-9]*[1-9][0-9]*$/
+          if(r.test(amount) === false){
+              this.notNaN = true
+          }else{
+          this.notNaN = false   
+            if (amount === 0){
+
+            } else {
+            this.$store.commit('updateToAmount', amount)              
+            }
+          }
+          
+      },
+        handleSubmit (name) {
+            this.$refs[name].validate((valid) => {
+                if (valid) {
+                    this.$Message.success('Success!');
+                } else {
+                    this.$Message.error('Fail!');
+                }
+            })
         },
-        created(){
-           this.$store.dispatch('userReview')
-             
-        }
+        handleReset (name) {
+            this.$refs[name].resetFields();
+        },
+        
+        put_user_id(index){
+        this.$store.state.admin.user_review_id_index = this.$store.state.admin.user_review_list[index].id
+        this.$store.dispatch('put_user_id')
+        // setTimeout(()=>{
+        //     this.$store.dispatch('userReview')  
+        // },2500)
+        
+        } 
+    },
+    created(){
+        this.$store.dispatch('userReview')
+            
+    }
 }
 </script>
 

@@ -33,6 +33,7 @@
         </Tabs>
         </Col>
     </Row>
+    <Page :total="totle" @on-change="change"></Page>
  </div>
 </template>
 
@@ -49,15 +50,6 @@ export default {
                 callback();
             }
         };
-    // const validatePassCheck = (rule, value, callback) => {
-    //     if (value === '') {
-    //         callback(new Error('Please enter your password again'));
-    //     } else if (value !== this.formCustom.passwd) {
-    //         callback(new Error('The two input passwords do not match!'));
-    //     } else {
-    //         callback();
-    //     }
-    // };
     const validateAge = (rule, value, callback) => {
         if (!value || value <= 0) {
             return callback(new Error('轉出金額不能為空'));
@@ -75,6 +67,7 @@ export default {
     };
      return {
         isCollapsed: false,
+        totle:20,
         columns1: [
                     
                     {
@@ -124,6 +117,7 @@ export default {
   }
   },
    methods: {
+       change(index){console.log(index)},
        updateToUserName(to_username){
           this.$store.commit('updateToUserName', to_username)
         //   console.log(to_username)

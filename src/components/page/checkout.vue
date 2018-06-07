@@ -153,7 +153,7 @@ export default {
              {
                 item.checkout_status_id = '已撥款'
              }
-             console.log(item)
+            //  console.log(item)
               
              return item
           })

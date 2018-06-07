@@ -22,6 +22,8 @@ export default {
         edit_user_infor: null,
         approval_levels_amount: null,
         new_approval_amount: null,
+        checkout_history: null,
+        checkout_approval: null
 
     },
     getters: {
@@ -34,6 +36,12 @@ export default {
         get_approval_amount(state) {
             console.log(state.approval_levels_amount)
             return state.approval_levels_amount
+        },
+        get_checkout_history(state) {
+            return state.checkout_history
+        },
+        get_checkout_approval(state) {
+            return state.checkout_approval
         }
     },
     mutations: {
@@ -43,7 +51,7 @@ export default {
         },
         set_user_review(state, data) {
             state.user_review_list = data
-            console.log(state.user_review_list)
+                // console.log(state.user_review_list)
         },
         set_user_review_id(state, data) {
             console.log(data)
@@ -58,6 +66,14 @@ export default {
         set_user_infor_index(state, index) {
             state.edit_user_infor = state.user_list[index].id
             console.log(state.edit_user_infor)
+        },
+        set_checkout_history(state, data) {
+            state.checkout_history = data
+
+        },
+        set_checkout_approval(state, data) {
+            state.checkout_approval = data
+
         }
     },
     actions: {
@@ -186,6 +202,70 @@ export default {
                     let data = response.data.data
                         // console.log(data)
                     this.dispatch('show_user')
+
+                })
+        },
+        get_checkout_history({ commit, state }) {
+            let token = sessionStorage.getItem('token')
+            axios.get(`${baseURL}/api/checkouts?checkout_status_id=2`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    }
+                })
+                .then((response) => {
+                    let data = response.data.data
+                        // console.log(data)
+                    commit('set_checkout_history', data)
+
+                })
+        },
+        get_checkout_approval({ commit, state }) {
+            let token = sessionStorage.getItem('token')
+            axios.get(`${baseURL}/api/checkouts?checkout_status_id=1`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    }
+                })
+                .then((response) => {
+                    let data = response.data.data
+                    console.log(data)
+                        // commit('set_checkout_approval', data)
+
+                })
+        },
+        get_checkout_level2({ commit, state }) {
+            let token = sessionStorage.getItem('token')
+            axios.get(`${baseURL}/api/checkouts?role_id=1`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    }
+                })
+                .then((response) => {
+                    let data = response.data.data
+                    console.log(data)
+                        // commit('set_checkout_approval', data)
+
+                })
+        },
+        get_checkout_level1({ commit, state }) {
+            let token = sessionStorage.getItem('token')
+            axios.get(`${baseURL}/api/checkouts?role_id=2`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    }
+                })
+                .then((response) => {
+                    let data = response.data.data
+                    console.log(data)
+                        // commit('set_checkout_approval', data)
 
                 })
         }

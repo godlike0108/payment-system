@@ -5,9 +5,8 @@ const baseURL = 'http://wallet-staging.ap-northeast-1.elasticbeanstalk.com'
 let token = sessionStorage.getItem('token')
 export default {
     login({ commit, state }) {
-        console.log('login')
-            // console.log(commit, state)
-            // console.log(state.user)
+        // console.log(commit, state)
+        // console.log(state.user)
         axios.post(`${baseURL}/api/login`, {
                 username: state.user.username,
                 password: state.user.password
@@ -23,6 +22,7 @@ export default {
                 let password = state.user.password
                 let role_id = data.role_id
                 let balance = data.wallets["0"].balance
+                let id = data.id
 
 
                 console.log(data)
@@ -34,6 +34,8 @@ export default {
                 sessionStorage.setItem('username', username)
                 sessionStorage.setItem('role_id', role_id)
                 sessionStorage.setItem('balance', balance)
+                sessionStorage.setItem('id', id)
+
 
                 commit('setData')
                 if (role_id === 1 || role_id === 2) {
@@ -103,9 +105,10 @@ export default {
             username: this.state.updateProfile.username,
             password: this.state.updateProfile.password
         });
+        let id = sessionStorage.getItem('id')
         let token = sessionStorage.getItem('token')
         console.log(state.updateProfile.name, state.updateProfile.username, state.updateProfile.password)
-        axios.post(`${baseURL}/api/users`, data, {
+        axios.put(`${baseURL}/api/users${id}`, data, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -220,5 +223,22 @@ export default {
 
             })
     },
+    put_firstChagePassword({ commit, state }) {
+        let id = sessionStorage.getItem('id')
+        let password = state.user.password
+        let data = JSON.stringify({ password: password })
+        console.log(password)
+        axios.put(`${baseURL}/api/users/${id}`, data, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then((response) => {
+                console.log(response)
+                    // commit('setData', data)
+                this.dispatch('login')
+            })
+    }
 
 }

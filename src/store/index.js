@@ -29,7 +29,8 @@ const state = {
         token: '',
         mobile: '',
         role_id: '',
-        balance: ''
+        balance: '',
+        id: ''
     },
     updateProfile: {
         name: '',
@@ -83,7 +84,7 @@ const getters = {
     getTransition() {
         // console.log(state.transition.data)
         return state.wallet.histories
-    }
+    },
 }
 const mutations = {
     wrong_login(state) {
@@ -122,6 +123,7 @@ const mutations = {
         let password = sessionStorage.getItem('password')
         let role_id = sessionStorage.getItem('role_id')
         let balance = sessionStorage.getItem('balance')
+        let id = sessionStorage.getItem('id')
 
         state.user.email = email
         state.user.token = token
@@ -131,6 +133,7 @@ const mutations = {
         state.user.password = password
         state.user.role_id = role_id
         state.user.balance = balance
+        state.user.id = id
 
         state.updateProfile.name = name
         state.updateProfile.username = username
@@ -140,6 +143,7 @@ const mutations = {
     },
     updatePassword(state, password) {
         state.user.password = password
+
     },
     updateUsername(state, username) {
         state.user.username = username
@@ -169,7 +173,7 @@ const mutations = {
     },
     firstChagePassword(state, password) {
         state.user.password = password
-        console.log(state.user.password)
+            // console.log(state.user.password)
     },
     userChekout(state, data) {
         state.checkout.data = data
@@ -233,7 +237,8 @@ const mutations = {
     setAllusers(state, data) {
         state.Allusers = data
             // console.log(data)
-    }
+    },
+
 }
 
 export default new Vuex.Store({
