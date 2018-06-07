@@ -33,6 +33,10 @@ export default {
         checkout_level2: {
             data: null,
             page_total: null
+        },
+        checkout_level1: {
+            data: null,
+            page_total: null
         }
 
     },
@@ -63,7 +67,13 @@ export default {
             return state.checkout_level2.data
         },
         get_checkout_level2_page_total(state) {
-            return state.checkout_level2.page_total
+            return state.checkout_level1.page_total
+        },
+        get_checkout_level1(state) {
+            return state.checkout_level1.data
+        },
+        get_checkout_level1_page_total(state) {
+            return state.checkout_level1.page_total
         }
     },
     mutations: {
@@ -105,6 +115,11 @@ export default {
             state.checkout_level2.data = data.data
             state.checkout_level2.page_total = data.last_page * 10
                 // console.log(state.checkout_level2.data)
+        },
+        set_checkout_level1(state, data) {
+            state.checkout_level1.data = data.data
+            state.checkout_level1.page_total = data.last_page * 10
+            console.log(state.checkout_level1.data)
         }
     },
     actions: {
@@ -270,6 +285,22 @@ export default {
         },
         get_checkout_level2({ commit, state }, payload) {
             let token = sessionStorage.getItem('token')
+            axios.get(`${baseURL}/api/checkouts?status=0&role_id=1?page=${payload}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    }
+                })
+                .then((response) => {
+                    let data = response.data
+                        // console.log(response)
+                    commit('set_checkout_level2', data)
+
+                })
+        },
+        get_checkout_level1({ commit, state }, payload) {
+            let token = sessionStorage.getItem('token')
             axios.get(`${baseURL}/api/checkouts?status=0&role_id=2?page=${payload}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -280,23 +311,7 @@ export default {
                 .then((response) => {
                     let data = response.data
                     console.log(response)
-                    commit('set_checkout_level2', data)
-
-                })
-        },
-        get_checkout_level1({ commit, state }) {
-            let token = sessionStorage.getItem('token')
-            axios.get(`${baseURL}/api/checkouts?role_id=2`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                    }
-                })
-                .then((response) => {
-                    let data = response.data.data
-                    console.log(data)
-                        // commit('set_checkout_approval', data)
+                    commit('set_checkout_level1', data)
 
                 })
         }

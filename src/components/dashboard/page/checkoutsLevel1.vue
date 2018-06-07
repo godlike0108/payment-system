@@ -4,9 +4,11 @@
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
             <TabPane label="出金初審" name="name1">
-                <Table height="500" :columns="columns1" :data="get_checkout_approval" ></Table>
+                <Table height="500" :columns="columns1" :data="get_checkout_level1" ></Table>
             </TabPane>
             </Tabs>
+        <Page :total="get_checkout_level1_page_total" @on-change="change" style="margin:15px"></Page>
+            
 		</Col>
 	</Row>
  </div>
@@ -59,7 +61,7 @@ export default {
                                             this.show(params.index)
                                         }
                                     }
-                                }, '修改'), h('Button', {
+                                }, '同意'), h('Button', {
                                     props: {
                                         type: 'error',
                                         size: 'small'
@@ -70,7 +72,7 @@ export default {
                                             this.remove(params.index)
                                         }
                                     }
-                                }, '刪除')
+                                }, '拒絕')
                                
                             ]);
                         }
@@ -79,12 +81,19 @@ export default {
 				]}
 		},
 		computed:{
-			get_checkout_approval(){
-				console.log(this.$store.getters.get_checkout_approval)
-				 return this.$store.getters.get_checkout_approval
-			}
+			get_checkout_level1(){
+				console.log(this.$store.getters.get_checkout_level1)
+				 return this.$store.getters.get_checkout_level1
+            },
+            get_checkout_level1_page_total(){
+                return this.$store.getters.get_checkout_level1_page_total
+            }
 		},
 		methods: {
+            change(page){
+            this.$store.dispatch('get_checkout_level1',page)           
+               console.log(page)
+            },
 			show(index){
                  let _vm = this
                 this.$Modal.confirm({
@@ -114,7 +123,7 @@ export default {
 		},
 
 		created(){
-			this.$store.dispatch('get_checkout_level1')
+			this.$store.dispatch('get_checkout_level1',1)
 		}
 }
 </script>
