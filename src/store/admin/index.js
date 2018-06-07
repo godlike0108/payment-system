@@ -118,7 +118,7 @@ export default {
         set_checkout_level1(state, data) {
             state.checkout_level1.data = data.data
             state.checkout_level1.page_total = data.last_page * 10
-            console.log(state.checkout_level1.data)
+                // console.log(state.checkout_level1.data)
         },
         set_checkout_level2_index(state, index) {
             state.checkout_level2.index = state.checkout_level2.data[index].checkout_reviews[0].id
@@ -348,6 +348,26 @@ export default {
                     let data = response.data
                     console.log(response)
                     commit('set_checkout_level1', data)
+
+                })
+        },
+        put_checkout_review_pudate({ commit, state }, payload) {
+            let token = sessionStorage.getItem('token')
+            let status = payload.status
+            let data = JSON.stringify({ review_status_id: status })
+            console.log(payload)
+            axios.put(`${baseURL}/api/checkout-reviews/${payload.id}`, data, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    }
+                })
+                .then((response) => {
+                    let data = response.data
+                    console.log(response)
+                    this.dispatch(`get_checkout_${payload.api}`)
+                        // commit('set_checkout_level1', data)
 
                 })
         }

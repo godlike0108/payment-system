@@ -103,8 +103,10 @@ export default {
                     content: `<p style="font-size:1.4em">確認刪除<h2>${this.$store.state.admin.user_list[index].name}</h2>的會員資料嗎？</p>`,
                     onOk: () => {
                         this.$Message.info('確認送出');
-                        _vm.$store.commit('set_user_infor_index',index)
-                        _vm.$store.dispatch('remove_user')
+                        _vm.$store.commit('set_checkout_approval_index',index)
+                        _vm.$store.commit('set_checkout_approval_status',-1)
+                        _vm.$store.dispatch('put_checkout_review_pudate',{id:this.$store.state.admin.checkout_level1.index,status:this.$store.state.admin.checkout_level1.status,api:'approval'})
+                    
                     },
             })
                
@@ -116,8 +118,10 @@ export default {
                     content: `<p style="font-size:1.4em">確認刪除<h2>${this.$store.state.admin.user_list[index].name}</h2>的會員資料嗎？</p>`,
                     onOk: () => {
                         this.$Message.info('確認送出');
-                        _vm.$store.commit('set_user_infor_index',index)
-                        _vm.$store.dispatch('remove_user')
+                        _vm.$store.commit('set_checkout_approval_index',index)
+                        _vm.$store.commit('set_checkout_approval_status',1)
+                        _vm.$store.dispatch('put_checkout_review_pudate',{id:this.$store.state.admin.checkout_level1.index,status:this.$store.state.admin.checkout_level1.status,api:'approval'})
+                        
                     },
             })
                
