@@ -42,6 +42,7 @@
             </TabPane>
             <TabPane label="出金回報" name="name2">
             <Table height="400" :columns="columns1" :data="getCheckout"></Table>
+            <Page :total="get_checkout_total" @on-change="change" style="margin:15px"></Page>        
             </TabPane>
             </Tabs>
         </Col>
@@ -157,6 +158,9 @@ export default {
               
              return item
           })
+      },
+      get_checkout_total(){
+          return this.$store.getters.get_checkout_total
       }
   },
   methods: {
@@ -179,9 +183,13 @@ export default {
         setCheckout_sms(sms){
             this.$store.commit('setCheckout_sms',sms)
         },
+        change(page){
+        this.$store.dispatch('userGetChekout',page)           
+        //    console.log(page)
+        },
   },
   created(){
-    this.$store.dispatch('userGetChekout')
+    this.$store.dispatch('userGetChekout',1)
   }
 }
 </script>

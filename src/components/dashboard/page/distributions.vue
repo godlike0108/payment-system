@@ -7,6 +7,9 @@
                 <Table height="500" :columns="columns1" :data="get_checkout_history" ></Table>
             </TabPane>
             </Tabs>
+
+        <Page :total="get_checkout_history_page_total" @on-change="change" style="margin:15px"></Page>
+            
 		</Col>
 	</Row>
  </div>
@@ -46,11 +49,20 @@ export default {
 			get_checkout_history(){
 				console.log(this.$store.getters.get_checkout_history)
 				 return this.$store.getters.get_checkout_history
-			}
-		},
+            },
+            get_checkout_history_page_total(){
+            return this.$store.getters.get_checkout_history_page_total
+     },
+        },
+        methods: {
+            change(page){
+            this.$store.dispatch('get_checkout_history',page)           
+            //    console.log(page)
+            },
+        },
 
 		created(){
-			this.$store.dispatch('get_checkout_history')
+			this.$store.dispatch('get_checkout_history',1)
 		}
 }
 </script>

@@ -101,20 +101,23 @@ export default {
     },
     updateProfile({ commit, state }) {
         let data = JSON.stringify({
-            name: this.state.updateProfile.name,
-            username: this.state.updateProfile.username,
-            password: this.state.updateProfile.password
+            name: this.state.user.name,
+            username: this.state.user.username,
+            password: this.state.user.password
         });
         let id = sessionStorage.getItem('id')
         let token = sessionStorage.getItem('token')
-        console.log(state.updateProfile.name, state.updateProfile.username, state.updateProfile.password)
-        axios.put(`${baseURL}/api/users${id}`, data, {
+        console.log(state.user.name, state.user.username, state.user.password)
+        axios.put(`${baseURL}/api/users/${id}`, data, {
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
                 }
             })
             .then((response) => {
                 console.log(response)
+                this.dispatch('login')
                     // console.log(password, username, name)
             })
     },
@@ -182,7 +185,7 @@ export default {
             sms: state.checkout.sms
         })
         let token = sessionStorage.getItem('token')
-
+        console.log(data)
         axios.post(`${baseURL}/api/checkouts`, data, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -192,7 +195,9 @@ export default {
 
             })
             .then((response) => {
-                // console.log(response)
+                console.log(response)
+                this.dispatch('userGetChekout', 1)
+
             })
     },
     admins({ commit, state }) {

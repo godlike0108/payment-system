@@ -22,8 +22,14 @@ export default {
         edit_user_infor: null,
         approval_levels_amount: null,
         new_approval_amount: null,
-        checkout_history: null,
-        checkout_approval: null
+        checkout_history: {
+            data: null,
+            page_total: null
+        },
+        checkout_approval: {
+            data: null,
+            page_total: null
+        }
 
     },
     getters: {
@@ -38,10 +44,16 @@ export default {
             return state.approval_levels_amount
         },
         get_checkout_history(state) {
-            return state.checkout_history
+            return state.checkout_history.data
+        },
+        get_checkout_history_page_total(state) {
+            return state.checkout_history.page_total
         },
         get_checkout_approval(state) {
-            return state.checkout_approval
+            return state.checkout_approval.data
+        },
+        get_checkout_approval_page_total(state) {
+            return state.checkout_approval.page_total
         }
     },
     mutations: {
@@ -68,12 +80,16 @@ export default {
             console.log(state.edit_user_infor)
         },
         set_checkout_history(state, data) {
-            state.checkout_history = data
+            state.checkout_history.data = data.data
+            state.checkout_history.page_total = data.last_page * 10
+                // console.log(state.checkout_history.data)
+                // console.log(state.checkout_history.page_total)
 
         },
         set_checkout_approval(state, data) {
-            state.checkout_approval = data
-
+            state.checkout_approval.data = data.data
+            state.checkout_approval.page_total = data.last_page * 10
+            console.log(state.checkout_approval)
         }
     },
     actions: {
@@ -205,9 +221,9 @@ export default {
 
                 })
         },
-        get_checkout_history({ commit, state }) {
+        get_checkout_history({ commit, state }, payload) {
             let token = sessionStorage.getItem('token')
-            axios.get(`${baseURL}/api/checkouts?checkout_status_id=2`, {
+            axios.get(`${baseURL}/api/checkouts?checkout_status_id=2?page=${payload}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
@@ -215,15 +231,15 @@ export default {
                     }
                 })
                 .then((response) => {
-                    let data = response.data.data
-                        // console.log(data)
+                    let data = response.data
+                    console.log(data)
                     commit('set_checkout_history', data)
 
                 })
         },
-        get_checkout_approval({ commit, state }) {
+        get_checkout_approval({ commit, state }, payload) {
             let token = sessionStorage.getItem('token')
-            axios.get(`${baseURL}/api/checkouts?checkout_status_id=1`, {
+            axios.get(`${baseURL}/api/checkouts?status=1?page=${payload}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
@@ -231,9 +247,9 @@ export default {
                     }
                 })
                 .then((response) => {
-                    let data = response.data.data
-                    console.log(data)
-                        // commit('set_checkout_approval', data)
+                    let data = response.data
+                        // console.log(data)
+                    commit('set_checkout_approval', data)
 
                 })
         },

@@ -89,6 +89,9 @@ const getters = {
     },
     get_wallet_page_total() {
         return state.wallet.page_total
+    },
+    get_checkout_total() {
+        return state.checkout.page_total
     }
 }
 const mutations = {
@@ -191,15 +194,15 @@ const mutations = {
         state.wallet.page_total = data.last_page * 10
     },
     setProfileName(state, name) {
-        state.updateProfile.name = name
+        state.user.name = name
         console.log(state.updateProfile.name)
     },
     setProfileUsername(state, username) {
-        state.updateProfile.username = username
+        state.user.username = username
         console.log(state.updateProfile.username)
     },
     setProfilePassword(state, password) {
-        state.updateProfile.password = password
+        state.user.password = password
         console.log(state.updateProfile.password)
     },
     //commit checkout input value

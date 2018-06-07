@@ -7,6 +7,8 @@
                 <Table height="500" :columns="columns1" :data="get_checkout_approval" ></Table>
             </TabPane>
             </Tabs>
+        <Page :total="get_checkout_approval_page_total" @on-change="change" style="margin:15px"></Page>
+            
 		</Col>
 	</Row>
  </div>
@@ -82,9 +84,18 @@ export default {
 			get_checkout_approval(){
 				console.log(this.$store.getters.get_checkout_approval)
 				 return this.$store.getters.get_checkout_approval
-			}
+            },
+            get_checkout_approval_page_total(){
+				console.log(this.$store.getters.get_checkout_approval_page_total)
+				 return this.$store.getters.get_checkout_approval_page_total
+            },
+            
 		},
 		methods: {
+            change(page){
+            this.$store.dispatch('get_checkout_approval',page)           
+            //    console.log(page)
+            },
 			show(index){
                  let _vm = this
                 this.$Modal.confirm({
@@ -114,7 +125,7 @@ export default {
 		},
 
 		created(){
-			this.$store.dispatch('get_checkout_approval')
+			this.$store.dispatch('get_checkout_approval',1)
 		}
 }
 </script>

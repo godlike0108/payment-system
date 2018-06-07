@@ -40,7 +40,7 @@ export default {
 		},
 		computed:{
 			userGetwalletHistories(){
-				let data = this.$store.getters.getTransition.data
+				let data = this.$store.getters.getTransition
 				console.log(data)
 				data.map(item=>{
 
@@ -50,7 +50,7 @@ export default {
 		},
 
 		created(){
-			this.$store.dispatch('userGetwalletHistories')
+			this.$store.dispatch('userGetwalletHistories',1)
 		}
 }
 </script>

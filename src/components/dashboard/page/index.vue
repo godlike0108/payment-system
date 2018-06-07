@@ -127,7 +127,7 @@ export default {
     this.$store.commit('setData')
     this.$store.dispatch('admins')
     this.$store.dispatch('show_user')
-    this.$store.dispatch('userGetwalletHistories')
+    this.$store.dispatch('userGetwalletHistories',1)
     
     
  
