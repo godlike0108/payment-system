@@ -29,6 +29,10 @@ export default {
         checkout_approval: {
             data: null,
             page_total: null
+        },
+        checkout_level2: {
+            data: null,
+            page_total: null
         }
 
     },
@@ -54,6 +58,12 @@ export default {
         },
         get_checkout_approval_page_total(state) {
             return state.checkout_approval.page_total
+        },
+        get_checkout_level2(state) {
+            return state.checkout_level2.data
+        },
+        get_checkout_level2_page_total(state) {
+            return state.checkout_level2.page_total
         }
     },
     mutations: {
@@ -90,6 +100,11 @@ export default {
             state.checkout_approval.data = data.data
             state.checkout_approval.page_total = data.last_page * 10
             console.log(state.checkout_approval)
+        },
+        set_checkout_level2(state, data) {
+            state.checkout_level2.data = data.data
+            state.checkout_level2.page_total = data.last_page * 10
+                // console.log(state.checkout_level2.data)
         }
     },
     actions: {
@@ -141,7 +156,7 @@ export default {
             let username = state.reset_administrator.username
             let password = state.reset_administrator.password
             let data = JSON.stringify({ username: username, password: password })
-            console.log(id, username, password)
+                // console.log(id, username, password)
             axios.put(`${baseURL}/api/admins/${id}`, data, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -253,9 +268,9 @@ export default {
 
                 })
         },
-        get_checkout_level2({ commit, state }) {
+        get_checkout_level2({ commit, state }, payload) {
             let token = sessionStorage.getItem('token')
-            axios.get(`${baseURL}/api/checkouts?role_id=1`, {
+            axios.get(`${baseURL}/api/checkouts?status=0&role_id=2?page=${payload}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
@@ -263,9 +278,9 @@ export default {
                     }
                 })
                 .then((response) => {
-                    let data = response.data.data
-                    console.log(data)
-                        // commit('set_checkout_approval', data)
+                    let data = response.data
+                    console.log(response)
+                    commit('set_checkout_level2', data)
 
                 })
         },

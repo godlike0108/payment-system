@@ -4,9 +4,11 @@
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
             <TabPane label="撥款紀錄" name="name1">
-                <Table height="500" :columns="columns1" :data="userGetwalletHistories" ></Table>
+                <Table height="281" :columns="columns1" :data="userGetwalletHistories" ></Table>
             </TabPane>
             </Tabs>
+        <Page :total="get_checkout_history_page_total" @on-change="change" style="margin:15px"></Page>
+			
 		</Col>
 	</Row>
  </div>
@@ -20,16 +22,16 @@ export default {
 				 columns1: [
                     
                     {
-                        title: '會員名稱',
-                        key: 'name'
+                        title: '帳號名稱',
+                        key: 'user_username'
                     },
                     {
                         title: '撥款金額',
                         key: 'amount'
                     },
                     {
-                        title: 'email',
-                        key: 'email'
+                        title: '手機',
+                        key: 'user_phone'
                     }, 
                     {
                         title: '撥款時間',
@@ -43,12 +45,23 @@ export default {
 				let data = this.$store.getters.getTransition
 				console.log(data)
 				data.map(item=>{
-
+					item.user_username = item.user.username
+					item.user_phone = item.user.mobile
+					return item
 				})
-				 return this.$store.getters.getTransition.data
+				 return this.$store.getters.getTransition
+			},
+			get_checkout_history_page_total(){
+				console.log(this.$store.getters.get_wallet_page_total)
+				return this.$store.getters.get_wallet_page_total
 			}
 		},
-
+		methods: {
+			change(page){
+            this.$store.dispatch('userGetwalletHistories',page)           
+            //    console.log(page)
+            },
+		},
 		created(){
 			this.$store.dispatch('userGetwalletHistories',1)
 		}

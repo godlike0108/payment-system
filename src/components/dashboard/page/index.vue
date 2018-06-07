@@ -23,7 +23,7 @@
                     </MenuItem>
                     <MenuItem name="1-5" @click.native="toDistributions()">
                         <Icon type="ios-calculator" size="18"></Icon>
-                        <span>出金查詢</span>
+                        <span>出金紀錄</span>
                     </MenuItem>
                     <MenuItem name="1-6" @click.native="toWallet()">
                         <Icon type="filing" size="18"></Icon>

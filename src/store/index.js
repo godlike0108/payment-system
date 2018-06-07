@@ -190,8 +190,10 @@ const mutations = {
 
     },
     userGetwalletHistories(state, data) {
+
         state.wallet.histories = data.data
         state.wallet.page_total = data.last_page * 10
+            // console.log(state.wallet.page_total)
     },
     setProfileName(state, name) {
         state.user.name = name
