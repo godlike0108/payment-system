@@ -118,34 +118,35 @@ export default {
                     // console.log(password, username, name)
             })
     },
-    userGetChekout({ commit, state }) {
+    userGetChekout({ commit, state }, payload) {
         let role_id = sessionStorage.getItem('role_id')
         let token = sessionStorage.getItem('token')
 
-        axios.get(`${baseURL}/api/checkouts?role_id=${role_id}`, {
+        axios.get(`${baseURL}/api/checkouts?role_id=${role_id}?page=${payload}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             })
             .then((response) => {
-                let data = response.data.data
+                let data = response.data
                     // console.log(response)
                 commit('userChekout', data)
 
             })
     },
-    userGetwalletHistories({ commit, state }) {
+    userGetwalletHistories({ commit, state }, payload) {
         // let role_id = sessionStorage.getItem('role_id')
+        // console.log(payload)
         let token = sessionStorage.getItem('token')
 
-        axios.get(`${baseURL}/api/wallet-histories`, {
+        axios.get(`${baseURL}/api/wallet-histories?page=${payload}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
             .then((response) => {
                 let data = response.data
-                    // console.log(response.data)
+                    // console.log(response)
                 commit('userGetwalletHistories', data)
 
             })

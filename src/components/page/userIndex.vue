@@ -33,7 +33,7 @@
         </Tabs>
         </Col>
     </Row>
-    <Page :total="totle" @on-change="change"></Page>
+    <Page :total="get_wallet_page_total" @on-change="change" style="margin:15px"></Page>
  </div>
 </template>
 
@@ -67,7 +67,6 @@ export default {
     };
      return {
         isCollapsed: false,
-        totle:20,
         columns1: [
                     
                     {
@@ -100,7 +99,9 @@ export default {
               this.isCollapsed ? 'collapsed-menu' : ''
           ]
       },
-   
+     get_wallet_page_total(){
+         return this.$store.getters.get_wallet_page_total
+     },
       getTransition(){
          return this.$store.getters.getTransition.map(item=>{
              if(item.type=== 1 ){
@@ -117,7 +118,10 @@ export default {
   }
   },
    methods: {
-       change(index){console.log(index)},
+       change(page){
+        this.$store.dispatch('userGetwalletHistories',page)           
+        //    console.log(page)
+        },
        updateToUserName(to_username){
           this.$store.commit('updateToUserName', to_username)
         //   console.log(to_username)
@@ -143,7 +147,7 @@ export default {
     },
     created(){
         this.$store.dispatch('userGetChekout')
-        this.$store.dispatch('userGetwalletHistories')
+        this.$store.dispatch('userGetwalletHistories',1)
     }
 }
 </script>

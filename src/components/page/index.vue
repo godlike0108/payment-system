@@ -81,8 +81,8 @@ export default {
   },
    created() {
     this.$store.commit('setData')
-    this.$store.dispatch('userGetChekout')
-    this.$store.dispatch('userGetwalletHistories')
+    this.$store.dispatch('userGetChekout',1)
+    this.$store.dispatch('userGetwalletHistories',1)
     
  
 }

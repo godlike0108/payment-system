@@ -43,7 +43,8 @@ const state = {
         bank: null,
         bank_account: null,
         amount: null,
-        sms: null
+        sms: null,
+        page_total: null
     },
     transition: {
         data: null,
@@ -55,7 +56,8 @@ const state = {
         }
     },
     wallet: {
-        histories: null
+        histories: null,
+        page_total: null
     },
     Admins: {
         admins: null
@@ -85,6 +87,9 @@ const getters = {
         // console.log(state.transition.data)
         return state.wallet.histories
     },
+    get_wallet_page_total() {
+        return state.wallet.page_total
+    }
 }
 const mutations = {
     wrong_login(state) {
@@ -176,13 +181,14 @@ const mutations = {
             // console.log(state.user.password)
     },
     userChekout(state, data) {
-        state.checkout.data = data
-            // console.log(data)
+        state.checkout.data = data.data
+        state.checkout.page_total = data.last_page * 10
+            // console.log(state.checkout.page_total)
 
     },
     userGetwalletHistories(state, data) {
-        state.wallet.histories = data
-            // console.log(state.wallet.histories)
+        state.wallet.histories = data.data
+        state.wallet.page_total = data.last_page * 10
     },
     setProfileName(state, name) {
         state.updateProfile.name = name
