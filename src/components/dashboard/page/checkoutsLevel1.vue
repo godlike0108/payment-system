@@ -39,11 +39,12 @@ export default {
                     }, 
                     {
                         title: '申請時間',
-                        key: 'created_at'
+                        key: 'created_at',
+                        width: 150,
 					},
 					{
                         title: '修改/刪除',
-                        width: 170,
+                        width: 140,
                         
                         render: (h, params) => {
                             return h('div', [
@@ -82,7 +83,7 @@ export default {
 		},
 		computed:{
 			get_checkout_level1(){
-				console.log(this.$store.getters.get_checkout_level1)
+				// console.log(this.$store.getters.get_checkout_level1)
 				 return this.$store.getters.get_checkout_level1
             },
             get_checkout_level1_page_total(){

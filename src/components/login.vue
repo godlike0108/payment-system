@@ -19,7 +19,7 @@
 		</form-item>
 		
 		<form-item style="margin-bottom:4px;">
-            <router-link to="/sigin">
+            <router-link to="/sigup">
 			<a href="" class="loginA">申請帳號</a>
             </router-link>
 		</form-item>

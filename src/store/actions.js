@@ -13,7 +13,6 @@ export default {
             })
             .then((response) => {
                 let data = response.data
-
                 let token = data.api_token
                 let email = data.email
                 let mobile = data.mobile
@@ -149,7 +148,7 @@ export default {
             })
             .then((response) => {
                 let data = response.data
-                console.log(response)
+                    // console.log(response)
                 commit('userGetwalletHistories', data)
 
             })
@@ -224,7 +223,7 @@ export default {
             })
             .then((response) => {
                 let data = response.data.data
-                console.log(data)
+                    // console.log(data)
                 commit('setAllusers', data)
 
             })

@@ -39,19 +39,18 @@ export default {
                     }, 
                     {
                         title: '申請時間',
-                        key: 'created_at'
+                        key: 'created_at',
+                        width: 170,
 					},
 					{
                         title: '修改/刪除',
-                        width: 170,
+                        
                         
                         render: (h, params) => {
                             return h('div', [
                                 h('Button', {
                                     props: {
-                                        type: 'primary',
-                                        size: 'small'
-                                        
+                                        type: 'primary',   
                                     },
                                     style: {
                                         marginRight: '15px'
@@ -61,18 +60,19 @@ export default {
                                             this.show(params.index)
                                         }
                                     }
-                                }, '修改'), h('Button', {
-                                    props: {
-                                        type: 'error',
-                                        size: 'small'
+                                }, '確認撥款'),
+                                //  h('Button', {
+                                //     props: {
+                                //         type: 'error',
+                                //         size: 'small'
                                         
-                                    },
-                                    on: {
-                                        click: () => {
-                                            this.remove(params.index)
-                                        }
-                                    }
-                                }, '刪除')
+                                //     },
+                                //     on: {
+                                //         click: () => {
+                                //             this.remove(params.index)
+                                //         }
+                                //     }
+                                // }, '刪除')
                                
                             ]);
                         }
@@ -99,13 +99,13 @@ export default {
 			show(index){
                  let _vm = this
                 this.$Modal.confirm({
-                     title: `刪除會員資料 `,
-                    content: `<p style="font-size:1.4em">確認刪除<h2>${this.$store.state.admin.user_list[index].name}</h2>的會員資料嗎？</p>`,
+                     title: `確認撥款 `,
+                    content: `<p style="font-size:1.4em">確認撥款到<h2>${this.$store.state.admin.checkout_approval.data[index].name}</h2>的帳戶嗎？</p>`,
                     onOk: () => {
                         this.$Message.info('確認送出');
                         _vm.$store.commit('set_checkout_approval_index',index)
-                        _vm.$store.commit('set_checkout_approval_status',-1)
-                        _vm.$store.dispatch('put_checkout_review_pudate',{id:this.$store.state.admin.checkout_level1.index,status:this.$store.state.admin.checkout_level1.status,api:'approval'})
+                        _vm.$store.commit('set_checkout_approval_status',2)
+                        _vm.$store.dispatch('put_checkout_review_pudate',{id:this.$store.state.admin.checkout_approval.index,status:this.$store.state.admin.checkout_approval.status,api:'approval'})
                     
                     },
             })
@@ -119,7 +119,7 @@ export default {
                     onOk: () => {
                         this.$Message.info('確認送出');
                         _vm.$store.commit('set_checkout_approval_index',index)
-                        _vm.$store.commit('set_checkout_approval_status',1)
+                        _vm.$store.commit('set_checkout_approval_status',-1)
                         _vm.$store.dispatch('put_checkout_review_pudate',{id:this.$store.state.admin.checkout_level1.index,status:this.$store.state.admin.checkout_level1.status,api:'approval'})
                         
                     },

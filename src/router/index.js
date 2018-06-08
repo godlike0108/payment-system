@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import login from '@/components/login'
-import sigin from '@/components/signIn'
+import sigup from '@/components/signIn'
 import store from '@/store'
 import index from '@/components/page/index'
 import userIndex from '@/components/page/userIndex'
@@ -38,9 +38,9 @@ const vueRouter = new Router({
             meta: { requiresAuth: false },
         },
         {
-            path: '/sigin',
-            name: 'sigin',
-            component: sigin
+            path: '/sigup',
+            name: 'sigup',
+            component: sigup
         },
         {
             path: '/firstlogin',
@@ -153,13 +153,103 @@ vueRouter.beforeEach((to, from, next) => {
     let token = sessionStorage.getItem('token')
     let role_id = sessionStorage.getItem('role_id')
         // console.log('to=', to.fullPath, '| from=', from.fullPath);
-
+        // console.log(from, to)
 
     if (to.matched.some(record => {
-            // console.log(record.name, record.meta.requiresAuth);
+
             return record.meta.requiresAuth;
         })) {
+        if (to.fullPath === null) {
+            if (from.fullPath === '/index' || from.fullPath === '/index/checkout' || from.fullPath === '/iindex/userProfile') {
+                store.commit('setData')
+                store.dispatch('userGetChekout', 1)
+                store.dispatch('userGetwalletHistories', 1)
+                next()
+            } else {
+                store.dispatch('admins')
+                store.dispatch('show_user')
+                store.dispatch('userGetwalletHistories', 1)
+                store.dispatch('userReview')
+                store.dispatch('get_checkout_level1', 1)
+                store.dispatch('get_checkout_level2', 1)
+                store.dispatch('get_checkout_approval', 1)
+                store.dispatch('get_checkout_history', 1)
+                store.dispatch('approval_levels')
+                store.dispatch('getAlluser')
+                next()
+            }
 
+        }
+        if (to.fullPath === '/index') {
+            store.dispatch('userGetChekout', 1)
+            store.dispatch('userGetwalletHistories', 1)
+            next()
+        }
+        if (to.fullPath === '/index/checkout') {
+            store.dispatch('userGetChekout', 1).then(() => {
+                next()
+            })
+        }
+        if (to.fullPath === '/dashboard/index') {
+            // store.commit('setData')
+            // actionB ({ dispatch, commit }) {
+            //     return dispatch('actionA').then(() => {
+            //       commit('someOtherMutation')
+            //     })
+            store.dispatch('admins')
+            store.dispatch('show_user')
+            store.dispatch('userGetwalletHistories', 1)
+            store.dispatch('userReview')
+            store.dispatch('get_checkout_level1', 1)
+            store.dispatch('get_checkout_level2', 1)
+            store.dispatch('get_checkout_approval', 1)
+            store.dispatch('get_checkout_history', 1)
+            store.dispatch('approval_levels')
+            store.dispatch('getAlluser')
+            next()
+        }
+        if (to.fullPath === '/dashboard/index/checkoutsLevel1') {
+            store.dispatch('get_checkout_level1', 1).then(() => {
+                next()
+            })
+        }
+        if (to.fullPath === '/dashboard/index/checkoutsLevel2') {
+            store.dispatch('get_checkout_level2', 1).then(() => {
+                next()
+            })
+        }
+        if (to.fullPath === '/dashboard/index/checkoutsApproval') {
+            store.dispatch('get_checkout_approval', 1).then(() => {
+                next()
+            })
+        }
+        if (to.fullPath === '/dashboard/index/checkoutsApproval') {
+            store.dispatch('get_checkout_history', 1).then(() => {
+                next()
+            })
+        }
+        if (to.fullPath === '/dashboard/index/wallet') {
+            store.dispatch('userReview').then(() => {
+                next()
+            })
+        }
+        if (to.fullPath === '/dashboard/index/walletHistories') {
+            store.dispatch('userGetwalletHistories', 1).then(() => {
+                next()
+            })
+        }
+        if (to.fullPath === '/dashboard/index/members') {
+            store.dispatch('show_user').then(() => {
+                next()
+            })
+        }
+        if (to.fullPath === '/dashboard/index/admins') {
+            store.dispatch('admins').then(() => {
+                store.dispatch('admins').then(() => {
+                    next()
+                })
+            })
+        }
         if (token === null) {
             // 轉跳到 login page
             next({ path: '/' });

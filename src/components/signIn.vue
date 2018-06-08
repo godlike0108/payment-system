@@ -57,7 +57,7 @@
 		</Col>
 		<Col v-if="sign_success">
 		<Icon type="checkmark-circled" class="success" size="20"></Icon>
-			<div class="success">註冊成功</div>
+			<div class="success">申請成功</div>
 		</Col>
         <Col class="loading" v-if="isSubmit">
             <Spin fix >

@@ -38,7 +38,7 @@ const state = {
         password: ''
     },
     checkout: {
-        data: null,
+        data: [],
         name: null,
         bank: null,
         bank_account: null,
@@ -47,7 +47,7 @@ const state = {
         page_total: null
     },
     transition: {
-        data: null,
+        data: [],
         to_username: null,
         amount: null,
         status: {
@@ -56,13 +56,13 @@ const state = {
         }
     },
     wallet: {
-        histories: null,
+        histories: [],
         page_total: null
     },
     Admins: {
-        admins: null
+        admins: []
     },
-    Allusers: null
+    Allusers: []
 }
 const getters = {
     getData() {

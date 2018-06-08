@@ -5,19 +5,23 @@ import { isNull } from 'util';
 const baseURL = 'http://wallet-staging.ap-northeast-1.elasticbeanstalk.com'
 export default {
     state: {
-        user_list: null,
-        user_review_list: null,
+        user_list: [],
+        user_review_list: [],
         user_review_id: null,
         user_review_id_index: null,
         reset_administrator: {
             username: null,
             password: null,
-            administrator_id: null
+            administrator_id: null,
+            nopassword: null
         },
         reset_user: {
             username: null,
             password: null,
-            user_id: null
+            user_id: null,
+            nopassword: null,
+            phone: null,
+            email: null
         },
         edit_user_infor: null,
         approval_levels_amount: null,
@@ -27,20 +31,20 @@ export default {
             page_total: null
         },
         checkout_approval: {
-            data: null,
+            data: [],
             page_total: null,
             index: null,
             status: null
         },
         checkout_level2: {
-            data: null,
+            data: [],
             page_total: null,
             index: null,
             status: null
 
         },
         checkout_level1: {
-            data: null,
+            data: [],
             page_total: null,
             index: null,
             status: null
@@ -141,12 +145,12 @@ export default {
         },
         set_checkout_approval_index(state, index) {
             state.checkout_approval.index = state.checkout_approval.data[index].checkout_reviews[0].id
-            console.log(state.checkout_approval.data[index].checkout_reviews[0].id)
+                // console.log(state.checkout_approval.data[index].checkout_reviews[0].id)
 
         },
         set_checkout_approval_status(state, status) {
             state.checkout_approval.status = status
-            console.log(status)
+                // console.log(status)
         },
         set_checkout_history(state, data) {
             state.checkout_history.data = data.data
@@ -201,33 +205,72 @@ export default {
                     console.log(response)
                 })
         },
-        put_administrator_id({ commit, state }) {
+        put_administrator_id({ commit, state }, index) {
             let token = sessionStorage.getItem('token')
             let id = state.reset_administrator.administrator_id
-            let username = state.reset_administrator.username
             let password = state.reset_administrator.password
-            let data = JSON.stringify({ username: username, password: password })
-                // console.log(id, username, password)
-            axios.put(`${baseURL}/api/admins/${id}`, data, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    }
-                })
-                .then((response) => {
-                    this.dispatch('admins')
-                    console.log(response)
-                })
+            let username = null
+            let data = null
+            if (state.reset_administrator.username === null) {
+                username = this.state.Admins.admins[index].username
+                data = JSON.stringify({ username: username, password: password })
+            } else {
+                username = state.reset_administrator.username
+                data = JSON.stringify({ username: username, password: password })
+            }
+            console.log(password, username)
+            if (password === null || username === null) {
+                state.reset_administrator.nopassword = true
+            } else {
+                state.reset_administrator.nopassword = false
+                axios.put(`${baseURL}/api/admins/${id}`, data, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json',
+                        }
+                    })
+                    .then((response) => {
+                        this.dispatch('admins')
+                        console.log(response)
+                    })
+            }
+
 
         },
-        update_user_id({ commit, state }) {
+        update_user_id({ commit, state }, index) {
             let token = sessionStorage.getItem('token')
             let id = state.reset_user.user_id
             let username = state.reset_user.username
+            let email = state.reset_user.email
+            let phone = state.reset_user.phone
             let password = state.reset_user.password
-            console.log(id, username, password)
-            let data = JSON.stringify({ username: username, password: password })
-            axios.put(`${baseURL}/api/users/${id}`, data, {
+            let phoneRule = /^8869[0-9]{8}$/
+            let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
+            let udpate_data
+            let data = [username, password, phone, email]
+            let put_data = [{ username: username }, { password: password }, { mobile: phone }, { email: email }]
+
+            if (!phoneRule.test(phone)) {
+                data.splice(2, 1)
+                put_data.splice(2, 1)
+
+            }
+            if (!emailRule.test(email)) {
+                data.splice(3, 1)
+                put_data.splice(3, 1)
+
+            }
+            data.map((item, index) => {
+
+                if (item === null) {
+                    data.splice(index, 1)
+                    put_data.splice(index, 1)
+
+                }
+            })
+
+            console.log(data)
+            axios.put(`${baseURL}/api/users/${id}`, udpate_data, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
@@ -298,7 +341,7 @@ export default {
                 })
                 .then((response) => {
                     let data = response.data
-                    console.log(data)
+                        // console.log(data)
                     commit('set_checkout_history', data)
 
                 })
@@ -346,7 +389,7 @@ export default {
                 })
                 .then((response) => {
                     let data = response.data
-                    console.log(response)
+                        // console.log(response)
                     commit('set_checkout_level1', data)
 
                 })
@@ -366,7 +409,7 @@ export default {
                 .then((response) => {
                     let data = response.data
                     console.log(response)
-                    this.dispatch(`get_checkout_${payload.api}`)
+                    this.dispatch(`get_checkout_${payload.api}`, 1)
                         // commit('set_checkout_level1', data)
 
                 })

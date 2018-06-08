@@ -31,15 +31,17 @@ export default {
                     },
                     {
                         title: 'email',
-                        key: 'email'
+                        key: 'email',
+                        width: 180,
                     }, 
                     {
                         title: '創建時間',
-                        key: 'created_at'
+                        key: 'created_at',
+                        width: 170,
                     },  
                     {
                         title: '修改/刪除',
-                        width: 170,
+                        
                         
                         render: (h, params) => {
                             return h('div', [
@@ -54,6 +56,7 @@ export default {
                                     },
                                     on: {
                                         click: () => {
+                                            this.reset_reset_user_id()
                                             this.show(params.index)
                                         }
                                     }
@@ -91,13 +94,16 @@ export default {
                     this.$Message.info('確認送出');
                     _vm.reset_user_id(index)
                 },
+                onCancel:()=>{
+                    _vm.reset_reset_user_id()
+                },
                 render: (h) => {
                     return h('div', [h('Input', {
                         props: {
                             value: this.value,
                             autofocus: true,
                             value: this.$store.state.admin.user_list[index].username,
-                            placeholder: '管理員帳號 6~12位英文數字'
+                            placeholder: '用戶帳號 6~12位英文數字'
                         },
                         on: {
                             input: (val) => {
@@ -112,7 +118,7 @@ export default {
                         props: {
                             value: this.value,
                             autofocus: true,
-                            placeholder: '管理員密碼 6~12位英文數字'
+                            placeholder: '用戶密碼 6~12位英文數字'
                         },
                         style: {
                                     marginTop: '15px'
@@ -124,6 +130,39 @@ export default {
                             
                             this.$store.state.admin.reset_user.password = val
                             //    console.log(this.$store.state.admin.user_review_id) 
+                            }
+                        },
+                        
+                    }),
+                    ,h('Input', {
+                        props: {
+                            value: this.value,
+                            autofocus: true,
+                            placeholder: '請輸入用戶手機新 格式為：886'
+                        },
+                        style: {
+                                    marginTop: '15px'
+                                },
+                        on: {
+                            input: (val) => {   
+                             
+                            this.$store.state.admin.reset_user.phone = val
+                            }
+                        },
+                        
+                    }),
+                    ,h('Input', {
+                        props: {
+                            value: this.value,
+                            autofocus: true,
+                            placeholder: '請輸入用戶新 e-mail '
+                        },
+                        style: {
+                                    marginTop: '15px'
+                                },
+                        on: {
+                            input: (val) => {
+                                this.$store.state.admin.reset_user.email = val
                             }
                         },
                         
@@ -146,9 +185,21 @@ export default {
                
             },
             reset_user_id(index){
-			this.$store.state.admin.reset_user.user_id = this.$store.state.admin.user_list[index].id
-            this.$store.dispatch('update_user_id')
-		   },
+            let phone = this.$store.state.admin.reset_user.phone
+            let email = this.$store.state.admin.reset_user.email
+   
+             this.$store.state.admin.reset_user.user_id = this.$store.state.admin.user_list[index].id
+             this.$store.dispatch('update_user_id',index)
+           },
+           reset_reset_user_id(){
+               this.$store.state.admin.reset_user.phone = null
+               this.$store.state.admin.reset_user.email =null
+               this.$store.state.admin.reset_user.username =null
+               this.$store.state.admin.reset_user.user_id =null
+               this.$store.state.admin.reset_user.password =null
+               console.log(this.$store.state.admin.reset_user)
+               
+           }
   },
 	created(){
     // this.$store.dispatch('show_user')

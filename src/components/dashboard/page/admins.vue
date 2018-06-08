@@ -128,7 +128,7 @@ export default {
             },
            put_administrator_id(index){
 			this.$store.state.admin.reset_administrator.administrator_id = this.$store.state.Admins.admins[index].id
-            this.$store.dispatch('put_administrator_id')
+            this.$store.dispatch('put_administrator_id',index)
             // setTimeout(()=>{
             //     this.$store.dispatch('userReview')  
             // },2500)
