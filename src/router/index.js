@@ -152,6 +152,8 @@ vueRouter.beforeEach((to, from, next) => {
     // 如果 router 轉跳的頁面需要驗證 requiresAuth: true
     let token = sessionStorage.getItem('token')
     let role_id = sessionStorage.getItem('role_id')
+    let user_status_id = sessionStorage.getItem('user_status_id');
+
         // console.log('to=', to.fullPath, '| from=', from.fullPath);
         // console.log(from, to)
 
@@ -253,7 +255,7 @@ vueRouter.beforeEach((to, from, next) => {
         if (token === null) {
             // 轉跳到 login page
             next({ path: '/' });
-        } else if (role_id === '0') {
+        } else if (user_status_id === '0') {
             next({ path: '/firstlogin' });
         } else {
             next(); // 往下繼續執行

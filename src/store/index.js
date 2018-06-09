@@ -130,6 +130,7 @@ const mutations = {
         let username = sessionStorage.getItem('username')
         let password = sessionStorage.getItem('password')
         let role_id = sessionStorage.getItem('role_id')
+        let user_status_id = sessionStorage.getItem('user_status_id');
         let balance = sessionStorage.getItem('balance')
         let id = sessionStorage.getItem('id')
 
@@ -140,6 +141,7 @@ const mutations = {
         state.user.username = username
         state.user.password = password
         state.user.role_id = role_id
+        state.user.user_status_id = user_status_id
         state.user.balance = balance
         state.user.id = id
 
@@ -231,6 +233,7 @@ const mutations = {
         let username = sessionStorage.removeItem('username')
         let password = sessionStorage.removeItem('password')
         let role_id = sessionStorage.removeItem('role_id')
+        let user_status_id = sessionStorage.removeItem('user_status_id');
 
         state.user.email = email
         state.user.token = token
@@ -239,6 +242,7 @@ const mutations = {
         state.user.username = username
         state.user.password = password
         state.user.role_id = role_id
+        state.user.user_status_id = user_status_id
         console.log(state.user)
     },
     setAdmins(state, data) {
