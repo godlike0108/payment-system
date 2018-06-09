@@ -5,7 +5,7 @@
     
 	<i-form ref="formInline"  :rules="ruleInline" >
 		<form-item class="icon_group">
-			<h1 >wallet 登入</h1>
+			<h1 >白金線上支付帳戶 登入</h1>
 		</form-item>
 		<form-item prop="user">
 			<i-input type="text" :value="username" @input="updateUsername" placeholder="使用者帳號" clearable>

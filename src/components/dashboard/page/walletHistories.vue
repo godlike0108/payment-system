@@ -22,7 +22,7 @@ export default {
 				 columns1: [
                     
                     {
-                        title: '帳號名稱',
+                        title: '帳號',
                         key: 'user_username'
                     },
                     {

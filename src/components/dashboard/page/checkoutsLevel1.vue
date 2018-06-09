@@ -20,7 +20,10 @@ export default {
 		data() {
 			return {
 				 columns1: [
-                    
+                    {
+                        title: '帳號',
+                        key: 'user_username'
+                    },
                     {
                         title: '帳戶名稱',
                         key: 'name'
