@@ -27,11 +27,11 @@
                     </MenuItem>
                     <MenuItem name="1-6" @click.native="toWallet()">
                         <Icon type="filing" size="18"></Icon>
-                        <span>撥款</span>
+                        <span>入金</span>
                     </MenuItem>
                     <MenuItem name="1-9" @click.native="toWalletHistories()">
                         <Icon type="filing" size="18"></Icon>
-                        <span>撥款紀錄</span>
+                        <span>入金紀錄</span>
                     </MenuItem>
                     <MenuItem name="1-10" @click.native="toMembers()">
                        <Icon type="person-stalker" size="18"></Icon>
