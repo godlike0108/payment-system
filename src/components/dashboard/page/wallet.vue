@@ -6,17 +6,16 @@
             <Tabs value="name1">
             <TabPane label="撥款" name="name1">
                  <Form ref="formCustom"  :label-width="80">
-                    <FormItem label="轉出帳號" prop="passwd">
+                    <FormItem label="帳號" prop="passwd">
                         <Input type="text"  @input="updateToUserName"></Input>
                     </FormItem>
                     
-                    <FormItem label="轉出金額" prop="age">
+                    <FormItem label="金額" prop="age">
                         <Input type="text" @input="updateToAmount"  ></Input>
                         <div v-if="this.notNaN" style="text-align:left;color:#ed3f14" >請輸入數字</div>
                     </FormItem>
                     <FormItem>
                         <Button type="primary" @click="handleSubmit('formCustom');userTransactions()">送出</Button>
-                        <Button type="ghost" @click="handleReset('formCustom')" style="margin-left: 8px">重新設定</Button>
                     </FormItem>
                 </Form>
             </TabPane>

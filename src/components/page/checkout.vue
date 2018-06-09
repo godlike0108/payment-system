@@ -10,13 +10,13 @@
                         <i-form ref="formInline" >
                             
                             <form-item>
-                                <i-input  @input="setCheckoutName" :placeholder=" '銀行用戶名稱'"   clearable>
+                                <i-input  @input="setCheckoutName" :placeholder=" '銀行帳戶名稱'"   clearable>
                                     <icon type="happy" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             
                             <form-item >
-                                <i-input  @input="setCheckout_amount" :placeholder=" '填入出金金額'"   clearable>
+                                <i-input  @input="setCheckout_amount" :placeholder=" '金額'"   clearable>
                                     <icon type="cash" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
