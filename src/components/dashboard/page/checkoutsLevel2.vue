@@ -42,7 +42,7 @@ export default {
                         key: 'created_at'
 					},
 					{
-                        title: '修改/刪除',
+                        title: '審核',
                         width: 170,
                         
                         render: (h, params) => {

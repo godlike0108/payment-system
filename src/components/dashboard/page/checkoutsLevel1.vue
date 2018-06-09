@@ -43,7 +43,7 @@ export default {
                         width: 150,
 					},
 					{
-                        title: '修改/刪除',
+                        title: '審核',
                         width: 140,
                         
                         render: (h, params) => {

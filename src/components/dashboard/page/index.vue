@@ -49,7 +49,7 @@
                 <Header class="layout-header-bar">
                   <Row type="flex" justify="start" align="middle">
                     <Col :xs="4" :sm="4" :md="4" :lg="4">
-                    <span class="title" @click="getData()">Wallet 管理介面</span> </Col>
+                    <span class="title" @click="getData()">白金線上支付帳戶 管理介面</span> </Col>
                     <Col :xs="16" :sm="16" :md="16" :lg="16"></Col>
                     <Col :xs="4" :sm="4" :md="4" :lg="4" >
                     <Icon @click="log_out()" type="log-out" size="22" :style="{color: '#fff'}"></Icon></Col>

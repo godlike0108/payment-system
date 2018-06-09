@@ -43,7 +43,7 @@ export default {
                         width: 170,
 					},
 					{
-                        title: '修改/刪除',
+                        title: '確認撥款',
                         
                         
                         render: (h, params) => {
