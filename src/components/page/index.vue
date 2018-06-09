@@ -15,7 +15,7 @@
                     </MenuItem>
                     <MenuItem name="1-3" @click.native="toProfile()">
                         <Icon type="happy"></Icon>
-                        <span>用戶設定</span>
+                        <span>修改密碼</span>
                     </MenuItem>
                   
                 </Menu>

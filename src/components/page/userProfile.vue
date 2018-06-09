@@ -3,12 +3,12 @@
         <Row type="flex" justify="center" align="middle">
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
-            <TabPane label="用戶設定" name="name1">
+            <TabPane label="修改密碼" name="name1">
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="20" :sm="16" :md="16" :lg="16">
                         <i-form >
                             
-                            <form-item >
+<!--                             <form-item >
                                 <i-input  @input="setProfileName" :value="name" :placeholder=" '用戶名稱'"   clearable>
                                     <icon type="happy" size="20" slot="prepend"></icon>
                                 </i-input>
@@ -27,7 +27,7 @@
                                 <i-input @input="setProfileUsername" :value="username" :placeholder=" '用戶帳號'"   clearable disabled>
                                     <icon type="person" size="20" slot="prepend"></icon>
                                 </i-input>
-                            </form-item>
+                            </form-item> -->
                             <form-item >
                                 <i-input type="password" ref="togglePassword" @input="setProfilePassword"  :value="password" :placeholder=" '用戶密碼'"  >
                                     <icon type="locked" size="20" slot="prepend"></icon>
