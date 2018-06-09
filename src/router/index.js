@@ -29,7 +29,7 @@ import walletHistories from '@/components/dashboard/page/walletHistories'
 Vue.use(Router)
 
 const vueRouter = new Router({
-    mode: 'history',
+    mode: '',
     base: __dirname,
     routes: [{
             path: '/',
