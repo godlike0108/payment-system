@@ -6,7 +6,10 @@ import { resolve } from 'path';
 const baseURL = 'http://wallet-staging.ap-northeast-1.elasticbeanstalk.com'
 export default {
     state: {
-        user_list: [],
+        user_list: {
+            data: [],
+            page_total: null
+        },
         user_review_list: [],
         user_review_id: null,
         user_review_id_index: null,
@@ -54,7 +57,10 @@ export default {
     },
     getters: {
         get_user_list(state) {
-            return state.user_list
+            return state.user_list.data
+        },
+        get_user_list_page_total(state) {
+            return state.user_list.page_total
         },
         get_user_review_list(state) {
             return state.user_review_list
@@ -90,8 +96,9 @@ export default {
     },
     mutations: {
         set_user_list(state, data) {
-            state.user_list = data
-                // console.log(state.user_list)
+            state.user_list.data = data.data
+            state.user_list.page_total = data.last_page * 10
+            console.log(state.user_list.page_total)
         },
         set_user_review(state, data) {
             state.user_review_list = data
@@ -176,16 +183,16 @@ export default {
                 commit('set_user_review', data)
             })
         },
-        show_user({ commit, state }) {
+        show_user({ commit, state }, payload) {
             let token = sessionStorage.getItem('token')
-            axios.get(`${baseURL}/api/users`, {
+            axios.get(`${baseURL}/api/users?page=${payload}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 })
                 .then((response) => {
-                    let data = response.data.data
-                        // console.log(response)
+                    let data = response.data
+                    console.log(data)
                     commit('set_user_list', data)
                 })
         },
@@ -263,7 +270,7 @@ export default {
                     }
                 })
                 .then((response) => {
-                    this.dispatch('show_user')
+                    this.dispatch('show_user', 1)
                     console.log(response)
                 })
         },
@@ -312,13 +319,13 @@ export default {
                 .then((response) => {
                     let data = response.data.data
                         // console.log(data)
-                    this.dispatch('show_user')
+                    this.dispatch('show_user', 1)
 
                 })
         },
         get_checkout_history({ commit, state }, payload) {
             let token = sessionStorage.getItem('token')
-            axios.get(`${baseURL}/api/checkouts?status=2?page=${payload}`, {
+            axios.get(`${baseURL}/api/checkouts?status=2&page=${payload}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
@@ -334,7 +341,7 @@ export default {
         },
         get_checkout_approval({ commit, state }, payload) {
             let token = sessionStorage.getItem('token')
-            axios.get(`${baseURL}/api/checkouts?status=1?page=${payload}`, {
+            axios.get(`${baseURL}/api/checkouts?status=1&page=${payload}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
@@ -350,7 +357,7 @@ export default {
         },
         get_checkout_level2({ commit, state }, payload) {
             let token = sessionStorage.getItem('token')
-            axios.get(`${baseURL}/api/checkouts?status=0&role_id=1?page=${payload}`, {
+            axios.get(`${baseURL}/api/checkouts?status=0&role_id=1&page=${payload}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
@@ -366,7 +373,7 @@ export default {
         },
         get_checkout_level1({ commit, state }, payload) {
             let token = sessionStorage.getItem('token')
-            axios.get(`${baseURL}/api/checkouts?status=0&role_id=2?page=${payload}`, {
+            axios.get(`${baseURL}/api/checkouts?status=0&role_id=2&page=${payload}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',

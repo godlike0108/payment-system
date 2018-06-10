@@ -6,8 +6,8 @@
             <TabPane label="會員清單" name="name1">
                 <Table height="500" :columns="columns1" :data="get_user_list" ></Table>
             </TabPane>
-            
         </Tabs>
+        <Page :total="get_user_list_page_total" @on-change="change" style="margin:15px"></Page>
         </Col>
     </Row>
  </div>
@@ -83,9 +83,16 @@ export default {
   computed: {
 	  get_user_list(){
 		  return this.$store.getters.get_user_list
-	  }
+      },
+      get_user_list_page_total(){
+          return this.$store.getters.get_user_list_page_total
+      }
   },
   methods: {
+      change(page){
+            this.$store.dispatch('show_user',page)           
+               console.log(page)
+            },
       show (index) {
           console.log()
             let _vm = this

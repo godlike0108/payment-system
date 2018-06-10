@@ -170,7 +170,7 @@ vueRouter.beforeEach((to, from, next) => {
                 next()
             } else {
                 store.dispatch('admins')
-                store.dispatch('show_user')
+                store.dispatch('show_user', 1)
                 store.dispatch('userGetwalletHistories', 1)
                 store.dispatch('userReview')
                 store.dispatch('get_checkout_level1', 1)
@@ -206,7 +206,7 @@ vueRouter.beforeEach((to, from, next) => {
             //       commit('someOtherMutation')
             //     })
             store.dispatch('admins')
-            store.dispatch('show_user')
+            store.dispatch('show_user', 1)
             store.dispatch('userGetwalletHistories', 1)
             store.dispatch('userReview')
             store.dispatch('get_checkout_level1', 1)
@@ -250,7 +250,7 @@ vueRouter.beforeEach((to, from, next) => {
             })
         }
         if (to.fullPath === '/dashboard/index/members') {
-            store.dispatch('show_user').then(() => {
+            store.dispatch('show_user', 1).then(() => {
                 next()
             })
         }

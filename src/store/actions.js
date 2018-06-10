@@ -168,7 +168,7 @@ export default {
         let role_id = sessionStorage.getItem('role_id')
         let token = sessionStorage.getItem('token')
 
-        axios.get(`${baseURL}/api/checkouts?role_id=${role_id}?page=${payload}`, {
+        axios.get(`${baseURL}/api/checkouts?role_id=${role_id}&page=${payload}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
