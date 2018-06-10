@@ -20,11 +20,12 @@ export default {
                 let username = data.username
                 let password = state.user.password
                 let role_id = data.role_id
-                let balance = data.wallets["0"].balance
+                let balance
+                let user_status_id = data.user_status_id
                 let id = data.id
 
 
-                console.log(data)
+                console.log(response)
                 sessionStorage.setItem('password', password)
                 sessionStorage.setItem('email', email)
                 sessionStorage.setItem('token', token)
@@ -32,18 +33,26 @@ export default {
                 sessionStorage.setItem('name', name)
                 sessionStorage.setItem('username', username)
                 sessionStorage.setItem('role_id', role_id)
-                sessionStorage.setItem('balance', balance)
+                sessionStorage.setItem('user_status_id', user_status_id)
                 sessionStorage.setItem('id', id)
 
 
                 commit('setData')
                 if (role_id === 1 || role_id === 2) {
                     router.push('/dashboard/index')
+                    commit('success_login')
                 } else if (role_id === 3) {
+                    balance = data.wallets["0"].balance
+                    sessionStorage.setItem('balance', balance)
                     router.push('/index')
+                    commit('success_login')
+
                 }
 
-            }).catch(() => {
+            }).catch((response) => {
+                console.log("====")
+                console.log(response)
+                console.log("====")
                 if (status = '403') {
                     commit('wrong_login')
                 }

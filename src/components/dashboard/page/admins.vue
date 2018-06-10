@@ -88,9 +88,10 @@ export default {
                         return h('div', [h('Input', {
                             props: {
                                 value: this.value,
-								autofocus: true,
+                                autofocus: true,
+                                disabled: true,
 								value: this.$store.state.Admins.admins[index].username,
-                                placeholder: '管理員帳號 6~12位英文數字'
+                                // placeholder: '管理員帳號 6~12位英文數字'
                             },
                             on: {
                                 input: (val) => {

@@ -98,42 +98,44 @@ export default {
                     _vm.reset_reset_user_id()
                 },
                 render: (h) => {
-                    return h('div', [h('Input', {
-                        props: {
-                            value: this.value,
-                            autofocus: true,
-                            value: this.$store.state.admin.user_list[index].username,
-                            placeholder: '用戶帳號 6~12位英文數字'
-                        },
-                        on: {
-                            input: (val) => {
-                                // this.value = val;
-                            //   set_user_review_id(val)
+                    return h('div', [
+                    //     h('Input', {
+                    //     props: {
+                    //         value: this.value,
+                    //         autofocus: true,
+                    //         value: this.$store.state.admin.user_list[index].username,
+                    //         placeholder: '用戶帳號 6~12位英文數字'
+                    //     },
+                    //     on: {
+                    //         input: (val) => {
+                    //             // this.value = val;
+                    //         //   set_user_review_id(val)
                             
-                            this.$store.state.admin.reset_user.username = val
-                            //    console.log(this.$store.state.admin.user_review_id) 
-                            }
-                        },   
-                    }),h('Input', {
-                        props: {
-                            value: this.value,
-                            autofocus: true,
-                            placeholder: '用戶密碼 6~12位英文數字'
-                        },
-                        style: {
-                                    marginTop: '15px'
-                                },
-                        on: {
-                            input: (val) => {
-                                // this.value = val;
-                            //   set_user_review_id(val)
+                    //         this.$store.state.admin.reset_user.username = val
+                    //         //    console.log(this.$store.state.admin.user_review_id) 
+                    //         }
+                    //     },   
+                    // }),
+                    // h('Input', {
+                    //     props: {
+                    //         value: this.value,
+                    //         autofocus: true,
+                    //         placeholder: '用戶密碼 6~12位英文數字'
+                    //     },
+                    //     style: {
+                    //                 marginTop: '15px'
+                    //             },
+                    //     on: {
+                    //         input: (val) => {
+                    //             // this.value = val;
+                    //         //   set_user_review_id(val)
                             
-                            this.$store.state.admin.reset_user.password = val
-                            //    console.log(this.$store.state.admin.user_review_id) 
-                            }
-                        },
+                    //         this.$store.state.admin.reset_user.password = val
+                    //         //    console.log(this.$store.state.admin.user_review_id) 
+                    //         }
+                    //     },
                         
-                    }),
+                    // }),
                     ,h('Input', {
                         props: {
                             value: this.value,

@@ -22,7 +22,7 @@ export default {
 				 columns1: [
                     {
                         title: '帳號',
-                        key: 'user.username'
+                        key: 'user_username'
                     },
                     {
                         title: '帳戶名稱',
@@ -85,7 +85,12 @@ export default {
 		},
 		computed:{
 			get_checkout_level2(){
-				console.log(this.$store.getters.get_checkout_level2)
+				let data = this.$store.getters.get_checkout_level2
+				console.log(data)
+				data.map(item=>{
+					item.user_username = item.user.username
+					return item
+				})
 				 return this.$store.getters.get_checkout_level2
             },
             get_checkout_level2_page_total(){

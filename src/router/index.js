@@ -154,8 +154,8 @@ vueRouter.beforeEach((to, from, next) => {
     let role_id = sessionStorage.getItem('role_id')
     let user_status_id = sessionStorage.getItem('user_status_id');
 
-        // console.log('to=', to.fullPath, '| from=', from.fullPath);
-        // console.log(from, to)
+    // console.log('to=', to.fullPath, '| from=', from.fullPath);
+    // console.log(from, to)
 
     if (to.matched.some(record => {
 
@@ -255,7 +255,7 @@ vueRouter.beforeEach((to, from, next) => {
         if (token === null) {
             // 轉跳到 login page
             next({ path: '/' });
-        } else if (user_status_id === '0') {
+        } else if (user_status_id === '1') {
             next({ path: '/firstlogin' });
         } else {
             next(); // 往下繼續執行

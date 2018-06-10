@@ -99,6 +99,11 @@ const mutations = {
         state.login.wrongLogin = true,
             state.login.success = false
     },
+    success_login(state) {
+        state.login.wrongLogin = false
+        console.log(state.login.wrongLogin)
+    },
+
     wrong_transactions(state) {
         state.transition.wrongUserName = true,
             state.transition.success = false

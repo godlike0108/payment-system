@@ -78,7 +78,7 @@ export default {
             return state.checkout_level2.data
         },
         get_checkout_level2_page_total(state) {
-            return state.checkout_level1.page_total
+            return state.checkout_level2.page_total
         },
         get_checkout_level1(state) {
             return state.checkout_level1.data
@@ -209,33 +209,28 @@ export default {
             let token = sessionStorage.getItem('token')
             let id = state.reset_administrator.administrator_id
             let password = state.reset_administrator.password
-            let username = null
             let data = null
-            if (state.reset_administrator.username === null) {
-                username = this.state.Admins.admins[index].username
-                data = JSON.stringify({ username: username, password: password })
-            } else {
-                username = state.reset_administrator.username
-                data = JSON.stringify({ username: username, password: password })
-            }
-            console.log(password, username)
-            if (password === null || username === null) {
-                state.reset_administrator.nopassword = true
-            } else {
-                state.reset_administrator.nopassword = false
-                axios.put(`${baseURL}/api/admins/${id}`, data, {
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                            'Content-Type': 'application/json',
-                        }
-                    })
-                    .then((response) => {
-                        this.dispatch('admins')
-                        console.log(response)
-                    })
-            }
-
-
+            data = JSON.stringify({ password: password })
+            console.log(data, id)
+            state.reset_administrator.nopassword = false
+            axios.put(`${baseURL}/api/admins/${id}`, data, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then((response) => {
+                    console.log(response)
+                    this.dispatch('admins')
+                })
+                // let username = null
+                // if (state.reset_administrator.username === null) {
+                //     username = this.state.Admins.admins[index].username
+                //     data = JSON.stringify({ username: username, password: password })
+                // } else {
+                //     username = state.reset_administrator.username
+                //     data = JSON.stringify({ username: username, password: password })
+                // }
         },
         update_user_id({ commit, state }, index) {
             let token = sessionStorage.getItem('token')
@@ -246,31 +241,18 @@ export default {
             let password = state.reset_user.password
             let phoneRule = /^8869[0-9]{8}$/
             let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
-            let udpate_data
-            let data = [username, password, phone, email]
-            let put_data = [{ username: username }, { password: password }, { mobile: phone }, { email: email }]
+            let put_data = {}
 
-            if (!phoneRule.test(phone)) {
-                data.splice(2, 1)
-                put_data.splice(2, 1)
-
+            if (!phoneRule.test(phone) && emailRule.test(email)) {
+                put_data = { email: email }
+            } else if (phoneRule.test(phone) && !emailRule.test(email)) {
+                put_data = { mobile: phone }
+            } else if (phoneRule.test(phone) && emailRule.test(email)) {
+                put_data = { mobile: phone, email: email }
             }
-            if (!emailRule.test(email)) {
-                data.splice(3, 1)
-                put_data.splice(3, 1)
 
-            }
-            data.map((item, index) => {
-
-                if (item === null) {
-                    data.splice(index, 1)
-                    put_data.splice(index, 1)
-
-                }
-            })
-
-            console.log(data)
-            axios.put(`${baseURL}/api/users/${id}`, udpate_data, {
+            console.log(put_data)
+            axios.put(`${baseURL}/api/users/${id}`, put_data, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
@@ -389,7 +371,7 @@ export default {
                 })
                 .then((response) => {
                     let data = response.data
-                        // console.log(response)
+                    console.log(data)
                     commit('set_checkout_level1', data)
 
                 })
