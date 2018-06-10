@@ -1,7 +1,7 @@
 <template>
  <div>
  	<Row type="flex" justify="center" align="middle">
-        <Col :xs="20" :sm="16" :md="16" :lg="16">
+        <Col :xs="20" :sm="20" :md="20" :lg="20">
             <Tabs value="name1">
             <TabPane label="撥款紀錄" name="name1">
                 <Table height="281" :columns="columns1" :data="userGetwalletHistories" ></Table>

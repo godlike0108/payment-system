@@ -164,6 +164,7 @@ vueRouter.beforeEach((to, from, next) => {
         if (to.fullPath === null) {
             if (from.fullPath === '/index' || from.fullPath === '/index/checkout' || from.fullPath === '/iindex/userProfile') {
                 store.commit('setData')
+                store.commit('reset_user_checkout')
                 store.dispatch('userGetChekout', 1)
                 store.dispatch('userGetwalletHistories', 1)
                 next()
@@ -219,6 +220,8 @@ vueRouter.beforeEach((to, from, next) => {
         if (to.fullPath === '/dashboard/index/checkoutsLevel1') {
             store.dispatch('get_checkout_level1', 1).then(() => {
                 next()
+            }).catch(err => {
+                next({ path: '/dashboard' })
             })
         }
         if (to.fullPath === '/dashboard/index/checkoutsLevel2') {
@@ -231,7 +234,7 @@ vueRouter.beforeEach((to, from, next) => {
                 next()
             })
         }
-        if (to.fullPath === '/dashboard/index/checkoutsApproval') {
+        if (to.fullPath === '/dashboard/index/distributions') {
             store.dispatch('get_checkout_history', 1).then(() => {
                 next()
             })

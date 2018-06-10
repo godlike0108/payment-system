@@ -258,6 +258,13 @@ const mutations = {
         state.Allusers = data
             // console.log(data)
     },
+    reset_user_checkout(state) {
+        state.checkout.bank = '',
+            state.checkout.bank_account = '',
+            state.checkout.amount = '',
+            state.checkout.name = '',
+            state.checkout.sms = ''
+    }
 
 }
 

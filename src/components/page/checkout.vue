@@ -10,27 +10,27 @@
                         <i-form ref="formInline" >
                             
                             <form-item>
-                                <i-input  @input="setCheckoutName" :placeholder=" '銀行帳戶名稱'"   clearable>
+                                <i-input :value="this.$store.state.checkout.name"  @input="setCheckoutName" :placeholder=" '銀行帳戶名稱'"   clearable>
                                     <icon type="happy" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             
                             <form-item >
-                                <i-input  @input="setCheckout_amount" :placeholder=" '金額'"   clearable>
+                                <i-input :value="this.$store.state.checkout.amount" @input="setCheckout_amount" :placeholder=" '金額'"   clearable>
                                     <icon type="cash" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             <form-item >
-                                <i-input @input="setCheckoutBank" :placeholder="'銀行名稱'"    clearable>
+                                <i-input :value="this.$store.state.checkout.bank" @input="setCheckoutBank" :placeholder="'銀行名稱'"    clearable>
                                     <icon type="card" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             <form-item >
-                                <i-input  @input="setCheckout_bank_account" :placeholder=" '銀行帳號'"   > </i-input>
+                                <i-input :value="this.$store.state.checkout.bank_account"  @input="setCheckout_bank_account" :placeholder=" '銀行帳號'"   > </i-input>
                             </form-item>
                             <form-item >
                                 <i-button @click="getUserSms">取得手機驗證碼</i-button>
-                                <i-input @input="setCheckout_sms" class="phonePassword"  placeholder="請填入驗證碼共五碼"  clearable></i-input>
+                                <i-input :value="this.$store.state.checkout.sms" @input="setCheckout_sms" class="phonePassword"  placeholder="請填入驗證碼共五碼"  clearable></i-input>
                             </form-item>
                             
                             <form-item>

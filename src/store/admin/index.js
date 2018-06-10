@@ -318,7 +318,7 @@ export default {
         },
         get_checkout_history({ commit, state }, payload) {
             let token = sessionStorage.getItem('token')
-            axios.get(`${baseURL}/api/checkouts?checkout_status_id=2?page=${payload}`, {
+            axios.get(`${baseURL}/api/checkouts?status=2?page=${payload}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
@@ -380,8 +380,7 @@ export default {
                 }).catch((response) => {
                     // return Promise.reject('siwkfji')
                     console.log(response)
-
-
+                    return Promise.reject('000')
                 })
 
             // return Promise.resolve('siwkfji')
@@ -411,17 +410,18 @@ export default {
             let token = sessionStorage.getItem('token')
             let id = state.checkout_approval.index
             console.log(id)
-            axios.post(`${baseURL}/api/checkout/${id}`, {
+            axios.post(`${baseURL}/api/checkout/${id}`, null, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
+                        // 'Content-Type': 'application/json',
+                        // 'Accept': 'application/json',
 
                     }
                 })
                 .then((response) => {
                     let data = response.data
                     console.log(response)
+                    this.dispatch('get_checkout_approval')
                         // this.dispatch(`get_checkout_${payload.api}`, 1)
                         //     // commit('set_checkout_level1', data)
 

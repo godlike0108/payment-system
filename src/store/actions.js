@@ -243,6 +243,7 @@ export default {
             .then((response) => {
                 console.log(response)
                 this.dispatch('userGetChekout', 1)
+                commit('reset_user_checkout')
 
             })
     },
