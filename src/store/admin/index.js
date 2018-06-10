@@ -406,6 +406,26 @@ export default {
                         // commit('set_checkout_level1', data)
 
                 })
+        },
+        post_checkout({ commit, state }) {
+            let token = sessionStorage.getItem('token')
+            let id = state.checkout_approval.index
+            console.log(id)
+            axios.post(`${baseURL}/api/checkout/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+
+                    }
+                })
+                .then((response) => {
+                    let data = response.data
+                    console.log(response)
+                        // this.dispatch(`get_checkout_${payload.api}`, 1)
+                        //     // commit('set_checkout_level1', data)
+
+                })
         }
     }
 }

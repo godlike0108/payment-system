@@ -190,7 +190,7 @@ vueRouter.beforeEach((to, from, next) => {
         }
         if (from.fullPath === '/index/checkout' || from.fullPath === '/index/userProfile') {
             if (to.fullPath === '/index/') {
-                store.dispatch('show_user')
+                store.dispatch('front_end_show_user')
             }
         }
         if (to.fullPath === '/index/checkout') {

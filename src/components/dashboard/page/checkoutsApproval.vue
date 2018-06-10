@@ -43,7 +43,7 @@ export default {
                     {
                         title: '申請時間',
                         key: 'created_at',
-                        width: 170,
+                        width: 150,
 					},
 					{
                         title: '確認撥款',
@@ -113,8 +113,8 @@ export default {
                     onOk: () => {
                         this.$Message.info('確認送出');
                         _vm.$store.commit('set_checkout_approval_index',index)
-                        _vm.$store.commit('set_checkout_approval_status',2)
-                        _vm.$store.dispatch('put_checkout_review_pudate',{id:this.$store.state.admin.checkout_approval.index,status:this.$store.state.admin.checkout_approval.status,api:'approval'})
+                        // _vm.$store.commit('set_checkout_approval_status',2)
+                        _vm.$store.dispatch('post_checkout')
                     
                     },
             })

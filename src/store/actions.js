@@ -59,7 +59,7 @@ export default {
 
             })
     },
-    show_user({ commit, state }) {
+    front_end_show_user({ commit, state }) {
         let id = sessionStorage.getItem('id', id)
         let token = sessionStorage.getItem('token', token)
         axios.get(`${baseURL}/api/users/${id}`, {
@@ -77,7 +77,7 @@ export default {
             let username = data.username
             let password = state.user.password
             let role_id = data.role_id
-            let balance
+            let balance = data.wallets["0"].balance
             let user_status_id = data.user_status_id
             let id = data.id
 
@@ -89,6 +89,8 @@ export default {
             sessionStorage.setItem('role_id', role_id)
             sessionStorage.setItem('user_status_id', user_status_id)
             sessionStorage.setItem('id', id)
+            sessionStorage.setItem('balance', balance)
+
             commit('setData')
         })
     },
@@ -185,7 +187,9 @@ export default {
 
         axios.get(`${baseURL}/api/wallet-histories?page=${payload}`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 }
             })
             .then((response) => {
@@ -211,7 +215,7 @@ export default {
             .then((response) => {
                 console.log(response)
                 commit('success_transactions')
-                this.dispatch('show_user')
+                this.dispatch('front_end_show_user')
             }).catch(() => {
                 if (error.response.status === 404) {
                     commit('wrong_transactions')
@@ -261,7 +265,9 @@ export default {
     getAlluser({ commit, state }) {
         axios.get(`${baseURL}/api/users`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
                 }
             })
             .then((response) => {

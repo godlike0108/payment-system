@@ -90,11 +90,9 @@ export default {
 				console.log(data)
 				data.map(item=>{
 					item.user_username = item.user.username
-					// item.user_phone = item.user.mobile
 					return item
 				})
 				 return this.$store.getters.get_checkout_level1
-                // console.log(this.$store.getters.get_checkout_level1)
                
             },
             get_checkout_level1_page_total(){
