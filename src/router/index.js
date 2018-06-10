@@ -185,7 +185,13 @@ vueRouter.beforeEach((to, from, next) => {
         if (to.fullPath === '/index') {
             store.dispatch('userGetChekout', 1)
             store.dispatch('userGetwalletHistories', 1)
+
             next()
+        }
+        if (from.fullPath === '/index/checkout' || from.fullPath === '/index/userProfile') {
+            if (to.fullPath === '/index/') {
+                store.dispatch('show_user')
+            }
         }
         if (to.fullPath === '/index/checkout') {
             store.dispatch('userGetChekout', 1).then(() => {

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import router from '@/router'
 import { isNull } from 'util';
+import { resolve } from 'path';
 
 const baseURL = 'http://wallet-staging.ap-northeast-1.elasticbeanstalk.com'
 export default {
@@ -250,8 +251,11 @@ export default {
             } else if (phoneRule.test(phone) && emailRule.test(email)) {
                 put_data = { mobile: phone, email: email }
             }
-
-            console.log(put_data)
+            if (password != null) {
+                Object.assign(put_data, { password: password })
+                console.log(put_data)
+            }
+            // console.log(put_data)
             axios.put(`${baseURL}/api/users/${id}`, put_data, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -373,8 +377,15 @@ export default {
                     let data = response.data
                     console.log(data)
                     commit('set_checkout_level1', data)
+                }).catch((response) => {
+                    // return Promise.reject('siwkfji')
+                    console.log(response)
+
 
                 })
+
+            // return Promise.resolve('siwkfji')
+
         },
         put_checkout_review_pudate({ commit, state }, payload) {
             let token = sessionStorage.getItem('token')

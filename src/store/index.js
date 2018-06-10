@@ -153,7 +153,7 @@ const mutations = {
         state.updateProfile.name = name
         state.updateProfile.username = username
         state.updateProfile.password = password
-            // console.log(state.user)
+        console.log(token)
 
     },
     updatePassword(state, password) {

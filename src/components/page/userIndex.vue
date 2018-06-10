@@ -14,6 +14,7 @@
             <Tabs value="name1">
             <TabPane label="轉帳紀錄" name="name1">
                 <Table height="500" :columns="columns1" :data="getTransition" ></Table>
+                <Page :total="get_wallet_page_total" @on-change="change" style="margin:15px"></Page>
             </TabPane>
             <TabPane label="轉帳" name="name2">
                 <Form ref="formCustom"  :label-width="80">
@@ -33,7 +34,7 @@
         </Tabs>
         </Col>
     </Row>
-    <Page :total="get_wallet_page_total" @on-change="change" style="margin:15px"></Page>
+    
  </div>
 </template>
 

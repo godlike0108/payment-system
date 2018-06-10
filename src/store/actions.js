@@ -59,6 +59,39 @@ export default {
 
             })
     },
+    show_user({ commit, state }) {
+        let id = sessionStorage.getItem('id', id)
+        let token = sessionStorage.getItem('token', token)
+        axios.get(`${baseURL}/api/users/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        }).then((response) => {
+            console.log(response)
+            let data = response.data
+            let email = data.email
+            let mobile = data.mobile
+            let name = data.name
+            let username = data.username
+            let password = state.user.password
+            let role_id = data.role_id
+            let balance
+            let user_status_id = data.user_status_id
+            let id = data.id
+
+            sessionStorage.setItem('password', password)
+            sessionStorage.setItem('email', email)
+            sessionStorage.setItem('mobile', mobile)
+            sessionStorage.setItem('name', name)
+            sessionStorage.setItem('username', username)
+            sessionStorage.setItem('role_id', role_id)
+            sessionStorage.setItem('user_status_id', user_status_id)
+            sessionStorage.setItem('id', id)
+            commit('setData')
+        })
+    },
     getSms({ commit, state }) {
         axios.post(`${baseURL}/api/sms`, {
                 mobile: 886 + state.signIn.mobile
@@ -178,6 +211,7 @@ export default {
             .then((response) => {
                 console.log(response)
                 commit('success_transactions')
+                this.dispatch('show_user')
             }).catch(() => {
                 if (error.response.status === 404) {
                     commit('wrong_transactions')
@@ -241,7 +275,7 @@ export default {
         let id = sessionStorage.getItem('id')
         let password = state.user.password
         let data = JSON.stringify({ password: password })
-        console.log(password)
+        console.log(data)
         axios.put(`${baseURL}/api/users/${id}`, data, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
