@@ -113,7 +113,7 @@ export default {
                     onOk: () => {
                         this.$Message.info('確認送出');
                         _vm.$store.commit('set_checkout_approval_index',index)
-                        // _vm.$store.commit('set_checkout_approval_status',2)
+                        _vm.$store.commit('set_checkout_approval_status',2)
                         _vm.$store.dispatch('post_checkout')
                     
                     },

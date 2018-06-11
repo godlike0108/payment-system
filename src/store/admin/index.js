@@ -127,8 +127,18 @@ export default {
             console.log(state.edit_user_infor)
         },
         set_checkout_level1_index(state, index) {
-            state.checkout_level1.index = state.checkout_level1.data[index].checkout_reviews[0].id
-            console.log(state.checkout_level1.data[index].checkout_reviews[0].id)
+            var checkout_reviews = state.checkout_level1.data[index].checkout_reviews;
+            var checkoutReviewID = null;
+            for (var i = 0; i < checkout_reviews.length; i++) {
+                var checkoutReview = checkout_reviews[i];
+                if (checkoutReview.role_id == 2) {
+                    checkoutReviewID = checkoutReview.id;
+                }
+            }
+            // console.log("-----" + checkoutReviewID + "-----");
+            // console.log(checkout_reviews)
+            state.checkout_level1.index = checkoutReviewID
+            console.log("-----" + state.checkout_level1.index + "-----")
 
         },
         set_checkout_level1_status(state, status) {
@@ -141,8 +151,18 @@ export default {
                 // console.log(state.checkout_level1.data)
         },
         set_checkout_level2_index(state, index) {
-            state.checkout_level2.index = state.checkout_level2.data[index].id
-            console.log(state.checkout_level2.data[index].id)
+            var checkout_reviews = state.checkout_level2.data[index].checkout_reviews;
+            var checkoutReviewID = null;
+            for (var i = 0; i < checkout_reviews.length; i++) {
+                var checkoutReview = checkout_reviews[i];
+                if (checkoutReview.role_id == 1) {
+                    checkoutReviewID = checkoutReview.id;
+                }
+            }
+            // console.log("-----" + checkoutReviewID + "-----");
+            // console.log(checkout_reviews)
+            state.checkout_level2.index = checkoutReviewID
+            console.log("-----" + state.checkout_level2.index + "-----")
 
         },
         set_checkout_level2_status(state, status) {
@@ -160,8 +180,8 @@ export default {
             console.log(state.checkout_approval)
         },
         set_checkout_approval_index(state, index) {
-            state.checkout_approval.index = state.checkout_approval.data[index].checkout_reviews[0].id
-                // console.log(state.checkout_approval.data[index].checkout_reviews[0].id)
+            state.checkout_approval.index = state.checkout_approval.data[index].id
+            console.log(state.checkout_approval.data[index])
 
         },
         set_checkout_approval_status(state, status) {
@@ -465,25 +485,25 @@ export default {
             let status = payload.status
             let data = JSON.stringify({ review_status_id: status })
             console.log(payload)
-                // axios.put(`${baseURL}/api/checkout-reviews/${payload.id}`, data, {
-                //         headers: {
-                //             'Authorization': `Bearer ${token}`,
-                //             'Content-Type': 'application/json',
-                //             'Accept': 'application/json',
-                //         }
-                //     })
-                //     .then((response) => {
-                //         let data = response.data
-                //         console.log(response)
-                //         this.dispatch(`get_checkout_${payload.api}`, 1)
-                //             // commit('set_checkout_level1', data)
+            axios.put(`${baseURL}/api/checkout-reviews/${payload.id}`, data, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    }
+                })
+                .then((response) => {
+                    let data = response.data
+                    console.log(response)
+                    this.dispatch(`get_checkout_${payload.api}`, 1)
+                        // commit('set_checkout_level1', data)
 
-            //     }).catch((error) => {
-            //         if (error.response.status = '401') {
-            //             commit('log_out')
-            //             router.push('/dashboard')
-            //         }
-            //     })
+                }).catch((error) => {
+                    if (error.response.status = '401') {
+                        commit('log_out')
+                        router.push('/dashboard')
+                    }
+                })
         },
         post_checkout({ commit, state }) {
             let token = sessionStorage.getItem('token')
@@ -512,4 +532,4 @@ export default {
                 })
         }
     }
-}
+};

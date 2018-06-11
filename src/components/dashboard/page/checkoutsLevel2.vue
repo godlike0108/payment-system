@@ -120,13 +120,13 @@ export default {
 			remove(index){
                  let _vm = this
                 this.$Modal.confirm({
-                     title: `刪除會員資料 `,
-                    content: `<p style="font-size:1.4em">確認刪除<h2>${this.$store.state.admin.user_list[index].name}</h2>的會員資料嗎？</p>`,
+                     title: `出金覆核 `,
+                    content: `<p style="font-size:1.4em">確認回絕<h2>${this.$store.state.admin.checkout_level2.data[index].name}</h2>的出金申請嗎？</p>`,
                     onOk: () => {
                         this.$Message.info('確認送出');
                         _vm.$store.commit('set_checkout_level2_index',index)
                         _vm.$store.commit('set_checkout_level2_status',-1)
-                        _vm.$store.dispatch('put_checkout_review_pudate',{id:this.$store.state.admin.checkout_level1.index,status:this.$store.state.admin.checkout_level1.status,api:'level2'})
+                        _vm.$store.dispatch('put_checkout_review_pudate',{id:this.$store.state.admin.checkout_level2.index,status:this.$store.state.admin.checkout_level2.status,api:'level2'})
                         
                     },
             })
