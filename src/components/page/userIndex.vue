@@ -1,5 +1,8 @@
 <template>
+
+
  <div>
+
      <Row type="flex" justify="end" align="top" class="userLine">
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Row type="flex" justify="end" align="top">
@@ -31,7 +34,7 @@
                     </FormItem>
                 </Form>
                 <Row >
-                    <Col style="margin-left:80px">
+                    <Col v-if="this.$store.state.transition.status.success" style="margin-left:80px">
                     <Icon type="checkmark-circled" class="success" size="20"></Icon>
                         <div class="success">轉帳成功</div>
                     </Col>
@@ -122,6 +125,12 @@ export default {
                  item.relative_username = item.relative_user.username
              } else {
                  item.relative_username = ""
+             }
+
+             if(item.created_at) {
+                 item.created_at = this.$moment(item.created_at)
+                 .tz('Asia/Taipei')
+                 .format('YYYY-MM-DD HH:mm:ss');
              }
              
             //  item.updated_at = item.relative_user.updated_at

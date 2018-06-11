@@ -5,11 +5,12 @@ import App from './App'
 import router from './router'
 import iview from 'iview'
 import store from './store'
+import moment from 'moment-timezone'
 import 'iview/dist/styles/iview.css'
 
 Vue.use(iview)
 
-
+Vue.prototype.$moment = moment
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
