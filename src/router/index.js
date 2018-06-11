@@ -153,7 +153,7 @@ vueRouter.beforeEach((to, from, next) => {
     let token = sessionStorage.getItem('token')
     let role_id = sessionStorage.getItem('role_id')
     let user_status_id = sessionStorage.getItem('user_status_id');
-
+    // console.log(to)
 
     if (to.matched.some(record => {
 
@@ -197,7 +197,7 @@ vueRouter.beforeEach((to, from, next) => {
                 next()
             })
         }
-        if (to.fullPath === '/dashboard/index') {
+        if (to.fullPath === '/dashboard/index/') {
             // store.commit('setData')
             // actionB ({ dispatch, commit }) {
             //     return dispatch('actionA').then(() => {
