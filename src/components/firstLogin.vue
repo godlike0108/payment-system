@@ -46,7 +46,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
   },
   methods:{
       firstChagePassword(password){
-        //   console.log(password)
           let reg=/^([a-zA-Z]+\d+|\d+[a-zA-Z]+)[a-zA-Z0-9]*$/
           if(reg.test(password) && password.length>= 6 && password.length<= 12){
                this.$store.commit('firstChagePassword',password)

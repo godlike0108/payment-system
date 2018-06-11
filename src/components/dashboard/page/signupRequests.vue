@@ -125,18 +125,15 @@ export default {
           ]
       },
       get_user_review_list(){
-          console.log(this.$store.getters.get_user_review_list)
           return this.$store.getters.get_user_review_list
       },
       get_user_review_list_page_total(){
-          console.log(this.$store.getters.get_user_review_list_page_total)
           return this.$store.getters.get_user_review_list_page_total
       }
   },
    methods: {
        change(page){
             this.$store.dispatch('userReview',page)           
-               console.log(page)
             },
             handleSubmit (name) {
                 this.$refs[name].validate((valid) => {
@@ -157,7 +154,6 @@ export default {
                     onOk: () => {
                         this.$Message.info('確認送出');
                         _vm.put_user_id(index)
-                        console.log()
                     },
                     render: (h) => {
                         return h('Input', {
@@ -172,7 +168,6 @@ export default {
                                 //   set_user_review_id(val)
                                 
                                 this.$store.state.admin.user_review_id = val
-                                //    console.log(this.$store.state.admin.user_review_id) 
                                 }
                             },
                             

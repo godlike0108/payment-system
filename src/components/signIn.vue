@@ -130,7 +130,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 				let mobile = this.$store.state.signIn.mobile
 				let email = this.$store.state.signIn.email
 				let name = 	this.$store.state.signIn.name	
-				console.log(name)		
 				if (mobile.match(reMobile9) === null && mobile.match(reMobile09) === null ){
 					this.NotMobil = true
 					if(reEmail.test(email) === false){

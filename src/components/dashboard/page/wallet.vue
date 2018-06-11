@@ -132,7 +132,6 @@ export default {
           ]
       },
       get_user_review_list(){
-          console.log(this.$store.getters.get_user_review_list)
           return this.$store.getters.get_user_review_list
       }
   },

@@ -91,10 +91,8 @@ export default {
   methods: {
       change(page){
             this.$store.dispatch('show_user',page)           
-               console.log(page)
             },
       show (index) {
-          console.log()
             let _vm = this
             this.$Modal.confirm({
                 onOk: () => {
@@ -119,7 +117,6 @@ export default {
                     //         //   set_user_review_id(val)
                             
                     //         this.$store.state.admin.reset_user.username = val
-                    //         //    console.log(this.$store.state.admin.user_review_id) 
                     //         }
                     //     },   
                     // }),
@@ -138,7 +135,6 @@ export default {
                             //   set_user_review_id(val)
                             
                             this.$store.state.admin.reset_user.password = val
-                            //    console.log(this.$store.state.admin.user_review_id) 
                             }
                         },
                         
@@ -206,7 +202,6 @@ export default {
                this.$store.state.admin.reset_user.username =null
                this.$store.state.admin.reset_user.user_id =null
                this.$store.state.admin.reset_user.password =null
-               console.log(this.$store.state.admin.reset_user)
                
            }
   },

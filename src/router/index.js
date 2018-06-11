@@ -154,8 +154,6 @@ vueRouter.beforeEach((to, from, next) => {
     let role_id = sessionStorage.getItem('role_id')
     let user_status_id = sessionStorage.getItem('user_status_id');
 
-    // console.log('to=', to.fullPath, '| from=', from.fullPath);
-    // console.log(from, to)
 
     if (to.matched.some(record => {
 
@@ -255,6 +253,7 @@ vueRouter.beforeEach((to, from, next) => {
             })
         }
         if (to.fullPath === '/dashboard/index/admins') {
+            store.dispatch('approval_levels')
             store.dispatch('admins').then(() => {
                 store.dispatch('admins').then(() => {
                     next()

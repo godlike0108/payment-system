@@ -47,7 +47,6 @@ export default {
 		computed:{
 			userGetwalletHistories(){
 				let data = this.$store.getters.getTransition
-				console.log(data)
 				data.map(item=>{
 					item.user_username = item.user.username
 					item.user_phone = item.user.mobile
@@ -57,14 +56,12 @@ export default {
 				 return this.$store.getters.getTransition
 			},
 			get_checkout_history_page_total(){
-				console.log(this.$store.getters.get_wallet_page_total)
 				return this.$store.getters.get_wallet_page_total
 			}
 		},
 		methods: {
 			change(page){
             this.$store.dispatch('userGetwalletHistories',page)           
-               console.log(page)
             },
 		},
 		created(){

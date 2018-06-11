@@ -128,8 +128,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 			updateEmail(email){
 				
 				  var reEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-				//   console.log(email.match(reEmail))
-				//   console.log(email)
 				if(email.match(reEmail) === null){
 					setTimeout(()=>{
 						this.Notemail = true
@@ -148,11 +146,8 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 			updateMobile(mobile){
 				// if(mobile.length === 10){
 				// 	let a = mobile.replace(/0/g, "886");
-				// console.log(a)
 				let reMobile09 = /^0[0-9]{9}$/
 				let reMobile9 = /^9[0-9]{8}$/
-				// console.log(mobile.match(reMobile09))
-				// console.log(mobile.match(reMobile9))
 				if (mobile.match(reMobile9) === null ){
 						this.NotMobil = true
 				}else {

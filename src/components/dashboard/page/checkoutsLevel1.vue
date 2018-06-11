@@ -87,7 +87,6 @@ export default {
 		computed:{
 			get_checkout_level1(){
                 let data = this.$store.getters.get_checkout_level1
-				console.log(data)
 				data.map(item=>{
 					item.user_username = item.user.username
 					return item
@@ -102,7 +101,6 @@ export default {
 		methods: {
             change(page){
             this.$store.dispatch('get_checkout_level1',page)           
-               console.log(page)
             },
 			show(index){
                  let _vm = this
@@ -113,7 +111,6 @@ export default {
                         this.$Message.info('確認送出');
                         _vm.$store.commit('set_checkout_level1_index',index)
                         _vm.$store.commit('set_checkout_level1_status',1)
-                        console.log(this.$store.state.admin.checkout_level1.index)
                         _vm.$store.dispatch('put_checkout_review_pudate',{id:this.$store.state.admin.checkout_level1.index,status:this.$store.state.admin.checkout_level1.status,api:'level1'})
                         
                         

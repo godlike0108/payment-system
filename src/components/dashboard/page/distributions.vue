@@ -55,7 +55,6 @@ export default {
 					item.user_username = item.user.username
 					return item
 				})
-				console.log(this.$store.getters.get_checkout_history)
 				 return this.$store.getters.get_checkout_history
             },
             get_checkout_history_page_total(){
@@ -65,7 +64,6 @@ export default {
         methods: {
             change(page){
             this.$store.dispatch('get_checkout_history',page)           
-            //    console.log(page)
             },
         },
 

@@ -5,8 +5,6 @@ const baseURL = 'http://wallet-staging.ap-northeast-1.elasticbeanstalk.com'
 let token = sessionStorage.getItem('token')
 export default {
     login({ commit, state }) {
-        // console.log(commit, state)
-        // console.log(state.user)
         axios.post(`${baseURL}/api/login`, {
                 username: state.user.username,
                 password: state.user.password
@@ -25,7 +23,6 @@ export default {
                 let id = data.id
 
 
-                console.log(response)
                 sessionStorage.setItem('password', password)
                 sessionStorage.setItem('email', email)
                 sessionStorage.setItem('token', token)
@@ -50,9 +47,6 @@ export default {
                 }
 
             }).catch((response) => {
-                console.log("====")
-                console.log(response)
-                console.log("====")
                 if (status = '403') {
                     commit('wrong_login')
                 }
@@ -69,7 +63,6 @@ export default {
                 'Accept': 'application/json',
             }
         }).then((response) => {
-            console.log(response)
             let data = response.data
             let email = data.email
             let mobile = data.mobile
@@ -103,9 +96,7 @@ export default {
         axios.post(`${baseURL}/api/sms`, {
                 mobile: 886 + state.signIn.mobile
             })
-            .then((response) => {
-                console.log(response)
-            })
+            .then((response) => {})
             .catch(() => {
 
             })
@@ -114,9 +105,7 @@ export default {
         axios.post(`${baseURL}/api/sms`, {
                 mobile: state.user.mobile
             })
-            .then((response) => {
-                console.log(response)
-            })
+            .then((response) => {})
             .catch(() => {
 
             })
@@ -135,16 +124,13 @@ export default {
             mobile: '886' + mobile,
             sms: sms,
         })
-        console.log(data)
         axios.post(`${baseURL}/api/signup`, data, {})
             .then((response) => {
-                console.log(response)
 
                 if (status = '200') {
                     commit('success_signup')
                 }
             }).catch((error) => {
-                console.log(error.response.status)
                 if (error.response.status === 400) {
                     commit('wrong_signup_sms')
                 } else if (error.response.status === 422) {
@@ -162,7 +148,7 @@ export default {
         });
         let id = sessionStorage.getItem('id')
         let token = sessionStorage.getItem('token')
-        console.log(password, id)
+        console.log(data)
         axios.put(`${baseURL}/api/users/${id}`, data, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -173,7 +159,7 @@ export default {
             .then((response) => {
                 console.log(response)
                 this.dispatch('login')
-                    // console.log(password, username, name)
+
             }).catch((error) => {
                 if (error.response.status === 401) {
                     commit('log_out')
@@ -192,7 +178,6 @@ export default {
             })
             .then((response) => {
                 let data = response.data
-                    // console.log(response)
                 commit('userChekout', data)
 
             }).catch((error) => {
@@ -204,7 +189,6 @@ export default {
     },
     userGetwalletHistories({ commit, state }, payload) {
         // let role_id = sessionStorage.getItem('role_id')
-        // console.log(payload)
         let token = sessionStorage.getItem('token')
 
         axios.get(`${baseURL}/api/wallet-histories?page=${payload}`, {
@@ -216,7 +200,6 @@ export default {
             })
             .then((response) => {
                 let data = response.data
-                    // console.log(response)
                 commit('userGetwalletHistories', data)
 
             }).catch((error) => {
@@ -240,7 +223,6 @@ export default {
                 }
             })
             .then((response) => {
-                console.log(response)
                 commit('success_transactions')
                 this.dispatch('front_end_show_user')
             }).catch(() => {
@@ -263,7 +245,6 @@ export default {
             sms: state.checkout.sms
         })
         let token = sessionStorage.getItem('token')
-        console.log(data)
         axios.post(`${baseURL}/api/checkouts`, data, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -273,7 +254,6 @@ export default {
 
             })
             .then((response) => {
-                console.log(response)
                 commit('reset_user_checkout')
                 commit('checkout_success')
                 this.dispatch('userGetChekout', 1)
@@ -297,7 +277,6 @@ export default {
             })
             .then((response) => {
                 let data = response.data.data
-                    // console.log(data)
                 commit('setAdmins', data)
 
             }).catch((error) => {
@@ -318,7 +297,6 @@ export default {
             })
             .then((response) => {
                 let data = response.data.data
-                    // console.log(data)
                 commit('setAllusers', data)
 
             }).catch((error) => {
@@ -333,7 +311,6 @@ export default {
         let token = sessionStorage.getItem('token')
         let password = state.user.password
         let data = JSON.stringify({ password: password })
-        console.log(token)
             // axios.put(`${baseURL}/api/users/${id}`, data, {
             //         headers: {
             //             'Authorization': `Bearer ${token}`,
@@ -341,7 +318,6 @@ export default {
             //         }
             //     })
             //     .then((response) => {
-            //         console.log(response)
             //             // commit('setData', data)
             //         this.dispatch('login')
             //     })

@@ -86,7 +86,6 @@ export default {
 		computed:{
 			get_checkout_approval(){
                 let data = this.$store.getters.get_checkout_approval
-				console.log(data)
 				data.map(item=>{
 					item.user_username = item.user.username
 					return item
@@ -95,7 +94,6 @@ export default {
 				
             },
             get_checkout_approval_page_total(){
-				console.log(this.$store.getters.get_checkout_approval_page_total)
 				 return this.$store.getters.get_checkout_approval_page_total
             },
             
@@ -103,7 +101,6 @@ export default {
 		methods: {
             change(page){
             this.$store.dispatch('get_checkout_approval',page)           
-            //    console.log(page)
             },
 			show(index){
                  let _vm = this

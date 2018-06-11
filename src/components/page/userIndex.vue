@@ -33,7 +33,7 @@
                 <Row >
                     <Col v-if="this.$store.state.transition.status.success">
                     <Icon type="checkmark-circled" class="success" size="20"></Icon>
-                        <div class="success">出金申請成功</div>
+                        <div class="success">轉帳成功</div>
                     </Col>
                 </Row>
             </TabPane>
@@ -117,6 +117,7 @@ export default {
              } else if (item.type===2) {
                  item.type = '轉出'
              };
+             console.log(item)
              item.relative_username = item.relative_user.username,
              item.updated_at = item.relative_user.updated_at
              return item
@@ -127,11 +128,9 @@ export default {
    methods: {
        change(page){
         this.$store.dispatch('userGetwalletHistories',page)           
-        //    console.log(page)
         },
        updateToUserName(to_username){
           this.$store.commit('updateToUserName', to_username)
-        //   console.log(to_username)
       },
       updateToAmount(amount){
           this.$store.commit('updateToAmount', amount)

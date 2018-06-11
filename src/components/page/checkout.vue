@@ -160,7 +160,6 @@ export default {
              {
                 item.checkout_status_id = '已撥款'
              }
-            //  console.log(item)
               
              return item
           })
@@ -191,7 +190,6 @@ export default {
         },
         change(page){
         this.$store.dispatch('userGetChekout',page)           
-        //    console.log(page)
         },
   },
   created(){

@@ -86,7 +86,6 @@ export default {
 		computed:{
 			get_checkout_level2(){
 				let data = this.$store.getters.get_checkout_level2
-				console.log(data)
 				data.map(item=>{
 					item.user_username = item.user.username
 					return item
@@ -100,7 +99,6 @@ export default {
 		methods: {
             change(page){
             this.$store.dispatch('get_checkout_level2',page)           
-               console.log(page)
             },
 			show(index){
                  let _vm = this

@@ -69,7 +69,6 @@ const state = {
 const getters = {
     getData() {
         // let data = sessionStorage.getItem('data')
-        // console.log(data.name)
     },
     getWrongLogin() {
         return state.login.wrongLogin
@@ -86,7 +85,6 @@ const getters = {
 
     },
     getTransition() {
-        // console.log(state.transition.data)
         return state.wallet.histories
     },
     get_wallet_page_total() {
@@ -103,7 +101,6 @@ const mutations = {
     },
     success_login(state) {
         state.login.wrongLogin = false
-        console.log(state.login.wrongLogin)
     },
     checkout_success(state) {
         state.checkout.success = true
@@ -164,7 +161,6 @@ const mutations = {
         state.updateProfile.name = name
         state.updateProfile.username = username
         state.updateProfile.password = password
-        console.log(token)
 
     },
     updatePassword(state, password) {
@@ -173,7 +169,6 @@ const mutations = {
     },
     updateUsername(state, username) {
         state.user.username = username
-            // console.log(state.user.username)
     },
     updateName(state, name) {
         state.signIn.name = name
@@ -184,46 +179,37 @@ const mutations = {
     },
     updateEmail(state, email) {
         state.signIn.email = email
-            // console.log(email)
     },
     updateSms(state, sms) {
         state.signIn.sms = sms
     },
     updateToUserName(state, to_username) {
         state.transition.to_username = to_username
-            // console.log(state.transition.to_username)
     },
     updateToAmount(state, amount) {
         state.transition.amount = amount
-            // console.log(state.transition.amount)
     },
     firstChagePassword(state, password) {
         state.user.password = password
-            // console.log(state.user.password)
     },
     userChekout(state, data) {
         state.checkout.data = data.data
         state.checkout.page_total = data.last_page * 10
-            // console.log(state.checkout.page_total)
 
     },
     userGetwalletHistories(state, data) {
 
         state.wallet.histories = data.data
         state.wallet.page_total = data.last_page * 10
-            // console.log(state.wallet.page_total)
     },
     setProfileName(state, name) {
         state.user.name = name
-        console.log(state.updateProfile.name)
     },
     setProfileUsername(state, username) {
         state.user.username = username
-        console.log(state.updateProfile.username)
     },
     setProfilePassword(state, password) {
         state.updateProfile.password = password
-            // console.log(state.updateProfile.password)
     },
     //commit checkout input value
     setCheckoutName(state, name) {
@@ -259,15 +245,12 @@ const mutations = {
         state.user.password = password
         state.user.role_id = role_id
         state.user.user_status_id = user_status_id
-        console.log(state.user)
     },
     setAdmins(state, data) {
         state.Admins.admins = data
-            // console.log(data)
     },
     setAllusers(state, data) {
         state.Allusers = data
-            // console.log(data)
     },
     reset_user_checkout(state) {
         state.checkout.bank = '',

@@ -67,7 +67,7 @@ export default {
   },
   computed:{
 	  getAdmins(){
-        //   console.log(this.$store.getters.get_user_review_list)
+      
           return this.$store.getters.getAdmins
 	  },
 	  get_approval_amount(){
@@ -82,7 +82,6 @@ export default {
                     onOk: () => {
                         this.$Message.info('確認送出');
                         _vm.put_administrator_id(index)
-                        console.log()
                     },
                     render: (h) => {
                         return h('div', [h('Input', {
@@ -99,7 +98,6 @@ export default {
                                 //   set_user_review_id(val)
                                 
                                 this.$store.state.admin.reset_administrator.username = val
-                                //    console.log(this.$store.state.admin.user_review_id) 
                                 }
                             },
                             
@@ -118,7 +116,6 @@ export default {
                                 //   set_user_review_id(val)
                                 
                                 this.$store.state.admin.reset_administrator.password = val
-                                //    console.log(this.$store.state.admin.user_review_id) 
                                 }
                             },
                             
