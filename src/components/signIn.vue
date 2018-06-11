@@ -42,9 +42,9 @@
         <form-item >
             <i-input  :value="sms" class="phonePassword" @input="updateSms"  placeholder="請填入驗證碼共五碼"   clearable></i-input>
         </form-item>
-		<form-item  >
+		<form-item >
 			<i-button class="loginButton" @click="submitSignIn()">提出申請</i-button>
-         <!-- v-show=" name !=''   && mobile.length >= 9 && sms.length === 5 " -->
+ <!-- v-show=" name.length !=0  && mobile.length >= 9 && sms.length === 5 " -->
 		</form-item>
 	</i-form>
     <Row >

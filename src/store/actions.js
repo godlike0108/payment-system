@@ -122,13 +122,23 @@ export default {
             })
     },
     submitSignIn({ commit, state }) {
+        let name = state.signIn.name
+        let email = state.signIn.email
+        let mobile = state.signIn.mobile
+        let sms = state.signIn.sms
+        if (mobile.charAt(0) === '0') {
+            mobile = mobile.slice(1, 9)
+        }
+        let data = JSON.stringify({
+            name: name,
+            email: email,
+            mobile: '886' + mobile,
+            sms: sms,
+        })
+        console.log(data)
 
-        axios.post(`${baseURL}/api/signup`, {
-                name: state.signIn.name,
-                email: state.signIn.email,
-                mobile: 886 + state.signIn.mobile,
-                sms: state.signIn.sms,
-            })
+
+        axios.post(`${baseURL}/api/signup`, data, {})
             .then((response) => {
                 console.log(response)
 
