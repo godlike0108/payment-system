@@ -39,6 +39,12 @@
                         </i-form>
                     </Col>
                 </Row>
+                <Row >
+                    <Col v-if="this.$store.state.checkout.success">
+                    <Icon type="checkmark-circled" class="success" size="20"></Icon>
+                        <div class="success">出金申請成功</div>
+                    </Col>
+                </Row>
             </TabPane>
             <TabPane label="出金回報" name="name2">
             <Table height="400" :columns="columns1" :data="getCheckout"></Table>
@@ -200,6 +206,10 @@ export default {
   color: red;
   font-size: 2em
 }
+.success {
+		color: #19be6b;
+		font-size: 1.2em
+	}
 .user {
   font-size: 2em
 }

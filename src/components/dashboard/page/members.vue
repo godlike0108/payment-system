@@ -196,8 +196,8 @@ export default {
             reset_user_id(index){
             let phone = this.$store.state.admin.reset_user.phone
             let email = this.$store.state.admin.reset_user.email
-   
-             this.$store.state.admin.reset_user.user_id = this.$store.state.admin.user_list[index].id
+             this.$store.state.admin.reset_user.user_id = this.$store.state.admin.user_list.data[index].id
+
              this.$store.dispatch('update_user_id',index)
            },
            reset_reset_user_id(){

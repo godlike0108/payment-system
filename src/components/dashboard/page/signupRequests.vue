@@ -13,9 +13,10 @@
         <Col :xs="20" :sm="20" :md="20" :lg="20">
             <Tabs value="name1">
             <TabPane label="註冊申請" name="name1">
-                <Table height="400" :columns="columns1" :data="get_user_review_list"></Table>
+                <Table height="500" :columns="columns1" :data="get_user_review_list"></Table>
             </TabPane>
         </Tabs>
+         <Page :total="get_user_review_list_page_total" @on-change="change" style="margin:15px"></Page>
         </Col>
     </Row>
  </div>
@@ -51,9 +52,7 @@ export default {
             if (!Number.isInteger(value)) {
                 callback(new Error('請填入數字'));
             } else {
-                
                     callback();
-                
             }
         }, 1000);
     };
@@ -128,9 +127,17 @@ export default {
       get_user_review_list(){
           console.log(this.$store.getters.get_user_review_list)
           return this.$store.getters.get_user_review_list
+      },
+      get_user_review_list_page_total(){
+          console.log(this.$store.getters.get_user_review_list_page_total)
+          return this.$store.getters.get_user_review_list_page_total
       }
   },
    methods: {
+       change(page){
+            this.$store.dispatch('userReview',page)           
+               console.log(page)
+            },
             handleSubmit (name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {

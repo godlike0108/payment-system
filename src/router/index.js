@@ -172,13 +172,13 @@ vueRouter.beforeEach((to, from, next) => {
                 store.dispatch('admins')
                 store.dispatch('show_user', 1)
                 store.dispatch('userGetwalletHistories', 1)
-                store.dispatch('userReview')
+                store.dispatch('userReview', 1)
                 store.dispatch('get_checkout_level1', 1)
                 store.dispatch('get_checkout_level2', 1)
                 store.dispatch('get_checkout_approval', 1)
                 store.dispatch('get_checkout_history', 1)
                 store.dispatch('approval_levels')
-                store.dispatch('getAlluser')
+                    // store.dispatch('getAlluser')
                 next()
             }
 
@@ -208,13 +208,13 @@ vueRouter.beforeEach((to, from, next) => {
             store.dispatch('admins')
             store.dispatch('show_user', 1)
             store.dispatch('userGetwalletHistories', 1)
-            store.dispatch('userReview')
+            store.dispatch('userReview', 1)
             store.dispatch('get_checkout_level1', 1)
             store.dispatch('get_checkout_level2', 1)
             store.dispatch('get_checkout_approval', 1)
             store.dispatch('get_checkout_history', 1)
             store.dispatch('approval_levels')
-            store.dispatch('getAlluser')
+                // store.dispatch('getAlluser')
             next()
         }
         if (to.fullPath === '/dashboard/index/checkoutsLevel1') {
@@ -240,7 +240,7 @@ vueRouter.beforeEach((to, from, next) => {
             })
         }
         if (to.fullPath === '/dashboard/index/wallet') {
-            store.dispatch('userReview').then(() => {
+            store.dispatch('userReview', 1).then(() => {
                 next()
             })
         }

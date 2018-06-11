@@ -92,8 +92,8 @@ export default {
             sessionStorage.setItem('balance', balance)
 
             commit('setData')
-        }).catch(() => {
-            if (status = '401') {
+        }).catch((error) => {
+            if (error.response.status = '401') {
                 commit('log_out')
                 this.$router.push('/')
             }
@@ -136,8 +136,6 @@ export default {
             sms: sms,
         })
         console.log(data)
-
-
         axios.post(`${baseURL}/api/signup`, data, {})
             .then((response) => {
                 console.log(response)
@@ -175,8 +173,8 @@ export default {
                 console.log(response)
                 this.dispatch('login')
                     // console.log(password, username, name)
-            }).catch(() => {
-                if (status = '401') {
+            }).catch((error) => {
+                if (error.response.status = '401') {
                     commit('log_out')
                     this.$router.push('/')
                 }
@@ -196,8 +194,8 @@ export default {
                     // console.log(response)
                 commit('userChekout', data)
 
-            }).catch(() => {
-                if (status = '401') {
+            }).catch((error) => {
+                if (error.response.status = '401') {
                     commit('log_out')
                     this.$router.push('/')
                 }
@@ -220,8 +218,8 @@ export default {
                     // console.log(response)
                 commit('userGetwalletHistories', data)
 
-            }).catch(() => {
-                if (status = '401') {
+            }).catch((error) => {
+                if (error.response.status = '401') {
                     commit('log_out')
                     this.$router.push('/')
                 }
@@ -248,8 +246,8 @@ export default {
                 if (error.response.status === 404) {
                     commit('wrong_transactions')
                 }
-            }).catch(() => {
-                if (status = '401') {
+            }).catch((error) => {
+                if (error.response.status = '401') {
                     commit('log_out')
                     this.$router.push('/')
                 }
@@ -275,11 +273,13 @@ export default {
             })
             .then((response) => {
                 console.log(response)
-                this.dispatch('userGetChekout', 1)
                 commit('reset_user_checkout')
+                commit('checkout_success')
+                this.dispatch('userGetChekout', 1)
 
-            }).catch(() => {
-                if (status = '401') {
+
+            }).catch((error) => {
+                if (error.response.status = '401') {
                     commit('log_out')
                     this.$router.push('/')
                 }
@@ -299,15 +299,16 @@ export default {
                     // console.log(data)
                 commit('setAdmins', data)
 
-            }).catch(() => {
-                if (status = '401') {
+            }).catch((error) => {
+                if (error.response.status = '401') {
                     commit('log_out')
                     this.$router.push('/dashboard')
                 }
             })
     },
     getAlluser({ commit, state }) {
-        axios.get(`${baseURL}/api/users`, {
+        let token = sessionStorage.getItem('token')
+        axios.get(`${baseURL}/api/users`, null, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -319,8 +320,8 @@ export default {
                     // console.log(data)
                 commit('setAllusers', data)
 
-            }).catch(() => {
-                if (status = '401') {
+            }).catch((error) => {
+                if (error.response.status = '401') {
                     commit('log_out')
                     this.$router.push('/dashboard')
                 }

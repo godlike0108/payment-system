@@ -16,7 +16,7 @@
                     </Row>
                 </form-item>
                 <form-item >
-                    <i-input  @input="firstChagePassword" :value="password"  placeholder=" 請變更密碼 6~12位英文數字混合" clearable>
+                    <i-input  @input="firstChagePassword"   placeholder=" 請變更密碼 6~12位英文數字混合" clearable>
                         <icon type="person" size="20" slot="prepend"></icon>
                     </i-input>
                     <div>請變更密碼 6~12位英文數字混合</div>

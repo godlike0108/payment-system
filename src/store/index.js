@@ -44,16 +44,18 @@ const state = {
         bank_account: null,
         amount: null,
         sms: null,
-        page_total: null
+        page_total: null,
+        success: false
     },
     transition: {
         data: [],
         to_username: null,
         amount: null,
         status: {
-            success: null,
+            success: false,
             wrongUserName: null
-        }
+        },
+
     },
     wallet: {
         histories: [],
@@ -103,14 +105,23 @@ const mutations = {
         state.login.wrongLogin = false
         console.log(state.login.wrongLogin)
     },
-
+    checkout_success(state) {
+        state.checkout.success = true
+        setTimeout(() => {
+            state.checkout.success = false
+        }, 2000)
+    },
     wrong_transactions(state) {
         state.transition.wrongUserName = true,
             state.transition.success = false
     },
     success_transactions(state) {
-        state.transition.wrongUserName = false,
-            state.transition.success = true
+        state.transition.status.wrongUserName = false,
+            state.transition.status.success = true
+        setTimeout(() => {
+            state.transition.status.success = false
+        }, 2000)
+
     },
     success_signup(state) {
         state.signup_status.phone_is_singup = null

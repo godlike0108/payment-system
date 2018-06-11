@@ -10,7 +10,10 @@ export default {
             data: [],
             page_total: null
         },
-        user_review_list: [],
+        user_review_list: {
+            data: [],
+            page_total: null
+        },
         user_review_id: null,
         user_review_id_index: null,
         reset_administrator: {
@@ -63,7 +66,10 @@ export default {
             return state.user_list.page_total
         },
         get_user_review_list(state) {
-            return state.user_review_list
+            return state.user_review_list.data
+        },
+        get_user_review_list_page_total(state) {
+            return state.user_review_list.page_total
         },
         get_approval_amount(state) {
             console.log(state.approval_levels_amount)
@@ -101,8 +107,10 @@ export default {
             console.log(state.user_list.page_total)
         },
         set_user_review(state, data) {
-            state.user_review_list = data
-                // console.log(state.user_review_list)
+            state.user_review_list.data = data.data
+            state.user_review_list.page_total = data.last_page * 10
+
+            // console.log(state.user_review_list)
         },
         set_user_review_id(state, data) {
             console.log(data)
@@ -133,8 +141,8 @@ export default {
                 // console.log(state.checkout_level1.data)
         },
         set_checkout_level2_index(state, index) {
-            state.checkout_level2.index = state.checkout_level2.data[index].checkout_reviews[0].id
-            console.log(state.checkout_level2.data[index].checkout_reviews[0].id)
+            state.checkout_level2.index = state.checkout_level2.data[index].id
+            console.log(state.checkout_level2.data[index].id)
 
         },
         set_checkout_level2_status(state, status) {
@@ -171,18 +179,18 @@ export default {
 
     },
     actions: {
-        userReview({ commit, state }) {
+        userReview({ commit, state }, payload) {
             let token = sessionStorage.getItem('token')
-            axios.get(`${baseURL}/api/users?status=pending`, {
+            axios.get(`${baseURL}/api/users?status=pending&page=${payload}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             }).then((respone) => {
-                let data = respone.data.data
-                    // console.log(data)
+                let data = respone.data
+                console.log(data)
                 commit('set_user_review', data)
-            }).catch(() => {
-                if (status = '401') {
+            }).catch((error) => {
+                if (error.response.status = '401') {
                     commit('log_out')
                     this.$router.push('/dashboard')
                 }
@@ -199,8 +207,8 @@ export default {
                     let data = response.data
                     console.log(data)
                     commit('set_user_list', data)
-                }).catch(() => {
-                    if (status = '401') {
+                }).catch((error) => {
+                    if (error.response.status = '401') {
                         commit('log_out')
                         this.$router.push('/dashboard')
                     }
@@ -219,10 +227,10 @@ export default {
                     }
                 })
                 .then((response) => {
-                    this.dispatch('userReview')
+                    this.dispatch('userReview', 1)
                     console.log(response)
-                }).catch(() => {
-                    if (status = '401') {
+                }).catch((error) => {
+                    if (error.response.status = '401') {
                         commit('log_out')
                         this.$router.push('/dashboard')
                     }
@@ -245,8 +253,8 @@ export default {
                 .then((response) => {
                     console.log(response)
                     this.dispatch('admins')
-                }).catch(() => {
-                    if (status = '401') {
+                }).catch((error) => {
+                    if (error.response.status = '401') {
                         commit('log_out')
                         this.$router.push('/dashboard')
                     }
@@ -280,9 +288,8 @@ export default {
             }
             if (password != null) {
                 Object.assign(put_data, { password: password })
-                console.log(put_data)
             }
-            // console.log(put_data)
+            console.log(put_data, id)
             axios.put(`${baseURL}/api/users/${id}`, put_data, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -292,8 +299,8 @@ export default {
                 .then((response) => {
                     this.dispatch('show_user', 1)
                     console.log(response)
-                }).catch(() => {
-                    if (status = '401') {
+                }).catch((error) => {
+                    if (error.response.status = '401') {
                         commit('log_out')
                         this.$router.push('/dashboard')
                     }
@@ -310,8 +317,8 @@ export default {
                 let data = response.data.amount
                     // console.log(data)
                 commit('set_approval_amount', data)
-            }).catch(() => {
-                if (status = '401') {
+            }).catch((error) => {
+                if (error.response.status = '401') {
                     commit('log_out')
                     this.$router.push('/dashboard')
                 }
@@ -333,8 +340,8 @@ export default {
                     // this._actions.approval_levels()
                 this.dispatch('approval_levels')
 
-            }).catch(() => {
-                if (status = '401') {
+            }).catch((error) => {
+                if (error.response.status = '401') {
                     commit('log_out')
                     this.$router.push('/dashboard')
                 }
@@ -356,8 +363,8 @@ export default {
                         // console.log(data)
                     this.dispatch('show_user', 1)
 
-                }).catch(() => {
-                    if (status = '401') {
+                }).catch((error) => {
+                    if (error.response.status = '401') {
                         commit('log_out')
                         this.$router.push('/dashboard')
                     }
@@ -377,8 +384,8 @@ export default {
                         // console.log(data)
                     commit('set_checkout_history', data)
 
-                }).catch(() => {
-                    if (status = '401') {
+                }).catch((error) => {
+                    if (staerror.response.statustus = '401') {
                         commit('log_out')
                         this.$router.push('/dashboard')
                     }
@@ -398,8 +405,8 @@ export default {
                         // console.log(data)
                     commit('set_checkout_approval', data)
 
-                }).catch(() => {
-                    if (status = '401') {
+                }).catch((error) => {
+                    if (error.response.status = '401') {
                         commit('log_out')
                         this.$router.push('/dashboard')
                     }
@@ -419,8 +426,8 @@ export default {
                         // console.log(response)
                     commit('set_checkout_level2', data)
 
-                }).catch(() => {
-                    if (status = '401') {
+                }).catch((error) => {
+                    if (error.response.status = '401') {
                         commit('log_out')
                         this.$router.push('/dashboard')
                     }
@@ -443,8 +450,8 @@ export default {
                     // return Promise.reject('siwkfji')
                     console.log(response)
                     return Promise.reject('000')
-                }).catch(() => {
-                    if (status = '401') {
+                }).catch((error) => {
+                    if (error.response.status = '401') {
                         commit('log_out')
                         this.$router.push('/dashboard')
                     }
@@ -471,8 +478,8 @@ export default {
                     this.dispatch(`get_checkout_${payload.api}`, 1)
                         // commit('set_checkout_level1', data)
 
-                }).catch(() => {
-                    if (status = '401') {
+                }).catch((error) => {
+                    if (error.response.status = '401') {
                         commit('log_out')
                         this.$router.push('/dashboard')
                     }
@@ -497,8 +504,8 @@ export default {
                         // this.dispatch(`get_checkout_${payload.api}`, 1)
                         //     // commit('set_checkout_level1', data)
 
-                }).catch(() => {
-                    if (status = '401') {
+                }).catch((error) => {
+                    if (staerror.response.statustus = '401') {
                         commit('log_out')
                         this.$router.push('/dashboard')
                     }

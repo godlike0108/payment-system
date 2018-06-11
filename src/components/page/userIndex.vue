@@ -30,6 +30,12 @@
                         <Button type="ghost" @click="handleReset('formCustom')" style="margin-left: 8px">重新設定</Button>
                     </FormItem>
                 </Form>
+                <Row >
+                    <Col v-if="this.$store.state.transition.status.success">
+                    <Icon type="checkmark-circled" class="success" size="20"></Icon>
+                        <div class="success">出金申請成功</div>
+                    </Col>
+                </Row>
             </TabPane>
         </Tabs>
         </Col>
@@ -159,6 +165,10 @@ export default {
   color: red;
   font-size: 2em
 }
+.success {
+		color: #19be6b;
+		font-size: 1.2em
+	}
 .user {
   font-size: 2em
 }

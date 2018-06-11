@@ -20,6 +20,10 @@ export default {
 		data() {
 			return {
 				 columns1: [
+					 {
+						 title: '轉出管理員',
+						 key: 'relative_username'
+					 },
                     
                     {
                         title: '帳號',
@@ -47,6 +51,7 @@ export default {
 				data.map(item=>{
 					item.user_username = item.user.username
 					item.user_phone = item.user.mobile
+					item.relative_username = item.relative_user.username
 					return item
 				})
 				 return this.$store.getters.getTransition
