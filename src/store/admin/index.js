@@ -210,7 +210,7 @@ export default {
                 console.log(data)
                 commit('set_user_review', data)
             }).catch((error) => {
-                if (error.response.status = '401') {
+                if (error.response.status === 401) {
                     commit('log_out')
                     router.push('/dashboard')
                 }
@@ -228,7 +228,7 @@ export default {
                     console.log(data)
                     commit('set_user_list', data)
                 }).catch((error) => {
-                    if (error.response.status = '401') {
+                    if (error.response.status === 401) {
                         commit('log_out')
                         router.push('/dashboard')
                     }
@@ -250,7 +250,7 @@ export default {
                     this.dispatch('userReview', 1)
                     console.log(response)
                 }).catch((error) => {
-                    if (error.response.status = '401') {
+                    if (error.response.status === 401) {
                         commit('log_out')
                         router.push('/dashboard')
                     }
@@ -274,7 +274,7 @@ export default {
                     console.log(response)
                     this.dispatch('admins')
                 }).catch((error) => {
-                    if (error.response.status = '401') {
+                    if (error.response.status === 401) {
                         commit('log_out')
                         router.push('/dashboard')
                     }
@@ -320,7 +320,7 @@ export default {
                     this.dispatch('show_user', 1)
                     console.log(response)
                 }).catch((error) => {
-                    if (error.response.status = '401') {
+                    if (error.response.status === 401) {
                         commit('log_out')
                         router.push('/dashboard')
                     }
@@ -338,7 +338,7 @@ export default {
                     // console.log(data)
                 commit('set_approval_amount', data)
             }).catch((error) => {
-                if (error.response.status = '401') {
+                if (error.response.status === 401) {
                     commit('log_out')
                     router.push('/dashboard')
                 }
@@ -361,7 +361,7 @@ export default {
                 this.dispatch('approval_levels')
 
             }).catch((error) => {
-                if (error.response.status = '401') {
+                if (error.response.status === 401) {
                     commit('log_out')
                     router.push('/dashboard')
                 }
@@ -384,7 +384,7 @@ export default {
                     this.dispatch('show_user', 1)
 
                 }).catch((error) => {
-                    if (error.response.status = '401') {
+                    if (error.response.status === 401) {
                         commit('log_out')
                         router.push('/dashboard')
                     }
@@ -405,7 +405,7 @@ export default {
                     commit('set_checkout_history', data)
 
                 }).catch((error) => {
-                    if (staerror.response.statustus = '401') {
+                    if (error.response.status === 401) {
                         commit('log_out')
                         router.push('/dashboard')
                     }
@@ -426,7 +426,7 @@ export default {
                     commit('set_checkout_approval', data)
 
                 }).catch((error) => {
-                    if (error.response.status = '401') {
+                    if (error.response.status === 401) {
                         commit('log_out')
                         router.push('/dashboard')
                     }
@@ -447,7 +447,7 @@ export default {
                     commit('set_checkout_level2', data)
 
                 }).catch((error) => {
-                    if (error.response.status = '401') {
+                    if (error.response.status === 401) {
                         commit('log_out')
                         router.push('/dashboard')
                     }
@@ -471,7 +471,7 @@ export default {
                     console.log(response)
                     return Promise.reject('000')
                 }).catch((error) => {
-                    if (error.response.status = '401') {
+                    if (error.response.status === 401) {
                         commit('log_out')
                         router.push('/dashboard')
                     }
@@ -499,7 +499,7 @@ export default {
                         // commit('set_checkout_level1', data)
 
                 }).catch((error) => {
-                    if (error.response.status = '401') {
+                    if (error.response.status === 401) {
                         commit('log_out')
                         router.push('/dashboard')
                     }
@@ -525,7 +525,7 @@ export default {
                         //     // commit('set_checkout_level1', data)
 
                 }).catch((error) => {
-                    if (staerror.response.statustus = '401') {
+                    if (error.response.status === 401) {
                         commit('log_out')
                         router.push('/dashboard')
                     }

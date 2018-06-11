@@ -93,7 +93,7 @@ export default {
 
             commit('setData')
         }).catch((error) => {
-            if (error.response.status = '401') {
+            if (error.response.status === 401) {
                 commit('log_out')
                 router.push('/')
             }
@@ -175,7 +175,7 @@ export default {
                 this.dispatch('login')
                     // console.log(password, username, name)
             }).catch((error) => {
-                if (error.response.status = '401') {
+                if (error.response.status === 401) {
                     commit('log_out')
                     router.push('/')
                 }
@@ -196,7 +196,7 @@ export default {
                 commit('userChekout', data)
 
             }).catch((error) => {
-                if (error.response.status = '401') {
+                if (error.response.status === 401) {
                     commit('log_out')
                     router.push('/')
                 }
@@ -220,7 +220,7 @@ export default {
                 commit('userGetwalletHistories', data)
 
             }).catch((error) => {
-                if (error.response.status = '401') {
+                if (error.response.status === 401) {
                     commit('log_out')
                     router.push('/')
                 }
@@ -248,7 +248,7 @@ export default {
                     commit('wrong_transactions')
                 }
             }).catch((error) => {
-                if (error.response.status = '401') {
+                if (error.response.status === 401) {
                     commit('log_out')
                     router.push('/')
                 }
@@ -280,7 +280,7 @@ export default {
 
 
             }).catch((error) => {
-                if (error.response.status = '401') {
+                if (error.response.status === 401) {
                     commit('log_out')
                     router.push('/')
                 }
@@ -301,7 +301,7 @@ export default {
                 commit('setAdmins', data)
 
             }).catch((error) => {
-                if (error.response.status = '401') {
+                if (error.response.status === 401) {
                     commit('log_out')
                     router.push('/dashboard')
                 }
@@ -322,7 +322,7 @@ export default {
                 commit('setAllusers', data)
 
             }).catch((error) => {
-                if (error.response.status = '401') {
+                if (error.response.status === 401) {
                     commit('log_out')
                     router.push('/dashboard')
                 }
