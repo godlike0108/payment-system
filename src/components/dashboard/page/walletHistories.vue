@@ -22,12 +22,12 @@ export default {
 				 columns1: [
 					 {
 						 title: '轉出管理員',
-						 key: 'relative_username'
+						 key: 'user_username'
 					 },
                     
                     {
                         title: '入金帳號',
-                        key: ''
+                        key: 'relative_username'
                     },
                     {
                         title: '撥款金額',
@@ -51,7 +51,7 @@ export default {
 					item.user_username = item.user.username
 					item.user_phone = item.user.mobile
 					item.relative_username = item.relative_user.username
-					// console.log(item)
+					console.log(item)
 					return item
 				})
 				 return this.$store.getters.getTransition

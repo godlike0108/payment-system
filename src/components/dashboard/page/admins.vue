@@ -8,7 +8,7 @@
             </TabPane>
 			<TabPane label="覆核金額" name="name2">
 				<Row type="flex" justify="center" align="middle">
-					<Col span="24" class="review_amount">覆核金額限制：{{get_approval_amount}}</Col>
+					<Col span="24" class="review_amount">覆核金額限制：{{get_approval_amount}}元</Col>
 					<Col span="24"><Input @input="update_new_approval_amount" placeholder="更改覆核金額" clearable style="width: 200px" ></Input></Col>
 					<Col span="24" class="review_amount"><Button @click="update_approval_amount" type="primary" >送出設定</Button></Col>					
 				</Row>
