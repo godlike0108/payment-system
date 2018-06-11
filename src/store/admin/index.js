@@ -246,6 +246,7 @@ export default {
                     }
                 })
                 .then((response) => {
+                    // console.log(response)
                     this.dispatch('admins')
                 }).catch((error) => {
                     if (error.response.status === 401) {

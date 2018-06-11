@@ -158,7 +158,6 @@ export default {
             })
             .then((response) => {
                 console.log(response)
-                this.dispatch('login')
 
             }).catch((error) => {
                 if (error.response.status === 401) {
@@ -311,16 +310,17 @@ export default {
         let token = sessionStorage.getItem('token')
         let password = state.user.password
         let data = JSON.stringify({ password: password })
-            // axios.put(`${baseURL}/api/users/${id}`, data, {
-            //         headers: {
-            //             'Authorization': `Bearer ${token}`,
-            //             'Content-Type': 'application/json',
-            //         }
-            //     })
-            //     .then((response) => {
-            //             // commit('setData', data)
-            //         this.dispatch('login')
-            //     })
+        console.log(data, id)
+        axios.put(`${baseURL}/api/users/${id}`, data, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then((response) => {
+                // commit('setData', data)
+                this.dispatch('login')
+            })
     }
 
 }

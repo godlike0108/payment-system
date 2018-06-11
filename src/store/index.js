@@ -191,6 +191,7 @@ const mutations = {
     },
     firstChagePassword(state, password) {
         state.user.password = password
+            // console.log(state.user.password)
     },
     userChekout(state, data) {
         state.checkout.data = data.data
@@ -210,6 +211,7 @@ const mutations = {
     },
     setProfilePassword(state, password) {
         state.updateProfile.password = password
+        console.log(state.updateProfile.password)
     },
     //commit checkout input value
     setCheckoutName(state, name) {
