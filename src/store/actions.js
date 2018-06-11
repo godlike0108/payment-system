@@ -95,7 +95,7 @@ export default {
         }).catch((error) => {
             if (error.response.status = '401') {
                 commit('log_out')
-                this.$router.push('/')
+                router.push('/')
             }
         })
     },
@@ -154,14 +154,15 @@ export default {
 
     },
     updateProfile({ commit, state }) {
+        let password = state.updateProfile.password
         let data = JSON.stringify({
-            name: this.state.user.name,
-            username: this.state.user.username,
-            password: this.state.user.password
+            // name: this.state.user.name,
+            // username: this.state.user.username,
+            password: password
         });
         let id = sessionStorage.getItem('id')
         let token = sessionStorage.getItem('token')
-        console.log(state.user.name, state.user.username, state.user.password)
+        console.log(password, id)
         axios.put(`${baseURL}/api/users/${id}`, data, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -176,7 +177,7 @@ export default {
             }).catch((error) => {
                 if (error.response.status = '401') {
                     commit('log_out')
-                    this.$router.push('/')
+                    router.push('/')
                 }
             })
     },
@@ -197,7 +198,7 @@ export default {
             }).catch((error) => {
                 if (error.response.status = '401') {
                     commit('log_out')
-                    this.$router.push('/')
+                    router.push('/')
                 }
             })
     },
@@ -221,7 +222,7 @@ export default {
             }).catch((error) => {
                 if (error.response.status = '401') {
                     commit('log_out')
-                    this.$router.push('/')
+                    router.push('/')
                 }
             })
     },
@@ -249,7 +250,7 @@ export default {
             }).catch((error) => {
                 if (error.response.status = '401') {
                     commit('log_out')
-                    this.$router.push('/')
+                    router.push('/')
                 }
             })
     },
@@ -281,7 +282,7 @@ export default {
             }).catch((error) => {
                 if (error.response.status = '401') {
                     commit('log_out')
-                    this.$router.push('/')
+                    router.push('/')
                 }
             })
     },
@@ -302,7 +303,7 @@ export default {
             }).catch((error) => {
                 if (error.response.status = '401') {
                     commit('log_out')
-                    this.$router.push('/dashboard')
+                    router.push('/dashboard')
                 }
             })
     },
@@ -323,26 +324,27 @@ export default {
             }).catch((error) => {
                 if (error.response.status = '401') {
                     commit('log_out')
-                    this.$router.push('/dashboard')
+                    router.push('/dashboard')
                 }
             })
     },
     put_firstChagePassword({ commit, state }) {
         let id = sessionStorage.getItem('id')
+        let token = sessionStorage.getItem('token')
         let password = state.user.password
         let data = JSON.stringify({ password: password })
-        console.log(data)
-        axios.put(`${baseURL}/api/users/${id}`, data, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then((response) => {
-                console.log(response)
-                    // commit('setData', data)
-                this.dispatch('login')
-            })
+        console.log(token)
+            // axios.put(`${baseURL}/api/users/${id}`, data, {
+            //         headers: {
+            //             'Authorization': `Bearer ${token}`,
+            //             'Content-Type': 'application/json',
+            //         }
+            //     })
+            //     .then((response) => {
+            //         console.log(response)
+            //             // commit('setData', data)
+            //         this.dispatch('login')
+            //     })
     }
 
 }

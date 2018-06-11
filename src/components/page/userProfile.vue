@@ -29,7 +29,7 @@
                                 </i-input>
                             </form-item> -->
                             <form-item >
-                                <i-input type="password" ref="togglePassword" @input="setProfilePassword"  :value="password" :placeholder=" '用戶密碼'"  >
+                                <i-input type="password" ref="togglePassword" @input="setProfilePassword"   :placeholder=" '更改用戶密碼'"  >
                                     <icon type="locked" size="20" slot="prepend"></icon>
                                     
                                 </i-input>

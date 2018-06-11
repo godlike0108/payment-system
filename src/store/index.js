@@ -222,8 +222,8 @@ const mutations = {
         console.log(state.updateProfile.username)
     },
     setProfilePassword(state, password) {
-        state.user.password = password
-        console.log(state.updateProfile.password)
+        state.updateProfile.password = password
+            // console.log(state.updateProfile.password)
     },
     //commit checkout input value
     setCheckoutName(state, name) {

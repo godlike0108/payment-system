@@ -1,7 +1,7 @@
 import axios from 'axios'
 import router from '@/router'
-import { isNull } from 'util';
-import { resolve } from 'path';
+import { isNull } from 'util'
+import { resolve } from 'path'
 
 const baseURL = 'http://wallet-staging.ap-northeast-1.elasticbeanstalk.com'
 export default {
@@ -192,7 +192,7 @@ export default {
             }).catch((error) => {
                 if (error.response.status = '401') {
                     commit('log_out')
-                    this.$router.push('/dashboard')
+                    router.push('/dashboard')
                 }
             })
         },
@@ -210,7 +210,7 @@ export default {
                 }).catch((error) => {
                     if (error.response.status = '401') {
                         commit('log_out')
-                        this.$router.push('/dashboard')
+                        router.push('/dashboard')
                     }
                 })
         },
@@ -232,7 +232,7 @@ export default {
                 }).catch((error) => {
                     if (error.response.status = '401') {
                         commit('log_out')
-                        this.$router.push('/dashboard')
+                        router.push('/dashboard')
                     }
                 })
         },
@@ -256,7 +256,7 @@ export default {
                 }).catch((error) => {
                     if (error.response.status = '401') {
                         commit('log_out')
-                        this.$router.push('/dashboard')
+                        router.push('/dashboard')
                     }
                 })
                 // let username = null
@@ -302,7 +302,7 @@ export default {
                 }).catch((error) => {
                     if (error.response.status = '401') {
                         commit('log_out')
-                        this.$router.push('/dashboard')
+                        router.push('/dashboard')
                     }
                 })
         },
@@ -320,7 +320,7 @@ export default {
             }).catch((error) => {
                 if (error.response.status = '401') {
                     commit('log_out')
-                    this.$router.push('/dashboard')
+                    router.push('/dashboard')
                 }
             })
         },
@@ -343,7 +343,7 @@ export default {
             }).catch((error) => {
                 if (error.response.status = '401') {
                     commit('log_out')
-                    this.$router.push('/dashboard')
+                    router.push('/dashboard')
                 }
             })
         },
@@ -366,7 +366,7 @@ export default {
                 }).catch((error) => {
                     if (error.response.status = '401') {
                         commit('log_out')
-                        this.$router.push('/dashboard')
+                        router.push('/dashboard')
                     }
                 })
         },
@@ -387,7 +387,7 @@ export default {
                 }).catch((error) => {
                     if (staerror.response.statustus = '401') {
                         commit('log_out')
-                        this.$router.push('/dashboard')
+                        router.push('/dashboard')
                     }
                 })
         },
@@ -408,7 +408,7 @@ export default {
                 }).catch((error) => {
                     if (error.response.status = '401') {
                         commit('log_out')
-                        this.$router.push('/dashboard')
+                        router.push('/dashboard')
                     }
                 })
         },
@@ -429,7 +429,7 @@ export default {
                 }).catch((error) => {
                     if (error.response.status = '401') {
                         commit('log_out')
-                        this.$router.push('/dashboard')
+                        router.push('/dashboard')
                     }
                 })
         },
@@ -453,7 +453,7 @@ export default {
                 }).catch((error) => {
                     if (error.response.status = '401') {
                         commit('log_out')
-                        this.$router.push('/dashboard')
+                        router.push('/dashboard')
                     }
                 })
 
@@ -465,25 +465,25 @@ export default {
             let status = payload.status
             let data = JSON.stringify({ review_status_id: status })
             console.log(payload)
-            axios.put(`${baseURL}/api/checkout-reviews/${payload.id}`, data, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                    }
-                })
-                .then((response) => {
-                    let data = response.data
-                    console.log(response)
-                    this.dispatch(`get_checkout_${payload.api}`, 1)
-                        // commit('set_checkout_level1', data)
+                // axios.put(`${baseURL}/api/checkout-reviews/${payload.id}`, data, {
+                //         headers: {
+                //             'Authorization': `Bearer ${token}`,
+                //             'Content-Type': 'application/json',
+                //             'Accept': 'application/json',
+                //         }
+                //     })
+                //     .then((response) => {
+                //         let data = response.data
+                //         console.log(response)
+                //         this.dispatch(`get_checkout_${payload.api}`, 1)
+                //             // commit('set_checkout_level1', data)
 
-                }).catch((error) => {
-                    if (error.response.status = '401') {
-                        commit('log_out')
-                        this.$router.push('/dashboard')
-                    }
-                })
+            //     }).catch((error) => {
+            //         if (error.response.status = '401') {
+            //             commit('log_out')
+            //             router.push('/dashboard')
+            //         }
+            //     })
         },
         post_checkout({ commit, state }) {
             let token = sessionStorage.getItem('token')
@@ -507,7 +507,7 @@ export default {
                 }).catch((error) => {
                     if (staerror.response.statustus = '401') {
                         commit('log_out')
-                        this.$router.push('/dashboard')
+                        router.push('/dashboard')
                     }
                 })
         }
