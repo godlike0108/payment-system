@@ -124,7 +124,13 @@ export default {
             mobile: '886' + mobile,
             sms: sms,
         })
-        axios.post(`${baseURL}/api/signup`, data, {})
+        console.log(data)
+        axios.post(`${baseURL}/api/signup`, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            })
             .then((response) => {
 
                 if (status = '200') {
