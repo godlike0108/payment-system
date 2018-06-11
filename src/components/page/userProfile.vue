@@ -42,6 +42,12 @@
                 </Row>
             </TabPane>
             </Tabs>
+            <Row >
+                    <Col v-if="this.$store.state.updateProfile.success">
+                    <Icon type="checkmark-circled" class="success" size="20"></Icon>
+                        <div class="success">修改密碼成功</div>
+                    </Col>
+                </Row>
         </Col>
     </Row>
  </div>
@@ -103,6 +109,10 @@ export default {
   color: red;
   font-size: 2em
 }
+.success {
+		color: #19be6b;
+		font-size: 1.2em
+	}
 .user {
   font-size: 2em
 }

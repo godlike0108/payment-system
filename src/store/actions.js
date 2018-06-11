@@ -164,6 +164,7 @@ export default {
             })
             .then((response) => {
                 console.log(response)
+                commit('updateProfile_success')
 
             }).catch((error) => {
                 if (error.response.status === 401) {

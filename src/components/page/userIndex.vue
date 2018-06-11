@@ -110,6 +110,7 @@ export default {
          return this.$store.getters.get_wallet_page_total
      },
       getTransition(){
+          let username = ""
          return this.$store.getters.getTransition.map(item=>{
              if(item.type=== 1 ){
                 item.type = '轉入'
@@ -117,8 +118,16 @@ export default {
              } else if (item.type===2) {
                  item.type = '轉出'
              };
-             item.relative_username = item.relative_user.username
+             if(item.relative_user){
+                 item.relative_username = item.relative_user.username
+             } else {
+                 item.relative_username = ""
+             }
+             
             //  item.updated_at = item.relative_user.updated_at
+            // console.log("====")
+            //  console.log(item.relative_user.username)
+            //  console.log("====")
              return item
           })
       

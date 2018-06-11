@@ -35,7 +35,8 @@ const state = {
     updateProfile: {
         name: '',
         username: '',
-        password: ''
+        password: '',
+        success: false
     },
     checkout: {
         data: [],
@@ -106,6 +107,12 @@ const mutations = {
         state.checkout.success = true
         setTimeout(() => {
             state.checkout.success = false
+        }, 2000)
+    },
+    updateProfile_success(state) {
+        state.updateProfile.success = true
+        setTimeout(() => {
+            state.updateProfile.success = false
         }, 2000)
     },
     wrong_transactions(state) {
