@@ -27,11 +27,11 @@
                     </FormItem>
                     <FormItem>
                         <Button type="primary" @click="handleSubmit('formCustom');userTransactions()">送出</Button>
-                        <Button type="ghost" @click="handleReset('formCustom')" style="margin-left: 8px">重新設定</Button>
+                        <!-- <Button type="ghost" @click="handleReset('formCustom')" style="margin-left: 8px">重新設定</Button> -->
                     </FormItem>
                 </Form>
                 <Row >
-                    <Col v-if="this.$store.state.transition.status.success">
+                    <Col style="margin-left:80px">
                     <Icon type="checkmark-circled" class="success" size="20"></Icon>
                         <div class="success">轉帳成功</div>
                     </Col>
