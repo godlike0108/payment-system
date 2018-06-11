@@ -26,20 +26,16 @@ export default {
 	  return {
 		   columns1: [
                     {
-                        title: '申請人',
+                        title: '帳號',
+                        key: 'username'
+                    },
+                    {
+                        title: '名稱',
                         key: 'name'
                     },
                     {
                         title: 'email',
                         key: 'email'
-                    },
-                    {
-                        title: '手機',
-                        key: 'mobile'
-                    },
-                    {
-                        title: '創建時間',
-                        key: 'updated_at'
                     },
                     {
                         title: '修改資料',
@@ -67,7 +63,7 @@ export default {
   },
   computed:{
 	  getAdmins(){
-      
+          console.log(this.$store.getters.getAdmins)
           return this.$store.getters.getAdmins
 	  },
 	  get_approval_amount(){
