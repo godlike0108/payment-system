@@ -52,7 +52,7 @@ export default {
 			get_checkout_history(){
                 let data = this.$store.getters.get_checkout_history
                 data.map(item=>{
-					item.user_username = item.user.username
+                    item.user_username = item.user.username
 					return item
 				})
 				 return this.$store.getters.get_checkout_history
