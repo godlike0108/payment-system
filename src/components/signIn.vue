@@ -21,19 +21,20 @@
 			<i-input  :value="name" @input="updateName" placeholder="使用者姓名" clearable>
 				<icon type="person" size="20" slot="prepend"></icon>
 			</i-input>
+			<span v-if="needname" class="error">使用者姓名不能為空</span>
 		</form-item>
 		<form-item prop="email">
 			<i-input  :value="email" @input="updateEmail" placeholder="使用者信箱"  clearable>
 				<icon type='email' size="20" slot="prepend"></icon>    
 			</i-input>
-			<span v-if="Notemail">email 格式錯誤</span>
+			<span v-if="Notemail" class="error">email 格式錯誤</span>
 		</form-item>
         <form-item prop="phone">
 			<i-input  :value="mobile" @input="updateMobile"  placeholder="使用者手機"  clearable>
 				<span slot="prepend">+886</span>
                 <!-- <Icon  type="ios-telephone" size="20" slot="prepend"></Icon> -->
 			</i-input>
-			<span v-if="NotMobil">手機格式錯誤</span>
+			<span v-if="NotMobil" class="error">手機格式錯誤</span>
 		</form-item>
         <form-item >
             <i-button @click="getSms()">取得手機驗證碼</i-button>
@@ -41,9 +42,9 @@
         <form-item >
             <i-input  :value="sms" class="phonePassword" @input="updateSms"  placeholder="請填入驗證碼共五碼"   clearable></i-input>
         </form-item>
-		<form-item  v-show=" name !=''   && mobile.length === 9 && sms.length === 5 ">
+		<form-item  >
 			<i-button class="loginButton" @click="submitSignIn()">提出申請</i-button>
-         
+         <!-- v-show=" name !=''   && mobile.length >= 9 && sms.length === 5 " -->
 		</form-item>
 	</i-form>
     <Row >
@@ -79,6 +80,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		data() {
 			return {
 				isSubmit: false,
+				needname:false,
 				Notemail:false,
 				NotMobil: false,
 				ruleInline: {
@@ -120,48 +122,41 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		methods:{
 			...mapActions({
 			'getSms' : 'getSms',
-			'submitSignIn':'submitSignIn'
 			}),
+			submitSignIn(){
+				let reEmail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+				let reMobile09 = /^09[0-9]{8}$/
+				let reMobile9 = /^9[0-9]{8}$/
+				let mobile = this.$store.state.signIn.mobile
+				let email = this.$store.state.signIn.email
+				let name = 	this.$store.state.signIn.name	
+				console.log(name)		
+				if (mobile.match(reMobile9) === null && mobile.match(reMobile09) === null ){
+					this.NotMobil = true
+					if(reEmail.test(email) === false){
+					this.Notemail = true
+					}
+					if(name.length === 0){
+						this.needname =true
+					}
+				}else{
+					this.needname =false
+					this.Notemail = false
+					this.NotMobil = false
+					this.$store.dispatch('submitSignIn')
+				}
+
+			},
 			updateName(name){
 				this.$store.commit('updateName', name)
 			},
 			updateEmail(email){
-				
-				  var reEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-				//   console.log(email.match(reEmail))
-				//   console.log(email)
-				if(email.match(reEmail) === null){
-					setTimeout(()=>{
-						this.Notemail = true
-					},1500)
-					this.$store.commit('updateEmail', email.match(reEmail))
-				  	
-					
-				}else{
-					this.Notemail = false
-					this.$store.commit('updateEmail', email)
-					
-				}
-
-				
+				this.$store.commit('updateEmail', email)
 			},
 			updateMobile(mobile){
-				// if(mobile.length === 10){
-				// 	let a = mobile.replace(/0/g, "886");
-				// console.log(a)
-				let reMobile09 = /^0[0-9]{9}$/
-				let reMobile9 = /^9[0-9]{8}$/
-				// console.log(mobile.match(reMobile09))
-				// console.log(mobile.match(reMobile9))
-				if (mobile.match(reMobile9) === null ){
-						this.NotMobil = true
-				}else {
-					this.NotMobil = false
-					this.$store.commit('updateMobile', mobile)
-				}
+				this.$store.commit('updateMobile', mobile)
 			},
 			updateSms(sms){
-				
 				this.$store.commit('updateSms', sms)
 			},
 		}

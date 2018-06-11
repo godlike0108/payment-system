@@ -173,7 +173,7 @@ const mutations = {
     },
     updateEmail(state, email) {
         state.signIn.email = email
-        console.log(email)
+            // console.log(email)
     },
     updateSms(state, sms) {
         state.signIn.sms = sms

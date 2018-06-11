@@ -181,6 +181,11 @@ export default {
                 let data = respone.data.data
                     // console.log(data)
                 commit('set_user_review', data)
+            }).catch(() => {
+                if (status = '401') {
+                    commit('log_out')
+                    this.$router.push('/dashboard')
+                }
             })
         },
         show_user({ commit, state }, payload) {
@@ -194,6 +199,11 @@ export default {
                     let data = response.data
                     console.log(data)
                     commit('set_user_list', data)
+                }).catch(() => {
+                    if (status = '401') {
+                        commit('log_out')
+                        this.$router.push('/dashboard')
+                    }
                 })
         },
         put_user_id({ commit, state }) {
@@ -211,6 +221,11 @@ export default {
                 .then((response) => {
                     this.dispatch('userReview')
                     console.log(response)
+                }).catch(() => {
+                    if (status = '401') {
+                        commit('log_out')
+                        this.$router.push('/dashboard')
+                    }
                 })
         },
         put_administrator_id({ commit, state }, index) {
@@ -230,6 +245,11 @@ export default {
                 .then((response) => {
                     console.log(response)
                     this.dispatch('admins')
+                }).catch(() => {
+                    if (status = '401') {
+                        commit('log_out')
+                        this.$router.push('/dashboard')
+                    }
                 })
                 // let username = null
                 // if (state.reset_administrator.username === null) {
@@ -272,6 +292,11 @@ export default {
                 .then((response) => {
                     this.dispatch('show_user', 1)
                     console.log(response)
+                }).catch(() => {
+                    if (status = '401') {
+                        commit('log_out')
+                        this.$router.push('/dashboard')
+                    }
                 })
         },
         approval_levels({ commit, state }) {
@@ -285,6 +310,11 @@ export default {
                 let data = response.data.amount
                     // console.log(data)
                 commit('set_approval_amount', data)
+            }).catch(() => {
+                if (status = '401') {
+                    commit('log_out')
+                    this.$router.push('/dashboard')
+                }
             })
         },
         update_approval_amount({ commit, state }) {
@@ -303,6 +333,11 @@ export default {
                     // this._actions.approval_levels()
                 this.dispatch('approval_levels')
 
+            }).catch(() => {
+                if (status = '401') {
+                    commit('log_out')
+                    this.$router.push('/dashboard')
+                }
             })
         },
         remove_user({ commit, state }) {
@@ -321,6 +356,11 @@ export default {
                         // console.log(data)
                     this.dispatch('show_user', 1)
 
+                }).catch(() => {
+                    if (status = '401') {
+                        commit('log_out')
+                        this.$router.push('/dashboard')
+                    }
                 })
         },
         get_checkout_history({ commit, state }, payload) {
@@ -337,6 +377,11 @@ export default {
                         // console.log(data)
                     commit('set_checkout_history', data)
 
+                }).catch(() => {
+                    if (status = '401') {
+                        commit('log_out')
+                        this.$router.push('/dashboard')
+                    }
                 })
         },
         get_checkout_approval({ commit, state }, payload) {
@@ -353,6 +398,11 @@ export default {
                         // console.log(data)
                     commit('set_checkout_approval', data)
 
+                }).catch(() => {
+                    if (status = '401') {
+                        commit('log_out')
+                        this.$router.push('/dashboard')
+                    }
                 })
         },
         get_checkout_level2({ commit, state }, payload) {
@@ -369,6 +419,11 @@ export default {
                         // console.log(response)
                     commit('set_checkout_level2', data)
 
+                }).catch(() => {
+                    if (status = '401') {
+                        commit('log_out')
+                        this.$router.push('/dashboard')
+                    }
                 })
         },
         get_checkout_level1({ commit, state }, payload) {
@@ -388,6 +443,11 @@ export default {
                     // return Promise.reject('siwkfji')
                     console.log(response)
                     return Promise.reject('000')
+                }).catch(() => {
+                    if (status = '401') {
+                        commit('log_out')
+                        this.$router.push('/dashboard')
+                    }
                 })
 
             // return Promise.resolve('siwkfji')
@@ -411,6 +471,11 @@ export default {
                     this.dispatch(`get_checkout_${payload.api}`, 1)
                         // commit('set_checkout_level1', data)
 
+                }).catch(() => {
+                    if (status = '401') {
+                        commit('log_out')
+                        this.$router.push('/dashboard')
+                    }
                 })
         },
         post_checkout({ commit, state }) {
@@ -432,6 +497,11 @@ export default {
                         // this.dispatch(`get_checkout_${payload.api}`, 1)
                         //     // commit('set_checkout_level1', data)
 
+                }).catch(() => {
+                    if (status = '401') {
+                        commit('log_out')
+                        this.$router.push('/dashboard')
+                    }
                 })
         }
     }

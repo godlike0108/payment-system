@@ -92,6 +92,11 @@ export default {
             sessionStorage.setItem('balance', balance)
 
             commit('setData')
+        }).catch(() => {
+            if (status = '401') {
+                commit('log_out')
+                this.$router.push('/')
+            }
         })
     },
     getSms({ commit, state }) {
@@ -117,30 +122,28 @@ export default {
             })
     },
     submitSignIn({ commit, state }) {
-        if (state.signIn.email === null) {
 
-        } else {
-            axios.post(`${baseURL}/api/signup`, {
-                    name: state.signIn.name,
-                    email: state.signIn.email,
-                    mobile: 886 + state.signIn.mobile,
-                    sms: state.signIn.sms,
-                })
-                .then((response) => {
-                    console.log(response)
+        axios.post(`${baseURL}/api/signup`, {
+                name: state.signIn.name,
+                email: state.signIn.email,
+                mobile: 886 + state.signIn.mobile,
+                sms: state.signIn.sms,
+            })
+            .then((response) => {
+                console.log(response)
 
-                    if (status = '200') {
-                        commit('success_signup')
-                    }
-                }).catch((error) => {
-                    console.log(error.response.status)
-                    if (error.response.status === 400) {
-                        commit('wrong_signup_sms')
-                    } else if (error.response.status === 422) {
-                        commit('phone_is_singup')
-                    }
-                })
-        }
+                if (status = '200') {
+                    commit('success_signup')
+                }
+            }).catch((error) => {
+                console.log(error.response.status)
+                if (error.response.status === 400) {
+                    commit('wrong_signup_sms')
+                } else if (error.response.status === 422) {
+                    commit('phone_is_singup')
+                }
+            })
+
     },
     updateProfile({ commit, state }) {
         let data = JSON.stringify({
@@ -162,6 +165,11 @@ export default {
                 console.log(response)
                 this.dispatch('login')
                     // console.log(password, username, name)
+            }).catch(() => {
+                if (status = '401') {
+                    commit('log_out')
+                    this.$router.push('/')
+                }
             })
     },
     userGetChekout({ commit, state }, payload) {
@@ -178,6 +186,11 @@ export default {
                     // console.log(response)
                 commit('userChekout', data)
 
+            }).catch(() => {
+                if (status = '401') {
+                    commit('log_out')
+                    this.$router.push('/')
+                }
             })
     },
     userGetwalletHistories({ commit, state }, payload) {
@@ -197,6 +210,11 @@ export default {
                     // console.log(response)
                 commit('userGetwalletHistories', data)
 
+            }).catch(() => {
+                if (status = '401') {
+                    commit('log_out')
+                    this.$router.push('/')
+                }
             })
     },
     userTransactions({ commit, state }) {
@@ -219,6 +237,11 @@ export default {
             }).catch(() => {
                 if (error.response.status === 404) {
                     commit('wrong_transactions')
+                }
+            }).catch(() => {
+                if (status = '401') {
+                    commit('log_out')
+                    this.$router.push('/')
                 }
             })
     },
@@ -245,6 +268,11 @@ export default {
                 this.dispatch('userGetChekout', 1)
                 commit('reset_user_checkout')
 
+            }).catch(() => {
+                if (status = '401') {
+                    commit('log_out')
+                    this.$router.push('/')
+                }
             })
     },
     admins({ commit, state }) {
@@ -261,6 +289,11 @@ export default {
                     // console.log(data)
                 commit('setAdmins', data)
 
+            }).catch(() => {
+                if (status = '401') {
+                    commit('log_out')
+                    this.$router.push('/dashboard')
+                }
             })
     },
     getAlluser({ commit, state }) {
@@ -276,6 +309,11 @@ export default {
                     // console.log(data)
                 commit('setAllusers', data)
 
+            }).catch(() => {
+                if (status = '401') {
+                    commit('log_out')
+                    this.$router.push('/dashboard')
+                }
             })
     },
     put_firstChagePassword({ commit, state }) {
