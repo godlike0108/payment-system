@@ -176,7 +176,8 @@ export default {
                 })
             },
            put_user_id(index){
-            this.$store.state.admin.user_review_id_index = this.$store.state.admin.user_review_list[index].id
+            this.$store.state.admin.user_review_id_index = this.$store.state.admin.user_review_list.data[index].id
+            // console.log(this.$store.state.admin.user_review_list.data[index])
             this.$store.dispatch('put_user_id')
             // setTimeout(()=>{
             //     this.$store.dispatch('userReview')  
