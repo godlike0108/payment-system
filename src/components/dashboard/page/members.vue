@@ -83,7 +83,15 @@ export default {
   computed: {
 	  get_user_list(){
         //   console.log(this.$store.getters.get_user_list)
-		  return this.$store.getters.get_user_list
+		  return this.$store.getters.get_user_list.map(item=>{
+              if (item.created_at){
+                 item.created_at = this.$moment(item.created_at)
+                 .tz('Asia/Taipei')
+                 .format('YYYY-MM-DD HH:mm:ss');
+             }
+             return item
+
+          })
       },
       get_user_list_page_total(){
           return this.$store.getters.get_user_list_page_total

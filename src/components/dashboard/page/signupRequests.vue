@@ -125,7 +125,14 @@ export default {
           ]
       },
       get_user_review_list(){
-          return this.$store.getters.get_user_review_list
+          return this.$store.getters.get_user_review_list.map(item=>{
+              if (item.updated_at){
+                 item.updated_at = this.$moment(item.updated_at)
+                 .tz('Asia/Taipei')
+                 .format('YYYY-MM-DD HH:mm:ss');
+             }
+             return item
+          })
       },
       get_user_review_list_page_total(){
           return this.$store.getters.get_user_review_list_page_total
