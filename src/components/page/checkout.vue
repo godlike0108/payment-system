@@ -45,6 +45,12 @@
                         <div class="success">出金申請成功</div>
                     </Col>
                 </Row>
+                <Row >
+                    <Col v-if="this.$store.state.checkout.error">
+                    <Icon type="close-circled" class="error" size="20"></Icon>
+                        <div class="error">申請資料有誤，請輸入正確資料</div>
+                    </Col>
+                </Row>
             </TabPane>
             <TabPane label="出金回報" name="name2">
             <Table height="400" :columns="columns1" :data="getCheckout"></Table>
@@ -171,7 +177,6 @@ export default {
                  .tz('Asia/Taipei')
                  .format('YYYY-MM-DD HH:mm:ss');
              }
-             console.log(item)
              return item
           })
       },
@@ -184,6 +189,7 @@ export default {
             'getUserSms' : 'getUserSms',
             'userCheckout':'userCheckout'
             }),
+        
         setCheckoutName(name){
             this.$store.commit('setCheckoutName',name)
         },
@@ -218,6 +224,10 @@ export default {
 .success {
 		color: #19be6b;
 		font-size: 1.2em
+	}
+.error {
+		color:#ed3f14;
+		font-size:1.2em
 	}
 .user {
   font-size: 2em

@@ -22,11 +22,11 @@
             <TabPane label="轉帳" name="name2">
                 <Form ref="formCustom"  :label-width="80">
                     <FormItem label="轉出帳號" >
-                        <Input type="text"  @input="updateToUserName"></Input>
+                        <Input :value="this.$store.state.transition.to_username" type="text"  @input="updateToUserName"></Input>
                     </FormItem>
                     
                     <FormItem label="轉出金額" >
-                        <Input type="text" @input="updateToAmount"  ></Input>
+                        <Input :value="this.$store.state.transition.amount" type="text" @input="updateToAmount"  ></Input>
                     </FormItem>
                     <FormItem>
                         <Button type="primary" @click="handleSubmit('formCustom');userTransactions()">送出</Button>
@@ -181,8 +181,13 @@ export default {
     handleReset (name) {
         this.$refs[name].resetFields();
     },
+    userTransactions(){
+        this.$store.dispatch('userTransactions') 
+        this.$store.commit('removeTransactionsInput')
+
+    },
     ...mapActions({
-        'userTransactions' : 'userTransactions',
+        // 'userTransactions' : 'userTransactions',
     })
     },
     created(){

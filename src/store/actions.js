@@ -240,7 +240,7 @@ export default {
                 commit('success_transactions')
                 this.dispatch('front_end_show_user')
                 this.dispatch('userGetwalletHistories', 1)
-            }).catch(() => {
+            }).catch((error) => {
                 if (error.response.status === 404) {
                     commit('wrong_transactions')
                 }
@@ -269,12 +269,13 @@ export default {
 
             })
             .then((response) => {
-                commit('reset_user_checkout')
+                commit('removeCheckoutInput')
                 commit('checkout_success')
                 this.dispatch('userGetChekout', 1)
 
 
             }).catch((error) => {
+                commit('checkout_error')
                 if (error.response.status === 401) {
                     commit('log_out')
                     router.push('/')

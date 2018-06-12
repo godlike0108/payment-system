@@ -46,7 +46,8 @@ const state = {
         amount: null,
         sms: null,
         page_total: null,
-        success: false
+        success: false,
+        error: false
     },
     transition: {
         data: [],
@@ -110,6 +111,12 @@ const mutations = {
         setTimeout(() => {
             state.checkout.success = false
         }, 2000)
+    },
+    checkout_error(state) {
+        state.checkout.error = true
+        setTimeout(() => {
+            state.checkout.error = false
+        }, 3000)
     },
     updateProfile_success(state) {
         state.updateProfile.success = true
@@ -210,6 +217,11 @@ const mutations = {
             state.transition.status.noamount = false
         }, 2000)
     },
+    removeTransactionsInput(state) {
+        state.transition.to_username = null
+        state.transition.amount = null
+
+    },
     firstChagePassword(state, password) {
         state.user.password = password
             // console.log(state.user.password)
@@ -250,6 +262,13 @@ const mutations = {
     setCheckout_sms(state, sms) {
         state.checkout.sms = sms
     },
+    removeCheckoutInput(state) {
+        state.checkout.name = null
+        state.checkout.bank = null
+        state.checkout.bank_account = null
+        state.checkout.amount = null
+        state.checkout.sms = null
+    },
     log_out(state) {
         let email = sessionStorage.removeItem('email')
         let token = sessionStorage.removeItem('token')
@@ -274,14 +293,8 @@ const mutations = {
     },
     setAllusers(state, data) {
         state.Allusers = data
-    },
-    reset_user_checkout(state) {
-        state.checkout.bank = '',
-            state.checkout.bank_account = '',
-            state.checkout.amount = '',
-            state.checkout.name = '',
-            state.checkout.sms = ''
     }
+
 
 }
 

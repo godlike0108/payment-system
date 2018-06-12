@@ -156,11 +156,10 @@ vueRouter.beforeEach((to, from, next) => {
     // console.log(to)
 
     if (to.matched.some(record => {
-
             return record.meta.requiresAuth;
         })) {
         if (to.fullPath === null) {
-            if (from.fullPath === '/index/' || from.fullPath === '/index/checkout' || from.fullPath === '/iindex/userProfile') {
+            if (from.fullPath === '/index' || from.fullPath === '/index/checkout' || from.fullPath === '/iindex/userProfile') {
                 store.commit('setData')
                 store.commit('reset_user_checkout')
                 store.dispatch('userGetChekout', 1)
@@ -181,7 +180,7 @@ vueRouter.beforeEach((to, from, next) => {
             }
 
         }
-        if (to.fullPath === '/index/') {
+        if (to.fullPath === '/index/' || to.fullPath === '/index') {
             store.dispatch('userGetChekout', 1)
             store.dispatch('userGetwalletHistories', 1)
 
