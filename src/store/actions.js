@@ -93,7 +93,13 @@ export default {
         })
     },
     getSms({ commit, state }) {
-        let mobile = state.signIn.mobile
+        let mobile
+        if (router.history.current.fullPath === '/find-password') {
+            mobile = state.findPassword.mobile
+        } else {
+            mobile = state.signIn.mobile
+        }
+
         if (mobile.charAt(0) === '0') {
             mobile = mobile.slice(1, 10)
         }
@@ -109,6 +115,8 @@ export default {
             })
             .catch((error) => {
                 console.log(error)
+
+                commit('wrong_findPassword_mobile')
             })
     },
     getUserSms({ commit, state }) {
@@ -154,6 +162,11 @@ export default {
                 }
             })
 
+    },
+    findPassword({ commit, state }) {
+        let sms = state.findPassword.sms
+        let mobile = state.findPassword.mobile
+        this.commit('success_findPassword')
     },
     updateProfile({ commit, state }) {
         let password = state.updateProfile.password

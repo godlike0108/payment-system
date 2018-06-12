@@ -23,11 +23,12 @@ const state = {
         wrong_sms: null
     },
     findPassword: {
-        mobile: null,
-        sms: null,
+        mobile: '',
+        sms: '',
         status: {
             wrong_sms: null,
-            wrong_mobile: null
+            wrong_mobile: null,
+            success: false
         }
     },
     user: {
@@ -202,6 +203,26 @@ const mutations = {
     },
     update_findpassword_sms(state, sms) {
         state.findPassword.sms = sms
+    },
+    wrong_findPassword_sms(state) {
+        state.findPassword.status.wrong_sms = true
+        setTimeout(() => {
+            state.findPassword.status.wrong_sms = false
+        }, 2000)
+    },
+    wrong_findPassword_mobile(state) {
+        state.findPassword.status.wrong_mobile = true
+        setTimeout(() => {
+            state.findPassword.status.wrong_mobile = false
+
+        }, 2000)
+    },
+    success_findPassword(state) {
+        state.findPassword.success = true
+        setTimeout(() => {
+            state.findPassword.success = false
+
+        }, 2000)
     },
     updatePassword(state, password) {
         state.user.password = password

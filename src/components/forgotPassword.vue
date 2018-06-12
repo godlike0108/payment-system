@@ -34,7 +34,6 @@
 				<span slot="prepend">+886</span>
                 <!-- <Icon  type="ios-telephone" size="20" slot="prepend"></Icon> -->
 			</i-input>
-			<span v-if="NotMobil" class="error">手機格式錯誤</span>
 		</form-item>
         <form-item >
             <i-button @click="getSms()">取得手機驗證碼</i-button>
@@ -42,30 +41,34 @@
         <form-item >
             <i-input   class="phonePassword" @input="updateSms"  placeholder="請填入驗證碼共五碼"   clearable></i-input>
         </form-item>
-		<form-item v-show=" name.length !=0  && mobile.length >= 9 && sms.length === 5 ">
-			<i-button class="loginButton" @click="submitSignIn()">提出申請</i-button>
+		<form-item v-show=" mobile.length >= 9 && sms.length === 5 ">
+			<i-button class="loginButton" @click="findPassword()">提出申請</i-button>
 
 		</form-item>
 	</i-form>
     <Row >
-		<Col v-if="status_mobile" >
+		<!-- <Col v-if="status_mobile" >
 		<Icon type="close-circled" class="error" size="20"></Icon>
 			<div class="error">手機號碼已註冊</div>
+		</Col> -->
+        <Col v-if="status_mobile">
+		<Icon type="close-circled" class="error" size="20"></Icon>
+			<div class="error">手機格式錯誤</div>
 		</Col>
 		<Col v-if="status_sms">
 		<Icon type="close-circled" class="error" size="20"></Icon>
 			<div class="error">簡訊驗證碼錯誤</div>
 		</Col>
-		<Col v-if="sign_success">
+		<Col v-if="find_password_success">
 		<Icon type="checkmark-circled" class="success" size="20"></Icon>
 			<div class="success">申請成功</div>
 		</Col>
-        <Col class="loading" v-if="isSubmit">
+        <!-- <Col class="loading" v-if="isSubmit">
             <Spin fix >
                 <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
                 <div>Loading</div>
             </Spin>
-        </Col>
+        </Col> -->
     </Row>
     </Col>
     
@@ -107,21 +110,22 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		},
 		computed:{
              ...mapState({
-                    name: state => state.signIn.name , 
-					email: state => state.signIn.email,
-					mobile: state => state.signIn.mobile,
-					sms : state => state.signIn.sms,
-					isemail: state => state.signIn.isemail,
-					status_mobile: state => state.signup_status.phone_is_singup,
-					status_sms: state => state.signup_status.wrong_sms,
-					sign_success: state => state.signup_status.success,					
+                    // name: state => state.signIn.name , 
+					// email: state => state.signIn.email,
+					mobile: state => state.findPassword.mobile,
+					sms : state => state.findPassword.sms,
+					// isemail: state => state.signIn.isemail,
+					status_mobile: state => state.findPassword.status.wrong_mobile,
+					status_sms: state => state.findPassword.status.wrong_sms,
+					find_password_success: state => state.findPassword.status.success,					
 					
 				}),
 			
         },
 		methods:{
 			...mapActions({
-			'getSms' : 'getSms',
+            'getSms' : 'getSms',
+            'findPassword':'findPassword'
 			}),
 			submitSignIn(){
 				let reEmail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
