@@ -108,7 +108,10 @@ export default {
         })
         console.log(data)
         axios.post(`${baseURL}/api/sms`, data, {
-
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
             })
             .then((response) => {
                 console.log(response)
@@ -163,10 +166,12 @@ export default {
             })
 
     },
-    findPassword({ commit, state }) {
+    put_findPassword({ commit, state }) {
         let sms = state.findPassword.sms
         let mobile = state.findPassword.mobile
-        this.commit('success_findPassword')
+        console.log(sms, mobile)
+        commit('success_findPassword')
+        commit('remove_findPassword')
     },
     updateProfile({ commit, state }) {
         let password = state.updateProfile.password

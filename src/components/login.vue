@@ -16,10 +16,7 @@
 			<i-input type="password" :value="password" @input="updatePassword" placeholder="使用者密碼" clearable>
 				<icon type="locked" size="20" slot="prepend"></icon>
 			</i-input>
-		</form-item>
-		
-		<form-item style="margin-bottom:4px;">
-            <router-link to="/find-password">
+			 <router-link to="/find-password">
 			<a href="" class="loginA">忘記密碼</a>
             </router-link>
 		</form-item>

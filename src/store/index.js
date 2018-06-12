@@ -218,11 +218,17 @@ const mutations = {
         }, 2000)
     },
     success_findPassword(state) {
-        state.findPassword.success = true
+        state.findPassword.status.success = true
         setTimeout(() => {
-            state.findPassword.success = false
+            state.findPassword.status.success = false
 
         }, 2000)
+    },
+    remove_findPassword(state) {
+        state.findPassword.sms = ''
+        state.findPassword.mobile = ''
+        console.log(state.findPassword)
+
     },
     updatePassword(state, password) {
         state.user.password = password

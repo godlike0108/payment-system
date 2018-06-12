@@ -8,7 +8,7 @@
 		<form-item class="icon_group">
             <Row>
                 <Col :xs="2" :sm="2" :md="2" :lg="2">
-                    <router-link to="/">
+                    <router-link to="/" @click.native="remove_findPassword">
                         <icon type="arrow-left-c" size="30"></icon>
                     </router-link>
                 </Col>
@@ -30,7 +30,7 @@
 			<span v-if="Notemail" class="error">email 格式錯誤</span>
 		</form-item> -->
         <form-item prop="phone">
-			<i-input  @input="updateMobile"  placeholder="使用者手機"  clearable>
+			<i-input :value="mobile" @input="updateMobile"  placeholder="使用者手機"  clearable>
 				<span slot="prepend">+886</span>
                 <!-- <Icon  type="ios-telephone" size="20" slot="prepend"></Icon> -->
 			</i-input>
@@ -39,10 +39,10 @@
             <i-button @click="getSms()">取得手機驗證碼</i-button>
         </form-item>
         <form-item >
-            <i-input   class="phonePassword" @input="updateSms"  placeholder="請填入驗證碼共五碼"   clearable></i-input>
+            <i-input  :value="sms" class="phonePassword" @input="updateSms"  placeholder="請填入驗證碼共五碼"   clearable></i-input>
         </form-item>
 		<form-item v-show=" mobile.length >= 9 && sms.length === 5 ">
-			<i-button class="loginButton" @click="findPassword()">提出申請</i-button>
+			<i-button class="loginButton" @click="put_findPassword()">提出申請</i-button>
 
 		</form-item>
 	</i-form>
@@ -125,8 +125,11 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		methods:{
 			...mapActions({
             'getSms' : 'getSms',
-            'findPassword':'findPassword'
-			}),
+            'put_findPassword':'put_findPassword'
+            }),
+            remove_findPassword(){
+                this.$store.commit('remove_findPassword')
+            },
 			submitSignIn(){
 				let reEmail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 				let reMobile09 = /^09[0-9]{8}$/

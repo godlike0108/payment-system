@@ -160,7 +160,7 @@ vueRouter.beforeEach((to, from, next) => {
     let token = sessionStorage.getItem('token')
     let role_id = sessionStorage.getItem('role_id')
     let user_status_id = sessionStorage.getItem('user_status_id');
-    console.log(to)
+    // console.log(to)
     if (to.fullPath === '/') {
         window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #0acffe 0%, #495aff 100%); ");
     }
