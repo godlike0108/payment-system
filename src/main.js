@@ -19,6 +19,7 @@ new Vue({
     router,
     iview,
     store,
+    moment,
     components: { App },
     template: '<App/>'
 })

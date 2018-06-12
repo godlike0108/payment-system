@@ -85,6 +85,11 @@ export default {
                     {
                         title: '處理狀態',
                         key: 'checkout_status_id'
+                    },
+                    {
+                        title: '最後更新時間',
+                        key: 'updated_at',
+                        width:170
                     }
                 ],
         formInline: {
@@ -160,7 +165,13 @@ export default {
              {
                 item.checkout_status_id = '已撥款'
              }
-              
+
+             if (item.created_at){
+                 item.created_at = this.$moment(item.created_at)
+                 .tz('Asia/Taipei')
+                 .format('YYYY-MM-DD HH:mm:ss');
+             }
+             console.log(item)
              return item
           })
       },

@@ -54,7 +54,9 @@ const state = {
         amount: null,
         status: {
             success: false,
-            wrongUserName: null
+            wrongUserName: null,
+            noamount: false,
+            nouserid: false,
         },
 
     },
@@ -195,6 +197,18 @@ const mutations = {
     },
     updateToAmount(state, amount) {
         state.transition.amount = amount
+    },
+    non_existent_account(state, status) {
+        state.transition.status.nouserid = status
+        setTimeout(() => {
+            state.transition.status.nouserid = false
+        }, 1500)
+    },
+    Insufficient_balance(state, status) {
+        state.transition.status.noamount = status
+        setTimeout(() => {
+            state.transition.status.noamount = false
+        }, 2000)
     },
     firstChagePassword(state, password) {
         state.user.password = password

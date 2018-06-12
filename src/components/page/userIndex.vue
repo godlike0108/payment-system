@@ -39,6 +39,18 @@
                         <div class="success">轉帳成功</div>
                     </Col>
                 </Row>
+                <Row >
+                    <Col v-if="this.$store.state.transition.status.noamount" style="margin-left:80px">
+                    <Icon type="close-circled" class="error" size="20"></Icon>
+                        <div class="error">錢包餘額不足</div>
+                    </Col>
+                </Row>
+                <Row >
+                    <Col v-if="this.$store.state.transition.status.nouserid" style="margin-left:80px">
+                    <Icon type="close-circled" class="error" size="20"></Icon>
+                        <div class="error">沒有此用戶帳號</div>
+                    </Col>
+                </Row>
             </TabPane>
         </Tabs>
         </Col>
@@ -69,9 +81,7 @@ export default {
             if (!Number.isInteger(value)) {
                 callback(new Error('請填入數字'));
             } else {
-                
                     callback();
-                
             }
         }, 1000);
     };
@@ -132,6 +142,7 @@ export default {
                  .tz('Asia/Taipei')
                  .format('YYYY-MM-DD HH:mm:ss');
              }
+                // console.log(item)
              
             //  item.updated_at = item.relative_user.updated_at
             // console.log("====")
@@ -147,10 +158,16 @@ export default {
         this.$store.dispatch('userGetwalletHistories',page)           
         },
        updateToUserName(to_username){
+        //   this.$store.commit('non_existent_account', true)
           this.$store.commit('updateToUserName', to_username)
       },
       updateToAmount(amount){
-          this.$store.commit('updateToAmount', amount)
+          let balance = this.$store.state.user.balance
+          if(parseInt(balance)-parseInt(amount) < 0){
+             this.$store.commit('Insufficient_balance',true)
+          }else {
+             this.$store.commit('updateToAmount', amount)
+          }
       },
     handleSubmit (name) {
         this.$refs[name].validate((valid) => {
@@ -184,6 +201,10 @@ export default {
 .success {
 		color: #19be6b;
 		font-size: 1.2em
+	}
+.error {
+		color:#ed3f14;
+		font-size:1.2em
 	}
 .user {
   font-size: 2em
