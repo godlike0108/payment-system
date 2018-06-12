@@ -17,7 +17,6 @@ export default {
     computed: {
       bg_colir(){
       let path = this.$router.history.current.fullPath
-      console.log(this.$router)
         if(path === '/'|| path === '/firstlogin'|| path === '/sigup' || path === '/find-password'){
           window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #0acffe 0%, #495aff 100%); ");
         }else if (path === '/dashboard') {

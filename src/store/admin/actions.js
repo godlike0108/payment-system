@@ -23,13 +23,14 @@ export default {
     },
     show_user({ commit, state }, payload) {
         let token = sessionStorage.getItem('token')
-        axios.get(`${baseURL}/api/users?page=${payload}`, {
+        axios.get(`${baseURL}/api/users?status=active&page=${payload}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             })
             .then((response) => {
                 let data = response.data
+                console.log(data)
                 commit('set_user_list', data)
             }).catch((error) => {
                 if (error.response.status === 401) {

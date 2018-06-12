@@ -296,7 +296,7 @@ const mutations = {
     },
     setProfilePassword(state, password) {
         state.updateProfile.password = password
-        console.log(state.updateProfile.password)
+            // console.log(state.updateProfile.password)
     },
     setOldPassword(state, password) {
         state.updateProfile.oldpassword = password

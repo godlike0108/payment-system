@@ -31,7 +31,7 @@ export default {
                     },
                     {
                         title: '餘額',
-                        key: 'mobile'
+                        key: 'balance'
                     },
                     {
                         title: 'email',
@@ -88,12 +88,18 @@ export default {
 	  get_user_list(){
         //   console.log(this.$store.getters.get_user_list)
 		  return this.$store.getters.get_user_list.map(item=>{
+              console.log()
+              if(item.wallets[0] != undefined ){
+              item.balance = item.wallets[0].balance
+              }else{
+                  item.balance = '0'
+              }
               if (item.created_at){
                  item.created_at = this.$moment(item.created_at)
                  .tz('Asia/Taipei')
                  .format('YYYY-MM-DD HH:mm:ss');
              }
-             console.log(item)
+            //  console.log(item)
              return item
 
           })

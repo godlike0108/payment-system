@@ -207,6 +207,7 @@ export default {
         let data = JSON.stringify({
             // name: this.state.user.name,
             // username: this.state.user.username,
+            old_password: oldPassword,
             password: password
         });
         let id = sessionStorage.getItem('id')
