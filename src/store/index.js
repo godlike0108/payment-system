@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import loading from 'vuex-loading-plug';
 import actions from './actions'
+// import getters from './getters'
+// import mutations from './mutations'
 import admin from './admin/index'
 
 Vue.use(Vuex)
@@ -97,6 +99,7 @@ const getters = {
     get_checkout_total() {
         return state.checkout.page_total
     }
+
 }
 const mutations = {
     wrong_login(state) {
@@ -295,6 +298,8 @@ const mutations = {
         this.commit('removeCheckoutInput')
         this.commit('removeProfileInput')
         this.commit('removeTransactionsInput')
+        this.commit('reset_reset_user_id')
+        this.commit('reset_administrator_id')
     },
     setAdmins(state, data) {
         state.Admins.admins = data
@@ -302,10 +307,7 @@ const mutations = {
     setAllusers(state, data) {
         state.Allusers = data
     }
-
-
 }
-
 export default new Vuex.Store({
     state,
     getters,

@@ -239,6 +239,7 @@ export default {
             })
             .then((response) => {
                 commit('success_transactions')
+                commit('removeTransactionsInput')
                 this.dispatch('front_end_show_user')
                 this.dispatch('userGetwalletHistories', 1)
             }).catch((error) => {

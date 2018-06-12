@@ -155,6 +155,10 @@ export default {
                         this.$Message.info('確認送出');
                         _vm.put_user_id(index)
                     },
+                    onCancel:()=>{
+                    this.$store.state.admin.user_review_id = null
+                    console.log(this.$store.state.admin.user_review_id)
+                },
                     render: (h) => {
                         return h('Input', {
                             props: {
@@ -164,10 +168,9 @@ export default {
                             },
                             on: {
                                 input: (val) => {
-                                    // this.value = val;
-                                //   set_user_review_id(val)
-                                
                                 this.$store.state.admin.user_review_id = val
+                                console.log(this.$store.state.admin.user_review_id)
+
                                 }
                             },
                             

@@ -56,7 +56,7 @@ export default {
                                     },
                                     on: {
                                         click: () => {
-                                            this.reset_reset_user_id()
+                                            this.$store.commit('reset_reset_user_id')
                                             this.show(params.index)
                                         }
                                     }
@@ -82,6 +82,7 @@ export default {
   },
   computed: {
 	  get_user_list(){
+        //   console.log(this.$store.getters.get_user_list)
 		  return this.$store.getters.get_user_list
       },
       get_user_list_page_total(){
@@ -100,7 +101,7 @@ export default {
                     _vm.reset_user_id(index)
                 },
                 onCancel:()=>{
-                    _vm.reset_reset_user_id()
+                    _vm.$store.commit('reset_reset_user_id')
                 },
                 render: (h) => {
                     return h('div', [
@@ -196,14 +197,6 @@ export default {
 
              this.$store.dispatch('update_user_id',index)
            },
-           reset_reset_user_id(){
-               this.$store.state.admin.reset_user.phone = null
-               this.$store.state.admin.reset_user.email =null
-               this.$store.state.admin.reset_user.username =null
-               this.$store.state.admin.reset_user.user_id =null
-               this.$store.state.admin.reset_user.password =null
-               
-           }
   },
 	created(){
     // this.$store.dispatch('show_user')

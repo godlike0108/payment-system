@@ -51,7 +51,7 @@ export default {
 					item.user_username = item.user.username
 					item.user_phone = item.user.mobile
 					item.relative_username = item.relative_user.username
-					console.log(item)
+					// console.log(item)
 					return item
 				})
 				 return this.$store.getters.getTransition

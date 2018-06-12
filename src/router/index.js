@@ -196,7 +196,7 @@ vueRouter.beforeEach((to, from, next) => {
                 next()
             })
         }
-        if (to.fullPath === '/dashboard/index/') {
+        if (to.fullPath === '/dashboard/index' || to.fullPath === '/dashboard/index/') {
             // store.commit('setData')
             // actionB ({ dispatch, commit }) {
             //     return dispatch('actionA').then(() => {

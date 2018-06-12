@@ -7,17 +7,23 @@
             <TabPane label="撥款" name="name1">
                  <Form ref="formCustom"  :label-width="80">
                     <FormItem label="帳號" prop="passwd">
-                        <Input type="text"  @input="updateToUserName"></Input>
+                        <Input :value="this.$store.state.transition.to_username" type="text"  @input="updateToUserName"></Input>
                     </FormItem>
                     
                     <FormItem label="金額" prop="age">
-                        <Input type="text" @input="updateToAmount"  ></Input>
+                        <Input :value="this.$store.state.transition.amount" type="text" @input="updateToAmount"  ></Input>
                         <div v-if="this.notNaN" style="text-align:left;color:#ed3f14" >請輸入數字</div>
                     </FormItem>
                     <FormItem>
-                        <Button type="primary" @click="handleSubmit('formCustom');userTransactions()">送出</Button>
+                        <Button type="primary" @click="userTransactions()">送出</Button>
                     </FormItem>
                 </Form>
+                <Row >
+                    <Col v-if="this.$store.state.transition.status.success" style="margin-left:80px">
+                    <Icon type="checkmark-circled" class="success" size="20"></Icon>
+                        <div class="success">轉帳成功</div>
+                    </Col>
+                </Row>
             </TabPane>
         </Tabs>
         </Col>
@@ -191,6 +197,10 @@ export default {
   color: red;
   font-size: 2em
 }
+.success {
+		color: #19be6b;
+		font-size: 1.2em
+	}
 .user {
   font-size: 2em
 }
