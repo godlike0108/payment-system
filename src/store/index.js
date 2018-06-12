@@ -116,7 +116,7 @@ const mutations = {
         state.checkout.error = true
         setTimeout(() => {
             state.checkout.error = false
-        }, 3000)
+        }, 4000)
     },
     updateProfile_success(state) {
         state.updateProfile.success = true
@@ -246,6 +246,11 @@ const mutations = {
         state.updateProfile.password = password
         console.log(state.updateProfile.password)
     },
+    removeProfileInput(state) {
+        state.updateProfile.name = null
+        state.updateProfile.username = null
+        state.updateProfile.password = null
+    },
     //commit checkout input value
     setCheckoutName(state, name) {
         state.checkout.name = name
@@ -287,6 +292,9 @@ const mutations = {
         state.user.password = password
         state.user.role_id = role_id
         state.user.user_status_id = user_status_id
+        this.commit('removeCheckoutInput')
+        this.commit('removeProfileInput')
+        this.commit('removeTransactionsInput')
     },
     setAdmins(state, data) {
         state.Admins.admins = data

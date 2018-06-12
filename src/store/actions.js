@@ -172,6 +172,7 @@ export default {
             })
             .then((response) => {
                 console.log(response)
+                commit('removeProfileInput')
                 commit('updateProfile_success')
 
             }).catch((error) => {

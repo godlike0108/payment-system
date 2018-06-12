@@ -7,7 +7,6 @@
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="20" :sm="16" :md="16" :lg="16">
                         <i-form >
-                            
 <!--                             <form-item >
                                 <i-input  @input="setProfileName" :value="name" :placeholder=" '用戶名稱'"   clearable>
                                     <icon type="happy" size="20" slot="prepend"></icon>
