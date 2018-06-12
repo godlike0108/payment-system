@@ -16,14 +16,14 @@ export default {
                 let mobile = data.mobile
                 let name = data.name
                 let username = data.username
-                let password = state.user.password
+                    // let password = state.user.password
                 let role_id = data.role_id
                 let balance
                 let user_status_id = data.user_status_id
                 let id = data.id
 
 
-                sessionStorage.setItem('password', password)
+                // sessionStorage.setItem('password', password)
                 sessionStorage.setItem('email', email)
                 sessionStorage.setItem('token', token)
                 sessionStorage.setItem('mobile', mobile)
@@ -104,9 +104,11 @@ export default {
         axios.post(`${baseURL}/api/sms`, data, {
 
             })
-            .then((response) => {})
-            .catch(() => {
-
+            .then((response) => {
+                console.log(response)
+            })
+            .catch((error) => {
+                console.log(error)
             })
     },
     getUserSms({ commit, state }) {
@@ -155,6 +157,7 @@ export default {
     },
     updateProfile({ commit, state }) {
         let password = state.updateProfile.password
+        let oldPassword = state.updateProfile.oldpassword
         let data = JSON.stringify({
             // name: this.state.user.name,
             // username: this.state.user.username,
@@ -176,6 +179,7 @@ export default {
                 commit('updateProfile_success')
 
             }).catch((error) => {
+                commit('updateProfile_wrong')
                 if (error.response.status === 401) {
                     commit('log_out')
                     router.push('/')

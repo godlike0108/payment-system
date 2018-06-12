@@ -16,16 +16,23 @@ const state = {
         email: '',
         mobile: '',
         sms: '',
-
     },
     signup_status: {
         success: null,
         phone_is_singup: null,
         wrong_sms: null
     },
+    findPassword: {
+        mobile: null,
+        sms: null,
+        status: {
+            wrong_sms: null,
+            wrong_mobile: null
+        }
+    },
     user: {
         username: '',
-        password: '',
+        // password: '',
         name: '',
         email: '',
         token: '',
@@ -36,9 +43,11 @@ const state = {
     },
     updateProfile: {
         name: '',
+        oldpassword: '',
         username: '',
         password: '',
-        success: false
+        success: false,
+        wrong: false
     },
     checkout: {
         data: [],
@@ -127,6 +136,12 @@ const mutations = {
             state.updateProfile.success = false
         }, 2000)
     },
+    updateProfile_wrong(state) {
+        state.updateProfile.wrong = true
+        setTimeout(() => {
+            state.updateProfile.wrong = false
+        }, 2000)
+    },
     wrong_transactions(state) {
         state.transition.wrongUserName = true,
             state.transition.success = false
@@ -160,7 +175,7 @@ const mutations = {
         let mobile = sessionStorage.getItem('mobile')
         let name = sessionStorage.getItem('name')
         let username = sessionStorage.getItem('username')
-        let password = sessionStorage.getItem('password')
+            // let password = sessionStorage.getItem('password')
         let role_id = sessionStorage.getItem('role_id')
         let user_status_id = sessionStorage.getItem('user_status_id');
         let balance = sessionStorage.getItem('balance')
@@ -171,7 +186,7 @@ const mutations = {
         state.user.mobile = mobile
         state.user.name = name
         state.user.username = username
-        state.user.password = password
+            // state.user.password = password
         state.user.role_id = role_id
         state.user.user_status_id = user_status_id
         state.user.balance = balance
@@ -179,8 +194,14 @@ const mutations = {
 
         state.updateProfile.name = name
         state.updateProfile.username = username
-        state.updateProfile.password = password
+            // state.updateProfile.password = password
 
+    },
+    update_findpassword_mobile(state, mobile) {
+        state.findPassword.mobile = mobile
+    },
+    update_findpassword_sms(state, sms) {
+        state.findPassword.sms = sms
     },
     updatePassword(state, password) {
         state.user.password = password
@@ -249,10 +270,15 @@ const mutations = {
         state.updateProfile.password = password
         console.log(state.updateProfile.password)
     },
+    setOldPassword(state, password) {
+        state.updateProfile.oldpassword = password
+    },
     removeProfileInput(state) {
         state.updateProfile.name = null
         state.updateProfile.username = null
         state.updateProfile.password = null
+        state.updateProfile.password = null
+        state.updateProfile.oldpassword = null
     },
     //commit checkout input value
     setCheckoutName(state, name) {

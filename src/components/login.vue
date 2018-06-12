@@ -19,7 +19,12 @@
 		</form-item>
 		
 		<form-item style="margin-bottom:4px;">
-            <router-link to="/sigup">
+            <router-link to="/find-password">
+			<a href="" class="loginA">忘記密碼</a>
+            </router-link>
+		</form-item>
+		<form-item>
+			<router-link to="/sigup">
 			<a href="" class="loginA">申請帳號</a>
             </router-link>
 		</form-item>

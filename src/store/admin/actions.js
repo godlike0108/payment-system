@@ -101,7 +101,7 @@ export default {
         let password = state.reset_user.password
         let phoneRule = /^8869[0-9]{8}$/
         let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
-        let put_data = { username: username, }
+        let put_data = {}
 
         if (!phoneRule.test(phone) && emailRule.test(email)) {
             Object.assign(put_data, { email: email })
@@ -121,6 +121,7 @@ export default {
                 }
             })
             .then((response) => {
+                console.log(response)
                 this.dispatch('show_user', 1)
                 this.commit('reset_reset_user_id')
             }).catch((error) => {

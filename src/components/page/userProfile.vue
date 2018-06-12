@@ -28,7 +28,13 @@
                                 </i-input>
                             </form-item> -->
                             <form-item >
-                                <i-input type="password" ref="togglePassword" @input="setProfilePassword"   :placeholder=" '更改用戶密碼'"  >
+                                <i-input type="password" :value="oldpassword" ref="togglePassword" @input="setOldPassword"   :placeholder=" '輸入用戶舊密碼'"  >
+                                    <icon type="locked" size="20" slot="prepend"></icon>
+                                    
+                                </i-input>
+                            </form-item>
+                            <form-item >
+                                <i-input type="password" :value="password" ref="togglePassword" @input="setProfilePassword"   :placeholder=" '更改用戶密碼'"  >
                                     <icon type="locked" size="20" slot="prepend"></icon>
                                     
                                 </i-input>
@@ -42,11 +48,17 @@
             </TabPane>
             </Tabs>
             <Row >
-                    <Col v-if="this.$store.state.updateProfile.success">
-                    <Icon type="checkmark-circled" class="success" size="20"></Icon>
-                        <div class="success">修改密碼成功</div>
-                    </Col>
-                </Row>
+                <Col v-if="this.$store.state.updateProfile.success">
+                <Icon type="checkmark-circled" class="success" size="20"></Icon>
+                    <div class="success">修改密碼成功</div>
+                </Col>
+            </Row>
+            <Row >
+                <Col v-if="this.$store.state.updateProfile.wrong">
+                <Icon type="close-circled" class="error" size="20"></Icon>
+                    <div class="error">舊密碼填寫錯誤</div>
+                </Col>
+            </Row>
         </Col>
     </Row>
  </div>
@@ -66,7 +78,8 @@ export default {
       ...mapState({
                     name: state => state.user.name , 
                     username: state => state.user.username,
-                    password: state => state.user.password,
+                    password: state => state.updateProfile.password,
+                    oldpassword: state => state.updateProfile.oldpassword,
                     email: state => state.user.email,
                     mobile: state => state.user.mobile,                    
                                      
@@ -96,6 +109,9 @@ export default {
          setProfilePassword(password) {
                 this.$store.commit('setProfilePassword', password)
             },
+        setOldPassword(password){
+            this.$store.commit('setOldPassword',password)
+        }
   
 }
 }
@@ -111,6 +127,10 @@ export default {
 .success {
 		color: #19be6b;
 		font-size: 1.2em
+	}
+.error {
+		color:#ed3f14;
+		font-size:1.2em
 	}
 .user {
   font-size: 2em

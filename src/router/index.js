@@ -8,6 +8,8 @@ import userIndex from '@/components/page/userIndex'
 import userProfile from '@/components/page/userProfile'
 import checkout from '@/components/page/checkout'
 import firstlogin from '@/components/firstLogin'
+import findPassword from '@/components/forgotPassword'
+
 
 import dashboard_login from '@/components/dashboard/login'
 import dashboard_signin from '@/components/dashboard/signIn'
@@ -41,6 +43,11 @@ const vueRouter = new Router({
             path: '/sigup',
             name: 'sigup',
             component: sigup
+        },
+        {
+            path: '/find-password',
+            name: 'findPassword',
+            component: findPassword
         },
         {
             path: '/firstlogin',
@@ -153,8 +160,14 @@ vueRouter.beforeEach((to, from, next) => {
     let token = sessionStorage.getItem('token')
     let role_id = sessionStorage.getItem('role_id')
     let user_status_id = sessionStorage.getItem('user_status_id');
-    // console.log(to)
+    console.log(to)
+    if (to.fullPath === '/') {
+        window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #0acffe 0%, #495aff 100%); ");
+    }
+    if (to.fullPath === '/dashboard') {
+        window.document.body.setAttribute("style", "background-image:linear-gradient(to left, #1e3c72 0%, #2a5298 100%); ");
 
+    }
     if (to.matched.some(record => {
             return record.meta.requiresAuth;
         })) {
