@@ -169,9 +169,37 @@ export default {
     put_findPassword({ commit, state }) {
         let sms = state.findPassword.sms
         let mobile = state.findPassword.mobile
-        console.log(sms, mobile)
-        commit('success_findPassword')
-        commit('remove_findPassword')
+        if (mobile.charAt(0) === '0') {
+            mobile = mobile.slice(1, 10)
+        }
+        // console.log(sms, mobile)
+        let data = JSON.stringify({
+            mobile: '886' + mobile,
+            sms: sms
+        })
+        console.log(data)
+        axios.post(`${baseURL}/api/users/reset-password`, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            })
+            .then((response) => {
+                console.log(response)
+                if (status = '200') {
+                    commit('success_findPassword')
+                    commit('remove_findPassword')
+                    router.push('/')
+                }
+            }).catch((error) => {
+                if (error.response.status === 400) {
+                    commit('wrong_findPassword_mobile')
+                } else if (error.response.status === 422) {
+                    commit('wrong_findPassword_sms')
+                }
+            })
+
+
     },
     updateProfile({ commit, state }) {
         let password = state.updateProfile.password

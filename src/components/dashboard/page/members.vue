@@ -30,6 +30,10 @@ export default {
                         key: 'mobile'
                     },
                     {
+                        title: '餘額',
+                        key: 'mobile'
+                    },
+                    {
                         title: 'email',
                         key: 'email',
                         width: 180,
@@ -89,6 +93,7 @@ export default {
                  .tz('Asia/Taipei')
                  .format('YYYY-MM-DD HH:mm:ss');
              }
+             console.log(item)
              return item
 
           })
