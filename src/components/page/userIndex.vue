@@ -29,7 +29,7 @@
                         <Input :value="this.$store.state.transition.amount" type="text" @input="updateToAmount"  ></Input>
                     </FormItem>
                     <FormItem>
-                        <Button type="primary" @click="handleSubmit('formCustom');userTransactions()">送出</Button>
+                        <Button type="primary" @click="userTransactions()">送出</Button>
                         <!-- <Button type="ghost" @click="handleReset('formCustom')" style="margin-left: 8px">重新設定</Button> -->
                     </FormItem>
                 </Form>
@@ -162,12 +162,7 @@ export default {
           this.$store.commit('updateToUserName', to_username)
       },
       updateToAmount(amount){
-          let balance = this.$store.state.user.balance
-          if(parseInt(balance)-parseInt(amount) < 0){
-             this.$store.commit('Insufficient_balance',true)
-          }else {
              this.$store.commit('updateToAmount', amount)
-          }
       },
     handleSubmit (name) {
         this.$refs[name].validate((valid) => {

@@ -255,6 +255,7 @@ const mutations = {
     },
     updateToAmount(state, amount) {
         state.transition.amount = amount
+        console.log(state.transition.amount)
     },
     non_existent_account(state, status) {
         state.transition.status.nouserid = status
