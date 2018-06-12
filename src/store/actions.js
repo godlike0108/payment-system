@@ -93,8 +93,16 @@ export default {
         })
     },
     getSms({ commit, state }) {
-        axios.post(`${baseURL}/api/sms`, {
-                mobile: 886 + state.signIn.mobile
+        let mobile = state.signIn.mobile
+        if (mobile.charAt(0) === '0') {
+            mobile = mobile.slice(1, 10)
+        }
+        let data = JSON.stringify({
+            mobile: '886' + mobile,
+        })
+        console.log(data)
+        axios.post(`${baseURL}/api/sms`, data, {
+
             })
             .then((response) => {})
             .catch(() => {
@@ -116,7 +124,7 @@ export default {
         let mobile = state.signIn.mobile
         let sms = state.signIn.sms
         if (mobile.charAt(0) === '0') {
-            mobile = mobile.slice(1, 9)
+            mobile = mobile.slice(1, 10)
         }
         let data = JSON.stringify({
             name: name,
