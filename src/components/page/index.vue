@@ -26,9 +26,10 @@
                   <Row type="flex" justify="start" align="middle">
                     <Col :xs="4" :sm="4" :md="4" :lg="4">
                     <span class="title" @click="getData()">Wallet</span> </Col>
-                    <Col :xs="16" :sm="16" :md="16" :lg="16"></Col>
-                    <Col :xs="4" :sm="4" :md="4" :lg="4" >
-                    <Icon @click="log_out()" type="log-out" size="22" :style="{color: '#fff'}"></Icon></Col>
+                    <Col :xs="19" :sm="16" :md="16" :lg="16"></Col>
+                    <Col :xs="1" :sm="4" :md="4" :lg="4" >
+                    <Icon  @click="log_out()" type="log-out" size="22" :style="{color: '#fff'}"></Icon>
+                    </Col>
                   </Row>
                    
                 </Header>
@@ -118,7 +119,7 @@ export default {
       min-height:100vh
     }
     .layout-header-bar{
-        background-image: linear-gradient(to right, #0acffe 0%, #495aff 100%);
+        background-image: linear-gradient(to right, #2c91ac 0%, #155d78 100%);
         box-shadow: 0 1px 1px rgba(0,0,0,.1);
     }
     .menu-item span{
@@ -145,5 +146,10 @@ export default {
         transition: font-size .2s ease .2s, transform .2s ease .2s;
         vertical-align: middle;
         font-size: 22px;
+    }
+    @media (max-width: 400px){
+        .ivu-layout-header {
+            padding: 0 20px
+        }
     }
 </style>

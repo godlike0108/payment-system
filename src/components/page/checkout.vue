@@ -2,11 +2,11 @@
  <div>
     
         <Row type="flex" justify="center" align="middle">
-        <Col :xs="20" :sm="16" :md="16" :lg="16">
+        <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
             <TabPane label="出金申請" name="name1">
                 <Row type="flex" justify="center" align="middle">
-                    <Col :xs="20" :sm="16" :md="16" :lg="16">
+                    <Col :xs="22" :sm="16" :md="16" :lg="16">
                         <i-form ref="formInline" >
                             
                             <form-item>
@@ -28,13 +28,15 @@
                             <form-item >
                                 <i-input :value="this.$store.state.checkout.bank_account"  @input="setCheckout_bank_account" :placeholder=" '銀行帳號'"   > </i-input>
                             </form-item>
-                            <form-item >
-                                <i-button @click="getUserSms">取得手機驗證碼</i-button>
+                            <form-item>
                                 <i-input :value="this.$store.state.checkout.sms" @input="setCheckout_sms" class="phonePassword"  placeholder="請填入驗證碼共五碼"  clearable></i-input>
+                            </form-item>
+                            <form-item >
+                                <i-button class="walletButton" shape="circle" @click="getUserSms">取得手機驗證碼</i-button>
                             </form-item>
                             
                             <form-item>
-                                <i-button type="primary" @click="userCheckout" >送出申請</i-button>
+                                <i-button type="primary" class="walletButton" shape="circle"  @click="userCheckout" >送出申請</i-button>
                             </form-item>
                         </i-form>
                     </Col>
@@ -74,28 +76,33 @@ export default {
         columns1: [
                     {
                         title: '銀行用戶名稱',
-                        key: 'name'
+                        key: 'name',
+                        minWidth:100
                     },
                     {
                         title: '銀行名稱',
-                        key: 'bank'
+                        key: 'bank',
+                        minWidth:100
                     },
                     {
                         title: '銀行帳號',
-                        key: 'bank_account'
+                        key: 'bank_account',
+                        minWidth:100
                     },
                     {
                         title: '出金金額',
-                        key: 'amount'
+                        key: 'amount',
+                        minWidth:100
                     },
                     {
                         title: '處理狀態',
-                        key: 'checkout_status_id'
+                        key: 'checkout_status_id',
+                        minWidth:100
                     },
                     {
                         title: '最後更新時間',
                         key: 'updated_at',
-                        width:170
+                        minWidth:100
                     }
                 ],
         formInline: {
@@ -283,4 +290,11 @@ export default {
         vertical-align: middle;
         font-size: 22px;
     }
+     .walletButton {
+		width: 220px;
+		height: 38px;
+		color: #fff;
+		/* background-color: rgb(238, 238, 238); */
+		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
+	}
 </style>

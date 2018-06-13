@@ -162,7 +162,7 @@ vueRouter.beforeEach((to, from, next) => {
     let user_status_id = sessionStorage.getItem('user_status_id');
     // console.log(to)
     if (to.fullPath === '/') {
-        window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #0acffe 0%, #495aff 100%); ");
+        window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #2c91ac 0%, #155d78 100%); ");
     }
     if (to.fullPath === '/dashboard') {
         window.document.body.setAttribute("style", "background-image:linear-gradient(to left, #1e3c72 0%, #2a5298 100%); ");

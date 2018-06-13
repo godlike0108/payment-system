@@ -1,11 +1,11 @@
 <template>
  <div>
         <Row type="flex" justify="center" align="middle">
-        <Col :xs="20" :sm="16" :md="16" :lg="16">
+        <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
             <TabPane label="修改密碼" name="name1">
                 <Row type="flex" justify="center" align="middle">
-                    <Col :xs="20" :sm="16" :md="16" :lg="16">
+                    <Col :xs="24" :sm="16" :md="16" :lg="16">
                         <i-form >
 <!--                             <form-item >
                                 <i-input  @input="setProfileName" :value="name" :placeholder=" '用戶名稱'"   clearable>
@@ -40,7 +40,7 @@
                                 </i-input>
                             </form-item>
                             <form-item>
-                                <i-button type="primary"  @click="updateProfile">儲存變更</i-button>
+                                <i-button type="primary" class="walletButton" shape="circle"  @click="updateProfile">儲存變更</i-button>
                             </form-item>
                         </i-form>
                     </Col>
@@ -183,4 +183,11 @@ export default {
         vertical-align: middle;
         font-size: 22px;
     }
+    .walletButton {
+		width: 220px;
+		height: 38px;
+		color: #fff;
+		/* background-color: rgb(238, 238, 238); */
+		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
+	}
 </style>

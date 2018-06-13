@@ -26,7 +26,7 @@
             </router-link>
 		</form-item>
 		<form-item>
-			<i-button class="loginButton" @click="login()">登入</i-button>
+			<i-button class="loginButton" shape="circle" @click="login()">登入</i-button>
 		</form-item>
 		<div v-show="getWrongLogin" class="worngLogin">
 			帳號密碼錯誤!
@@ -98,7 +98,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		/* padding: 15px 0px 15px 50px; */
 		position: relative;
 		z-index: 30;
-		background-color: rgba(255, 255, 255, 0.9);
+		background-color: rgba(255, 255, 255, 1);
 		border-radius: 4px;
 	}
 	.ivu-input {
@@ -115,8 +115,9 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	.loginButton {
 		width: 220px;
 		height: 38px;
-		background-color: rgb(238, 238, 238);
-        
+		color: #fff;
+		/* background-color: rgb(238, 238, 238); */
+		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
 	}
 	
 	.loginA {

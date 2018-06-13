@@ -7,6 +7,7 @@ import iview from 'iview'
 import store from './store'
 import moment from 'moment-timezone'
 import 'iview/dist/styles/iview.css'
+import './theme/index.less'
 
 Vue.use(iview)
 

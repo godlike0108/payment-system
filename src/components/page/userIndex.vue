@@ -13,42 +13,46 @@
 
         </Row>
         <Row type="flex" justify="center" align="middle">
-        <Col :xs="20" :sm="16" :md="16" :lg="16">
+        <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
-            <TabPane label="轉帳紀錄" name="name1">
+            <TabPane label="轉帳紀錄" name="name1" class="1">
                 <Table height="500" :columns="columns1" :data="getTransition" ></Table>
-                <Page :total="get_wallet_page_total" @on-change="change" style="margin:15px"></Page>
+                <Page :total="get_wallet_page_total" @on-change="change" style="margin:15px" ></Page>
             </TabPane>
-            <TabPane label="轉帳" name="name2">
-                <Form ref="formCustom"  :label-width="80">
-                    <FormItem label="轉出帳號" >
-                        <Input :value="this.$store.state.transition.to_username" type="text"  @input="updateToUserName"></Input>
-                    </FormItem>
-                    
-                    <FormItem label="轉出金額" >
-                        <Input :value="this.$store.state.transition.amount" type="text" @input="updateToAmount"  ></Input>
-                    </FormItem>
-                    <FormItem>
-                        <Button type="primary" @click="userTransactions()">送出</Button>
-                        <!-- <Button type="ghost" @click="handleReset('formCustom')" style="margin-left: 8px">重新設定</Button> -->
-                    </FormItem>
-                </Form>
-                <Row >
-                    <Col v-if="this.$store.state.transition.status.success" style="margin-left:80px">
-                    <Icon type="checkmark-circled" class="success" size="20"></Icon>
-                        <div class="success">轉帳成功</div>
-                    </Col>
-                </Row>
-                <Row >
-                    <Col v-if="this.$store.state.transition.status.noamount" style="margin-left:80px">
-                    <Icon type="close-circled" class="error" size="20"></Icon>
-                        <div class="error">錢包餘額不足</div>
-                    </Col>
-                </Row>
-                <Row >
-                    <Col v-if="this.$store.state.transition.status.nouserid" style="margin-left:80px">
-                    <Icon type="close-circled" class="error" size="20"></Icon>
-                        <div class="error">沒有此用戶帳號</div>
+            <TabPane label="轉帳" name="name2" class="2">
+                <Row type="flex" justify="center" align="middle">
+                    <Col :xs="24" :sm="16" :md="16" :lg="16">
+                        <Form ref="formCustom" >
+                            <FormItem label="轉出帳號" >
+                                <Input :value="this.$store.state.transition.to_username" type="text"  @input="updateToUserName"></Input>
+                            </FormItem>
+                            
+                            <FormItem label="轉出金額" >
+                                <Input :value="this.$store.state.transition.amount" type="text" @input="updateToAmount"  ></Input>
+                            </FormItem>
+                            <FormItem>
+                                <Button type="primary" class="walletButton" shape="circle" @click="userTransactions()">送出</Button>
+                                <!-- <Button type="ghost" @click="handleReset('formCustom')" style="margin-left: 8px">重新設定</Button> -->
+                            </FormItem>
+                        </Form>
+                        <Row >
+                            <Col v-if="this.$store.state.transition.status.success" >
+                            <Icon type="checkmark-circled" class="success" size="20"></Icon>
+                                <div class="success">轉帳成功</div>
+                            </Col>
+                        </Row>
+                        <Row >
+                            <Col v-if="this.$store.state.transition.status.noamount" >
+                            <Icon type="close-circled" class="error" size="20"></Icon>
+                                <div class="error">錢包餘額不足</div>
+                            </Col>
+                        </Row>
+                        <Row >
+                            <Col v-if="this.$store.state.transition.status.nouserid" >
+                            <Icon type="close-circled" class="error" size="20"></Icon>
+                                <div class="error">沒有此用戶帳號</div>
+                            </Col>
+                        </Row>
                     </Col>
                 </Row>
             </TabPane>
@@ -91,23 +95,28 @@ export default {
                     
                     {
                         title: '進/出帳',
-                        key: 'type'
+                        key: 'type',
+                        minWidth:100
                     },
                     {
                         title: '進/出帳號',
-                        key: 'relative_username'
+                        key: 'relative_username',
+                        minWidth:100
                     },
                     {
                         title: '金額',
-                        key: 'amount'
+                        key: 'amount',
+                        minWidth:100
                     }, 
                     {
                         title: '餘額',
-                        key: 'wallet_balance'
+                        key: 'wallet_balance',
+                        minWidth:100
                     },  
                     {
                         title: '時間',
-                        key: 'created_at'
+                        key: 'created_at',
+                        minWidth:100
                     }    
                 ]
     };
@@ -257,4 +266,11 @@ export default {
         vertical-align: middle;
         font-size: 22px;
     }
+    .walletButton {
+		width: 220px;
+		height: 38px;
+		color: #fff;
+		/* background-color: rgb(238, 238, 238); */
+		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
+	}
 </style>
