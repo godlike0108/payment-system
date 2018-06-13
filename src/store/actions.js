@@ -222,6 +222,7 @@ export default {
             })
             .then((response) => {
                 console.log(response)
+
                 commit('removeProfileInput')
                 commit('updateProfile_success')
 
@@ -397,6 +398,7 @@ export default {
                 }
             })
             .then((response) => {
+                sessionStorage.setItem('user_status_id', 2)
                 commit('removeProfileInput')
                 router.push('/index')
             })
