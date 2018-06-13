@@ -22,8 +22,8 @@
                     </i-input>
                 </form-item>
                 <form-item >
-                    <i-input  @input="firstChagePassword"   placeholder=" 請變更密碼 6~12位英文數字混合" clearable>
-                        <icon type="person" size="20" slot="prepend"></icon>
+                    <i-input type="password"  @input="firstChagePassword"   placeholder=" 請變更密碼 6~12位英文數字混合" clearable>
+                        <icon type="locked" size="20" slot="prepend"></icon>
                     </i-input>
                     <div>請變更密碼 6~12位英文數字混合</div>
                 </form-item>
