@@ -397,9 +397,8 @@ export default {
                 }
             })
             .then((response) => {
-                // commit('setData', data)
                 commit('removeProfileInput')
-                this.dispatch('login')
+                router.push('/index')
             })
     }
 
