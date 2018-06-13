@@ -66,6 +66,8 @@ export default {
                 data.map(item=>{
                     if(item.user.username){
                         item.user_username = item.user.username
+                    } else {
+                        item.user_username = ''
                     }
                     
                     if (item.created_at){
