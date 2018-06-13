@@ -44,7 +44,7 @@ export default {
         let id = state.user_review_id_index
         let username = state.user_review_id
         let data = JSON.stringify({ username: username })
-        console.log(id)
+
         axios.put(`${baseURL}/api/users/${id}`, data, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -57,6 +57,10 @@ export default {
                 if (error.response.status === 401) {
                     commit('log_out')
                     router.push('/dashboard')
+                }
+
+                if (error.response.data.message) {
+                    alert(error.response.data.message);
                 }
             })
     },
