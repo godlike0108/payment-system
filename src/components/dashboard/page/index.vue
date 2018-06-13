@@ -48,10 +48,10 @@
             <Layout>
                 <Header class="layout-header-bar">
                   <Row type="flex" justify="start" align="middle">
-                    <Col :xs="4" :sm="4" :md="4" :lg="4">
+                    <Col :xs="13" :sm="4" :md="4" :lg="4">
                     <span class="title" @click="getData()">管理介面</span> </Col>
-                    <Col :xs="16" :sm="16" :md="16" :lg="16"></Col>
-                    <Col :xs="4" :sm="4" :md="4" :lg="4" >
+                    <Col :xs="9" :sm="16" :md="16" :lg="16"></Col>
+                    <Col :xs="2" :sm="4" :md="4" :lg="4" >
                     <Icon @click="log_out()" type="log-out" size="22" :style="{color: '#fff'}"></Icon></Col>
                   </Row>
                    
@@ -145,7 +145,7 @@ export default {
 }
 .title {
   color: #fff;
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: 600
 }
 .userLine {
@@ -163,7 +163,7 @@ export default {
       min-height:100vh
     }
     .layout-header-bar{
-        background-image: linear-gradient(to left, #1e3c72 0%, #2a5298 100%);
+        background-image: linear-gradient(to right, #2c91ac 0%, #155d78 100%);
         box-shadow: 0 1px 1px rgba(0,0,0,.1);
     }
     .menu-item span{
@@ -190,5 +190,10 @@ export default {
         transition: font-size .2s ease .2s, transform .2s ease .2s;
         vertical-align: middle;
         font-size: 22px;
+    }
+    @media (max-width: 400px){
+        .ivu-layout-header {
+            padding: 0 20px
+        }
     }
 </style>

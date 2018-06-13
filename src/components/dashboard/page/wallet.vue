@@ -2,10 +2,10 @@
  <div>
      
         <Row type="flex" justify="center" align="middle">
-        <Col :xs="20" :sm="16" :md="16" :lg="16">
+        <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
             <TabPane label="撥款" name="name1">
-                 <Form ref="formCustom"  :label-width="80">
+                 <Form ref="formCustom" >
                     <FormItem label="帳號" prop="passwd">
                         <Input :value="this.$store.state.transition.to_username" type="text"  @input="updateToUserName"></Input>
                     </FormItem>
@@ -15,7 +15,7 @@
                         <div v-if="this.notNaN" style="text-align:left;color:#ed3f14" >請輸入數字</div>
                     </FormItem>
                     <FormItem>
-                        <Button type="primary" @click="userTransactions()">送出</Button>
+                        <Button type="primary" class="walletButton"  shape="circle" @click="userTransactions()">送出</Button>
                     </FormItem>
                 </Form>
                 <Row >
@@ -252,4 +252,11 @@ export default {
         vertical-align: middle;
         font-size: 22px;
     }
+    .walletButton {
+		width: 220px;
+		height: 38px;
+		color: #fff;
+		/* background-color: rgb(238, 238, 238); */
+		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
+	}
 </style>

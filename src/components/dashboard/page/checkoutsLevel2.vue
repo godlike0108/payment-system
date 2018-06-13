@@ -1,7 +1,7 @@
 <template>
  <div>
  	<Row type="flex" justify="center" align="middle">
-        <Col :xs="20" :sm="20" :md="20" :lg="20">
+        <Col :xs="24" :sm="20" :md="20" :lg="20">
             <Tabs value="name1">
             <TabPane label="出金審核" name="name1">
                 <Table height="500" :columns="columns1" :data="get_checkout_level2" ></Table>
@@ -22,27 +22,39 @@ export default {
 				 columns1: [
                     {
                         title: '帳號',
-                        key: 'user_username'
+                        key: 'user_username',
+                        minWidth:100
+
                     },
                     {
                         title: '帳戶名稱',
-                        key: 'name'
+                        key: 'name',
+                        minWidth:100
+
                     },
                     {
                         title: '出金金額',
-                        key: 'amount'
+                        key: 'amount',
+                        minWidth:100
+
 					},
 					{
                         title: '銀行',
-                        key: 'bank'
+                        key: 'bank',
+                        minWidth:100
+
                     },
                     {
                         title: '銀行帳戶',
-                        key: 'bank_account'
+                        key: 'bank_account',
+                        minWidth:100
+
                     }, 
                     {
                         title: '申請時間',
-                        key: 'created_at'
+                        key: 'created_at',
+                        minWidth:100
+
 					},
 					{
                         title: '審核',

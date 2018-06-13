@@ -1,7 +1,7 @@
 <template>
  <div>
  	<Row type="flex" justify="center" align="middle">
-        <Col :xs="20" :sm="20" :md="20" :lg="20">
+        <Col :xs="24" :sm="20" :md="20" :lg="20">
             <Tabs value="name1">
             <TabPane label="撥款紀錄" name="name1">
                 <Table height="500" :columns="columns1" :data="userGetwalletHistories" ></Table>
@@ -22,24 +22,34 @@ export default {
 				 columns1: [
 					 {
 						 title: '轉出管理員',
-						 key: 'user_username'
+						 key: 'user_username',
+                        minWidth:100
+
 					 },
                     
                     {
                         title: '入金帳號',
-                        key: 'relative_username'
+						key: 'relative_username',
+                        minWidth:100
+						
                     },
                     {
                         title: '撥款金額',
-                        key: 'amount'
+						key: 'amount',
+                        minWidth:100
+						
                     },
                     {
                         title: '手機',
-                        key: 'user_phone'
+						key: 'user_phone',
+                        minWidth:100
+						
                     }, 
                     {
                         title: '撥款時間',
-                        key: 'created_at'
+						key: 'created_at',
+                        minWidth:100
+						
                     },  
                    
 				]}

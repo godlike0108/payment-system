@@ -10,7 +10,7 @@
 
         </Row> -->
         <Row type="flex" justify="center" align="middle">
-        <Col :xs="20" :sm="16" :md="16" :lg="16">
+        <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
             <TabPane label="管理員帳號" name="name1">
                 <Row type="flex" justify="center" align="middle">

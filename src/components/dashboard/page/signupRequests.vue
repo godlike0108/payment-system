@@ -1,7 +1,7 @@
 <template>
  <div>
      <Row type="flex" justify="end" align="top" class="userLine">
-        <Col :xs="20" :sm="16" :md="16" :lg="16">
+        <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Row type="flex" justify="end" align="top">
             <Col :xs="24" :sm="8" :md="8" :lg="6">身份：<span class="user">{{this.$store.state.user.name}}{{this.$store.state.admin.user}}</span></Col>
             <!-- <Col :xs="24" :sm="8" :md="8" :lg="6">剩餘金額：<span class="money">5000</span></Col> -->
@@ -10,7 +10,7 @@
 
         </Row>
         <Row type="flex" justify="center" align="middle">
-        <Col :xs="20" :sm="20" :md="20" :lg="20">
+        <Col :xs="24" :sm="20" :md="20" :lg="20">
             <Tabs value="name1">
             <TabPane label="註冊申請" name="name1">
                 <Table height="500" :columns="columns1" :data="get_user_review_list"></Table>
@@ -77,22 +77,31 @@ export default {
         columns1: [
                     {
                         title: '申請人',
-                        key: 'name'
+                        key: 'name',
+                        minWidth:100
+
                     },
                     {
                         title: 'email',
-                        key: 'email'
+                        key: 'email',
+                        minWidth:100
+
                     },
                     {
                         title: '手機',
-                        key: 'mobile'
+                        key: 'mobile',
+                        minWidth:100
+
                     },
                     {
                         title: '申請時間',
-                        key: 'updated_at'
+                        key: 'updated_at',
+                        minWidth:100
+
                     },
                     {
                         title: '申請確認',
+                        minWidth:100,
                         render: (h, params) => {
                             return h('div', [
                                 h('Button', {

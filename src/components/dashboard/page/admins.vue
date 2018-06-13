@@ -1,7 +1,7 @@
 <template>
  <div>
  	<Row type="flex" justify="center" align="middle">
-        <Col :xs="20" :sm="20" :md="20" :lg="20">
+        <Col :xs="24" :sm="20" :md="20" :lg="20">
             <Tabs value="name1">
             <TabPane label="管理員帳戶" name="name1">
                 <Table height="400" :columns="columns1" :data="getAdmins"></Table>
@@ -27,18 +27,25 @@ export default {
 		   columns1: [
                     {
                         title: '帳號',
-                        key: 'username'
+                        key: 'username',
+                        minWidth:100
+
                     },
                     {
                         title: '名稱',
-                        key: 'name'
+                        key: 'name',
+                        minWidth:100
+
                     },
                     {
                         title: 'email',
-                        key: 'email'
+                        key: 'email',
+                        minWidth:100
+
                     },
                     {
                         title: '修改資料',
+                        minWidth:100,
                         render: (h, params) => {
                             return h('div', [
                                 h('Button', {

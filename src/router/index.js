@@ -165,7 +165,8 @@ vueRouter.beforeEach((to, from, next) => {
         window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #2c91ac 0%, #155d78 100%); ");
     }
     if (to.fullPath === '/dashboard') {
-        window.document.body.setAttribute("style", "background-image:linear-gradient(to left, #1e3c72 0%, #2a5298 100%); ");
+        window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #2c91ac 0%, #155d78 100%); ");
+
 
     }
     if (to.matched.some(record => {

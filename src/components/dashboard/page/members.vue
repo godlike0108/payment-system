@@ -1,7 +1,7 @@
 <template>
  <div>
  	<Row type="flex" justify="center" align="middle">
-        <Col :xs="20" :sm="20" :md="20" :lg="20">
+        <Col :xs="24" :sm="20" :md="20" :lg="20">
             <Tabs value="name1">
             <TabPane label="會員清單" name="name1">
                 <Table height="500" :columns="columns1" :data="get_user_list" ></Table>
@@ -23,15 +23,21 @@ export default {
                     
                     {
                         title: '會員名稱',
-                        key: 'name'
+                        key: 'name',
+                        minWidth:100
+
                     },
                     {
                         title: '手機',
-                        key: 'mobile'
+                        key: 'mobile',
+                        minWidth:100
+
                     },
                     {
                         title: '餘額',
-                        key: 'balance'
+                        key: 'balance',
+                        minWidth:100
+
                     },
                     {
                         title: 'email',
@@ -45,8 +51,7 @@ export default {
                     },  
                     {
                         title: '修改/刪除',
-                        
-                        
+                        minWidth:150,                        
                         render: (h, params) => {
                             return h('div', [
                                 h('Button', {
