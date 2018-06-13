@@ -139,7 +139,7 @@ export default {
                 //  item.updated_at = this.$moment(item.updated_at)
                 //  .tz('Asia/Taipei')
                 //  .format('YYYY-MM-DD HH:mm:ss');
-                 item.updated_at = this.$moment()
+                 item.updated_at = this.$moment
                     .tz(item.updated_at, 'Asia/Taipei')
                     .format('YYYY-MM-DD HH:mm:ss')
              }

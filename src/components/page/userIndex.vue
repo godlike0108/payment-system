@@ -147,7 +147,7 @@ export default {
              }
 
              if(item.created_at) {
-                 item.created_at = this.$moment()
+                 item.created_at = this.$moment
                         .tz(item.created_at, 'Asia/Taipei')
                         .format('YYYY-MM-DD HH:mm:ss')
              }
