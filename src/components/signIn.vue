@@ -13,7 +13,7 @@
                     </router-link>
                 </Col>
                 <Col  :xs="22" :sm="22" :md="22" :lg="22">
-                    <h1 style="display: inline-block">wallet 帳戶申請</h1>
+                    <h1 style="display: inline-block">白金線上支付 帳戶申請</h1>
                 </Col>
             </Row>
 		</form-item>

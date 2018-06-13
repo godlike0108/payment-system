@@ -25,7 +25,7 @@
                 <Header class="layout-header-bar">
                   <Row type="flex" justify="start" align="middle">
                     <Col :xs="4" :sm="4" :md="4" :lg="4">
-                    <span class="title" @click="getData()">Wallet</span> </Col>
+                    <span class="title" @click="getData()">白金線上支付</span> </Col>
                     <Col :xs="19" :sm="16" :md="16" :lg="16"></Col>
                     <Col :xs="1" :sm="4" :md="4" :lg="4" >
                     <Icon  @click="log_out()" type="log-out" size="22" :style="{color: '#fff'}"></Icon>
