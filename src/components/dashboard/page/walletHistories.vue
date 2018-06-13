@@ -62,9 +62,9 @@ export default {
 					item.user_phone = item.user.mobile
 					item.relative_username = item.relative_user.username
 					if (item.created_at){
-						item.created_at = this.$moment(item.created_at)
-						.tz('Asia/Taipei')
-						.format('YYYY-MM-DD HH:mm:ss');
+						item.created_at = this.$moment()
+                        .tz(item.created_at, 'Asia/Taipei')
+                        .format('YYYY-MM-DD HH:mm:ss')
 					}
 					// console.log(item)
 					return item

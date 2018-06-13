@@ -136,9 +136,12 @@ export default {
       get_user_review_list(){
           return this.$store.getters.get_user_review_list.map(item=>{
               if (item.updated_at){
-                 item.updated_at = this.$moment(item.updated_at)
-                 .tz('Asia/Taipei')
-                 .format('YYYY-MM-DD HH:mm:ss');
+                //  item.updated_at = this.$moment(item.updated_at)
+                //  .tz('Asia/Taipei')
+                //  .format('YYYY-MM-DD HH:mm:ss');
+                 item.updated_at = this.$moment()
+                    .tz(item.updated_at, 'Asia/Taipei')
+                    .format('YYYY-MM-DD HH:mm:ss')
              }
              return item
           })
