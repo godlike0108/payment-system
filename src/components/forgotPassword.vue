@@ -36,13 +36,13 @@
 			</i-input>
 		</form-item>
         <form-item >
-            <i-button @click="getSms()">取得手機驗證碼</i-button>
-        </form-item>
-        <form-item >
             <i-input  :value="sms" class="phonePassword" @input="updateSms"  placeholder="請填入驗證碼共五碼"   clearable></i-input>
         </form-item>
+		<form-item >
+            <i-button class="walletButton" shape="circle" @click="getSms()">取得手機驗證碼</i-button>
+        </form-item>
 		<form-item v-show=" mobile.length >= 9 && sms.length === 5 ">
-			<i-button class="loginButton" @click="put_findPassword()">提出申請</i-button>
+			<i-button  class="walletButton"  shape="circle" @click="put_findPassword()">提出申請</i-button>
 
 		</form-item>
 	</i-form>
@@ -187,7 +187,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		/* padding: 15px 0px 15px 50px; */
 		position: relative;
 		z-index: 30;
-		background-color: rgba(255, 255, 255, 0.9);
+		background-color: rgba(255, 255, 255, 1);
 		border-radius: 4px;
 	}
     .loading {
@@ -230,5 +230,12 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	.error {
 		color:#ed3f14;
 		font-size:1.2em
+	}
+	.walletButton {
+		width: 220px;
+		height: 38px;
+		color: #fff;
+		/* background-color: rgb(238, 238, 238); */
+		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
 	}
 </style>

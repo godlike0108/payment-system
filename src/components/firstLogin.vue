@@ -22,7 +22,7 @@
                     <div>請變更密碼 6~12位英文數字混合</div>
                 </form-item>
                 <form-item >
-                    <Button type="primary" @click="put_firstChagePassword"  size="large">確認送出</Button>
+                    <Button type="primary"  class="walletButton"  shape="circle" @click="put_firstChagePassword"  size="large">確認送出</Button>
                 </form-item>
              </i-form>
             </Col>
@@ -73,11 +73,18 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		/* padding: 15px 0px 15px 50px; */
 		position: relative;
 		z-index: 30;
-		background-color: rgba(255, 255, 255, 0.9);
+		background-color: rgba(255, 255, 255, 1);
 		border-radius: 4px;
 	}
 .login {
         padding: 20px;
         margin-top: 100px
     }
+.walletButton {
+		width: 220px;
+		height: 38px;
+		color: #fff;
+		/* background-color: rgb(238, 238, 238); */
+		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
+	}
 </style>
