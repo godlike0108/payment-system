@@ -64,12 +64,16 @@ export default {
 			get_checkout_history(){
                 let data = this.$store.getters.get_checkout_history
                 data.map(item=>{
-                    item.user_username = item.user.username
+                    if(item.user.username){
+                        item.user_username = item.user.username
+                    }
+                    
                     if (item.created_at){
                         item.created_at = this.$moment
                         .tz(item.created_at, 'Asia/Taipei')
                         .format('YYYY-MM-DD HH:mm:ss')
                     }
+                    console.log(item)
 					return item
 				})
 				 return this.$store.getters.get_checkout_history
