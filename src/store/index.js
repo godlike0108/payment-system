@@ -275,8 +275,8 @@ const mutations = {
 
     },
     firstChagePassword(state, password) {
-        state.user.updateProfile = password
-            // console.log(state.user.password)
+        state.updateProfile.password = password
+            // console.log(state.updateProfile)
     },
     userChekout(state, data) {
         state.checkout.data = data.data
@@ -300,6 +300,7 @@ const mutations = {
     },
     setOldPassword(state, password) {
         state.updateProfile.oldpassword = password
+            // console.log(state.updateProfile.oldpassword)
     },
     removeProfileInput(state) {
         state.updateProfile.name = null
