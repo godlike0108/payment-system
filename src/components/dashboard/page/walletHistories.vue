@@ -39,12 +39,7 @@ export default {
                         minWidth:100
 						
                     },
-                    {
-                        title: '手機',
-						key: 'user_phone',
-                        minWidth:100
-						
-                    }, 
+                     
                     {
                         title: '撥款時間',
 						key: 'created_at',
