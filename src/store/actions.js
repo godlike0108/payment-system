@@ -386,8 +386,9 @@ export default {
     put_firstChagePassword({ commit, state }) {
         let id = sessionStorage.getItem('id')
         let token = sessionStorage.getItem('token')
+        let oldpassword = state.updateProfile.oldpassword
         let password = state.user.password
-        let data = JSON.stringify({ password: password })
+        let data = JSON.stringify({ old_password: oldpassword, password: password })
         console.log(data, id)
         axios.put(`${baseURL}/api/users/${id}`, data, {
                 headers: {
@@ -397,6 +398,7 @@ export default {
             })
             .then((response) => {
                 // commit('setData', data)
+                commit('removeProfileInput')
                 this.dispatch('login')
             })
     }

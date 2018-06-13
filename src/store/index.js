@@ -275,7 +275,7 @@ const mutations = {
 
     },
     firstChagePassword(state, password) {
-        state.user.password = password
+        state.user.updateProfile = password
             // console.log(state.user.password)
     },
     userChekout(state, data) {

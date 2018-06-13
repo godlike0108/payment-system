@@ -16,6 +16,12 @@
                     </Row>
                 </form-item>
                 <form-item >
+                    <i-input type="password" :value="oldpassword" ref="togglePassword" @input="setOldPassword"   :placeholder=" '輸入用戶舊密碼'"  >
+                        <icon type="locked" size="20" slot="prepend"></icon>
+                        
+                    </i-input>
+                </form-item>
+                <form-item >
                     <i-input  @input="firstChagePassword"   placeholder=" 請變更密碼 6~12位英文數字混合" clearable>
                         <icon type="person" size="20" slot="prepend"></icon>
                     </i-input>
@@ -41,7 +47,8 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
   },
   computed: {
       ...mapState({
-          password: state => state.user.password
+          password: state => state.user.password,
+          oldpassword: state => state.updateProfile.oldpassword,
       })
   },
   methods:{
@@ -54,6 +61,9 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
         //   }
         //   
       },
+       setOldPassword(password){
+            this.$store.commit('setOldPassword',password)
+        },
       put_firstChagePassword(){
           this.$store.dispatch('put_firstChagePassword')
 
