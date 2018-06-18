@@ -2,6 +2,7 @@ import axios from 'axios'
 import router from '@/router'
 
 const baseURL = 'http://wallet-staging.ap-northeast-1.elasticbeanstalk.com'
+
 let token = sessionStorage.getItem('token')
 export default {
     login({ commit, state }) {

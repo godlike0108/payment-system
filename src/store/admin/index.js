@@ -5,6 +5,7 @@ import actions from './actions'
 import { resolve } from 'path'
 
 const baseURL = 'http://wallet-staging.ap-northeast-1.elasticbeanstalk.com'
+
 export default {
     state: {
         user_list: {

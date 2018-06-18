@@ -64,8 +64,9 @@ export default {
 			get_checkout_history(){
                 let data = this.$store.getters.get_checkout_history
                 data.map(item=>{
-                    if(item.user.username){
+                    if(item.user && item.user.username){
                         item.user_username = item.user.username
+                        
                     } else {
                         item.user_username = ''
                     }
@@ -75,7 +76,7 @@ export default {
                         .tz(item.created_at, 'Asia/Taipei')
                         .format('YYYY-MM-DD HH:mm:ss')
                     }
-                    console.log(item)
+                    
 					return item
 				})
 				 return this.$store.getters.get_checkout_history

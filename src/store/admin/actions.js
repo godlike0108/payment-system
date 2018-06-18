@@ -4,6 +4,7 @@ import { isNull } from 'util'
 import { resolve } from 'path'
 
 const baseURL = 'http://wallet-staging.ap-northeast-1.elasticbeanstalk.com'
+
 export default {
     userReview({ commit, state }, payload) {
         let token = sessionStorage.getItem('token')
