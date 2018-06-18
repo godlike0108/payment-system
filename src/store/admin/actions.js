@@ -206,6 +206,7 @@ export default {
             })
             .then((response) => {
                 let data = response.data
+                    // console.log(data)
                 commit('set_checkout_history', data)
 
             }).catch((error) => {
