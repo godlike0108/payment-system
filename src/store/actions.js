@@ -3,7 +3,7 @@ import router from '@/router'
 
 const baseURL = 'http://wallet-staging.ap-northeast-1.elasticbeanstalk.com'
 
-let token = sessionStorage.getItem('token')
+let token = localStorage.getItem('token')
 export default {
     login({ commit, state }) {
         axios.post(`${baseURL}/api/login`, {
@@ -24,15 +24,14 @@ export default {
                 let id = data.id
 
 
-                // sessionStorage.setItem('password', password)
-                sessionStorage.setItem('email', email)
-                sessionStorage.setItem('token', token)
-                sessionStorage.setItem('mobile', mobile)
-                sessionStorage.setItem('name', name)
-                sessionStorage.setItem('username', username)
-                sessionStorage.setItem('role_id', role_id)
-                sessionStorage.setItem('user_status_id', user_status_id)
-                sessionStorage.setItem('id', id)
+                localStorage.setItem('email', email)
+                localStorage.setItem('token', token)
+                localStorage.setItem('mobile', mobile)
+                localStorage.setItem('name', name)
+                localStorage.setItem('username', username)
+                localStorage.setItem('role_id', role_id)
+                localStorage.setItem('user_status_id', user_status_id)
+                localStorage.setItem('id', id)
 
 
                 commit('setData')
@@ -41,7 +40,7 @@ export default {
                     commit('success_login')
                 } else if (role_id === 3) {
                     balance = data.wallets["0"].balance
-                    sessionStorage.setItem('balance', balance)
+                    localStorage.setItem('balance', balance)
                     router.push('/index')
                     commit('success_login')
 
@@ -55,8 +54,8 @@ export default {
             })
     },
     front_end_show_user({ commit, state }) {
-        let id = sessionStorage.getItem('id', id)
-        let token = sessionStorage.getItem('token', token)
+        let id = localStorage.getItem('id', id)
+        let token = localStorage.getItem('token', token)
         axios.get(`${baseURL}/api/users/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -75,15 +74,15 @@ export default {
             let user_status_id = data.user_status_id
             let id = data.id
 
-            sessionStorage.setItem('password', password)
-            sessionStorage.setItem('email', email)
-            sessionStorage.setItem('mobile', mobile)
-            sessionStorage.setItem('name', name)
-            sessionStorage.setItem('username', username)
-            sessionStorage.setItem('role_id', role_id)
-            sessionStorage.setItem('user_status_id', user_status_id)
-            sessionStorage.setItem('id', id)
-            sessionStorage.setItem('balance', balance)
+            localStorage.setItem('password', password)
+            localStorage.setItem('email', email)
+            localStorage.setItem('mobile', mobile)
+            localStorage.setItem('name', name)
+            localStorage.setItem('username', username)
+            localStorage.setItem('role_id', role_id)
+            localStorage.setItem('user_status_id', user_status_id)
+            localStorage.setItem('id', id)
+            localStorage.setItem('balance', balance)
 
             commit('setData')
         }).catch((error) => {
@@ -211,8 +210,8 @@ export default {
             old_password: oldPassword,
             password: password
         });
-        let id = sessionStorage.getItem('id')
-        let token = sessionStorage.getItem('token')
+        let id = localStorage.getItem('id')
+        let token = localStorage.getItem('token')
         console.log(data)
         axios.put(`${baseURL}/api/users/${id}`, data, {
                 headers: {
@@ -236,8 +235,8 @@ export default {
             })
     },
     userGetChekout({ commit, state }, payload) {
-        let role_id = sessionStorage.getItem('role_id')
-        let token = sessionStorage.getItem('token')
+        let role_id = localStorage.getItem('role_id')
+        let token = localStorage.getItem('token')
 
         axios.get(`${baseURL}/api/checkouts?role_id=${role_id}&page=${payload}`, {
                 headers: {
@@ -256,8 +255,7 @@ export default {
             })
     },
     userGetwalletHistories({ commit, state }, payload) {
-        // let role_id = sessionStorage.getItem('role_id')
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
 
         axios.get(`${baseURL}/api/wallet-histories?page=${payload}`, {
                 headers: {
@@ -278,7 +276,7 @@ export default {
             })
     },
     userTransactions({ commit, state }) {
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         let balance = state.user.balance
         let amount = state.transition.amount
         let username = state.transition.to_username
@@ -286,32 +284,32 @@ export default {
             to_username: username,
             amount: amount
         })
-        console.log(data)
-        if (parseInt(balance) - parseInt(amount) < 0) {
+        console.log(parseFloat(balance) - parseFloat(amount))
+        if (parseFloat(balance) - parseFloat(amount) < 0) {
             commit('Insufficient_balance', true)
         } else {
-            axios.post(`${baseURL}/api/transactions`, data, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': `Bearer ${token}`,
-                    }
-                })
-                .then((response) => {
-                    commit('success_transactions')
-                    commit('removeTransactionsInput')
-                    this.dispatch('front_end_show_user')
-                    this.dispatch('userGetwalletHistories', 1)
-                }).catch((error) => {
-                    if (error.response.status === 404) {
-                        commit('wrong_transactions')
-                    }
-                }).catch((error) => {
-                    if (error.response.status === 401) {
-                        commit('log_out')
-                        router.push('/')
-                    }
-                })
+            // axios.post(`${baseURL}/api/transactions`, data, {
+            //         headers: {
+            //             'Content-Type': 'application/json',
+            //             'Accept': 'application/json',
+            //             'Authorization': `Bearer ${token}`,
+            //         }
+            //     })
+            //     .then((response) => {
+            //         commit('success_transactions')
+            //         commit('removeTransactionsInput')
+            //         this.dispatch('front_end_show_user')
+            //         this.dispatch('userGetwalletHistories', 1)
+            //     }).catch((error) => {
+            //         if (error.response.status === 404) {
+            //             commit('wrong_transactions')
+            //         }
+            //     }).catch((error) => {
+            //         if (error.response.status === 401) {
+            //             commit('log_out')
+            //             router.push('/')
+            //         }
+            //     })
         }
     },
     userCheckout({ commit, state }) {
@@ -322,7 +320,7 @@ export default {
             amount: state.checkout.amount,
             sms: state.checkout.sms
         })
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         axios.post(`${baseURL}/api/checkouts`, data, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -346,7 +344,7 @@ export default {
             })
     },
     admins({ commit, state }) {
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         axios.get(`${baseURL}/api/admins`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -366,7 +364,7 @@ export default {
             })
     },
     getAlluser({ commit, state }) {
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         axios.get(`${baseURL}/api/users`, null, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -386,8 +384,8 @@ export default {
             })
     },
     put_firstChagePassword({ commit, state }) {
-        let id = sessionStorage.getItem('id')
-        let token = sessionStorage.getItem('token')
+        let id = localStorage.getItem('id')
+        let token = localStorage.getItem('token')
         let oldpassword = state.updateProfile.oldpassword
         let password = state.updateProfile.password
         let data = JSON.stringify({ old_password: oldpassword, password: password })
@@ -399,7 +397,7 @@ export default {
                 }
             })
             .then((response) => {
-                sessionStorage.setItem('user_status_id', 2)
+                localStorage.setItem('user_status_id', 2)
                 commit('removeProfileInput')
                 router.push('/index')
             })

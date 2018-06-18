@@ -157,9 +157,9 @@ const vueRouter = new Router({
 export default vueRouter
 vueRouter.beforeEach((to, from, next) => {
     // 如果 router 轉跳的頁面需要驗證 requiresAuth: true
-    let token = sessionStorage.getItem('token')
-    let role_id = sessionStorage.getItem('role_id')
-    let user_status_id = sessionStorage.getItem('user_status_id');
+    let token = localStorage.getItem('token')
+    let role_id = localStorage.getItem('role_id')
+    let user_status_id = localStorage.getItem('user_status_id');
     // console.log(to)
     if (to.fullPath === '/') {
         window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #2c91ac 0%, #155d78 100%); ");

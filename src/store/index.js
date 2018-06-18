@@ -171,16 +171,16 @@ const mutations = {
         state.signup_status.success = null
     },
     setData(state) {
-        let email = sessionStorage.getItem('email')
-        let token = sessionStorage.getItem('token')
-        let mobile = sessionStorage.getItem('mobile')
-        let name = sessionStorage.getItem('name')
-        let username = sessionStorage.getItem('username')
+        let email = localStorage.getItem('email')
+        let token = localStorage.getItem('token')
+        let mobile = localStorage.getItem('mobile')
+        let name = localStorage.getItem('name')
+        let username = localStorage.getItem('username')
             // let password = sessionStorage.getItem('password')
-        let role_id = sessionStorage.getItem('role_id')
-        let user_status_id = sessionStorage.getItem('user_status_id');
-        let balance = sessionStorage.getItem('balance')
-        let id = sessionStorage.getItem('id')
+        let role_id = localStorage.getItem('role_id')
+        let user_status_id = localStorage.getItem('user_status_id');
+        let balance = localStorage.getItem('balance')
+        let id = localStorage.getItem('id')
 
         state.user.email = email
         state.user.token = token
@@ -255,7 +255,7 @@ const mutations = {
     },
     updateToAmount(state, amount) {
         state.transition.amount = amount
-        console.log(state.transition.amount)
+            // console.log(state.transition.amount)
     },
     non_existent_account(state, status) {
         state.transition.status.nouserid = status
@@ -333,14 +333,14 @@ const mutations = {
         state.checkout.sms = null
     },
     log_out(state) {
-        let email = sessionStorage.removeItem('email')
-        let token = sessionStorage.removeItem('token')
-        let mobile = sessionStorage.removeItem('mobile')
-        let name = sessionStorage.removeItem('name')
-        let username = sessionStorage.removeItem('username')
-        let password = sessionStorage.removeItem('password')
-        let role_id = sessionStorage.removeItem('role_id')
-        let user_status_id = sessionStorage.removeItem('user_status_id');
+        let email = localStorage.removeItem('email')
+        let token = localStorage.removeItem('token')
+        let mobile = localStorage.removeItem('mobile')
+        let name = localStorage.removeItem('name')
+        let username = localStorage.removeItem('username')
+        let password = localStorage.removeItem('password')
+        let role_id = localStorage.removeItem('role_id')
+        let user_status_id = localStorage.removeItem('user_status_id');
 
         state.user.email = email
         state.user.token = token

@@ -7,7 +7,7 @@ const baseURL = 'http://wallet-staging.ap-northeast-1.elasticbeanstalk.com'
 
 export default {
     userReview({ commit, state }, payload) {
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         axios.get(`${baseURL}/api/users?status=pending&page=${payload}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -23,7 +23,7 @@ export default {
         })
     },
     show_user({ commit, state }, payload) {
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         axios.get(`${baseURL}/api/users?status=active&page=${payload}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -41,7 +41,7 @@ export default {
             })
     },
     put_user_id({ commit, state }) {
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         let id = state.user_review_id_index
         let username = state.user_review_id
         let data = JSON.stringify({ username: username })
@@ -66,7 +66,7 @@ export default {
             })
     },
     put_administrator_id({ commit, state }, index) {
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         let id = state.reset_administrator.administrator_id
         let password = state.reset_administrator.password
         let data = null
@@ -99,7 +99,7 @@ export default {
             // }
     },
     update_user_id({ commit, state }, index) {
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         let id = state.reset_user.user_id
         let username = state.user_list.data[index].username
         let email = state.reset_user.email
@@ -138,7 +138,7 @@ export default {
             })
     },
     approval_levels({ commit, state }) {
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         axios.get(`${baseURL}/api/approval_levels/2`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -155,7 +155,7 @@ export default {
         })
     },
     update_approval_amount({ commit, state }) {
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         let amount = state.new_approval_amount
         let data = JSON.stringify({ amount: amount })
         axios.put(`${baseURL}/api/approval_levels/2`, data, {
@@ -176,7 +176,7 @@ export default {
         })
     },
     remove_user({ commit, state }) {
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         let id = state.edit_user_infor
         axios.delete(`${baseURL}/api/users/${id}`, {
                 headers: {
@@ -197,7 +197,7 @@ export default {
             })
     },
     get_checkout_history({ commit, state }, payload) {
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         axios.get(`${baseURL}/api/checkouts?status=2&page=${payload}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -218,7 +218,7 @@ export default {
             })
     },
     get_checkout_approval({ commit, state }, payload) {
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         axios.get(`${baseURL}/api/checkouts?status=1&page=${payload}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -238,7 +238,7 @@ export default {
             })
     },
     get_checkout_level2({ commit, state }, payload) {
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         axios.get(`${baseURL}/api/checkouts?status=0&role_id=1&page=${payload}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -258,7 +258,7 @@ export default {
             })
     },
     get_checkout_level1({ commit, state }, payload) {
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         axios.get(`${baseURL}/api/checkouts?status=0&role_id=2&page=${payload}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -283,7 +283,7 @@ export default {
 
     },
     put_checkout_review_pudate({ commit, state }, payload) {
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         let status = payload.status
         let data = JSON.stringify({ review_status_id: status })
         axios.put(`${baseURL}/api/checkout-reviews/${payload.id}`, data, {
@@ -306,7 +306,7 @@ export default {
             })
     },
     post_checkout({ commit, state }) {
-        let token = sessionStorage.getItem('token')
+        let token = localStorage.getItem('token')
         let id = state.checkout_approval.index
         axios.post(`${baseURL}/api/checkout/${id}`, null, {
                 headers: {
