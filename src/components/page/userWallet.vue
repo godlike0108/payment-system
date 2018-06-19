@@ -111,11 +111,16 @@ export default {
           let username = ""
           let wallet_balance
          return this.$store.getters.getTransition.map(item=>{
-             if(item.type=== 1 ){
+             if(item.type=== 0 ){
                 item.type = '內部轉入'
-                
-             } else if (item.type===2) {
+             } else if (item.type===1) {
                  item.type = '內部轉出'
+             }else if (item.type===2) {
+                 item.type = '入金'
+             }else if (item.type===3) {
+                 item.type = '申請出金'
+             }else if (item.type===4) {
+                 item.type = '出金退款'
              };
              if(item.relative_user){
                  item.relative_username = item.relative_user.username

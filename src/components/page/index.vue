@@ -25,7 +25,7 @@
                         <Icon type="happy"></Icon>
                         <span>修改密碼</span>
                     </MenuItem>
-                    <MenuItem name="1-5" @click.native="toProfile()">
+                    <MenuItem name="1-5" @click.native="toService()">
                        <Icon type="person-stalker"></Icon>
                         <span>聯絡我們</span>
                     </MenuItem>
@@ -85,6 +85,9 @@ export default {
       },
       toCheckout(){
         this.$router.push('/index/checkout')
+      },
+      toService(){
+        this.$router.push('/index/customerService')
       },
       log_out(){
           this.$store.commit('log_out')

@@ -307,6 +307,69 @@ export default {
                 })
         }
     },
+    adminGetwalletHistories({ commit, state }, payload) {
+        let token = localStorage.getItem('token')
+            // let wallets = localStorage.getItem('wallets')
+            // let id = JSON.parse(wallets)["0"].id
+            // let id = state.user.wallet[0].id
+            // console.log(id)
+        axios.get(`${baseURL}/api/wallets/1/histories?operation_type=1&page=${payload}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                }
+            })
+            .then((response) => {
+                let data = response.data
+                commit('userGetwalletHistories', data)
+
+            }).catch((error) => {
+                if (error.response.status === 401) {
+                    commit('log_out')
+                    router.push('/')
+                }
+            })
+    },
+    adminTransactions({ commit, state }) {
+        let token = localStorage.getItem('token')
+        let wallets = localStorage.getItem('wallets')
+        let id = JSON.parse(wallets)["0"].id
+        let balance = state.user.balance
+        let amount = state.transition.amount
+        let username = state.transition.to_username
+        let data = JSON.stringify({
+            to_username: username,
+            amount: amount
+        })
+        if (parseFloat(balance) - parseFloat(amount) < 0) {
+            commit('Insufficient_balance', true)
+        } else {
+            axios.post(`${baseURL}/api/check-in`, data, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    }
+                })
+                .then((response) => {
+
+                    commit('success_transactions')
+                    commit('removeTransactionsInput')
+                    this.dispatch('front_end_show_user')
+                    this.dispatch('userGetwalletHistories', 1)
+                }).catch((error) => {
+                    if (error.response.status === 404) {
+                        commit('wrong_transactions')
+                    }
+                }).catch((error) => {
+                    if (error.response.status === 401) {
+                        commit('log_out')
+                        router.push('/')
+                    }
+                })
+        }
+    },
     userCheckout({ commit, state }) {
         let data = JSON.stringify({
             name: state.checkout.name,
@@ -318,7 +381,8 @@ export default {
         let wallets = localStorage.getItem('wallets')
         let token = localStorage.getItem('token')
         let id = JSON.parse(wallets)["0"].id
-        axios.post(`${baseURL}/api/wallets/2/checkout`, data, {
+            // console.log(id)
+        axios.post(`${baseURL}/api/wallets/${id}/checkout`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',

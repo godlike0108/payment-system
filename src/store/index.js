@@ -130,7 +130,6 @@ const mutations = {
     },
     selectWallet(state, index) {
         state.current_wallet = state.user.wallet[index]
-            // console.log(state.current_wallet)
     },
     checkout_success(state) {
         state.checkout.success = true
@@ -204,7 +203,6 @@ const mutations = {
         state.user.name = name
         state.user.username = username
         state.user.wallet = JSON.parse(wallets)
-            // console.log(state.user)
             // state.user.password = password
         state.user.role_id = role_id
         state.user.user_status_id = user_status_id

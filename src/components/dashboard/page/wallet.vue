@@ -15,7 +15,7 @@
                         <div v-if="this.notNaN" style="text-align:left;color:#ed3f14" >請輸入數字</div>
                     </FormItem>
                     <FormItem>
-                        <Button type="primary" class="walletButton"  shape="circle" @click="userTransactions()">送出</Button>
+                        <Button type="primary" class="walletButton"  shape="circle" @click="adminTransactions()">送出</Button>
                     </FormItem>
                 </Form>
                 <Row >
@@ -143,7 +143,7 @@ export default {
   },
    methods: {
        ...mapActions({
-        'userTransactions' : 'userTransactions',
+        'adminTransactions' : 'adminTransactions',
     }),
        updateToUserName(to_username){
           this.$store.commit('updateToUserName', to_username)

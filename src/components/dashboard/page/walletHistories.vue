@@ -4,7 +4,7 @@
         <Col :xs="24" :sm="20" :md="20" :lg="20">
             <Tabs value="name1">
             <TabPane label="撥款紀錄" name="name1">
-                <Table height="500" :columns="columns1" :data="userGetwalletHistories" ></Table>
+                <Table height="500" :columns="columns1" :data="adminGetwalletHistories" ></Table>
             </TabPane>
             </Tabs>
         <Page :total="get_checkout_history_page_total" @on-change="change" style="margin:15px"></Page>
@@ -35,7 +35,7 @@ export default {
                     },
                     {
                         title: '撥款金額',
-						key: 'amount',
+						key: 'relative_amount',
                         minWidth:100
 						
                     },
@@ -50,7 +50,7 @@ export default {
 				]}
 		},
 		computed:{
-			userGetwalletHistories(){
+			adminGetwalletHistories(){
 				let data = this.$store.getters.getTransition
 				data.map(item=>{
 					item.user_username = item.user.username
@@ -71,7 +71,7 @@ export default {
 		},
 		methods: {
 			change(page){
-            this.$store.dispatch('userGetwalletHistories',page)           
+            this.$store.dispatch('adminGetwalletHistories',page)           
             },
 		},
 		created(){

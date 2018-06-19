@@ -28,6 +28,7 @@ import checkoutsApproval from '@/components/dashboard/page/checkoutsApproval'
 import distributions from '@/components/dashboard/page/distributions'
 import wallet from '@/components/dashboard/page/wallet'
 import walletHistories from '@/components/dashboard/page/walletHistories'
+import setCustomService from '@/components/dashboard/page/setCustomService'
 
 
 
@@ -168,6 +169,12 @@ const vueRouter = new Router({
                     name: 'dashboard_walletHistories',
                     component: walletHistories
                 },
+                {
+                    path: 'setCustomService',
+                    name: 'dashboard_setCustomService',
+                    component: setCustomService
+                },
+
             ]
         },
         // { path: '/*', redirect: '/login' }
@@ -253,7 +260,7 @@ vueRouter.beforeEach((to, from, next) => {
                 //     })
             store.dispatch('admins')
             store.dispatch('show_user', 1)
-            store.dispatch('userGetwalletHistories', 1)
+            store.dispatch('adminGetwalletHistories', 1)
             store.dispatch('userReview', 1)
             store.dispatch('get_checkout_level1', 1)
             store.dispatch('get_checkout_level2', 1)
@@ -291,7 +298,7 @@ vueRouter.beforeEach((to, from, next) => {
             })
         }
         if (to.fullPath === '/dashboard/index/walletHistories') {
-            store.dispatch('userGetwalletHistories', 1).then(() => {
+            store.dispatch('adminGetwalletHistories', 1).then(() => {
                 next()
             })
         }

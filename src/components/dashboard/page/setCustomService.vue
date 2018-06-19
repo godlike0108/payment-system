@@ -3,24 +3,18 @@
         <Row type="flex" justify="center" align="middle">
         <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
-            <TabPane label="全部" name="name1">
+            
+            <TabPane label="VIP" name="name1">
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="16" :md="16" :lg="16">
-                       
+                        <Button @click="handleRender()">新增 VIP 客服員</Button>
                     </Col>
                 </Row>
             </TabPane>
-            <TabPane label="VIP" name="name2">
+            <TabPane label="客服" name="name2">
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="16" :md="16" :lg="16">
-                       
-                    </Col>
-                </Row>
-            </TabPane>
-            <TabPane label="客服" name="name3">
-                <Row type="flex" justify="center" align="middle">
-                    <Col :xs="24" :sm="16" :md="16" :lg="16">
-                       
+                        <Button @click="handleRender()">新增客服員</Button>                       
                     </Col>
                 </Row>
             </TabPane>
@@ -41,7 +35,6 @@ export default {
     }
   },
   computed: {
-    
       menuitemClasses: function () {
           return [
               'menu-item',
@@ -51,8 +44,65 @@ export default {
       }
   },
   methods: {
-       
-  
+     handleRender () {
+        let _vm = this
+        this.$Modal.confirm({
+            title: `新增 VIP 客服員`,
+            onOk: () => {
+                this.$Message.info('確認送出');
+                // _vm.put_administrator_id(index)
+            },
+            onCancel:()=>{
+                    // _vm.$store.commit('reset_administrator_id')
+                },
+            render: (h) => {
+                return h('div',
+                {
+                style: {
+                        marginTop: '15px'
+                    },
+                },
+                [h('Input', {
+                    props: {
+                        value: this.value,
+                        autofocus: true,
+                        
+                        // value: this.$store.state.Admins.admins[index].username,
+                        placeholder: '填寫 VIP 客服員名稱'
+                    },
+                    on: {
+                        input: (val) => {
+                            // this.value = val;
+                        //   set_user_review_id(val)
+                        
+                        // this.$store.state.admin.reset_administrator.username = val
+                        }
+                    },
+                    
+                }),h('Input', {
+                    props: {
+                        value: this.value,
+                        autofocus: true,
+                        placeholder: '填寫 VIP 客服員聯絡資料'
+                    },
+                    style: {
+                                marginTop: '15px'
+                            },
+                    on: {
+                        input: (val) => {
+                            // this.value = val;
+                        //   set_user_review_id(val)
+                        
+                        // this.$store.state.admin.reset_administrator.password = val
+                        }
+                    },
+                    
+                })
+                ])
+            }
+        })
+    }
+
 }
 }
 
