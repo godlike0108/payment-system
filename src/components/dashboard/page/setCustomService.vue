@@ -7,7 +7,7 @@
             <TabPane label="VIP" name="name1">
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="16" :md="16" :lg="16">
-                        <Button @click="handleRender()">新增 VIP 客服員</Button>
+                        <Button @click="vipHandleRender()">新增 VIP 客服員</Button>
                     </Col>
                 </Row>
             </TabPane>
@@ -44,7 +44,7 @@ export default {
       }
   },
   methods: {
-     handleRender () {
+     vipHandleRender () {
         let _vm = this
         this.$Modal.confirm({
             title: `新增 VIP 客服員`,
