@@ -43,6 +43,7 @@ const state = {
         id: '',
         wallet: []
     },
+    current_wallet: [],
     updateProfile: {
         name: '',
         oldpassword: '',
@@ -89,6 +90,9 @@ const getters = {
     },
     getBalance() {
         return state.user.balance
+    },
+    getAllWallet() {
+        return state.user.wallet
     },
     getWrongLogin() {
         return state.login.wrongLogin

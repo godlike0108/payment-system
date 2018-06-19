@@ -19,43 +19,6 @@
                 <Table height="500" :columns="columns1" :data="getTransition" ></Table>
                 <Page :total="get_wallet_page_total" @on-change="change" style="margin:15px" ></Page>
             </TabPane>
-            <TabPane label="轉帳" name="name2" class="2">
-                <Row type="flex" justify="center" align="middle">
-                    <Col :xs="24" :sm="16" :md="16" :lg="16">
-                        <Form ref="formCustom" >
-                            <FormItem label="轉出帳號" >
-                                <Input :value="this.$store.state.transition.to_username" type="text"  @input="updateToUserName"></Input>
-                            </FormItem>
-                            
-                            <FormItem label="轉出金額" >
-                                <Input :value="this.$store.state.transition.amount" type="text" @input="updateToAmount"  ></Input>
-                            </FormItem>
-                            <FormItem>
-                                <Button type="primary" class="walletButton" shape="circle" @click="userTransactions()">送出</Button>
-                                <!-- <Button type="ghost" @click="handleReset('formCustom')" style="margin-left: 8px">重新設定</Button> -->
-                            </FormItem>
-                        </Form>
-                        <Row >
-                            <Col v-if="this.$store.state.transition.status.success" >
-                            <Icon type="checkmark-circled" class="success" size="20"></Icon>
-                                <div class="success">轉帳成功</div>
-                            </Col>
-                        </Row>
-                        <Row >
-                            <Col v-if="this.$store.state.transition.status.noamount" >
-                            <Icon type="close-circled" class="error" size="20"></Icon>
-                                <div class="error">錢包餘額不足</div>
-                            </Col>
-                        </Row>
-                        <Row >
-                            <Col v-if="this.$store.state.transition.status.nouserid" >
-                            <Icon type="close-circled" class="error" size="20"></Icon>
-                                <div class="error">沒有此用戶帳號</div>
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
-            </TabPane>
         </Tabs>
         </Col>
     </Row>
@@ -173,38 +136,8 @@ export default {
        change(page){
         this.$store.dispatch('userGetwalletHistories',page)           
         },
-       updateToUserName(to_username){
-        //   this.$store.commit('non_existent_account', true)
-          this.$store.commit('updateToUserName', to_username)
-      },
-      updateToAmount(amount){
-             this.$store.commit('updateToAmount', amount)
-      },
-    handleSubmit (name) {
-        this.$refs[name].validate((valid) => {
-            if (valid) {
-                this.$Message.success('Success!');
-            } else {
-                this.$Message.error('Fail!');
-            }
-        })
-    },
-    handleReset (name) {
-        this.$refs[name].resetFields();
-    },
-    userTransactions(){
-        this.$store.dispatch('userTransactions') 
-        this.$store.commit('removeTransactionsInput')
-
-    },
-    ...mapActions({
-        // 'userTransactions' : 'userTransactions',
-    })
-    },
-    created(){
-        // this.$store.dispatch('userGetChekout')
-        // this.$store.dispatch('userGetwalletHistories',1)
     }
+    
 }
 </script>
 

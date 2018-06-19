@@ -4,8 +4,10 @@ import login from '@/components/login'
 import sigup from '@/components/signIn'
 import store from '@/store'
 import index from '@/components/page/index'
-import userIndex from '@/components/page/userIndex'
+import userWallet from '@/components/page/userWallet'
 import userProfile from '@/components/page/userProfile'
+import userTransaction from '@/components/page/userTransaction'
+import currentWallet from '@/components/page/currentWallet'
 import checkout from '@/components/page/checkout'
 import firstlogin from '@/components/firstLogin'
 import findPassword from '@/components/forgotPassword'
@@ -61,8 +63,20 @@ const vueRouter = new Router({
             meta: { requiresAuth: true },
             children: [{
                     path: '',
-                    name: 'userIndex',
-                    component: userIndex,
+                    name: 'currentWallet',
+                    component: currentWallet,
+                    meta: { requiresAuth: true },
+                },
+                {
+                    path: 'Wallet',
+                    name: 'userWallet',
+                    component: userWallet,
+                    meta: { requiresAuth: true },
+                },
+                {
+                    path: 'transaction',
+                    name: 'userTransaction',
+                    component: userTransaction,
                     meta: { requiresAuth: true },
                 },
                 {
@@ -160,19 +174,25 @@ vueRouter.beforeEach((to, from, next) => {
     let token = localStorage.getItem('token')
     let role_id = localStorage.getItem('role_id')
     let user_status_id = localStorage.getItem('user_status_id');
+    // console.log(to)
     if (to.fullPath === '/') {
         window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #2c91ac 0%, #155d78 100%); ");
+        if (token) {
+            next({ path: '/index/' });
+        }
     }
     if (to.fullPath === '/dashboard') {
         window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #2c91ac 0%, #155d78 100%); ");
-
+        if (token) {
+            next({ path: '/dashboard/index' })
+        }
 
     }
     if (to.matched.some(record => {
             return record.meta.requiresAuth;
         })) {
         if (to.fullPath === null) {
-            if (from.fullPath === '/index' || from.fullPath === '/index/checkout' || from.fullPath === '/iindex/userProfile') {
+            if (from.fullPath === '/index' || from.fullPath === '/index/checkout' || from.fullPath === '/index/userProfile' || from.fullPath === '//index/wallet') {
                 store.commit('setData')
                 store.commit('reset_user_checkout')
                 store.dispatch('userGetChekout', 1)
@@ -193,7 +213,7 @@ vueRouter.beforeEach((to, from, next) => {
             }
 
         }
-        if (to.fullPath === '/index/' || to.fullPath === '/index') {
+        if (to.fullPath === '/index/' || to.fullPath === '/index' || to.fullPath === '/index/wallet') {
             store.dispatch('userGetChekout', 1)
             store.dispatch('userGetwalletHistories', 1)
 

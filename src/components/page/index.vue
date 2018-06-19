@@ -3,17 +3,30 @@
         <Layout class="container">
             <Sider breakpoint="md" collapsible :collapsed-width="78" v-model="isCollapsed">
                 <Menu active-name="1-1" theme="dark" width="auto" :class="menuitemClasses">
-                  
-                    <MenuItem name="1-1"  @click.native="toIndex()">
+                    <Submenu name="1">
+                        <template slot="title" >
+                            <Icon type="ios-navigate"></Icon>
+                            我的資產
+                        </template>
+                        <MenuItem name="1-1" @click.native="toIndex()">
+                            <Icon type="ios-navigate"></Icon>
+                            <span> 我的錢包</span>
+                        </MenuItem>
+                        <MenuItem name="1-2" @click.native="toTransaction()">
+                            <Icon type="ios-navigate" ></Icon>
+                            <span>轉帳</span>
+                        </MenuItem>
+                    </Submenu>
+                    <!-- <MenuItem name="1-1"  >
                         <Icon type="ios-navigate" ></Icon>
-                        <span>轉帳</span>
-                    </MenuItem>
+                        <span>我的資產</span>
+                    </MenuItem> -->
                   
-                    <MenuItem name="1-2" @click.native="toTranstion()">
+                    <MenuItem name="1-3" @click.native="toCheckout()">
                         <Icon type="ios-calculator" size="18"></Icon>
                         <span>申請出金</span>
                     </MenuItem>
-                    <MenuItem name="1-3" @click.native="toProfile()">
+                    <MenuItem name="1-4" @click.native="toProfile()">
                         <Icon type="happy"></Icon>
                         <span>修改密碼</span>
                     </MenuItem>
@@ -24,10 +37,10 @@
             <Layout>
                 <Header class="layout-header-bar">
                   <Row type="flex" justify="start" align="middle">
-                    <Col :xs="4" :sm="4" :md="4" :lg="4">
+                    <Col :xs="12" :sm="4" :md="4" :lg="4">
                     <span class="title" @click="getData()">白金線上支付</span> </Col>
-                    <Col :xs="19" :sm="16" :md="16" :lg="16"></Col>
-                    <Col :xs="1" :sm="4" :md="4" :lg="4" >
+                    <Col :xs="8" :sm="16" :md="16" :lg="16"></Col>
+                    <Col :xs="4" :sm="4" :md="4" :lg="4" >
                     <Icon  @click="log_out()" type="log-out" size="22" :style="{color: '#fff'}"></Icon>
                     </Col>
                   </Row>
@@ -68,7 +81,10 @@ export default {
          
           this.$router.push('/index/')
       },
-      toTranstion(){
+      toTransaction(){
+          this.$router.push('/index/transaction')
+      },
+      toCheckout(){
         this.$router.push('/index/checkout')
       },
       log_out(){
