@@ -8,6 +8,7 @@ import userWallet from '@/components/page/userWallet'
 import userProfile from '@/components/page/userProfile'
 import userTransaction from '@/components/page/userTransaction'
 import currentWallet from '@/components/page/currentWallet'
+import customerService from '@/components/page/customerService'
 import checkout from '@/components/page/checkout'
 import firstlogin from '@/components/firstLogin'
 import findPassword from '@/components/forgotPassword'
@@ -63,16 +64,17 @@ const vueRouter = new Router({
             meta: { requiresAuth: true },
             children: [{
                     path: '',
-                    name: 'currentWallet',
-                    component: currentWallet,
-                    meta: { requiresAuth: true },
-                },
-                {
-                    path: 'Wallet',
                     name: 'userWallet',
                     component: userWallet,
                     meta: { requiresAuth: true },
                 },
+                {
+                    path: 'currentWallet',
+                    name: 'currentWallet',
+                    component: currentWallet,
+                    meta: { requiresAuth: true },
+                },
+
                 {
                     path: 'transaction',
                     name: 'userTransaction',
@@ -89,6 +91,12 @@ const vueRouter = new Router({
                     path: 'checkout',
                     name: 'checkout',
                     component: checkout,
+                    meta: { requiresAuth: true },
+                },
+                {
+                    path: 'customerService',
+                    name: 'checkout',
+                    component: customerService,
                     meta: { requiresAuth: true },
                 }
             ]
@@ -174,7 +182,6 @@ vueRouter.beforeEach((to, from, next) => {
     let token = localStorage.getItem('token')
     let role_id = localStorage.getItem('role_id')
     let user_status_id = localStorage.getItem('user_status_id');
-    // console.log(to)
     if (to.fullPath === '/') {
         window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #2c91ac 0%, #155d78 100%); ");
         if (token) {
@@ -196,12 +203,12 @@ vueRouter.beforeEach((to, from, next) => {
                 store.commit('setData')
                 store.commit('reset_user_checkout')
                 store.dispatch('userGetChekout', 1)
-                store.dispatch('userGetwalletHistories', 1)
+                    // store.dispatch('userGetwalletHistories', 1)
                 next()
             } else {
                 store.dispatch('admins')
                 store.dispatch('show_user', 1)
-                store.dispatch('userGetwalletHistories', 1)
+                    // store.dispatch('userGetwalletHistories', 1)
                 store.dispatch('userReview', 1)
                 store.dispatch('get_checkout_level1', 1)
                 store.dispatch('get_checkout_level2', 1)
@@ -213,11 +220,20 @@ vueRouter.beforeEach((to, from, next) => {
             }
 
         }
-        if (to.fullPath === '/index/' || to.fullPath === '/index' || to.fullPath === '/index/wallet') {
+        if (to.fullPath === '/index/' || to.fullPath === '/index') {
             store.dispatch('userGetChekout', 1)
-            store.dispatch('userGetwalletHistories', 1)
+            if (store.state.current_wallet.length <= 0) {
+                next({ path: '/index/currentWallet' })
+            } else {
+                store.dispatch('userGetwalletHistories', 1)
+                next()
+            }
 
-            next()
+        }
+        if (from.fullPath === '/index/currentWallet' && to.fullPath === '/index/') {
+            if (store.state.current_wallet.length <= 0) {
+                next({ path: '/index/currentWallet' })
+            }
         }
         if (from.fullPath === '/index/checkout' || from.fullPath === '/index/userProfile') {
             if (to.fullPath === '/index/') {

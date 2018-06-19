@@ -7,7 +7,7 @@
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Row type="flex" justify="end" align="top">
             <Col :xs="24" :sm="8" :md="8" :lg="6">用戶：<span class="user">{{this.$store.state.user.name}}</span></Col>
-            <Col :xs="24" :sm="8" :md="8" :lg="6">剩餘金額：<span class="money">{{getBalance}}</span></Col>
+            <Col :xs="24" :sm="8" :md="8" :lg="6">剩餘金額：{{getCurrentWallet.currency}}<span class="money">{{getCurrentWallet.balance}}</span></Col>
             </Row>
         </Col>
 
@@ -131,6 +131,10 @@ export default {
         let balance = num.toFixed(2)
         return balance
     },
+    getCurrentWallet(){
+        let data = this.$store.getters.getCurrentWallet
+        return data
+    },
     
      
   },
@@ -177,7 +181,8 @@ export default {
 <style scoped>
 .money {
   color: red;
-  font-size: 2em
+  font-size: 1.9em;
+  padding: 0 3px
 }
 .success {
 		color: #19be6b;

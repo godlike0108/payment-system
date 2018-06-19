@@ -6,18 +6,18 @@
                 <Tabs value="name1">
                     <TabPane label="貨幣帳戶" name="name1">
                         <ul class="allWallet">
-                            <li v-for="(item,inde) in getAllWallet">
+                            <li v-for="(item,index) in getAllWallet" @click="selectWallet(index)">
                                 <Row>
                                     <Col :xs="8" :sm="8" :md="8" :lg="8" style="line-height:60px;padding-left:20px">{{item.currencyName}}</Col>
-                                    <Col :xs="16" :sm="16" :md="16" :lg="16">
+                                    <Col :xs="14" :sm="14" :md="14" :lg="14">
                                     <ul>
                                         <li><span class="title">餘額</span></li>
                                         <li>
                                           <span class="currency">{{item.currency}}</span>{{item.balance}}
                                         </li>
                                     </ul>
-                                    
                                     </Col>
+                                    <Col :xs="2" :sm="2" :md="2" :lg="2" style="line-height:60px"><Icon type="arrow-right-c" size="22"></Icon></Col>
                                 </Row>
                             </li>
                         </ul>
@@ -53,6 +53,12 @@ export default {
             return item
           })
           return data
+      }
+  },
+  methods:{
+      selectWallet(index){
+          this.$store.commit('selectWallet',index)
+          this.$router.push('/index/')
       }
   }
   }

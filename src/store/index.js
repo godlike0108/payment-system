@@ -94,6 +94,9 @@ const getters = {
     getAllWallet() {
         return state.user.wallet
     },
+    getCurrentWallet() {
+        return state.current_wallet
+    },
     getWrongLogin() {
         return state.login.wrongLogin
     },
@@ -124,6 +127,10 @@ const mutations = {
     },
     success_login(state) {
         state.login.wrongLogin = false
+    },
+    selectWallet(state, index) {
+        state.current_wallet = state.user.wallet[index]
+            // console.log(state.current_wallet)
     },
     checkout_success(state) {
         state.checkout.success = true
@@ -364,11 +371,14 @@ const mutations = {
         state.user.balance = null
         state.user.username = null
         state.user.id = null
+        state.user.wallet = []
+        state.current_wallet = []
         this.commit('removeCheckoutInput')
         this.commit('removeProfileInput')
         this.commit('removeTransactionsInput')
         this.commit('reset_reset_user_id')
         this.commit('reset_administrator_id')
+        console.log(state.user)
     },
     setAdmins(state, data) {
         state.Admins.admins = data

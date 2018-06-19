@@ -247,8 +247,10 @@ export default {
     },
     userGetwalletHistories({ commit, state }, payload) {
         let token = localStorage.getItem('token')
-        let wallets = localStorage.getItem('wallets')
-        let id = JSON.parse(wallets)["0"].id
+            // let wallets = localStorage.getItem('wallets')
+            // let id = JSON.parse(wallets)["0"].id
+        let id = state.current_wallet.id
+            // console.log(id)
         axios.get(`${baseURL}/api/wallets/${id}/histories?page=${payload}`, {
                 headers: {
                     'Content-Type': 'application/json',

@@ -17,11 +17,6 @@
                             <span>轉帳</span>
                         </MenuItem>
                     </Submenu>
-                    <!-- <MenuItem name="1-1"  >
-                        <Icon type="ios-navigate" ></Icon>
-                        <span>我的資產</span>
-                    </MenuItem> -->
-                  
                     <MenuItem name="1-3" @click.native="toCheckout()">
                         <Icon type="ios-calculator" size="18"></Icon>
                         <span>申請出金</span>
@@ -29,6 +24,10 @@
                     <MenuItem name="1-4" @click.native="toProfile()">
                         <Icon type="happy"></Icon>
                         <span>修改密碼</span>
+                    </MenuItem>
+                    <MenuItem name="1-5" @click.native="toProfile()">
+                       <Icon type="person-stalker"></Icon>
+                        <span>聯絡我們</span>
                     </MenuItem>
                   
                 </Menu>
