@@ -70,7 +70,6 @@ export default {
   },
   computed:{
 	  getAdmins(){
-        //   console.log(this.$store.getters.getAdmins)
           return this.$store.getters.getAdmins
 	  },
 	  get_approval_amount(){

@@ -4,8 +4,6 @@ import { isNull } from 'util'
 import actions from './actions'
 import { resolve } from 'path'
 
-const baseURL = 'http://wallet-staging.ap-northeast-1.elasticbeanstalk.com'
-
 export default {
     state: {
         user_list: {
@@ -183,12 +181,10 @@ export default {
             state.reset_user.username = null
             state.reset_user.user_id = null
             state.reset_user.password = null
-            console.log(state.reset_user)
         },
         reset_administrator_id(state) {
             state.reset_administrator.username = null
             state.reset_administrator.password = null
-            console.log(state.reset_administrator)
 
         }
 

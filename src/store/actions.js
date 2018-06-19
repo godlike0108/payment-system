@@ -17,12 +17,12 @@ export default {
                 let mobile = data.mobile
                 let name = data.name
                 let username = data.username
+                let wallets = data.wallets
                     // let password = state.user.password
                 let role_id = data.role_id
                 let balance
                 let user_status_id = data.user_status_id
                 let id = data.id
-
 
                 localStorage.setItem('email', email)
                 localStorage.setItem('token', token)
@@ -32,7 +32,7 @@ export default {
                 localStorage.setItem('role_id', role_id)
                 localStorage.setItem('user_status_id', user_status_id)
                 localStorage.setItem('id', id)
-
+                localStorage.setItem('wallets', JSON.stringify(wallets));
 
                 commit('setData')
                 if (role_id === 1 || role_id === 2) {
@@ -43,6 +43,7 @@ export default {
                     localStorage.setItem('balance', balance)
                     router.push('/index')
                     commit('success_login')
+
 
                 }
 
@@ -84,7 +85,7 @@ export default {
             localStorage.setItem('id', id)
             localStorage.setItem('balance', balance)
 
-            commit('setData')
+            commit('setData', data)
         }).catch((error) => {
             if (error.response.status === 401) {
                 commit('log_out')
@@ -106,18 +107,14 @@ export default {
         let data = JSON.stringify({
             mobile: '886' + mobile,
         })
-        console.log(data)
         axios.post(`${baseURL}/api/sms`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                 }
             })
-            .then((response) => {
-                console.log(response)
-            })
+            .then((response) => {})
             .catch((error) => {
-                console.log(error)
 
                 commit('wrong_findPassword_mobile')
             })
@@ -145,7 +142,6 @@ export default {
             mobile: '886' + mobile,
             sms: sms,
         })
-        console.log(data)
         axios.post(`${baseURL}/api/signup`, data, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -172,12 +168,10 @@ export default {
         if (mobile.charAt(0) === '0') {
             mobile = mobile.slice(1, 10)
         }
-        // console.log(sms, mobile)
         let data = JSON.stringify({
             mobile: '886' + mobile,
             sms: sms
         })
-        console.log(data)
         axios.post(`${baseURL}/api/users/reset-password`, data, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -185,7 +179,6 @@ export default {
                 }
             })
             .then((response) => {
-                console.log(response)
                 if (status = '200') {
                     commit('success_findPassword')
                     commit('remove_findPassword')
@@ -212,7 +205,6 @@ export default {
         });
         let id = localStorage.getItem('id')
         let token = localStorage.getItem('token')
-        console.log(data)
         axios.put(`${baseURL}/api/users/${id}`, data, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -221,7 +213,6 @@ export default {
                 }
             })
             .then((response) => {
-                console.log(response)
 
                 commit('removeProfileInput')
                 commit('updateProfile_success')
@@ -256,8 +247,9 @@ export default {
     },
     userGetwalletHistories({ commit, state }, payload) {
         let token = localStorage.getItem('token')
-
-        axios.get(`${baseURL}/api/wallet-histories?page=${payload}`, {
+        let wallets = localStorage.getItem('wallets')
+        let id = JSON.parse(wallets)["0"].id
+        axios.get(`${baseURL}/api/wallets/${id}/histories?page=${payload}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
@@ -277,6 +269,8 @@ export default {
     },
     userTransactions({ commit, state }) {
         let token = localStorage.getItem('token')
+        let wallets = localStorage.getItem('wallets')
+        let id = JSON.parse(wallets)["0"].id
         let balance = state.user.balance
         let amount = state.transition.amount
         let username = state.transition.to_username
@@ -284,32 +278,31 @@ export default {
             to_username: username,
             amount: amount
         })
-        console.log(parseFloat(balance) - parseFloat(amount))
         if (parseFloat(balance) - parseFloat(amount) < 0) {
             commit('Insufficient_balance', true)
         } else {
-            // axios.post(`${baseURL}/api/transactions`, data, {
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //             'Accept': 'application/json',
-            //             'Authorization': `Bearer ${token}`,
-            //         }
-            //     })
-            //     .then((response) => {
-            //         commit('success_transactions')
-            //         commit('removeTransactionsInput')
-            //         this.dispatch('front_end_show_user')
-            //         this.dispatch('userGetwalletHistories', 1)
-            //     }).catch((error) => {
-            //         if (error.response.status === 404) {
-            //             commit('wrong_transactions')
-            //         }
-            //     }).catch((error) => {
-            //         if (error.response.status === 401) {
-            //             commit('log_out')
-            //             router.push('/')
-            //         }
-            //     })
+            axios.post(`${baseURL}/api/wallets/${id}/transfer`, data, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    }
+                })
+                .then((response) => {
+                    commit('success_transactions')
+                    commit('removeTransactionsInput')
+                    this.dispatch('front_end_show_user')
+                    this.dispatch('userGetwalletHistories', 1)
+                }).catch((error) => {
+                    if (error.response.status === 404) {
+                        commit('wrong_transactions')
+                    }
+                }).catch((error) => {
+                    if (error.response.status === 401) {
+                        commit('log_out')
+                        router.push('/')
+                    }
+                })
         }
     },
     userCheckout({ commit, state }) {
@@ -389,7 +382,6 @@ export default {
         let oldpassword = state.updateProfile.oldpassword
         let password = state.updateProfile.password
         let data = JSON.stringify({ old_password: oldpassword, password: password })
-        console.log(data, id)
         axios.put(`${baseURL}/api/users/${id}`, data, {
                 headers: {
                     'Authorization': `Bearer ${token}`,

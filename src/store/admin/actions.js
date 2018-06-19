@@ -31,7 +31,6 @@ export default {
             })
             .then((response) => {
                 let data = response.data
-                console.log(data)
                 commit('set_user_list', data)
             }).catch((error) => {
                 if (error.response.status === 401) {
@@ -72,7 +71,6 @@ export default {
         let data = null
         data = JSON.stringify({ password: password })
         state.reset_administrator.nopassword = false
-        console.log(data)
         axios.put(`${baseURL}/api/admins/${id}`, data, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -80,7 +78,6 @@ export default {
                 }
             })
             .then((response) => {
-                console.log(response)
                 this.dispatch('admins')
                 this.commit('reset_administrator_id')
             }).catch((error) => {
@@ -119,7 +116,6 @@ export default {
         if (password != null) {
             Object.assign(put_data, { password: password })
         }
-        console.log(put_data)
         axios.put(`${baseURL}/api/users/${id}`, put_data, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -127,7 +123,6 @@ export default {
                 }
             })
             .then((response) => {
-                console.log(response)
                 this.dispatch('show_user', 1)
                 this.commit('reset_reset_user_id')
             }).catch((error) => {
@@ -207,7 +202,6 @@ export default {
             })
             .then((response) => {
                 let data = response.data
-                    // console.log(data)
                 commit('set_checkout_history', data)
 
             }).catch((error) => {

@@ -91,9 +91,7 @@ export default {
   },
   computed: {
 	  get_user_list(){
-        //   console.log(this.$store.getters.get_user_list)
 		  return this.$store.getters.get_user_list.map(item=>{
-              console.log()
               if(item.wallets[0] != undefined ){
               item.balance = item.wallets[0].balance
               }else{
@@ -104,7 +102,6 @@ export default {
                         .tz(item.created_at, 'Asia/Taipei')
                         .format('YYYY-MM-DD HH:mm:ss')
              }
-            //  console.log(item)
              return item
 
           })

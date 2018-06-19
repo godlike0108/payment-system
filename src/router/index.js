@@ -160,7 +160,6 @@ vueRouter.beforeEach((to, from, next) => {
     let token = localStorage.getItem('token')
     let role_id = localStorage.getItem('role_id')
     let user_status_id = localStorage.getItem('user_status_id');
-    // console.log(to)
     if (to.fullPath === '/') {
         window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #2c91ac 0%, #155d78 100%); ");
     }
@@ -211,11 +210,11 @@ vueRouter.beforeEach((to, from, next) => {
             })
         }
         if (to.fullPath === '/dashboard/index' || to.fullPath === '/dashboard/index/') {
-            // store.commit('setData')
-            // actionB ({ dispatch, commit }) {
-            //     return dispatch('actionA').then(() => {
-            //       commit('someOtherMutation')
-            //     })
+            store.commit('setData')
+                // actionB ({ dispatch, commit }) {
+                //     return dispatch('actionA').then(() => {
+                //       commit('someOtherMutation')
+                //     })
             store.dispatch('admins')
             store.dispatch('show_user', 1)
             store.dispatch('userGetwalletHistories', 1)

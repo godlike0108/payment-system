@@ -15,7 +15,7 @@
         <Row type="flex" justify="center" align="middle">
         <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
-            <TabPane label="轉帳紀錄" name="name1" class="1">
+            <TabPane label="金流紀錄" name="name1" class="1">
                 <Table height="500" :columns="columns1" :data="getTransition" ></Table>
                 <Page :total="get_wallet_page_total" @on-change="change" style="margin:15px" ></Page>
             </TabPane>
@@ -94,7 +94,7 @@ export default {
         columns1: [
                     
                     {
-                        title: '進/出帳',
+                        title: '內容',
                         key: 'type',
                         minWidth:100
                     },
@@ -105,7 +105,7 @@ export default {
                     },
                     {
                         title: '金額',
-                        key: 'amount',
+                        key: 'relative_amount',
                         minWidth:100
                     }, 
                     {
@@ -135,10 +135,10 @@ export default {
           let username = ""
          return this.$store.getters.getTransition.map(item=>{
              if(item.type=== 1 ){
-                item.type = '轉入'
+                item.type = '內部轉入'
                 
              } else if (item.type===2) {
-                 item.type = '轉出'
+                 item.type = '內部轉出'
              };
              if(item.relative_user){
                  item.relative_username = item.relative_user.username
@@ -151,12 +151,6 @@ export default {
                         .tz(item.created_at, 'Asia/Taipei')
                         .format('YYYY-MM-DD HH:mm:ss')
              }
-                // console.log(item)
-             
-            //  item.updated_at = item.relative_user.updated_at
-            // console.log("====")
-            //  console.log(item.relative_user.username)
-            //  console.log("====")
              return item
           })
       

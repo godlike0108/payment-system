@@ -176,7 +176,6 @@ export default {
                     },
                     onCancel:()=>{
                     this.$store.state.admin.user_review_id = null
-                    console.log(this.$store.state.admin.user_review_id)
                 },
                     render: (h) => {
                         return h('Input', {
@@ -188,7 +187,6 @@ export default {
                             on: {
                                 input: (val) => {
                                 this.$store.state.admin.user_review_id = val
-                                console.log(this.$store.state.admin.user_review_id)
 
                                 }
                             },
@@ -199,7 +197,6 @@ export default {
             },
            put_user_id(index){
             this.$store.state.admin.user_review_id_index = this.$store.state.admin.user_review_list.data[index].id
-            // console.log(this.$store.state.admin.user_review_list.data[index])
             this.$store.dispatch('put_user_id')
             // setTimeout(()=>{
             //     this.$store.dispatch('userReview')  
@@ -207,20 +204,6 @@ export default {
             
            } 
         },
-        created(){
-		//    this.$store.dispatch('userReview')
-		// 	this.$store.dispatch('get_checkout_level1',1)
-		// 	this.$store.dispatch('get_checkout_level2',1)
-		// 	this.$store.dispatch('get_checkout_approval',1)
-		// 	this.$store.dispatch('get_checkout_approval',1)
-		// 	this.$store.dispatch('get_checkout_history',1)			
-		// 	this.$store.dispatch('admins')	
-		// 	this.$store.dispatch('approval_levels')	
-    	// 	this.$store.dispatch('getAlluser')
-			
-		   
-             
-        }
 }
 </script>
 

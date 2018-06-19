@@ -11,7 +11,7 @@
                   
                     <MenuItem name="1-2" @click.native="toTranstion()">
                         <Icon type="ios-calculator" size="18"></Icon>
-                        <span>出金</span>
+                        <span>申請出金</span>
                     </MenuItem>
                     <MenuItem name="1-3" @click.native="toProfile()">
                         <Icon type="happy"></Icon>

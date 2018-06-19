@@ -16,7 +16,7 @@
                     </Row>
                 </form-item>
                 <form-item >
-                    <i-input type="password"   @input="setOldPassword"   placeholder=" '輸入用戶舊密碼'"  >
+                    <i-input type="password"   @input="setOldPassword"   placeholder="輸入用戶舊密碼"  >
                         <icon type="locked" size="20" slot="prepend"></icon>
                         
                     </i-input>
@@ -53,7 +53,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
   },
   methods:{
       firstChagePassword(password){
-        //   console.log(password)
         this.$store.commit('firstChagePassword',password)
         
       },

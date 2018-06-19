@@ -61,7 +61,6 @@ export default {
                         .tz(item.created_at, 'Asia/Taipei')
                         .format('YYYY-MM-DD HH:mm:ss')
 					}
-					// console.log(item)
 					return item
 				})
 				 return this.$store.getters.getTransition

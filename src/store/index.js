@@ -40,7 +40,8 @@ const state = {
         mobile: '',
         role_id: '',
         balance: '',
-        id: ''
+        id: '',
+        wallet: []
     },
     updateProfile: {
         name: '',
@@ -170,23 +171,28 @@ const mutations = {
         state.signup_status.wrong_sms = null
         state.signup_status.success = null
     },
-    setData(state) {
+    setData(state, data) {
+        // console.log(data)
+
         let email = localStorage.getItem('email')
         let token = localStorage.getItem('token')
         let mobile = localStorage.getItem('mobile')
         let name = localStorage.getItem('name')
         let username = localStorage.getItem('username')
-            // let password = sessionStorage.getItem('password')
+        let wallets = localStorage.getItem('wallets')
+
+        // let password = sessionStorage.getItem('password')
         let role_id = localStorage.getItem('role_id')
         let user_status_id = localStorage.getItem('user_status_id');
         let balance = localStorage.getItem('balance')
         let id = localStorage.getItem('id')
-
         state.user.email = email
         state.user.token = token
         state.user.mobile = mobile
         state.user.name = name
         state.user.username = username
+        state.user.wallet = JSON.parse(wallets)
+            // console.log(state.user)
             // state.user.password = password
         state.user.role_id = role_id
         state.user.user_status_id = user_status_id
@@ -196,6 +202,7 @@ const mutations = {
         state.updateProfile.name = name
         state.updateProfile.username = username
             // state.updateProfile.password = password
+
 
     },
     update_findpassword_mobile(state, mobile) {
@@ -227,7 +234,6 @@ const mutations = {
     remove_findPassword(state) {
         state.findPassword.sms = ''
         state.findPassword.mobile = ''
-        console.log(state.findPassword)
 
     },
     updatePassword(state, password) {
@@ -255,7 +261,6 @@ const mutations = {
     },
     updateToAmount(state, amount) {
         state.transition.amount = amount
-            // console.log(state.transition.amount)
     },
     non_existent_account(state, status) {
         state.transition.status.nouserid = status
@@ -276,7 +281,6 @@ const mutations = {
     },
     firstChagePassword(state, password) {
         state.updateProfile.password = password
-            // console.log(state.updateProfile)
     },
     userChekout(state, data) {
         state.checkout.data = data.data
@@ -296,11 +300,9 @@ const mutations = {
     },
     setProfilePassword(state, password) {
         state.updateProfile.password = password
-            // console.log(state.updateProfile.password)
     },
     setOldPassword(state, password) {
         state.updateProfile.oldpassword = password
-            // console.log(state.updateProfile.oldpassword)
     },
     removeProfileInput(state) {
         state.updateProfile.name = null
@@ -341,6 +343,8 @@ const mutations = {
         let password = localStorage.removeItem('password')
         let role_id = localStorage.removeItem('role_id')
         let user_status_id = localStorage.removeItem('user_status_id');
+        let wallets = localStorage.removeItem('wallets');
+
 
         state.user.email = email
         state.user.token = token
@@ -350,6 +354,11 @@ const mutations = {
         state.user.password = password
         state.user.role_id = role_id
         state.user.user_status_id = user_status_id
+        state.user.wallet = wallets
+        state.user.password = null
+        state.user.balance = null
+        state.user.username = null
+        state.user.id = null
         this.commit('removeCheckoutInput')
         this.commit('removeProfileInput')
         this.commit('removeTransactionsInput')
