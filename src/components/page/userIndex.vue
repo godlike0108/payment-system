@@ -7,7 +7,7 @@
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Row type="flex" justify="end" align="top">
             <Col :xs="24" :sm="8" :md="8" :lg="6">用戶：<span class="user">{{this.$store.state.user.name}}</span></Col>
-            <Col :xs="24" :sm="8" :md="8" :lg="6">剩餘金額：<span class="money">{{this.$store.state.user.balance}}</span></Col>
+            <Col :xs="24" :sm="8" :md="8" :lg="6">剩餘金額：<span class="money">{{getBalance}}</span></Col>
             </Row>
         </Col>
 
@@ -128,11 +128,18 @@ export default {
               this.isCollapsed ? 'collapsed-menu' : ''
           ]
       },
+    getBalance(){
+        let data = this.$store.getters.getBalance
+        var num = new Number(data);
+        let balance = num.toFixed(2)
+        return balance
+    },
      get_wallet_page_total(){
          return this.$store.getters.get_wallet_page_total
      },
       getTransition(){
           let username = ""
+          let wallet_balance
          return this.$store.getters.getTransition.map(item=>{
              if(item.type=== 1 ){
                 item.type = '內部轉入'
@@ -145,12 +152,18 @@ export default {
              } else {
                  item.relative_username = ""
              }
+             if (item.wallet_balance){
+                let num = new Number(item.wallet_balance);
+                let balance = num.toFixed(2)
+                 item.wallet_balance = balance
+             }
 
              if(item.created_at) {
                  item.created_at = this.$moment
                         .tz(item.created_at, 'Asia/Taipei')
                         .format('YYYY-MM-DD HH:mm:ss')
              }
+             
              return item
           })
       

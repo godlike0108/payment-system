@@ -162,6 +162,7 @@ export default {
       },
       getCheckout: function(){
          return this.$store.getters.getCheckout.map(item=>{
+     
              if (item.checkout_status_id === 0)
              {
                 item.checkout_status_id = '審核中'
@@ -178,11 +179,16 @@ export default {
              {
                 item.checkout_status_id = '已撥款'
              }
-
+        
              if (item.created_at){
                  item.created_at = this.$moment
                         .tz(item.created_at, 'Asia/Taipei')
                         .format('YYYY-MM-DD HH:mm:ss')
+             }
+             if(item.amount){
+                let num = new Number(item.amount);
+                let amount = num.toFixed(2)
+                item.amount = amount
              }
              return item
           })

@@ -313,8 +313,10 @@ export default {
             amount: state.checkout.amount,
             sms: state.checkout.sms
         })
+        let wallets = localStorage.getItem('wallets')
         let token = localStorage.getItem('token')
-        axios.post(`${baseURL}/api/checkouts`, data, {
+        let id = JSON.parse(wallets)["0"].id
+        axios.post(`${baseURL}/api/wallets/2/checkout`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',

@@ -87,6 +87,9 @@ const getters = {
     getData() {
         // let data = sessionStorage.getItem('data')
     },
+    getBalance() {
+        return state.user.balance
+    },
     getWrongLogin() {
         return state.login.wrongLogin
     },
@@ -97,9 +100,7 @@ const getters = {
         return state.Allusers
     },
     getCheckout() {
-
         return state.checkout.data
-
     },
     getTransition() {
         return state.wallet.histories
