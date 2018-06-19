@@ -111,7 +111,6 @@ export default {
           let username = ""
           let wallet_balance
          return this.$store.getters.getTransition.map(item=>{
-             console.log(item)
              if(item.operation_type === 0 ){
                 item.type = '內部轉入'
              } else if (item.operation_type === 1) {
