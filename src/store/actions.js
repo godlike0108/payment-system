@@ -342,33 +342,34 @@ export default {
             to_username: username,
             amount: amount
         })
-        if (parseFloat(balance) - parseFloat(amount) < 0) {
-            commit('Insufficient_balance', true)
-        } else {
-            axios.post(`${baseURL}/api/check-in`, data, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': `Bearer ${token}`,
-                    }
-                })
-                .then((response) => {
+        console.log(balance)
+            // if (parseFloat(balance) - parseFloat(amount) < 0) {
+            //     commit('Insufficient_balance', true)
+            // } else {
+        axios.post(`${baseURL}/api/check-in`, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                }
+            })
+            .then((response) => {
 
-                    commit('success_transactions')
-                    commit('removeTransactionsInput')
-                    this.dispatch('front_end_show_user')
-                    this.dispatch('userGetwalletHistories', 1)
-                }).catch((error) => {
-                    if (error.response.status === 404) {
-                        commit('wrong_transactions')
-                    }
-                }).catch((error) => {
-                    if (error.response.status === 401) {
-                        commit('log_out')
-                        router.push('/')
-                    }
-                })
-        }
+                commit('success_transactions')
+                commit('removeTransactionsInput')
+                this.dispatch('front_end_show_user')
+                this.dispatch('userGetwalletHistories', 1)
+            }).catch((error) => {
+                if (error.response.status === 404) {
+                    commit('wrong_transactions')
+                }
+            }).catch((error) => {
+                if (error.response.status === 401) {
+                    commit('log_out')
+                    router.push('/')
+                }
+            })
+            // }
     },
     userCheckout({ commit, state }) {
         let data = JSON.stringify({
