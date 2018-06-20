@@ -55,6 +55,17 @@ export default {
             page_total: null,
             index: null,
             status: null
+        },
+        add_vip_servies: {
+            name: null,
+            contact: null,
+            type: 0
+        },
+        add_servies: {
+            name: null,
+            contact: null,
+            type: 1
+
         }
 
     },
@@ -186,6 +197,26 @@ export default {
             state.reset_administrator.username = null
             state.reset_administrator.password = null
 
+        },
+        set_vipServies_name(state, val) {
+            state.add_vip_servies.name = val
+        },
+        set_vipServies_contact(state, val) {
+            state.add_vip_servies.contact = val
+        },
+        reset_vipServies(state) {
+            state.add_vip_servies.contact = null
+            state.add_vip_servies.name = null
+        },
+        set_servies_name(state, val) {
+            state.add_servies.name = val
+        },
+        set_servies_contact(state, val) {
+            state.add_servies.contact = val
+        },
+        reset_servies(state) {
+            state.add_servies.contact = null
+            state.add_servies.name = null
         }
 
 

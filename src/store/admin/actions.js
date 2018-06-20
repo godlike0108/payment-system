@@ -305,17 +305,80 @@ export default {
         axios.post(`${baseURL}/api/checkout/${id}`, null, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
-                    // 'Content-Type': 'application/json',
-                    // 'Accept': 'application/json',
-
                 }
             })
             .then((response) => {
                 let data = response.data
                 this.dispatch('get_checkout_approval')
-                    // this.dispatch(`get_checkout_${payload.api}`, 1)
-                    //     // commit('set_checkout_level1', data)
 
+            }).catch((error) => {
+                if (error.response.status === 401) {
+                    commit('log_out')
+                    router.push('/dashboard')
+                }
+            })
+    },
+    add_servies({ commit, state }, user_type) {
+        let name = null;
+        let type = null;
+        let contact = null;
+        let token = localStorage.getItem('token')
+        if (user_type === 0) {
+            name = state.add_vip_servies.name
+            type = state.add_vip_servies.type
+            contact = state.add_vip_servies.contact
+        } else if (user_type === 1) {
+            name = state.add_servies.name
+            type = state.add_servies.type
+            contact = state.add_servies.contact
+        }
+        let data = JSON.stringify({ type: type, name: name, contact: contact })
+        console.log(data)
+        axios.post(`${baseURL}/api/customer-services`, data, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            })
+            .then((response) => {
+                console.log(response)
+            }).catch((error) => {
+                if (error.response.status === 401) {
+                    commit('log_out')
+                    router.push('/dashboard')
+                }
+            })
+    },
+    get_Servies({ commit, state }) {
+        let token = localStorage.getItem('token')
+        axios.get(`${baseURL}/api/customer-services?type=1`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            })
+            .then((response) => {
+                console.log(response)
+            }).catch((error) => {
+                if (error.response.status === 401) {
+                    commit('log_out')
+                    router.push('/dashboard')
+                }
+            })
+    },
+    get_vipServies({ commit, state }) {
+        let token = localStorage.getItem('token')
+        axios.get(`${baseURL}/api/customer-services?type=0`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            })
+            .then((response) => {
+                console.log(response)
             }).catch((error) => {
                 if (error.response.status === 401) {
                     commit('log_out')
