@@ -43,7 +43,7 @@ const state = {
         id: '',
         wallet: []
     },
-    current_wallet: [],
+    current_wallet_index: -1,
     updateProfile: {
         name: '',
         oldpassword: '',
@@ -95,7 +95,7 @@ const getters = {
         return state.user.wallet
     },
     getCurrentWallet() {
-        return state.current_wallet
+        return state.user.wallet[state.current_wallet_index]
     },
     getWrongLogin() {
         return state.login.wrongLogin
@@ -129,7 +129,7 @@ const mutations = {
         state.login.wrongLogin = false
     },
     selectWallet(state, index) {
-        state.current_wallet = state.user.wallet[index]
+        state.current_wallet_index = index
     },
     checkout_success(state) {
         state.checkout.success = true

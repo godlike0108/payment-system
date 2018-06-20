@@ -235,7 +235,7 @@ vueRouter.beforeEach((to, from, next) => {
             store.dispatch('get_Servies')
             store.dispatch('get_vipServies')
             store.dispatch('front_end_show_user')
-            if (store.state.current_wallet.length <= 0) {
+            if (store.state.current_wallet_index === -1) {
                 next({ path: '/index/currentWallet' })
             } else {
                 store.dispatch('userGetwalletHistories', 1)
@@ -243,9 +243,12 @@ vueRouter.beforeEach((to, from, next) => {
             }
 
         }
+        if (to.fullPath === '/index/transaction') {
+            store.dispatch('front_end_show_user')
+        }
         if (from.fullPath === '/index/currentWallet' && to.fullPath === '/index/') {
             store.dispatch('front_end_show_user')
-            if (store.state.current_wallet.length <= 0) {
+            if (store.state.current_wallet_index === -1) {
                 next({ path: '/index/currentWallet' })
             }
         }

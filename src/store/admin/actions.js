@@ -385,7 +385,7 @@ export default {
             })
             .then((response) => {
                 let data = response.data
-                console.log(data)
+                    // console.log(data)
                 commit('set_vipServies_infor', data)
             }).catch((error) => {
                 if (error.response.status === 401) {

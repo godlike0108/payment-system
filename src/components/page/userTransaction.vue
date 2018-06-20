@@ -132,9 +132,13 @@ export default {
         return balance
     },
     getCurrentWallet(){
-        let data = this.$store.getters.getCurrentWallet
-        return data
+        // let all_wallet = this.getAllWallet
+        let wallet = this.$store.getters.getCurrentWallet  
+        return wallet
     },
+    getAllWallet(){
+        return this.$store.getters.getAllWallet
+    }
     
      
   },
