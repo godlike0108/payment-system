@@ -1,26 +1,86 @@
 <template>
  <div>
+    
         <Row type="flex" justify="center" align="middle">
         <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
             <TabPane label="全部" name="name1">
                 <Row type="flex" justify="center" align="middle">
-                    <Col :xs="24" :sm="16" :md="16" :lg="16">
-                       
+                    <Col :xs="24" :sm="20" :md="20" :lg="20">
+                    <ul class="servies_member">
+                        <li class="head">
+                            <Row>
+                                <Col :xs="10" :sm="10" :md="10" :lg="10" >VIP客服人員名稱</Col>
+                                <Col :xs="14" :sm="14" :md="14" :lg="14"><span class="currency">聯絡方式</span></Col>
+                            </Row>
+                        </li>
+                        <li v-for="(item,index) in get_vipServies">
+                            <Row>
+                                <Col :xs="10" :sm="10" :md="10" :lg="10" >{{item.name}}</Col>
+                                <Col :xs="14" :sm="14" :md="14" :lg="14">
+                                    <span class="currency">{{item.contact}}</span>
+                                </Col>
+                               
+                            </Row>
+                        </li>
+                    </ul>
+                    <ul class="servies_member">
+                        <li class="head">
+                            <Row>
+                                <Col :xs="10" :sm="10" :md="10" :lg="10" >一般客服人員名稱</Col>
+                                <Col :xs="14" :sm="14" :md="14" :lg="14"><span class="currency">聯絡方式</span></Col>
+                            </Row>
+                        </li>
+                        <li v-for="(item,index) in get_servies">
+                            <Row>
+                                <Col :xs="10" :sm="10" :md="10" :lg="10" >{{item.name}}</Col>
+                                <Col :xs="14" :sm="14" :md="14" :lg="14"><span class="currency">{{item.contact}}</span></Col>
+                            </Row>
+                        </li>
+                    </ul>
                     </Col>
                 </Row>
             </TabPane>
             <TabPane label="VIP" name="name2">
                 <Row type="flex" justify="center" align="middle">
-                    <Col :xs="24" :sm="16" :md="16" :lg="16">
-                       
+                    <Col :xs="24" :sm="20" :md="20" :lg="20">
+                    <ul class="servies_member">
+                        <li class="head">
+                            <Row>
+                                <Col :xs="10" :sm="10" :md="10" :lg="10" >VIP客服人員名稱</Col>
+                                <Col :xs="14" :sm="14" :md="14" :lg="14"><span class="currency">聯絡方式</span></Col>
+                            </Row>
+                        </li>
+                        <li v-for="(item,index) in get_vipServies">
+                            <Row>
+                                <Col :xs="10" :sm="10" :md="10" :lg="10" >{{item.name}}</Col>
+                                <Col :xs="14" :sm="14" :md="14" :lg="14">
+                                    <span class="currency">{{item.contact}}</span>
+                                </Col>
+                               
+                            </Row>
+                        </li>
+                    </ul>
                     </Col>
                 </Row>
             </TabPane>
             <TabPane label="客服" name="name3">
                 <Row type="flex" justify="center" align="middle">
-                    <Col :xs="24" :sm="16" :md="16" :lg="16">
-                       
+                    <Col :xs="24" :sm="20" :md="20" :lg="20">
+                    <ul class="servies_member">
+                        <li class="head">
+                            <Row>
+                                <Col :xs="10" :sm="10" :md="10" :lg="10" >一般客服人員名稱</Col>
+                                <Col :xs="14" :sm="14" :md="14" :lg="14"><span class="currency">聯絡方式</span></Col>
+                            </Row>
+                        </li>
+                        <li v-for="(item,index) in get_servies">
+                            <Row>
+                                <Col :xs="10" :sm="10" :md="10" :lg="10" >{{item.name}}</Col>
+                                <Col :xs="14" :sm="14" :md="14" :lg="14"><span class="currency">{{item.contact}}</span></Col>
+                            </Row>
+                        </li>
+                    </ul>
                     </Col>
                 </Row>
             </TabPane>
@@ -41,18 +101,22 @@ export default {
     }
   },
   computed: {
-    
       menuitemClasses: function () {
           return [
               'menu-item',
               this.isCollapsed ? 'collapsed-menu' : ''
 
           ]
+      },
+      get_servies(){
+          console.log(this.$store.getters.get_servies)
+          return this.$store.getters.get_servies
+      },
+      get_vipServies(){
+          return this.$store.getters.get_vipServies
       }
   },
   methods: {
-       
-  
 }
 }
 
@@ -71,7 +135,13 @@ export default {
 .error {
 		color:#ed3f14;
 		font-size:1.2em
-	}
+    }
+.delete{
+    background: #ed3f14;
+    border: 0px;
+    line-height: 20px
+    
+}
 .user {
   font-size: 2em
 }
@@ -129,5 +199,22 @@ export default {
 		color: #fff;
 		/* background-color: rgb(238, 238, 238); */
 		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
-	}
+    }
+    .servies_member{
+        list-style: none;
+        margin: 20px 0;
+        text-align: left;
+    }
+    .servies_member li {
+        border-bottom: 1px solid #ddd;
+        padding: 10px 20px;
+        font-size: 1.3em;
+        background: #f5f5f5
+    }
+   .servies_member .head{
+        background-image:linear-gradient(to right, #2c91ac 0%, #155d78 100%);
+       color: #fff;
+       font-size: 0.8em;
+       font-weight: 800
+   }
 </style>

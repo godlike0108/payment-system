@@ -333,7 +333,6 @@ export default {
             contact = state.add_servies.contact
         }
         let data = JSON.stringify({ type: type, name: name, contact: contact })
-        console.log(data)
         axios.post(`${baseURL}/api/customer-services`, data, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -342,7 +341,6 @@ export default {
                 }
             })
             .then((response) => {
-                console.log(response)
                 let type = response.data.type
                 if (type === 0) {
                     this.dispatch('get_vipServies')
@@ -367,6 +365,7 @@ export default {
             })
             .then((response) => {
                 let data = response.data
+                console.log(data)
                 commit('set_servies_infor', data)
             }).catch((error) => {
                 if (error.response.status === 401) {
@@ -386,6 +385,7 @@ export default {
             })
             .then((response) => {
                 let data = response.data
+                console.log(data)
                 commit('set_vipServies_infor', data)
             }).catch((error) => {
                 if (error.response.status === 401) {
@@ -445,8 +445,7 @@ export default {
             }
         }).then((response) => {
 
-            console.log(response)
-                // let type = response.data.type
+            // let type = response.data.type
             if (type === 0) {
                 this.dispatch('get_vipServies')
             } else if (type === 1) {

@@ -231,6 +231,8 @@ vueRouter.beforeEach((to, from, next) => {
         }
         if (to.fullPath === '/index/' || to.fullPath === '/index') {
             store.dispatch('userGetChekout', 1)
+            store.dispatch('get_Servies')
+            store.dispatch('get_vipServies')
             if (store.state.current_wallet.length <= 0) {
                 next({ path: '/index/currentWallet' })
             } else {
@@ -253,6 +255,14 @@ vueRouter.beforeEach((to, from, next) => {
             store.dispatch('userGetChekout', 1).then(() => {
                 next()
             })
+        }
+        if (to.fullPath === '/index/customerService') {
+            store.dispatch('get_Servies').then(() => {
+                store.dispatch('get_vipServies').then(() => {
+                    next()
+                })
+            })
+
         }
         if (to.fullPath === '/dashboard/index' || to.fullPath === '/dashboard/index/') {
             store.commit('setData')
