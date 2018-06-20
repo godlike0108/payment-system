@@ -210,6 +210,7 @@ vueRouter.beforeEach((to, from, next) => {
                 store.commit('setData')
                 store.commit('reset_user_checkout')
                 store.dispatch('userGetChekout', 1)
+                store.dispatch('front_end_show_user')
                     // store.dispatch('userGetwalletHistories', 1)
                 next()
             } else {
@@ -233,6 +234,7 @@ vueRouter.beforeEach((to, from, next) => {
             store.dispatch('userGetChekout', 1)
             store.dispatch('get_Servies')
             store.dispatch('get_vipServies')
+            store.dispatch('front_end_show_user')
             if (store.state.current_wallet.length <= 0) {
                 next({ path: '/index/currentWallet' })
             } else {
@@ -242,6 +244,7 @@ vueRouter.beforeEach((to, from, next) => {
 
         }
         if (from.fullPath === '/index/currentWallet' && to.fullPath === '/index/') {
+            store.dispatch('front_end_show_user')
             if (store.state.current_wallet.length <= 0) {
                 next({ path: '/index/currentWallet' })
             }

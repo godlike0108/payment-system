@@ -133,9 +133,9 @@ export default {
                  item.wallet_balance = balance
              }
 
-             if(item.created_at) {
+             if(item.created_at) { 
                  item.created_at = this.$moment
-                        .tz(item.created_at, 'Asia/Taipei')
+                        .tz('Asia/Taipei')
                         .format('YYYY-MM-DD HH:mm:ss')
              }
              

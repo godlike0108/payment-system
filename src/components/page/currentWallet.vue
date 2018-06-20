@@ -38,8 +38,9 @@ export default {
   },
   computed:{
       getAllWallet(){
-         
           let data = this.$store.getters.getAllWallet
+         console.log(data)
+
           data.map(item=>{
               if(item.currency === 'TWD'){
                   item.currencyName = '新台幣帳戶'
@@ -50,6 +51,7 @@ export default {
                 let balance = num.toFixed(2)
                  item.balance = balance
               }
+              
             return item
           })
           return data

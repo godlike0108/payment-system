@@ -56,7 +56,7 @@ export default {
     },
     front_end_show_user({ commit, state }) {
         let id = localStorage.getItem('id', id)
-        let token = localStorage.getItem('token', token)
+        let token = localStorage.getItem('token')
         axios.get(`${baseURL}/api/users/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -74,6 +74,7 @@ export default {
             let balance = data.wallets["0"].balance
             let user_status_id = data.user_status_id
             let id = data.id
+            let wallets = data.wallets
 
             localStorage.setItem('password', password)
             localStorage.setItem('email', email)
@@ -84,6 +85,7 @@ export default {
             localStorage.setItem('user_status_id', user_status_id)
             localStorage.setItem('id', id)
             localStorage.setItem('balance', balance)
+            localStorage.setItem('wallets', JSON.stringify(wallets));
 
             commit('setData', data)
         }).catch((error) => {
