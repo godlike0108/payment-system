@@ -343,6 +343,12 @@ export default {
             })
             .then((response) => {
                 console.log(response)
+                let type = response.data.type
+                if (type === 0) {
+                    this.dispatch('get_vipServies')
+                } else if (type === 1) {
+                    this.dispatch('get_Servies')
+                }
             }).catch((error) => {
                 if (error.response.status === 401) {
                     commit('log_out')
@@ -360,7 +366,8 @@ export default {
                 }
             })
             .then((response) => {
-                console.log(response)
+                let data = response.data
+                commit('set_servies_infor', data)
             }).catch((error) => {
                 if (error.response.status === 401) {
                     commit('log_out')
@@ -378,12 +385,79 @@ export default {
                 }
             })
             .then((response) => {
-                console.log(response)
+                let data = response.data
+                commit('set_vipServies_infor', data)
             }).catch((error) => {
                 if (error.response.status === 401) {
                     commit('log_out')
                     router.push('/dashboard')
                 }
             })
+    },
+    edit_servies({ commit, state }, { id: id, index: index }) {
+        let token = localStorage.getItem('token')
+        let name = state.edit_servies.name
+        let contact = state.edit_servies.contact
+        let type = id
+        let servies_id
+        if (type === 0) {
+            servies_id = state.add_vip_servies.member[index].id
+        } else if (type === 1) {
+            servies_id = state.add_servies.member[index].id
+
+        }
+        let data = { type: type, name: name, contact: contact }
+        axios.put(`${baseURL}/api/customer-services/${servies_id}`, data, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        }).then((response) => {
+            let type = response.data.type
+            if (type === 0) {
+                this.dispatch('get_vipServies')
+            } else if (type === 1) {
+                this.dispatch('get_Servies')
+            }
+        }).catch((error) => {
+            if (error.response.status === 401) {
+                commit('log_out')
+                router.push('/dashboard')
+            }
+        })
+    },
+    remove_servies({ commit, state }, { id: id, index: index }) {
+        let token = localStorage.getItem('token')
+        let type = id
+        let servies_id
+        if (type === 0) {
+            servies_id = state.add_vip_servies.member[index].id
+        } else if (type === 1) {
+            servies_id = state.add_servies.member[index].id
+
+        }
+        axios.delete(`${baseURL}/api/customer-services/${servies_id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        }).then((response) => {
+
+            console.log(response)
+                // let type = response.data.type
+            if (type === 0) {
+                this.dispatch('get_vipServies')
+            } else if (type === 1) {
+                this.dispatch('get_Servies')
+            }
+        }).catch((error) => {
+            // if (error.response.status === 401) {
+            //     commit('log_out')
+            //     router.push('/dashboard')
+            // }
+        })
+
     }
 }

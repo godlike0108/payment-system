@@ -59,13 +59,23 @@ export default {
         add_vip_servies: {
             name: null,
             contact: null,
-            type: 0
+            type: 0,
+            member: [],
+            page_total: null
         },
         add_servies: {
             name: null,
             contact: null,
-            type: 1
+            type: 1,
+            member: [],
+            page_total: null
 
+        },
+        edit_servies: {
+            name: null,
+            contact: null,
+            type: null,
+            id: null
         }
 
     },
@@ -108,6 +118,12 @@ export default {
         },
         get_checkout_level1_page_total(state) {
             return state.checkout_level1.page_total
+        },
+        get_servies(state) {
+            return state.add_servies.member
+        },
+        get_vipServies(state) {
+            return state.add_vip_servies.member
         }
     },
     mutations: {
@@ -204,9 +220,14 @@ export default {
         set_vipServies_contact(state, val) {
             state.add_vip_servies.contact = val
         },
+        set_vipServies_infor(state, data) {
+            state.add_vip_servies.member = data.data
+            state.add_vip_servies.page_total = data.last_page
+        },
         reset_vipServies(state) {
             state.add_vip_servies.contact = null
             state.add_vip_servies.name = null
+
         },
         set_servies_name(state, val) {
             state.add_servies.name = val
@@ -214,10 +235,26 @@ export default {
         set_servies_contact(state, val) {
             state.add_servies.contact = val
         },
+        set_servies_infor(state, data) {
+            state.add_servies.member = data.data
+            state.add_servies.page_total = data.last_page
+        },
         reset_servies(state) {
             state.add_servies.contact = null
             state.add_servies.name = null
-        }
+        },
+        edit_servies_name(state, val) {
+            state.edit_servies.name = val
+        },
+        edit_servies_contact(state, val) {
+            state.edit_servies.contact = val
+        },
+        reset_edit_servies(state) {
+            state.edit_servies.contact = null
+            state.edit_servies.name = null
+            state.edit_servies.type = null
+            state.edit_servies.id = null
+        },
 
 
     },

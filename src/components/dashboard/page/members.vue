@@ -92,6 +92,7 @@ export default {
   computed: {
 	  get_user_list(){
 		  return this.$store.getters.get_user_list.map(item=>{
+              console.log(item)
               if(item.wallets[0] != undefined ){
               item.balance = item.wallets[0].balance
               }else{
@@ -202,7 +203,7 @@ export default {
                  let _vm = this
                 this.$Modal.confirm({
                      title: `刪除會員資料 `,
-                    content: `<p style="font-size:1.4em">確認刪除<h2>${this.$store.state.admin.user_list[index].name}</h2>的會員資料嗎？</p>`,
+                    content: `<p style="font-size:1.4em">確認刪除<h2>${this.$store.state.admin.user_list.data[index].name}</h2>的會員資料嗎？</p>`,
                     onOk: () => {
                         this.$Message.info('確認送出');
                         _vm.$store.commit('set_user_infor_index',index)
