@@ -39,7 +39,6 @@ export default {
   computed:{
       getAllWallet(){
           let data = this.$store.getters.getAllWallet
-         console.log(data)
 
           data.map(item=>{
               if(item.currency === 'TWD'){

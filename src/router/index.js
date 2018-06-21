@@ -185,7 +185,8 @@ const vueRouter = new Router({
 
 export default vueRouter
 vueRouter.beforeEach((to, from, next) => {
-    // 如果 router 轉跳的頁面需要驗證 requiresAuth: true
+    console.log(to)
+        // 如果 router 轉跳的頁面需要驗證 requiresAuth: true
     let token = localStorage.getItem('token')
     let role_id = localStorage.getItem('role_id')
     let user_status_id = localStorage.getItem('user_status_id');

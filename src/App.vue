@@ -15,7 +15,7 @@ export default {
       }
      },
     computed: {
-      bg_colir(){
+      bg_colir(){  
       let path = this.$router.history.current.fullPath
         if(path === '/'|| path === '/firstlogin'|| path === '/sigup' || path === '/find-password'){
           window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #2c91ac 0%, #155d78 100%); ");
