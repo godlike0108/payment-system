@@ -103,6 +103,11 @@ export default {
                         .tz(item.created_at, 'Asia/Taipei')
                         .format('YYYY-MM-DD HH:mm:ss')
              }
+            if(item.balance){
+            let num = new Number(item.balance);
+            let balance = num.toFixed(2)
+                item.balance = balance
+            }
              return item
 
           })
