@@ -105,6 +105,11 @@ export default {
                         .tz(item.created_at, 'Asia/Taipei')
                         .format('YYYY-MM-DD HH:mm:ss')
                     }
+                    if(item.amount){
+                        let num = new Number(item.amount);
+                        let amount = num.toFixed(2)
+                        item.amount = amount
+                    }
 					return item
 				})
 				 return this.$store.getters.get_checkout_level2
