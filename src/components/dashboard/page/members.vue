@@ -92,7 +92,6 @@ export default {
   computed: {
 	  get_user_list(){
 		  return this.$store.getters.get_user_list.map(item=>{
-              console.log(item)
               if(item.wallets[0] != undefined ){
               item.balance = item.wallets[0].balance
               }else{

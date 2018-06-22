@@ -1,62 +1,67 @@
 <template>
  <div>
-    
         <Row type="flex" justify="center" align="middle">
         <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
-            <TabPane label="出金申請" name="name1">
+            <TabPane label="入金申請" name="name1">
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="22" :sm="16" :md="16" :lg="16">
-                        <i-form ref="formInline" >
-                            
-                            <form-item>
-                                <i-input :value="this.$store.state.checkout.name"  @input="setCheckoutName" :placeholder=" '銀行帳戶名稱'"   clearable>
-                                    <icon type="happy" size="20" slot="prepend"></icon>
-                                </i-input>
-                            </form-item>
-                            
+                        <i-form > 
                             <form-item >
-                                <i-input :value="this.$store.state.checkout.amount" @input="setCheckout_amount" :placeholder=" '金額'"   clearable>
+                                <i-input  @input="setCheckIn_amount" :placeholder=" '金額'"   clearable>
                                     <icon type="cash" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             <form-item >
-                                <i-input :value="this.$store.state.checkout.bank" @input="setCheckoutBank" :placeholder="'銀行名稱'"    clearable>
+                                <i-input  @input="setCheckInBusiness" :placeholder="'業務'"    clearable>
                                     <icon type="card" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
-                            <form-item >
-                                <i-input :value="this.$store.state.checkout.bank_account"  @input="setCheckout_bank_account" :placeholder=" '銀行帳號'"   > </i-input>
+                            <form-item>
+                                <i-input   @input="setCheckIN_mobile" :placeholder=" '電話'"   clearable>
+                                    <icon type="iphone" size="22" slot="prepend"></icon>
+                                </i-input>
                             </form-item>
                             <form-item>
+                                <i-input  @input="setCheckInName" :placeholder=" '轉入戶名稱'"   clearable>
+                                    <icon type="happy" size="20" slot="prepend"></icon>
+                                </i-input>
+                            </form-item>
+                            <form-item >
+                                <i-input  @input="setCheckIn_bank_account" :placeholder="'銀行帳戶後五碼'"    clearable>
+                                    <icon type="card" size="20" slot="prepend"></icon>
+                                </i-input>
+                            </form-item>
+                            <form-item>
+                                 <Input  type="textarea" :autosize="true" @input="setCheckIN_note" placeholder="備註" ></Input>                            </form-item>
+                            <form-item>
+                                <i-button type="primary" class="walletButton" shape="circle"  @click="userCheckIn" >送出申請</i-button>
+                            </form-item>
+                            <!-- <form-item>
                                 <i-input :value="this.$store.state.checkout.sms" @input="setCheckout_sms" class="phonePassword"  placeholder="請填入驗證碼共五碼"  clearable></i-input>
                             </form-item>
                             <form-item >
                                 <i-button class="walletButton" shape="circle" @click="getUserSms">取得手機驗證碼</i-button>
-                            </form-item>
-                            
-                            <form-item>
-                                <i-button type="primary" class="walletButton" shape="circle"  @click="userCheckout" >送出申請</i-button>
-                            </form-item>
+                            </form-item> -->
                         </i-form>
                     </Col>
                 </Row>
                 <Row >
-                    <Col v-if="this.$store.state.checkout.success">
+                    <Col v-if="success">
                     <Icon type="checkmark-circled" class="success" size="20"></Icon>
-                        <div class="success">出金申請成功</div>
+                        <div class="success">入金申請成功</div>
                     </Col>
                 </Row>
                 <Row >
-                    <Col v-if="this.$store.state.checkout.error">
+                    <Col v-if="error">
                     <Icon type="close-circled" class="error" size="20"></Icon>
                         <div class="error">申請資料有誤，請輸入正確資料</div>
                     </Col>
                 </Row>
             </TabPane>
-            <TabPane label="出金回報" name="name2">
-            <Table height="450" :columns="columns1" :data="getCheckout"></Table>
-            <Page :total="get_checkout_total" @on-change="change" style="margin:15px"></Page>        
+            <TabPane label="入金回報" name="name2">
+            <Table height="450" :columns="columns1" :data="getCheckIn"></Table>
+            <Page :total="total" @on-change="change" style="margin:15px"></Page>        
             </TabPane>
             </Tabs>
         </Col>
@@ -67,12 +72,10 @@
 <script>
 import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 export default {
-  name: 'HelloWorld',
+  name: 'checkIn',
   data () {
      return {
         isCollapsed: false,
-        eyesIcon: 'eye-disabled',
-        type: 'password',
         columns1: [
                     {
                         title: '銀行用戶名稱',
@@ -105,63 +108,17 @@ export default {
                         minWidth:150
                     }
                 ],
-        formInline: {
-            user: '',
-            amount: '',
-            bank: '',
-            bank_account: '',
-            sms:''
-
-        },
-        
-        ruleInline: {
-            user: [{
-                required: true,
-                message: '請填入用戶姓名',
-                trigger: 'blur'
-            }],
-            amount: [{
-                required: true,
-                message: '請填入金額',
-                trigger: 'blur'
-            }],
-            bank: [{
-                required: true,
-                message: '請填入銀行名稱',
-                trigger: 'blur'
-            },
-            // {
-            //     type: 'number',
-            //     min: 3,
-            //     max:3,
-            //     message: '請填入銀行代碼共3碼',
-            //     trigger: 'blur'
-            // }
-            ],
-            bank_account: [{
-                required: true,
-                message: '請填入銀行帳號',
-                trigger: 'blur'
-            },
-            {
-                type: 'number',
-                min:11,
-                max:14,
-                message: '請填入銀行帳號共11~14碼',
-                trigger: 'blur'
-            }]
-        }
     };
   },
   computed: {
-      menuitemClasses: function () {
-          return [
-              'menu-item',
-              this.isCollapsed ? 'collapsed-menu' : ''
-          ]
-      },
-      getCheckout: function(){
-         return this.$store.getters.getCheckout.map(item=>{
+      ...mapState({
+          success : state => state.checkIn.success,
+          error: state => state.checkIn.error,
+          total: state => state.checkIn.page_total
+      }),
+  
+      getCheckIn: function(){
+         return this.$store.getters.getCheckIn.map(item=>{
      
              if (item.checkout_status_id === 0)
              {
@@ -193,33 +150,33 @@ export default {
              return item
           })
       },
-      get_checkout_total(){
-          return this.$store.getters.get_checkout_total
-      }
   },
   methods: {
       ...mapActions({
-            'getUserSms' : 'getUserSms',
-            'userCheckout':'userCheckout'
+            // 'getUserSms' : 'getUserSms',
+            'userCheckIn':'userCheckIn'
             }),
+        setCheckIn_amount(amount){
+            this.$store.commit('setCheckIn_amount',amount)
+        },
+        setCheckInBusiness(bank){
+            this.$store.commit('setCheckInBusiness',bank)
+        },
+        setCheckIN_mobile(mobile){
+            this.$store.commit('setCheckIN_mobile',mobile)
+        },
+        setCheckInName(name){
+            this.$store.commit('setCheckInName',name)
+        },
         
-        setCheckoutName(name){
-            this.$store.commit('setCheckoutName',name)
+        setCheckIn_bank_account(bank_account){
+            this.$store.commit('setCheckIn_bank_account',bank_account)
         },
-        setCheckoutBank(bank){
-            this.$store.commit('setCheckoutBank',bank)
-        },
-        setCheckout_bank_account(bank_account){
-            this.$store.commit('setCheckout_bank_account',bank_account)
-        },
-        setCheckout_amount(amount){
-            this.$store.commit('setCheckout_amount',amount)
-        },
-        setCheckout_sms(sms){
-            this.$store.commit('setCheckout_sms',sms)
+        setCheckIN_note(note){
+            this.$store.commit('setCheckIN_note',note)
         },
         change(page){
-        this.$store.dispatch('userGetChekout',page)           
+            this.$store.dispatch('userGetChekout',page)           
         },
   },
   created(){
@@ -271,21 +228,7 @@ export default {
         background-image: linear-gradient(to right, #0acffe 0%, #495aff 100%);
         box-shadow: 0 1px 1px rgba(0,0,0,.1);
     }
-    .menu-item span{
-        display: inline-block;
-        overflow: hidden;
-        width: 69px;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        vertical-align: bottom;
-        transition: width .2s ease .2s;
-    }
-    .menu-item i{
-        transform: translateX(0px);
-        transition: font-size .2s ease, transform .2s ease;
-        vertical-align: middle;
-        font-size: 16px;
-    }
+  
     .collapsed-menu span{
         width: 0px;
         transition: width .2s ease;

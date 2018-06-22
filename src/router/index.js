@@ -10,6 +10,7 @@ import userTransaction from '@/components/page/userTransaction'
 import currentWallet from '@/components/page/currentWallet'
 import customerService from '@/components/page/customerService'
 import checkout from '@/components/page/checkout'
+import checkIn from '@/components/page/checkIn'
 import firstlogin from '@/components/firstLogin'
 import findPassword from '@/components/forgotPassword'
 
@@ -92,6 +93,12 @@ const vueRouter = new Router({
                     path: 'checkout',
                     name: 'checkout',
                     component: checkout,
+                    meta: { requiresAuth: true },
+                },
+                {
+                    path: 'checkin',
+                    name: 'checkout',
+                    component: checkIn,
                     meta: { requiresAuth: true },
                 },
                 {
@@ -185,8 +192,7 @@ const vueRouter = new Router({
 
 export default vueRouter
 vueRouter.beforeEach((to, from, next) => {
-    console.log(to)
-        // 如果 router 轉跳的頁面需要驗證 requiresAuth: true
+    // 如果 router 轉跳的頁面需要驗證 requiresAuth: true
     let token = localStorage.getItem('token')
     let role_id = localStorage.getItem('role_id')
     let user_status_id = localStorage.getItem('user_status_id');

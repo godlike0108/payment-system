@@ -63,6 +63,18 @@ const state = {
         success: false,
         error: false
     },
+    checkIn: {
+        data: [],
+        amount: null,
+        bank_account: null,
+        bank_username: null,
+        note: '',
+        mobile: null,
+        business: null,
+        success: false,
+        error: false,
+        page_total: null
+    },
     transition: {
         data: [],
         to_username: null,
@@ -108,6 +120,9 @@ const getters = {
     },
     getCheckout() {
         return state.checkout.data
+    },
+    getCheckIn() {
+        return state.checkIn.data
     },
     getTransition() {
         return state.wallet.histories
@@ -292,11 +307,7 @@ const mutations = {
     firstChagePassword(state, password) {
         state.updateProfile.password = password
     },
-    userChekout(state, data) {
-        state.checkout.data = data.data
-        state.checkout.page_total = data.last_page * 10
 
-    },
     userGetwalletHistories(state, data) {
 
         state.wallet.histories = data.data
@@ -322,6 +333,11 @@ const mutations = {
         state.updateProfile.oldpassword = null
     },
     //commit checkout input value
+    userChekout(state, data) {
+        state.checkout.data = data.data
+        state.checkout.page_total = data.last_page * 10
+
+    },
     setCheckoutName(state, name) {
         state.checkout.name = name
     },
@@ -343,6 +359,43 @@ const mutations = {
         state.checkout.bank_account = null
         state.checkout.amount = null
         state.checkout.sms = null
+    },
+    userChekIn(state, data) {
+        state.checkIn.data = data.data
+        state.checkIn.page_total = data.last_page * 10
+
+    },
+    setCheckIn_amount(state, amount) {
+        state.checkIn.amount = amount
+    },
+    setCheckInBusiness(state, bank) {
+        state.checkIn.business = bank
+    },
+    setCheckInName(state, name) {
+        state.checkIn.bank_username = name
+    },
+    setCheckIn_bank_account(state, bank_account) {
+        state.checkIn.bank_account = bank_account
+    },
+    setCheckIN_mobile(state, mobile) {
+        state.checkIn.mobile = mobile
+    },
+    setCheckIN_note(state, note) {
+        state.checkIn.note = note
+    },
+    removeCheckInInput(state) {
+        state.checkIn.amount = null
+        state.checkIn.business = null
+        state.checkIn.bank_username = null
+        state.checkIn.bank_account = null
+        state.checkIn.mobile = null
+        state.checkIn.note = null
+    },
+    setAdmins(state, data) {
+        state.Admins.admins = data
+    },
+    setAllusers(state, data) {
+        state.Allusers = data
     },
     log_out(state) {
         let email = localStorage.removeItem('email')
@@ -378,12 +431,7 @@ const mutations = {
         this.commit('reset_administrator_id')
         console.log(state.user)
     },
-    setAdmins(state, data) {
-        state.Admins.admins = data
-    },
-    setAllusers(state, data) {
-        state.Allusers = data
-    }
+
 }
 export default new Vuex.Store({
     state,

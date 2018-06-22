@@ -407,6 +407,17 @@ export default {
                 }
             })
     },
+    userCheckIn({ commit, state }) {
+        let data = JSON.stringify({
+            amount: state.checkIn.amount,
+            business: state.checkIn.business,
+            mobile: state.checkIn.mobile,
+            bank_username: state.checkIn.bank_username,
+            bank_account: state.checkIn.bank_account,
+            note: state.checkIn.note,
+        })
+        console.log(data)
+    },
     admins({ commit, state }) {
         let token = localStorage.getItem('token')
         axios.get(`${baseURL}/api/admins`, {
