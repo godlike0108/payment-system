@@ -109,7 +109,6 @@ export default {
           ]
       },
       get_servies(){
-          console.log(this.$store.getters.get_servies)
           return this.$store.getters.get_servies
       },
       get_vipServies(){

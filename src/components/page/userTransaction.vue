@@ -148,10 +148,10 @@ export default {
         },
        updateToUserName(to_username){
         //   this.$store.commit('non_existent_account', true)
-          this.$store.commit('updateToUserName', to_username)
+          this.$store.commit('setTransition', {to_username})
       },
       updateToAmount(amount){
-             this.$store.commit('updateToAmount', amount)
+             this.$store.commit('setTransition', {amount})
       },
     handleSubmit (name) {
         this.$refs[name].validate((valid) => {

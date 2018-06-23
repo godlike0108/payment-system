@@ -409,14 +409,14 @@ export default {
     },
     userCheckIn({ commit, state }) {
         let data = JSON.stringify({
-            amount: state.checkIn.amount,
-            business: state.checkIn.business,
-            mobile: state.checkIn.mobile,
-            bank_username: state.checkIn.bank_username,
-            bank_account: state.checkIn.bank_account,
-            note: state.checkIn.note,
-        })
-        console.log(data)
+                amount: state.checkIn.amount,
+                business: state.checkIn.business,
+                mobile: state.checkIn.mobile,
+                bank_username: state.checkIn.bank_username,
+                bank_account: state.checkIn.bank_account,
+                note: state.checkIn.note,
+            })
+            // console.log(data)
     },
     admins({ commit, state }) {
         let token = localStorage.getItem('token')
@@ -475,6 +475,11 @@ export default {
                 commit('removeProfileInput')
                 router.push('/index')
             })
+    },
+    post_add_account({ commit, state }) {
+        let new_data = state.mybank_account.new_account
+        commit('set_account', { new_data: new_data })
+
     }
 
 }

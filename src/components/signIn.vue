@@ -148,16 +148,16 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 
 			},
 			updateName(name){
-				this.$store.commit('updateName', name)
+				this.$store.commit('setSignUp', {name})
 			},
 			updateEmail(email){
-				this.$store.commit('updateEmail', email)
+				this.$store.commit('setSignUp', {email})
 			},
 			updateMobile(mobile){
-				this.$store.commit('updateMobile', mobile)
+				this.$store.commit('setSignUp', {mobile})
 			},
 			updateSms(sms){
-				this.$store.commit('updateSms', sms)
+				this.$store.commit('setSignUp', {sms})
 			},
 		}
 	}

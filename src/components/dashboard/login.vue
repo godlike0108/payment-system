@@ -77,10 +77,10 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
             }),
             updatePassword (password) {
                
-                this.$store.commit('updatePassword', password)
+                this.$store.commit('setLogin', {password})
             },
             updateUsername (username) {
-                this.$store.commit('updateUsername', username)
+                this.$store.commit('setLogin', {username})
             }
 		}
 	}

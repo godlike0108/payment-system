@@ -101,16 +101,16 @@ export default {
             this.type = this.type === 'password' ? 'text' : 'password'
         },
         setProfileName(name) {
-                this.$store.commit('setProfileName', name)
+                this.$store.commit('setProfile', {name})
             },
         setProfileUsername(username) {
-                this.$store.commit('setProfileUsername', username)
+                this.$store.commit('setProfile', {username})
             },
          setProfilePassword(password) {
-                this.$store.commit('setProfilePassword', password)
+                this.$store.commit('setProfile', {password})
             },
-        setOldPassword(password){
-            this.$store.commit('setOldPassword',password)
+        setOldPassword(OldPassword){
+            this.$store.commit('setProfile',{OldPassword})
         }
   
 }

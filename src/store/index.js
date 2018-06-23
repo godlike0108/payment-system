@@ -87,6 +87,21 @@ const state = {
         },
 
     },
+    mybank_account: {
+        new_account: {
+            username: null,
+            bank: null,
+            bank_account: null
+        },
+        edit_account: {
+            username: null,
+            bank: null,
+            bank_account: null
+        },
+        data: [],
+        page_total: null
+
+    },
     wallet: {
         histories: [],
         page_total: null
@@ -126,6 +141,9 @@ const getters = {
     },
     getTransition() {
         return state.wallet.histories
+    },
+    getMyAccount() {
+        return state.mybank_account
     },
     get_wallet_page_total() {
         return state.wallet.page_total
@@ -197,39 +215,6 @@ const mutations = {
         state.signup_status.wrong_sms = null
         state.signup_status.success = null
     },
-    setData(state, data) {
-        // console.log(data)
-
-        let email = localStorage.getItem('email')
-        let token = localStorage.getItem('token')
-        let mobile = localStorage.getItem('mobile')
-        let name = localStorage.getItem('name')
-        let username = localStorage.getItem('username')
-        let wallets = localStorage.getItem('wallets')
-
-        // let password = sessionStorage.getItem('password')
-        let role_id = localStorage.getItem('role_id')
-        let user_status_id = localStorage.getItem('user_status_id');
-        let balance = localStorage.getItem('balance')
-        let id = localStorage.getItem('id')
-        state.user.email = email
-        state.user.token = token
-        state.user.mobile = mobile
-        state.user.name = name
-        state.user.username = username
-        state.user.wallet = JSON.parse(wallets)
-            // state.user.password = password
-        state.user.role_id = role_id
-        state.user.user_status_id = user_status_id
-        state.user.balance = balance
-        state.user.id = id
-
-        state.updateProfile.name = name
-        state.updateProfile.username = username
-            // state.updateProfile.password = password
-
-
-    },
     update_findpassword_mobile(state, mobile) {
         state.findPassword.mobile = mobile
     },
@@ -261,32 +246,47 @@ const mutations = {
         state.findPassword.mobile = ''
 
     },
-    updatePassword(state, password) {
-        state.user.password = password
+    setLogin(state, {
+        password: password,
+        username: username
+    }) {
+        if (password) {
+            state.user.password = password
+        } else if (username) {
+            state.user.username = username
+        }
 
     },
-    updateUsername(state, username) {
-        state.user.username = username
-    },
-    updateName(state, name) {
-        state.signIn.name = name
-    },
-    updateMobile(state, mobile) {
-        state.signIn.mobile = mobile
+
+    setSignUp(state, {
+        name: name,
+        email: email,
+        mobile: mobile,
+        sms: sms
+    }) {
+        if (name) {
+            state.signIn.name = name
+        } else if (email) {
+            state.signIn.email = email
+        } else if (mobile) {
+            state.signIn.mobile = mobile
+        } else if (sms) {
+            state.signIn.sms = sms
+        }
 
     },
-    updateEmail(state, email) {
-        state.signIn.email = email
+    setTransition(state, {
+        to_username: to_username,
+        amount: amount
+    }) {
+        if (to_username) {
+            state.transition.to_username = to_username
+        } else if (amount) {
+            state.transition.amount = amount
+        }
+
     },
-    updateSms(state, sms) {
-        state.signIn.sms = sms
-    },
-    updateToUserName(state, to_username) {
-        state.transition.to_username = to_username
-    },
-    updateToAmount(state, amount) {
-        state.transition.amount = amount
-    },
+
     non_existent_account(state, status) {
         state.transition.status.nouserid = status
         setTimeout(() => {
@@ -313,17 +313,22 @@ const mutations = {
         state.wallet.histories = data.data
         state.wallet.page_total = data.last_page * 10
     },
-    setProfileName(state, name) {
-        state.user.name = name
-    },
-    setProfileUsername(state, username) {
-        state.user.username = username
-    },
-    setProfilePassword(state, password) {
-        state.updateProfile.password = password
-    },
-    setOldPassword(state, password) {
-        state.updateProfile.oldpassword = password
+    setProfile(state, {
+        name: name,
+        username: username,
+        password: password,
+        OldPassword: OldPassword
+    }) {
+        if (name) {
+            state.user.name = name
+        } else if (username) {
+            state.user.username = username
+        } else if (password) {
+            state.updateProfile.password = password
+        } else if (OldPassword) {
+            state.updateProfile.oldpassword = OldPassword
+        }
+
     },
     removeProfileInput(state) {
         state.updateProfile.name = null
@@ -338,20 +343,25 @@ const mutations = {
         state.checkout.page_total = data.last_page * 10
 
     },
-    setCheckoutName(state, name) {
-        state.checkout.name = name
-    },
-    setCheckoutBank(state, bank) {
-        state.checkout.bank = bank
-    },
-    setCheckout_bank_account(state, bank_account) {
-        state.checkout.bank_account = bank_account
-    },
-    setCheckout_amount(state, amount) {
-        state.checkout.amount = amount
-    },
-    setCheckout_sms(state, sms) {
-        state.checkout.sms = sms
+    setCheckout(state, {
+        name: name,
+        bank: bank,
+        account: account,
+        amount: amount,
+        sms: sms
+    }) {
+        if (name) {
+            state.checkout.name = name
+        } else if (bank) {
+            state.checkout.bank = bank
+        } else if (account) {
+            state.checkout.bank_account = account
+        } else if (amount) {
+            state.checkout.amount = amount
+        } else if (sms) {
+            state.checkout.sms = sms
+        }
+
     },
     removeCheckoutInput(state) {
         state.checkout.name = null
@@ -365,23 +375,28 @@ const mutations = {
         state.checkIn.page_total = data.last_page * 10
 
     },
-    setCheckIn_amount(state, amount) {
-        state.checkIn.amount = amount
-    },
-    setCheckInBusiness(state, bank) {
-        state.checkIn.business = bank
-    },
-    setCheckInName(state, name) {
-        state.checkIn.bank_username = name
-    },
-    setCheckIn_bank_account(state, bank_account) {
-        state.checkIn.bank_account = bank_account
-    },
-    setCheckIN_mobile(state, mobile) {
-        state.checkIn.mobile = mobile
-    },
-    setCheckIN_note(state, note) {
-        state.checkIn.note = note
+    setCheckIn(state, {
+        amount: amount,
+        bank: bank,
+        mobile: mobile,
+        name: name,
+        account: account,
+        note: note
+    }) {
+        if (amount) {
+            state.checkIn.amount = amount
+        } else if (bank) {
+            state.checkIn.business = bank
+        } else if (mobile) {
+            state.checkIn.mobile = mobile
+        } else if (name) {
+            state.checkIn.bank_username = name
+        } else if (account) {
+            state.checkIn.bank_account = account
+        } else if (note) {
+            state.checkIn.note = note
+        }
+
     },
     removeCheckInInput(state) {
         state.checkIn.amount = null
@@ -391,11 +406,79 @@ const mutations = {
         state.checkIn.mobile = null
         state.checkIn.note = null
     },
+    set_account(state, {
+        username: username,
+        bank: bank,
+        account: account,
+        edit_username: edit_username,
+        edit_bank: edit_bank,
+        edit_account: edit_account,
+        new_data: new_data
+    }) {
+        let mybank_account = state.mybank_account
+        let new_account = state.mybank_account.new_account
+        let edit_myAccount = state.mybank_account.edit_account
+        if (username) {
+            new_account.username = username
+        } else if (bank) {
+            new_account.bank = bank
+        } else if (account) {
+            new_account.bank_account = account
+        } else if (edit_username) {
+            edit_myAccount.username = edit_username
+        } else if (edit_bank) {
+            edit_myAccount.bank = edit_bank
+        } else if (edit_account) {
+            edit_myAccount.bank_account = edit_account
+        } else if (new_data) {
+            mybank_account.data.push(new_data)
+        }
+
+    },
+    reset_new_account(state) {
+        state.mybank_account.new_account.username = null
+        state.mybank_account.new_account.bank = null
+        state.mybank_account.new_account.bank_account = null
+            // console.log(this.state.mybank_account.new_account)
+    },
+    reset_edit_account(state) {
+        state.mybank_account.edit_account.username = null
+        state.mybank_account.edit_account.bank = null
+        state.mybank_account.edit_account.bank_account = null
+        console.log(this.state.mybank_account.edit_account)
+    },
     setAdmins(state, data) {
         state.Admins.admins = data
     },
     setAllusers(state, data) {
         state.Allusers = data
+    },
+    setData(state, data) {
+        let email = localStorage.getItem('email')
+        let token = localStorage.getItem('token')
+        let mobile = localStorage.getItem('mobile')
+        let name = localStorage.getItem('name')
+        let username = localStorage.getItem('username')
+        let wallets = localStorage.getItem('wallets')
+
+        let role_id = localStorage.getItem('role_id')
+        let user_status_id = localStorage.getItem('user_status_id');
+        let balance = localStorage.getItem('balance')
+        let id = localStorage.getItem('id')
+        state.user.email = email
+        state.user.token = token
+        state.user.mobile = mobile
+        state.user.name = name
+        state.user.username = username
+        state.user.wallet = JSON.parse(wallets)
+
+        state.user.role_id = role_id
+        state.user.user_status_id = user_status_id
+        state.user.balance = balance
+        state.user.id = id
+
+        state.updateProfile.name = name
+        state.updateProfile.username = username
     },
     log_out(state) {
         let email = localStorage.removeItem('email')
@@ -407,7 +490,6 @@ const mutations = {
         let role_id = localStorage.removeItem('role_id')
         let user_status_id = localStorage.removeItem('user_status_id');
         let wallets = localStorage.removeItem('wallets');
-
 
         state.user.email = email
         state.user.token = token
@@ -429,7 +511,8 @@ const mutations = {
         this.commit('removeTransactionsInput')
         this.commit('reset_reset_user_id')
         this.commit('reset_administrator_id')
-        console.log(state.user)
+        this.commit('removeCheckInInput')
+
     },
 
 }

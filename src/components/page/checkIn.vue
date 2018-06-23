@@ -13,17 +13,17 @@
                                 </i-input>
                             </form-item>
                             <form-item >
-                                <i-input  @input="setCheckInBusiness" :placeholder="'業務'"    clearable>
+                                <i-input  @input="setCheckIn_business" :placeholder="'業務'"    clearable>
                                     <icon type="card" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             <form-item>
-                                <i-input   @input="setCheckIN_mobile" :placeholder=" '電話'"   clearable>
+                                <i-input   @input="setCheckIn_mobile" :placeholder=" '電話'"   clearable>
                                     <icon type="iphone" size="22" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             <form-item>
-                                <i-input  @input="setCheckInName" :placeholder=" '轉入戶名稱'"   clearable>
+                                <i-input  @input="setCheckIn_name" :placeholder=" '轉入戶名稱'"   clearable>
                                     <icon type="happy" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
@@ -33,7 +33,8 @@
                                 </i-input>
                             </form-item>
                             <form-item>
-                                 <Input  type="textarea" :autosize="true" @input="setCheckIN_note" placeholder="備註" ></Input>                            </form-item>
+                                 <Input  type="textarea" :autosize="true" @input="setCheckIn_note" placeholder="備註" ></Input>                         
+                            </form-item>
                             <form-item>
                                 <i-button type="primary" class="walletButton" shape="circle"  @click="userCheckIn" >送出申請</i-button>
                             </form-item>
@@ -157,23 +158,22 @@ export default {
             'userCheckIn':'userCheckIn'
             }),
         setCheckIn_amount(amount){
-            this.$store.commit('setCheckIn_amount',amount)
+            this.$store.commit('setCheckIn',{amount})
         },
-        setCheckInBusiness(bank){
-            this.$store.commit('setCheckInBusiness',bank)
+        setCheckIn_business(bank){
+            this.$store.commit('setCheckIn',{bank})
         },
-        setCheckIN_mobile(mobile){
-            this.$store.commit('setCheckIN_mobile',mobile)
+        setCheckIn_mobile(mobile){
+            this.$store.commit('setCheckIn',{mobile})
         },
-        setCheckInName(name){
-            this.$store.commit('setCheckInName',name)
+        setCheckIn_name(name){
+            this.$store.commit('setCheckIn',{name})
         },
-        
-        setCheckIn_bank_account(bank_account){
-            this.$store.commit('setCheckIn_bank_account',bank_account)
+        setCheckIn_bank_account(account){
+            this.$store.commit('setCheckIn',{account})
         },
-        setCheckIN_note(note){
-            this.$store.commit('setCheckIN_note',note)
+        setCheckIn_note(note){
+            this.$store.commit('setCheckIn',{note})
         },
         change(page){
             this.$store.dispatch('userGetChekout',page)           

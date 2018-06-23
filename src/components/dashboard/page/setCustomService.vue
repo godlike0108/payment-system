@@ -193,7 +193,7 @@ export default {
     edit_servies ({id:id,index:index}) {
         let _vm = this
         this.$Modal.confirm({
-            title: `修改客服新訊`,
+            title: `修改客服資訊`,
             onOk: () => {
                 this.$Message.info('確認送出');
                 _vm.set_edit_servies({id:id,index:index})

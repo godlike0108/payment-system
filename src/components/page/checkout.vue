@@ -34,7 +34,6 @@
                             <form-item >
                                 <i-button class="walletButton" shape="circle" @click="getUserSms">取得手機驗證碼</i-button>
                             </form-item>
-                            
                             <form-item>
                                 <i-button type="primary" class="walletButton" shape="circle"  @click="userCheckout" >送出申請</i-button>
                             </form-item>
@@ -204,19 +203,19 @@ export default {
             }),
         
         setCheckoutName(name){
-            this.$store.commit('setCheckoutName',name)
+            this.$store.commit('setCheckout',{name})
         },
         setCheckoutBank(bank){
-            this.$store.commit('setCheckoutBank',bank)
+            this.$store.commit('setCheckout',{bank})
         },
-        setCheckout_bank_account(bank_account){
-            this.$store.commit('setCheckout_bank_account',bank_account)
+        setCheckout_bank_account(account){
+            this.$store.commit('setCheckout',{account})
         },
         setCheckout_amount(amount){
-            this.$store.commit('setCheckout_amount',amount)
+            this.$store.commit('setCheckout',{amount})
         },
         setCheckout_sms(sms){
-            this.$store.commit('setCheckout_sms',sms)
+            this.$store.commit('setCheckout',{sms})
         },
         change(page){
         this.$store.dispatch('userGetChekout',page)           

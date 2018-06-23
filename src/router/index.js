@@ -9,6 +9,7 @@ import userProfile from '@/components/page/userProfile'
 import userTransaction from '@/components/page/userTransaction'
 import currentWallet from '@/components/page/currentWallet'
 import customerService from '@/components/page/customerService'
+import userAccount from '@/components/page/userAccount'
 import checkout from '@/components/page/checkout'
 import checkIn from '@/components/page/checkIn'
 import firstlogin from '@/components/firstLogin'
@@ -99,6 +100,12 @@ const vueRouter = new Router({
                     path: 'checkin',
                     name: 'checkout',
                     component: checkIn,
+                    meta: { requiresAuth: true },
+                },
+                {
+                    path: 'account',
+                    name: 'account',
+                    component: userAccount,
                     meta: { requiresAuth: true },
                 },
                 {
