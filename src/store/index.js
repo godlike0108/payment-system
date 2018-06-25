@@ -88,19 +88,20 @@ const state = {
 
     },
     mybank_account: {
+        data: [],
+        page_total: '',
         new_account: {
-            username: null,
+            title: null,
+            name: null,
             bank: null,
-            bank_account: null
+            account: null
         },
         edit_account: {
-            username: null,
+            title: null,
+            name: null,
             bank: null,
-            bank_account: null
-        },
-        data: [],
-        page_total: null
-
+            account: null
+        }
     },
     wallet: {
         histories: [],
@@ -407,45 +408,56 @@ const mutations = {
         state.checkIn.note = null
     },
     set_account(state, {
-        username: username,
+        title: title,
+        name: name,
         bank: bank,
         account: account,
-        edit_username: edit_username,
+        edit_title: edit_title,
+        edit_name: edit_name,
         edit_bank: edit_bank,
         edit_account: edit_account,
-        new_data: new_data
+        new_data: new_data,
+        new_page: new_page
     }) {
         let mybank_account = state.mybank_account
         let new_account = state.mybank_account.new_account
         let edit_myAccount = state.mybank_account.edit_account
-        if (username) {
-            new_account.username = username
+        if (title) {
+            new_account.title = title
+        } else if (name) {
+            new_account.name = name
         } else if (bank) {
             new_account.bank = bank
         } else if (account) {
-            new_account.bank_account = account
-        } else if (edit_username) {
-            edit_myAccount.username = edit_username
+            new_account.account = account
+        } else if (edit_title) {
+            edit_myAccount.title = edit_title
+        } else if (edit_name) {
+            edit_myAccount.name = edit_name
         } else if (edit_bank) {
             edit_myAccount.bank = edit_bank
         } else if (edit_account) {
-            edit_myAccount.bank_account = edit_account
+            edit_myAccount.account = edit_account
         } else if (new_data) {
-            mybank_account.data.push(new_data)
+            mybank_account.data = new_data
+        } else if (new_page) {
+            mybank_account.page_total = new_page * 10
         }
 
     },
     reset_new_account(state) {
-        state.mybank_account.new_account.username = null
+        state.mybank_account.new_account.title = null
+        state.mybank_account.new_account.name = null
         state.mybank_account.new_account.bank = null
-        state.mybank_account.new_account.bank_account = null
+        state.mybank_account.new_account.account = null
             // console.log(this.state.mybank_account.new_account)
     },
     reset_edit_account(state) {
-        state.mybank_account.edit_account.username = null
+        state.mybank_account.edit_account.title = null
+        state.mybank_account.edit_account.name = null
         state.mybank_account.edit_account.bank = null
-        state.mybank_account.edit_account.bank_account = null
-        console.log(this.state.mybank_account.edit_account)
+        state.mybank_account.edit_account.account = null
+
     },
     setAdmins(state, data) {
         state.Admins.admins = data

@@ -276,6 +276,11 @@ vueRouter.beforeEach((to, from, next) => {
                 next()
             })
         }
+        if (to.fullPath === '/index/account') {
+            store.dispatch('get_account', 1).then(() => {
+                next()
+            })
+        }
         if (to.fullPath === '/index/customerService') {
             store.dispatch('get_Servies').then(() => {
                 store.dispatch('get_vipServies').then(() => {

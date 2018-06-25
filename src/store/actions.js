@@ -478,8 +478,59 @@ export default {
     },
     post_add_account({ commit, state }) {
         let new_data = state.mybank_account.new_account
-        commit('set_account', { new_data: new_data })
+        let data = JSON.stringify(new_data)
+        axios.post(`${baseURL}/api/bank-accounts`, data, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(() => {
+                commit('reset_new_account')
+                this.dispatch('get_account')
+            })
+    },
+    get_account({ commit, state }, page) {
+        axios.get(`${baseURL}/api/bank-accounts?page=${page}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => {
 
+            let new_data = response.data.data
+            let new_page = response.data.last_page
+            commit('set_account', { new_data })
+            commit('set_account', { new_page })
+        })
+    },
+    put_edit_account({ commit, state }, index) {
+        let edit_account = state.mybank_account.edit_account
+        let id = state.mybank_account.data[index].id
+        let data = JSON.stringify(edit_account)
+        console.log(edit_account)
+        axios.put(`${baseURL}/api/bank-accounts/${id}`, data, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }
+        }).then(response => {
+            commit('reset_edit_account')
+            this.dispatch('get_account')
+        })
+    },
+    remove_account({ commit, state }, index) {
+        let id = state.mybank_account.data[index].id
+        console.log(id)
+        axios.delete(`${baseURL}/api/bank-accounts/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }
+        }).then(response => {
+
+            this.dispatch('get_account')
+        })
     }
 
 }

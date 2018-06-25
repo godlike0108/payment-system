@@ -9,20 +9,22 @@
                     <ul class="account_list">
                         <li class="head">
                             <Row>
-                                <Col :xs="5" :sm="5" :md="5" :lg="5" >銀行帳戶名稱</Col>
-                                <Col :xs="5" :sm="5" :md="5" :lg="5"><span class="currency">銀行名稱</span></Col>
-                                <Col :xs="10" :sm="10" :md="10" :lg="10">銀行帳號</Col>
+                                <Col :xs="4" :sm="4" :md="4" :lg="4" >常用名稱</Col>
+                                <Col :xs="4" :sm="4" :md="4" :lg="4" >銀行帳戶名稱</Col>
+                                <Col :xs="4" :sm="4" :md="4" :lg="4"><span class="currency">銀行名稱</span></Col>
+                                <Col :xs="8" :sm="8" :md="8" :lg="8">銀行帳號</Col>
                                  <Col :xs="4" :sm="4" :md="4" :lg="4">修改/刪除</Col>
                             </Row>
                         </li>
                         <li v-for="(item,index) in getMyAccount">
                             <Row>
-                                <Col :xs="5" :sm="5" :md="5" :lg="5" >{{item.username}}</Col>
-                                <Col :xs="5" :sm="5" :md="5" :lg="5">
+                                <Col :xs="4" :sm="4" :md="4" :lg="4" >{{item.title}}</Col>
+                                <Col :xs="4" :sm="4" :md="4" :lg="4" >{{item.name}}</Col>
+                                <Col :xs="4" :sm="4" :md="4" :lg="4">
                                     <span class="currency">{{item.bank}}</span>
                                 </Col>
-                                <Col :xs="10" :sm="10" :md="10" :lg="10">
-                                    <span class="currency">{{item.bank_account}}</span>
+                                <Col :xs="8" :sm="8" :md="8" :lg="8">
+                                    <span class="currency">{{item.account}}</span>
                                 </Col>
                                 <Col :xs="4" :sm="4" :md="4" :lg="4">
                                     <Button type="primary"  size="small"  @click="edit_account(index)" >修改</Button>
@@ -88,11 +90,27 @@ export default {
                     props: {
                         value: this.value,
                         autofocus: true,                        
-                        placeholder: '填寫銀行帳戶名稱'
+                        placeholder: '設定此筆名稱'
                     },
                     on: {
-                        input: (username) => {
-                        this.$store.commit('set_account',{username:username})  
+                        input: (title) => {
+                        this.$store.commit('set_account',{title:title})  
+                         
+                        }
+                    },
+                    
+                }),h('Input', {
+                    props: {
+                        value: this.value,
+                        autofocus: true,                        
+                        placeholder: '填寫銀行帳戶名稱'
+                    },
+                    style: {
+                        marginTop: '15px'
+                    },
+                    on: {
+                        input: (name) => {
+                        this.$store.commit('set_account',{name:name}) 
                         }
                     },
                     
@@ -153,11 +171,26 @@ export default {
                     props: {
                         value: this.value,
                         autofocus: true,                        
-                        placeholder: '修改銀行帳戶名稱'
+                        placeholder: '修改資料名稱'
                     },
                     on: {
-                        input: (edit_username) => {
-                        this.$store.commit('set_account',{edit_username})  
+                        input: (edit_title) => {
+                        this.$store.commit('set_account',{edit_title})  
+                        }
+                    },
+                    
+                }),h('Input', {
+                    props: {
+                        value: this.value,
+                        autofocus: true,                        
+                        placeholder: '修改銀行帳戶名稱'
+                    },
+                    style: {
+                        marginTop: '15px'
+                    },
+                    on: {
+                        input: (edit_name) => {
+                        this.$store.commit('set_account',{edit_name})  
                         }
                     },
                     
@@ -202,12 +235,10 @@ export default {
         let mybank_account = this.$store.state.mybank_account.data
         this.$Modal.confirm({
         title: `刪除常用帳戶 `,
-        content: `<p style="font-size:1.4em">確認刪除<h3>${mybank_account[index].username},${mybank_account[index].bank},${mybank_account[index].bank_account}</h3>這筆常用帳戶嗎？</p>`,
+        content: `<p style="font-size:1.4em">確認刪除<h3>${mybank_account[index].title}</h3>這筆常用帳戶嗎？</p>`,
         onOk: () => {
             this.$Message.info('確認送出');
-            // _vm.$store.dispatch('remove_servies',{id:id,index:index})
-            // _vm.$store.commit('set_user_infor_index',index)
-            // _vm.$store.dispatch('remove_user')
+            _vm.$store.dispatch('remove_account',index)
             },
         })
     },
@@ -215,7 +246,7 @@ export default {
         this.$store.dispatch('post_add_account')
     },
     put_edit_account(index){
-        console.log(this.$store.state.mybank_account.edit_account)
+       this.$store.dispatch('put_edit_account',index)
         
     }
 }
