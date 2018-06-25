@@ -103,7 +103,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		width: 100%;
 		padding: 13px ;
 		color: #fff;
-		/* background-color: rgb(238, 238, 238); */
 		background-image:linear-gradient(to bottom, #1883C3 0%, #013D7E 100%); 
 	}
 	.loginA {
@@ -113,8 +112,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	}
     .login {
         padding: 48px 22px 50px 22px;
-		position: relative;
-        /* margin-top: 204px */
     }
 	.head {
 	width: 100%;
@@ -128,10 +125,9 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		color: #fff;
 		width: 100%;
 		font-size: 16px;
-		padding: 23px 55px;
+		padding: 23px;
 		cursor: pointer;
 		background-image:linear-gradient(to bottom, #4498D2 0%, #154C83 100%)
-
 	}
 	.active{
 		background-image:linear-gradient(to bottom, #1883C3 0%, #013D7E 100%)

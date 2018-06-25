@@ -65,12 +65,13 @@ const state = {
     },
     checkIn: {
         data: [],
+        currency: null,
         amount: null,
-        bank_account: null,
-        bank_username: null,
+        account: null,
+        name: null,
         note: '',
-        mobile: null,
-        business: null,
+        contact: null,
+        sales: null,
         success: false,
         error: false,
         page_total: null
@@ -372,7 +373,7 @@ const mutations = {
     },
     selectAccount(state, index) {
         let common_account = state.mybank_account.data[index]
-        console.log(common_account)
+            // console.log(common_account)
         state.checkout.name = common_account.name
         state.checkout.bank = common_account.bank
         state.checkout.bank_account = common_account.account
@@ -383,29 +384,33 @@ const mutations = {
 
     },
     setCheckIn(state, {
+        currency: currency,
         amount: amount,
-        bank: bank,
-        mobile: mobile,
+        sales: sales,
+        contact: contact,
         name: name,
         account: account,
         note: note
     }) {
         if (amount) {
             state.checkIn.amount = amount
-        } else if (bank) {
-            state.checkIn.business = bank
-        } else if (mobile) {
-            state.checkIn.mobile = mobile
+        } else if (currency) {
+            state.checkIn.currency = currency
+        } else if (sales) {
+            state.checkIn.sales = sales
+        } else if (contact) {
+            state.checkIn.contact = contact
         } else if (name) {
-            state.checkIn.bank_username = name
+            state.checkIn.name = name
         } else if (account) {
-            state.checkIn.bank_account = account
+            state.checkIn.account = account
         } else if (note) {
             state.checkIn.note = note
         }
 
     },
     removeCheckInInput(state) {
+        state.checkIn.currency = null
         state.checkIn.amount = null
         state.checkIn.business = null
         state.checkIn.bank_username = null

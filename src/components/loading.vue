@@ -8,7 +8,7 @@
 		</Row>
 	</Col>
 	<Col  :xs="0" :sm="24" :md="24" :lg="24" class="slider" >
-		<Carousel loop>
+		<Carousel autoplay :autoplay-speed="autoplaySpeed" loop>
 			<CarouselItem>
 				<div class="demo-carousel">	</div>
 			</CarouselItem>
@@ -16,11 +16,16 @@
 				<div class="demo-carousel"></div>
 			</CarouselItem>
 		</Carousel>
-		
+	</Col>
+	<Col :xs="24" :sm="0" :md="0" :lg="0">
+		<Row  type="flex" justify="center" align="middle">
+			<Col :xs="10"><img src="../assets/w.png" alt=""></Col>
+			<Col :xs="14"><div class="mobile-head"></div></Col>
+		</Row>
 	</Col>
     <Col  :xs="24" :sm="24" :md="24" :lg="24" class="storyArea">
 		<Row>
-			<Col :xs="{span:20,offset:2}" :sm="{span:8,offset:2}" :md="{span:6,offset:2}" :lg="{span:6,offset:2}">
+			<Col :xs="24" :sm="{span:8,offset:2}" :md="{span:6,offset:2}" :lg="{span:6,offset:2}">
 				<router-view></router-view>
 			</Col>
 			<Col :xs="0" :sm="{span:11,offset:1}" :md="{span:13,offset:1}" :lg="{span:13,offset:1}">
@@ -38,23 +43,29 @@
 	</Col>
 	<Col  :xs="0" :sm="24" :md="24" :lg="24" class="footer">
 		<Row  type="flex" justify="center" align="middle">
-			<Col  :xs="0" :sm="20" :md="20" :lg="20" >
+			<Col  :xs="24" :sm="22" :md="20" :lg="20" >
 				<Row type="flex" justify="space-between" align="middle" class="link">
-					<Col :sm="6" :md="6" :lg="6" class="left"><span class="line-item">聯絡我們</span><span class="line-item">交易安全</span></Col>
+					<Col :sm="12" :md="12" :lg="12" class="left"><span class="line-item">聯絡我們</span><span class="line-item">交易安全</span></Col>
 					<Col :sm="6" :md="6" :lg="6" class="right"></Col>
 				</Row>
 			</Col>
-			<Col :xs="0" :sm="20" :md="20" :lg="20" class="divider"></Col>
-			<Col  :xs="0" :sm="20" :md="20" :lg="20" >
+			<Col :xs="24" :sm="22" :md="20" :lg="20" class="divider"></Col>
+			<Col  :xs="24" :sm="22" :md="20" :lg="20" >
 				<Row type="flex" justify="space-between" align="middle" class="link">
-					<Col :sm="12" :md="12" :lg="12" class="left" >
+					<Col :sm="14" :md="14" :lg="14" class="left" >
 						<span class="line2-item">關於白金支付</span><span class="line2-item">企業合作</span><span class="line2-item">人才招募</span><span class="line2-item">English sevice</span>
 					</Col>
-					<Col :sm="6" :md="6" :lg="6" class="right">
+					<Col :sm="10" :md="10" :lg="10" class="right">
 						<span class="line2-item">網站導覽</span><span class="line2-item">使用條款</span><span class="line2-item">回饋建議</span>
 					</Col>
 				</Row>
 			</Col>
+		</Row>
+	</Col>
+	<Col :xs="24" :sm="0" :md="0" :lg="0" class="mobil-footer">
+		<Row>
+			<Col :xs="{span:22,offset:1}" :sm="0" :md="0" :lg="0"><div class="line"></div></Col>
+			<Col :xs="{span:22,offset:1}"  :sm="0" :md="0" :lg="0"><h3 class="left">©白金線上支付 保留所有權利</h3></Col>
 		</Row>
 	</Col>
 </Row>
@@ -66,7 +77,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	props : [''],
 		data() {
 			return {
-				
+				autoplaySpeed:5000,
 				ruleInline: {
 				}
 			}
@@ -142,6 +153,23 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		background: #fff;
 		/* height: 206px; */
 	}
+	.mobil-footer{
+		width: 100%;
+		background: #fff;
+		height: 121px;
+	}
+	.mobil-footer h3 {
+		color:#9B9B9B;
+		font-weight:400;
+		margin: 15px 0;
+		font-size:1em
+		
+	}
+	.mobil-footer .line{
+		height: 1px;
+		width: 100%;
+		background: #E2E1E7
+	}
 	.link{
 		margin: 35px auto
 	}
@@ -153,11 +181,19 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	.line2-item{
 		font-size:1.1em;
 		color:#9B9B9B;
-		padding:20px
+		padding:15px
 	}
 	.divider{
 		height: 1px;
 		background: #E2E1E7
+	}
+	.mobile-head{
+		min-height: 205px;
+		background-image: url('../assets/web.png');
+		background-size: cover;
+		background-position: center right;
+		border-radius: 30% 0px 0px 30% / 60% 0px 0px 60%;
+		box-shadow: -5px 0px 10px rgba(50,50,50,0.4)
 	}
 	.left{
 		text-align: left
@@ -165,5 +201,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	.right{
 		text-align: right
 	}
-	
+	@media( max-width: 765px) {
+		.storyArea{position: relative;top:0}
+	}
 </style>

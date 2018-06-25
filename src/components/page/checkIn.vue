@@ -7,13 +7,18 @@
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="22" :sm="16" :md="16" :lg="16">
                         <i-form > 
+                            <form-item>  
+                            <Select :placeholder="'選擇入金貨幣'" @on-change="setCurrency" clearable>
+                                <Option v-for="(item,index) in currency" :value="item" :key="item">{{ item }}</Option>
+                            </Select>
+                            </form-item> 
                             <form-item >
                                 <i-input  @input="setCheckIn_amount" :placeholder=" '金額'"   clearable>
                                     <icon type="cash" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             <form-item >
-                                <i-input  @input="setCheckIn_business" :placeholder="'業務'"    clearable>
+                                <i-input  @input="setCheckIn_sales" :placeholder="'業務'"    clearable>
                                     <icon type="card" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
@@ -38,12 +43,6 @@
                             <form-item>
                                 <i-button type="primary" class="walletButton" shape="circle"  @click="userCheckIn" >送出申請</i-button>
                             </form-item>
-                            <!-- <form-item>
-                                <i-input :value="this.$store.state.checkout.sms" @input="setCheckout_sms" class="phonePassword"  placeholder="請填入驗證碼共五碼"  clearable></i-input>
-                            </form-item>
-                            <form-item >
-                                <i-button class="walletButton" shape="circle" @click="getUserSms">取得手機驗證碼</i-button>
-                            </form-item> -->
                         </i-form>
                     </Col>
                 </Row>
@@ -77,6 +76,7 @@ export default {
   data () {
      return {
         isCollapsed: false,
+        currency:['USD','TWD','CNY','HKD','JPY','KRW'],
         columns1: [
                     {
                         title: '銀行用戶名稱',
@@ -160,11 +160,11 @@ export default {
         setCheckIn_amount(amount){
             this.$store.commit('setCheckIn',{amount})
         },
-        setCheckIn_business(bank){
-            this.$store.commit('setCheckIn',{bank})
+        setCheckIn_sales(sales){
+            this.$store.commit('setCheckIn',{sales})
         },
-        setCheckIn_mobile(mobile){
-            this.$store.commit('setCheckIn',{mobile})
+        setCheckIn_mobile(contact){
+            this.$store.commit('setCheckIn',{contact})
         },
         setCheckIn_name(name){
             this.$store.commit('setCheckIn',{name})
@@ -178,6 +178,10 @@ export default {
         change(page){
             this.$store.dispatch('userGetChekout',page)           
         },
+        setCurrency(currency){
+            this.$store.commit('setCheckIn',{currency})
+            
+        }
   },
   created(){
     // this.$store.dispatch('userGetChekout',1)

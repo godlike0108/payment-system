@@ -1,31 +1,29 @@
 <template>
-    <div  class="form_container signIn"> 
-	<i-form ref="formInline"  :rules="ruleInline" >
-		<form-item class="icon_group">
-            <Row>
-                <Col :xs="2" :sm="2" :md="2" :lg="2">
-                    <router-link to="/">
-                        <icon type="arrow-left-c" size="30"></icon>
-                    </router-link>
-                </Col>
-                <Col  :xs="22" :sm="22" :md="22" :lg="22">
-                    <h1 style="display: inline-block">白金線上支付 帳戶申請</h1>
-                </Col>
-            </Row>
-		</form-item>
-		<form-item prop="user">
+    <div>
+		<Row type="flex" justify="start" align="top">
+			<Col :xs="12" :sm="12" :md="12" :lg="12" >
+			<router-link to="/" tag="div" class="head_btn ">登入</router-link>
+			</Col>
+			<Col :xs="12" :sm="12" :md="12" :lg="12" >
+			<router-link to="/sigup" tag="div"  class="head_btn active">註冊</router-link>
+			</Col>
+		</Row> 
+	<div class="form_container signIn">
+	<i-form >
+		
+		<form-item >
 			<i-input  :value="name" @input="updateName" placeholder="使用者姓名" clearable>
 				<icon type="person" size="20" slot="prepend"></icon>
 			</i-input>
 			<span v-if="needname" class="error">使用者姓名不能為空</span>
 		</form-item>
-		<form-item prop="email">
+		<form-item >
 			<i-input  :value="email" @input="updateEmail" placeholder="使用者信箱"  clearable>
 				<icon type='email' size="20" slot="prepend"></icon>    
 			</i-input>
 			<span v-if="Notemail" class="error">email 格式錯誤</span>
 		</form-item>
-        <form-item prop="phone">
+        <form-item >
 			<i-input  :value="mobile" @input="updateMobile"  placeholder="使用者手機"  clearable>
 				<span slot="prepend">+886</span>
                 <!-- <Icon  type="ios-telephone" size="20" slot="prepend"></Icon> -->
@@ -64,6 +62,7 @@
             </Spin>
         </Col>
     </Row>
+	</div>
     </div>
     
 
@@ -80,26 +79,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 				needname:false,
 				Notemail:false,
 				NotMobil: false,
-				ruleInline: {
-					// user: [{
-					// 	required: true,
-					// 	message: '請填入姓名',
-					// 	trigger: 'blur'
-					// }],
-					// email: [{
-					// 		required: true,
-					// 		message: '請填入信箱',
-					// 		trigger: 'blur'
-					// 	}
-                    // ],
-                    // phone:[{
-                    //     required: true,
-					// 	message: '請填入電話號碼',
-					// 	trigger: 'blur'
-                    // }
-                    // ]
-					
-				}
 			}
 		},
 		computed:{
@@ -178,7 +157,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		position: relative;
 		z-index: 30;
 		background-color: rgba(255, 255, 255, 1);
-		border-radius: 4px;
+
 	}
     .loading {
         margin: 20px 0 50px 0
@@ -210,8 +189,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
         width: 140px
     }
     .signIn {
-        padding: 20px;
-        margin-top: 100px
+        padding: 48px 22px 50px 22px;
     }
 	.success {
 		color: #19be6b;
@@ -222,10 +200,20 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		font-size:1.2em
 	}
 	.walletButton {
-		width: 220px;
-		height: 38px;
+		width: 100%;
+		padding: 13px ;
 		color: #fff;
-		/* background-color: rgb(238, 238, 238); */
-		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
+		background-image:linear-gradient(to bottom, #1883C3 0%, #013D7E 100%); 
+	}
+	.head_btn{
+		color: #fff;
+		width: 100%;
+		font-size: 16px;
+		padding: 23px 55px;
+		cursor: pointer;
+		background-image:linear-gradient(to bottom, #4498D2 0%, #154C83 100%)
+	}
+	.active{
+		background-image:linear-gradient(to bottom, #1883C3 0%, #013D7E 100%)
 	}
 </style>

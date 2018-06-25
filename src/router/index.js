@@ -293,10 +293,9 @@ vueRouter.beforeEach((to, from, next) => {
             }
         }
         if (to.fullPath === '/index/checkout') {
+            store.dispatch('get_account')
             store.dispatch('userGetChekout', 1).then(() => {
-                store.dispatch('get_account').then(() => {
-                    next()
-                })
+                next()
             })
         }
         if (to.fullPath === '/index/account') {

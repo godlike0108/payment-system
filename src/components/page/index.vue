@@ -81,7 +81,7 @@ export default {
   },
   methods: {
       toPath(path){
-          console.log(path)
+        //   console.log(path)
           this.$router.push(`/index/${path}`)
       },
       log_out(){
