@@ -20,9 +20,9 @@ export default {
       bg_colir(){  
       let path = this.$router.history.current.fullPath
         if(path === '/'|| path === '/firstlogin'|| path === '/sigup' || path === '/find-password'){
-          window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #2c91ac 0%, #155d78 100%); ");
+          window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #004a8b 0%,#02bef7 50%,#004a8b 100%); ");
         }else if (path === '/dashboard') {
-          window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #2c91ac 0%, #155d78 100%); ");
+          window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #004a8b 0%,#02bef7 50%,#004a8b 100%); ");
 
         }
       }
@@ -52,14 +52,7 @@ body {
   text-align: center;
   color: #2c3e50;
 }
-.head {
-  width: 100%;
-  height: 75px;
-  background-image:linear-gradient(to bottom, #02BEF7 0%, #004A8B 100%)
-}
-.head img {
-  margin: 24px 0
-}
+
 
 
 </style>

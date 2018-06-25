@@ -1,10 +1,7 @@
 <template>
     <div class="form_container login">
-	<i-form ref="formInline"  :rules="ruleInline" >
-		<form-item class="icon_group">
-			<h1 >白金線上支付 登入</h1>
-		</form-item>
-		<form-item prop="user">
+	<i-form >
+		<form-item >
 			<i-input type="text" :value="username" @input="updateUsername" placeholder="使用者帳號" clearable>
 				<icon type="person" size="20" slot="prepend"></icon>
 			</i-input>
@@ -13,18 +10,19 @@
 			<i-input type="password" :value="password" @input="updatePassword" placeholder="使用者密碼" clearable>
 				<icon type="locked" size="20" slot="prepend"></icon>
 			</i-input>
-			 <router-link to="/find-password">
-			<a href="" class="loginA">忘記密碼</a>
-            </router-link>
+			 
 		</form-item>
-		<form-item>
+		<!-- <form-item>
 			<router-link to="/sigup">
 			<a href="" class="loginA">申請帳號</a>
             </router-link>
-		</form-item>
+		</form-item> -->
 		<form-item>
 			<i-button class="loginButton" shape="circle" @click="login()">登入</i-button>
 		</form-item>
+		<router-link to="/find-password">
+			<a href="" class="loginA">無法登入？</a>
+            </router-link>
 		<div v-show="getWrongLogin" class="worngLogin">
 			帳號密碼錯誤!
 		</div>
@@ -41,23 +39,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 			return {
 				
 				ruleInline: {
-					// user: [{
-					// 	required: true,
-					// 	message: '請填入帳號',
-					// 	trigger: 'blur'
-					// }],
-					// password: [{
-					// 		required: true,
-					// 		message: '請填入密碼',
-					// 		trigger: 'blur'
-					// 	},
-					// 	{
-					// 		type: 'string',
-					// 		min: 6,
-					// 		message: '密碼至少6位數',
-					// 		trigger: 'blur'
-					// 	}
-					// ],
+				
 				}
 			}
         },
@@ -109,21 +91,20 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	}
 	
 	.loginButton {
-		width: 220px;
-		height: 38px;
+		width: 100%;
+		padding: 13px ;
 		color: #fff;
 		/* background-color: rgb(238, 238, 238); */
-		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
+		background-image:linear-gradient(to bottom, #1883C3 0%, #013D7E 100%); 
 	}
-	
 	.loginA {
-		color: #888;
+		color: #2195C1;
 		width: 108px;
 		display: inline-block;
 	}
     .login {
-        padding: 20px;
-        margin-top: 100px
+        padding: 48px 22px 50px 22px;
+        /* margin-top: 204px */
     }
 	.head {
 	width: 100%;

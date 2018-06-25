@@ -223,13 +223,15 @@ vueRouter.beforeEach((to, from, next) => {
     let role_id = localStorage.getItem('role_id')
     let user_status_id = localStorage.getItem('user_status_id');
     if (to.fullPath === '/') {
-        window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #2c91ac 0%, #155d78 100%); ");
+        window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #004a8b 0%,#02bef7 50%,#004a8b 100%); ");
+
         if (token) {
             next({ path: '/index/' });
         }
     }
     if (to.fullPath === '/dashboard') {
-        window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #2c91ac 0%, #155d78 100%); ");
+        window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #004a8b 0%,#02bef7 50%,#004a8b 100%); ");
+
         if (token) {
             next({ path: '/dashboard/index' })
         }
