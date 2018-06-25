@@ -491,7 +491,7 @@ export default {
             })
     },
     get_account({ commit, state }, page) {
-        axios.get(`${baseURL}/api/bank-accounts?page=${page}`, {
+        axios.get(`${baseURL}/api/bank-accounts`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',

@@ -273,7 +273,9 @@ vueRouter.beforeEach((to, from, next) => {
         }
         if (to.fullPath === '/index/checkout') {
             store.dispatch('userGetChekout', 1).then(() => {
-                next()
+                store.dispatch('get_account').then(() => {
+                    next()
+                })
             })
         }
         if (to.fullPath === '/index/account') {

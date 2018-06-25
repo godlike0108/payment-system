@@ -7,8 +7,12 @@
             <TabPane label="出金申請" name="name1">
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="22" :sm="16" :md="16" :lg="16">
-                        <i-form ref="formInline" >
-                            
+                        <i-form  >
+                            <form-item>
+                                <Select :placeholder="'選擇常用帳戶'" @on-change="selectAccount" clearable>
+                                    <Option v-for=" (item,index) in getMyAccount" :value="index" :key="item.account">{{ item.title }}</Option>
+                                </Select>
+                            </form-item>
                             <form-item>
                                 <i-input :value="this.$store.state.checkout.name"  @input="setCheckoutName" :placeholder=" '銀行帳戶名稱'"   clearable>
                                     <icon type="happy" size="20" slot="prepend"></icon>
@@ -72,6 +76,7 @@ export default {
         isCollapsed: false,
         eyesIcon: 'eye-disabled',
         type: 'password',
+        model8:'',
         columns1: [
                     {
                         title: '銀行用戶名稱',
@@ -103,53 +108,7 @@ export default {
                         key: 'updated_at',
                         minWidth:150
                     }
-                ],
-        formInline: {
-            user: '',
-            amount: '',
-            bank: '',
-            bank_account: '',
-            sms:''
-
-        },
-        
-        ruleInline: {
-            user: [{
-                required: true,
-                message: '請填入用戶姓名',
-                trigger: 'blur'
-            }],
-            amount: [{
-                required: true,
-                message: '請填入金額',
-                trigger: 'blur'
-            }],
-            bank: [{
-                required: true,
-                message: '請填入銀行名稱',
-                trigger: 'blur'
-            },
-            // {
-            //     type: 'number',
-            //     min: 3,
-            //     max:3,
-            //     message: '請填入銀行代碼共3碼',
-            //     trigger: 'blur'
-            // }
-            ],
-            bank_account: [{
-                required: true,
-                message: '請填入銀行帳號',
-                trigger: 'blur'
-            },
-            {
-                type: 'number',
-                min:11,
-                max:14,
-                message: '請填入銀行帳號共11~14碼',
-                trigger: 'blur'
-            }]
-        }
+                ]
     };
   },
   computed: {
@@ -194,6 +153,9 @@ export default {
       },
       get_checkout_total(){
           return this.$store.getters.get_checkout_total
+      },
+      getMyAccount(){
+          return this.$store.getters.getMyAccount.data
       }
   },
   methods: {
@@ -220,6 +182,9 @@ export default {
         change(page){
         this.$store.dispatch('userGetChekout',page)           
         },
+        selectAccount(index){
+            this.$store.commit('selectAccount',index)
+        }
   },
   created(){
     // this.$store.dispatch('userGetChekout',1)

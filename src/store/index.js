@@ -308,7 +308,6 @@ const mutations = {
     firstChagePassword(state, password) {
         state.updateProfile.password = password
     },
-
     userGetwalletHistories(state, data) {
 
         state.wallet.histories = data.data
@@ -370,6 +369,13 @@ const mutations = {
         state.checkout.bank_account = null
         state.checkout.amount = null
         state.checkout.sms = null
+    },
+    selectAccount(state, index) {
+        let common_account = state.mybank_account.data[index]
+        console.log(common_account)
+        state.checkout.name = common_account.name
+        state.checkout.bank = common_account.bank
+        state.checkout.bank_account = common_account.account
     },
     userChekIn(state, data) {
         state.checkIn.data = data.data
