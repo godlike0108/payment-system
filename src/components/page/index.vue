@@ -8,32 +8,32 @@
                             <Icon type="ios-navigate"></Icon>
                             我的資產
                         </template>
-                        <MenuItem name="1-1" @click.native="toIndex()">
+                        <MenuItem name="1-1" @click.native="toPath('')">
                             <Icon type="ios-navigate"></Icon>
                             <span> 我的錢包</span>
                         </MenuItem>
-                        <MenuItem name="1-2" @click.native="toTransaction()">
+                        <MenuItem name="1-2" @click.native="toPath('transaction')">
                             <Icon type="ios-navigate" ></Icon>
                             <span>轉帳</span>
                         </MenuItem>
                     </Submenu>
-                    <MenuItem name="1-3" @click.native="toCheckout()">
+                    <MenuItem name="1-3" @click.native="toPath('checkout')">
                         <Icon type="ios-calculator" size="18"></Icon>
                         <span>申請出金</span>
                     </MenuItem>
-                    <MenuItem name="1-4" @click.native="toCheckIn()">
+                    <MenuItem name="1-4" @click.native="toPath('checkIn')">
                         <Icon type="ios-calculator" size="18"></Icon>
                         <span>入金申請</span>
                     </MenuItem>
-                    <MenuItem name="1-5" @click.native="toAccount()">
+                    <MenuItem name="1-5" @click.native="toPath('account')">
                         <Icon type="ios-folder" size="18"></Icon>
                         <span>常用帳戶</span>
                     </MenuItem>
-                    <MenuItem name="1-6" @click.native="toProfile()">
+                    <MenuItem name="1-6" @click.native="toPath('userProfile')">
                         <Icon type="happy"></Icon>
                         <span>修改密碼</span>
                     </MenuItem>
-                    <MenuItem name="1-7" @click.native="toService()">
+                    <MenuItem name="1-7" @click.native="toPath('customerService')">
                        <Icon type="person-stalker"></Icon>
                         <span>聯絡我們</span>
                     </MenuItem>
@@ -80,26 +80,9 @@ export default {
       }
   },
   methods: {
-      toProfile(){
-          this.$router.push('/index/userProfile')
-      },
-      toIndex(){
-          this.$router.push('/index/')
-      },
-      toTransaction(){
-          this.$router.push('/index/transaction')
-      },
-      toCheckout(){
-        this.$router.push('/index/checkout')
-      },
-      toCheckIn(){
-        this.$router.push('/index/checkin')
-      },
-      toAccount(){
-          this.$router.push('/index/account')
-      },
-      toService(){
-        this.$router.push('/index/customerService')
+      toPath(path){
+          console.log(path)
+          this.$router.push(`/index/${path}`)
       },
       log_out(){
           this.$store.commit('log_out')

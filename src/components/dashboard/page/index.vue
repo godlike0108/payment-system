@@ -4,48 +4,52 @@
             <Sider breakpoint="md" collapsible :collapsed-width="78" v-model="isCollapsed">
                 <Menu active-name="1-1" theme="dark" width="auto" :class="menuitemClasses">
                   
-                    <MenuItem name="1-1"  @click.native="toIndex()">
+                    <MenuItem name="1-1"  @click.native="toPath('')">
                     <Icon type="person-add" size="18"></Icon>
                         <span>註冊申請</span>
                     </MenuItem>
                   
-                    <MenuItem  name="1-2" @click.native="toCheckoutsLevel1()">
+                    <MenuItem  name="1-2" @click.native="toPath('checkoutsLevel1')">
                         <Icon type="ios-calculator" size="18"></Icon>
                         <span>出金初審</span>
                     </MenuItem>
-                    <MenuItem v-if="this.$store.state.user.role_id === '1'" name="1-3" @click.native="toCheckoutsLevel2()">
+                    <MenuItem v-if="this.$store.state.user.role_id === '1'" name="1-3" @click.native="toPath('checkoutsLevel2')">
                         <Icon type="ios-calculator" size="18"></Icon>
                         <span>出金覆核</span>
                     </MenuItem>
-                    <MenuItem name="1-4" @click.native="toCheckoutsApproval()">
+                    <MenuItem name="1-4" @click.native="toPath('checkoutsApproval')">
                         <Icon type="ios-calculator" size="18"></Icon>
                         <span>待撥款項</span>
                     </MenuItem>
-                    <MenuItem name="1-5" @click.native="toDistributions()">
+                    <MenuItem name="1-5" @click.native="toPath('distributions')">
                         <Icon type="ios-calculator" size="18"></Icon>
                         <span>出金紀錄</span>
                     </MenuItem>
-                    <MenuItem name="1-6" @click.native="toWallet()">
+                    <MenuItem name="1-6" @click.native="toPath('wallet')">
                         <Icon type="filing" size="18"></Icon>
                         <span>入金</span>
                     </MenuItem>
-                    <MenuItem name="1-9" @click.native="toWalletHistories()">
+                    <MenuItem name="1-9" @click.native="toPath('walletHistories')">
                         <Icon type="filing" size="18"></Icon>
                         <span>入金紀錄</span>
                     </MenuItem>
-                    <MenuItem name="1-10" @click.native="toCheckInApplication()">
+                    <MenuItem name="1-10" @click.native="toPath('checkInApplication')">
                         <Icon type="filing" size="18"></Icon>
                         <span>入金申請</span>
                     </MenuItem>
-                    <MenuItem name="1-11" @click.native="toMembers()">
+                    <MenuItem name="1-11" @click.native="toPath('checkInRetaliation')">
+                        <Icon type="filing" size="18"></Icon>
+                        <span>入金回報</span>
+                    </MenuItem>
+                    <MenuItem name="1-12" @click.native="toPath('members')">
                        <Icon type="person-stalker" size="18"></Icon>
                         <span>會員管理</span>
                     </MenuItem>
-                    <MenuItem v-if="this.$store.state.user.role_id === '1'" name="1-12" @click.native="toAdmins()">
+                    <MenuItem v-if="this.$store.state.user.role_id === '1'" name="1-13" @click.native="toPath('admins')">
                         <Icon type="coffee" size="18"></Icon>
                         <span>後台管理</span>
                     </MenuItem>
-                    <MenuItem v-if="this.$store.state.user.role_id === '1'" name="1-13" @click.native="toService()">
+                    <MenuItem v-if="this.$store.state.user.role_id === '1'" name="1-14" @click.native="toPath('setCustomService')">
                         <Icon type="person-stalker" size="18"></Icon>
                         <span>聯絡我們</span>
                     </MenuItem>
@@ -92,41 +96,8 @@ export default {
       }
   },
   methods: {
-    toSignupRequests(){
-      this.$router.push('/dashboard/index/signupRequests');
-    },
-    toCheckoutsLevel1(){
-      this.$router.push('/dashboard/index/checkoutsLevel1');
-    },
-    toCheckoutsLevel2(){
-      this.$router.push('/dashboard/index/checkoutsLevel2');
-    },
-    toCheckoutsApproval(){
-      this.$router.push('/dashboard/index/checkoutsApproval');;
-    },
-    toDistributions(){
-      this.$router.push('/dashboard/index/distributions');
-    },
-    toWallet(){
-      this.$router.push('/dashboard/index/wallet');
-    },
-    toWalletHistories(){
-      this.$router.push('/dashboard/index/walletHistories');
-    },
-    toCheckInApplication(){
-        this.$router.push('/dashboard/index/checkInApplication');
-    },
-    toAdmins(){
-      this.$router.push('/dashboard/index/admins');
-    },
-    toService(){
-    this.$router.push('/dashboard/index/setCustomService');
-    },
-    toMembers(){
-      this.$router.push('/dashboard/index/members');
-    },
-    toIndex(){
-        this.$router.push('/dashboard/index/')
+    toPath(path){
+        this.$router.push(`/dashboard/index/${path}`)
     },
     log_out(){
         this.$store.commit('log_out')
