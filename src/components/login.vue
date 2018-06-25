@@ -1,5 +1,14 @@
 <template>
-    <div class="form_container login">
+    <div >
+	<Row type="flex" justify="start" align="top">
+		<Col :xs="12" :sm="12" :md="12" :lg="12" >
+		<router-link to="/" tag="div" class="head_btn active">登入</router-link>
+		</Col>
+		<Col :xs="12" :sm="12" :md="12" :lg="12" >
+		<router-link to="/sigup" tag="div"  class="head_btn">註冊</router-link>
+		</Col>
+	</Row>
+	<div class="form_container login">
 	<i-form >
 		<form-item >
 			<i-input type="text" :value="username" @input="updateUsername" placeholder="使用者帳號" clearable>
@@ -27,6 +36,7 @@
 			帳號密碼錯誤!
 		</div>
 	</i-form>
+	</div>
     </div>
    
 </template>
@@ -77,7 +87,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		position: relative;
 		z-index: 30;
 		background-color: rgba(255, 255, 255, 1);
-		border-radius: 4px;
 	}
 	.ivu-input {
 		height: 36px;
@@ -104,6 +113,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	}
     .login {
         padding: 48px 22px 50px 22px;
+		position: relative;
         /* margin-top: 204px */
     }
 	.head {
@@ -113,5 +123,17 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	}
 	.head img {
 	margin: 24px 0
+	}
+	.head_btn{
+		color: #fff;
+		width: 100%;
+		font-size: 16px;
+		padding: 23px 55px;
+		cursor: pointer;
+		background-image:linear-gradient(to bottom, #4498D2 0%, #154C83 100%)
+
+	}
+	.active{
+		background-image:linear-gradient(to bottom, #1883C3 0%, #013D7E 100%)
 	}
 </style>
