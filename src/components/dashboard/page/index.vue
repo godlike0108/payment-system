@@ -33,15 +33,19 @@
                         <Icon type="filing" size="18"></Icon>
                         <span>入金紀錄</span>
                     </MenuItem>
-                    <MenuItem name="1-10" @click.native="toMembers()">
+                    <MenuItem name="1-10" @click.native="toCheckInApplication()">
+                        <Icon type="filing" size="18"></Icon>
+                        <span>入金申請</span>
+                    </MenuItem>
+                    <MenuItem name="1-11" @click.native="toMembers()">
                        <Icon type="person-stalker" size="18"></Icon>
                         <span>會員管理</span>
                     </MenuItem>
-                    <MenuItem v-if="this.$store.state.user.role_id === '1'" name="1-11" @click.native="toAdmins()">
+                    <MenuItem v-if="this.$store.state.user.role_id === '1'" name="1-12" @click.native="toAdmins()">
                         <Icon type="coffee" size="18"></Icon>
                         <span>後台管理</span>
                     </MenuItem>
-                    <MenuItem v-if="this.$store.state.user.role_id === '1'" name="1-12" @click.native="toService()">
+                    <MenuItem v-if="this.$store.state.user.role_id === '1'" name="1-13" @click.native="toService()">
                         <Icon type="person-stalker" size="18"></Icon>
                         <span>聯絡我們</span>
                     </MenuItem>
@@ -108,6 +112,9 @@ export default {
     },
     toWalletHistories(){
       this.$router.push('/dashboard/index/walletHistories');
+    },
+    toCheckInApplication(){
+        this.$router.push('/dashboard/index/checkInApplication');
     },
     toAdmins(){
       this.$router.push('/dashboard/index/admins');

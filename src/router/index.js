@@ -27,6 +27,7 @@ import signupRequests from '@/components/dashboard/page/signupRequests'
 import checkoutsLevel1 from '@/components/dashboard/page/checkoutsLevel1'
 import checkoutsLevel2 from '@/components/dashboard/page/checkoutsLevel2'
 import checkoutsApproval from '@/components/dashboard/page/checkoutsApproval'
+import checkInApplication from '@/components/dashboard/page/checkInApplication'
 import distributions from '@/components/dashboard/page/distributions'
 import wallet from '@/components/dashboard/page/wallet'
 import walletHistories from '@/components/dashboard/page/walletHistories'
@@ -172,6 +173,11 @@ const vueRouter = new Router({
                     path: 'distributions',
                     name: 'dashboard_distributions',
                     component: distributions
+                },
+                {
+                    path: 'checkInApplication',
+                    name: 'dashboard_checkInApplication',
+                    component: checkInApplication
                 },
                 {
                     path: 'wallet',
