@@ -1,6 +1,6 @@
 <template>
+
 <Row  type="flex" justify="center" align="middle">
-    
     <Col  :xs="20" :sm="10" :md="6" :lg="6" class="form_container login">
     
 	<i-form ref="formInline"  :rules="ruleInline" >

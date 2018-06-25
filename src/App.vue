@@ -1,8 +1,10 @@
 <template>
-  <div id="app" >
+  
+    <div id="app">  
     {{bg_colir}}
     <!-- <img src="./assets/logo.png"> -->
-    <router-view/>
+    <router-view></router-view>
+    <!-- <router-view name="login"></router-view> -->
   </div>
 </template>
 
@@ -49,7 +51,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  
+}
+.head {
+  width: 100%;
+  height: 75px;
+  background-image:linear-gradient(to bottom, #02BEF7 0%, #004A8B 100%)
+}
+.head img {
+  margin: 24px 0
 }
 
 

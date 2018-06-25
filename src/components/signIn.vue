@@ -1,9 +1,5 @@
 <template>
-
-<Row  type="flex" justify="center" align="middle">
-
-    <Col  :xs="20" :sm="10" :md="6" :lg="6" class="form_container signIn">
-    
+    <div  class="form_container signIn"> 
 	<i-form ref="formInline"  :rules="ruleInline" >
 		<form-item class="icon_group">
             <Row>
@@ -68,9 +64,9 @@
             </Spin>
         </Col>
     </Row>
-    </Col>
+    </div>
     
-</Row>
+
 
 </template>
 

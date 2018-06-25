@@ -1,36 +1,12 @@
 <template>
-    <div class="form_container login">
-	<i-form ref="formInline"  :rules="ruleInline" >
-		<form-item class="icon_group">
-			<h1 >白金線上支付 登入</h1>
-		</form-item>
-		<form-item prop="user">
-			<i-input type="text" :value="username" @input="updateUsername" placeholder="使用者帳號" clearable>
-				<icon type="person" size="20" slot="prepend"></icon>
-			</i-input>
-		</form-item>
-		<form-item prop="password">
-			<i-input type="password" :value="password" @input="updatePassword" placeholder="使用者密碼" clearable>
-				<icon type="locked" size="20" slot="prepend"></icon>
-			</i-input>
-			 <router-link to="/find-password">
-			<a href="" class="loginA">忘記密碼</a>
-            </router-link>
-		</form-item>
-		<form-item>
-			<router-link to="/sigup">
-			<a href="" class="loginA">申請帳號</a>
-            </router-link>
-		</form-item>
-		<form-item>
-			<i-button class="loginButton" shape="circle" @click="login()">登入</i-button>
-		</form-item>
-		<div v-show="getWrongLogin" class="worngLogin">
-			帳號密碼錯誤!
-		</div>
-	</i-form>
-    </div>
-   
+<Row  type="flex" justify="center" align="middle">
+    <Col  :xs="0" :sm="24" :md="24" :lg="24" class="head" >
+		<img src="../assets/w.png" alt="" >
+	</Col>
+    <Col  :xs="20" :sm="10" :md="6" :lg="6" >
+		<router-view></router-view>
+    </Col>
+</Row>
 </template>
 
 <script>

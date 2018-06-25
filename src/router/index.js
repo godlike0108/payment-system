@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import login from '@/components/login'
+import loading from '@/components/loading'
 import sigup from '@/components/signIn'
+import login from '@/components/login'
 import store from '@/store'
 import index from '@/components/page/index'
 import userWallet from '@/components/page/userWallet'
@@ -43,24 +44,30 @@ const vueRouter = new Router({
     base: __dirname,
     routes: [{
             path: '/',
-            name: 'login',
-            component: login,
+            name: 'loading',
+            component: loading,
             meta: { requiresAuth: false },
-        },
-        {
-            path: '/sigup',
-            name: 'sigup',
-            component: sigup
-        },
-        {
-            path: '/find-password',
-            name: 'findPassword',
-            component: findPassword
-        },
-        {
-            path: '/firstlogin',
-            name: 'firstlogin',
-            component: firstlogin
+            children: [{
+                    path: '/',
+                    name: 'login',
+                    component: login
+                },
+                {
+                    path: '/sigup',
+                    name: 'sigup',
+                    component: sigup
+                },
+                {
+                    path: '/find-password',
+                    name: 'findPassword',
+                    component: findPassword
+                },
+                {
+                    path: '/firstlogin',
+                    name: 'firstlogin',
+                    component: firstlogin
+                },
+            ]
         },
         {
             path: '/index',
