@@ -5,8 +5,10 @@
             <Tabs value="name1">
             <TabPane label="常用帳戶管理" name="name1">
                 <Row type="flex" justify="center" align="middle">
-                    <Col :xs="24" :sm="20" :md="20" :lg="20">
-                    <ul class="account_list">
+                    <Col :xs="24" :sm="24" :md="24" :lg="24">
+                    <Table height="450" :columns="columns1" :data="getMyAccount"></Table>
+                    <Page :total="get_account_total" @on-change="change" style="margin:15px"></Page>     
+                    <!-- <ul class="account_list">
                         <li class="head">
                             <Row>
                                 <Col :xs="4" :sm="4" :md="4" :lg="4" >常用名稱</Col>
@@ -32,7 +34,7 @@
                                 </Col>
                             </Row>
                         </li>
-                    </ul>
+                    </ul> -->
                     <Button type="primary" class="walletButton"  shape="circle" @click="addAccount()">新增常用銀行帳戶</Button>
                     </Col>
                 </Row>
@@ -49,15 +51,72 @@ export default {
   name: 'HelloWorld',
   data () {
      return {
+        columns1: [{
+                        title: '常用名稱',
+                        key: 'title',
+                        minWidth:100
+                    },
+                    {
+                        title: '銀行用戶名稱',
+                        key: 'name',
+                        minWidth:100
+                    },
+                    {
+                        title: '銀行名稱',
+                        key: 'bank',
+                        minWidth:100
+                    },
+                    {
+                        title: '銀行帳號',
+                        key: 'account',
+                        minWidth:100
+                    },
+                    {
+                        title: '修改/刪除',
+                        minWidth:140,
+                        render: (h, params) => {
+                            return h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small'
+                                        
+                                    },
+                                    style: {
+                                        marginRight: '15px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.edit_account(params.index)
+                                        }
+                                    }
+                                }, '修改'), h('Button', {
+                                    props: {
+                                        type: 'error',
+                                        size: 'small'
+                                        
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.remove(params.index)
+                                        }
+                                    }
+                                }, '刪除')
+                               
+                            ]);
+                        }
+                    },
+                   
 
+                ]
     }
   },
   computed: {
       getMyAccount(){
           return this.$store.getters.getMyAccount.data
       },
-      get_vipServies(){
-          return this.$store.getters.get_vipServies
+      get_account_total(){
+          return this.$store.getters.getMyAccount.page_total
       }
   },
   methods: {
@@ -241,7 +300,10 @@ export default {
     put_edit_account(index){
        this.$store.dispatch('put_edit_account',index)
         
-    }
+    },
+    change(page){
+        this.$store.dispatch('userGetChekout',page)           
+        },
 }
 }
 

@@ -304,8 +304,14 @@ const mutations = {
         state.transition.amount = null
 
     },
-    firstChagePassword(state, password) {
-        state.updateProfile.password = password
+    firstChagePassword(state, { password: password, oldpassword: oldpassword }) {
+        if (password) {
+            state.updateProfile.password = password
+        } else if (oldpassword) {
+            state.updateProfile.oldpassword = oldpassword
+        }
+
+
     },
     userGetwalletHistories(state, data) {
 

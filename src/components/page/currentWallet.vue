@@ -43,6 +43,9 @@ export default {
 
           data.map(item=>{
               switch(item.currency){
+                  case 'USD': 
+                  item.currencyName = '美元帳戶'
+                  break;
                   case 'TWD': 
                   item.currencyName = '新台幣帳戶'
                   break;

@@ -429,7 +429,8 @@ export default {
         })
     },
     getCheckIn({ commit }, { page: page, status: status }) {
-        axios.get(`${baseURL}/api/deposits?page=${page}&status=${status}`, {
+        let token = localStorage.getItem('token')
+        axios.get(`${baseURL}/api/deposits?status=${status}&page=${page}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',

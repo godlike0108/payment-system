@@ -43,11 +43,12 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
   },
   methods:{
       firstChagePassword(password){
-        this.$store.commit('firstChagePassword',password)
+        this.$store.commit('firstChagePassword',{password})
         
       },
-       setOldPassword(password){
-            this.$store.commit('setOldPassword',password)
+       setOldPassword(oldpassword){
+           
+            this.$store.commit('firstChagePassword',{oldpassword})
         },
       put_firstChagePassword(){
           this.$store.dispatch('put_firstChagePassword')

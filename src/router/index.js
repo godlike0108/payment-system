@@ -299,7 +299,7 @@ vueRouter.beforeEach((to, from, next) => {
             })
         }
         if (to.fullPath === '/index/checkIn') {
-            store.dispatch('getCheckIn', { page: 1 }).then(() => {
+            store.dispatch('getCheckIn', { page: 1, status: '' }).then(() => {
                 next()
             })
         }
