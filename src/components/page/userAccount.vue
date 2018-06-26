@@ -7,7 +7,8 @@
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="24" :md="24" :lg="24">
                     <Table height="450" :columns="columns1" :data="getMyAccount"></Table>
-                    <Page :total="get_account_total" @on-change="change" style="margin:15px"></Page>     
+        <Page :total="get_account_total" @on-change="change" style="margin:15px"></Page>
+  
                     <!-- <ul class="account_list">
                         <li class="head">
                             <Row>
@@ -146,7 +147,13 @@ export default {
                     },
                     on: {
                         input: (title) => {
-                        this.$store.commit('set_account',{title:title})  
+                        if(title.length === 0){
+                            this.$store.state.mybank_account.new_account.title = null
+                        }else {
+                            this.$store.commit('set_account',{title:title}) 
+                        }
+                        
+                        
                          
                         }
                     },
@@ -162,7 +169,11 @@ export default {
                     },
                     on: {
                         input: (name) => {
+                            if(name.length === 0){
+                            this.$store.state.mybank_account.new_account.name = null
+                        }else {
                         this.$store.commit('set_account',{name:name}) 
+                        }
                         }
                     },
                     
@@ -177,7 +188,11 @@ export default {
                     },
                     on: {
                         input: (bank) => {
+                        if(bank.length === 0){
+                            this.$store.state.mybank_account.new_account.bank = null
+                        }else {
                         this.$store.commit('set_account',{bank:bank})
+                        }
                         }
                     },
                     
@@ -192,7 +207,11 @@ export default {
                     },
                     on: {
                         input: (account) => {
+                        if(account.length === 0){
+                            this.$store.state.mybank_account.new_account.account = null
+                        }else {
                         this.$store.commit('set_account',{account:account})
+                        }
                         }
                     },
                     
@@ -227,7 +246,11 @@ export default {
                     },
                     on: {
                         input: (edit_title) => {
-                        this.$store.commit('set_account',{edit_title})  
+                        if(edit_title.length === 0){
+                            this.$store.state.mybank_account.edit_account.title = null
+                        } else {
+                            this.$store.commit('set_account',{edit_title}) 
+                        }
                         }
                     },
                     
@@ -242,7 +265,12 @@ export default {
                     },
                     on: {
                         input: (edit_name) => {
-                        this.$store.commit('set_account',{edit_name})  
+                        if(edit_name.length === 0){
+                            this.$store.state.mybank_account.edit_account.name = null
+                        }else {
+                            this.$store.commit('set_account',{edit_name})  
+                        }
+                        
                         }
                     },
                     
@@ -257,7 +285,12 @@ export default {
                     },
                     on: {
                         input: (edit_bank) => {
-                        this.$store.commit('set_account',{edit_bank}) 
+                        if(edit_bank.length === 0){
+                            this.$store.state.mybank_account.edit_account.bank = null
+                        }else {
+                            this.$store.commit('set_account',{edit_bank}) 
+                        }
+                        
                         }
                     },
                     
@@ -273,7 +306,11 @@ export default {
                     },
                     on: {
                         input: (edit_account) => {
-                        this.$store.commit('set_account',{edit_account}) 
+                        if(edit_account.length === 0){
+                            this.$store.state.mybank_account.edit_account.account = null
+                        }else {
+                            this.$store.commit('set_account',{edit_account}) 
+                        }
                         }
                     },
                     

@@ -118,7 +118,7 @@ export default {
 		},
 		methods: {
             change(page){
-            this.$store.dispatch('getCheckIn',{page})           
+            this.$store.dispatch('getCheckIn',{ page, status: 0 })           
             },
 			show(index){
                  let _vm = this

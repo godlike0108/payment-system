@@ -407,7 +407,7 @@ export default {
                 }
             })
     },
-    userCheckIn({ state }) {
+    userCheckIn({ commit, state }) {
         let data = JSON.stringify({
             currency: state.checkIn.currency,
             amount: state.checkIn.amount,
@@ -426,6 +426,9 @@ export default {
             }
         }).then(response => {
             console.log(response)
+            commit('setCheckIn', { success: true })
+            this.dispatch('getCheckIn', { page: 1 })
+
         })
     },
     getCheckIn({ commit }, { page: page, status: status }) {
@@ -466,7 +469,7 @@ export default {
             }
         }).then(response => {
             console.log(response)
-            this.dispatch('getCheckIn', { status: 0 })
+            this.dispatch('getCheckIn', { page: 1, status: 0 })
         })
 
     },
@@ -530,6 +533,7 @@ export default {
     },
     post_add_account({ commit, state }) {
         let new_data = state.mybank_account.new_account
+
         let data = JSON.stringify(new_data)
         axios.post(`${baseURL}/api/bank-accounts`, data, {
                 headers: {
@@ -543,6 +547,7 @@ export default {
             })
     },
     get_account({ commit, state }, page) {
+        let token = localStorage.getItem('token')
         axios.get(`${baseURL}/api/bank-accounts`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -557,6 +562,7 @@ export default {
         })
     },
     put_edit_account({ commit, state }, index) {
+        let token = localStorage.getItem('token')
         let edit_account = state.mybank_account.edit_account
         let id = state.mybank_account.data[index].id
         let data = JSON.stringify(edit_account)

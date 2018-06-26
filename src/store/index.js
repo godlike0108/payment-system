@@ -91,7 +91,7 @@ const state = {
     },
     mybank_account: {
         data: [],
-        page_total: '',
+        page_total: null,
         new_account: {
             title: null,
             name: null,
@@ -396,7 +396,8 @@ const mutations = {
         account: account,
         note: note,
         data: data,
-        page_total: page_total
+        page_total: page_total,
+        success: success
     }) {
         if (amount) {
             state.checkIn.amount = amount
@@ -416,8 +417,11 @@ const mutations = {
             state.checkIn.data = data
         } else if (page_total) {
             state.checkIn.page_total = page_total
-        } else {
-            console.log('setCheckIn fail.')
+        } else if (success) {
+            state.checkIn.success = success
+            setTimeout(() => {
+                state.checkIn.success = false
+            }, 3000)
         }
 
     },
@@ -454,6 +458,7 @@ const mutations = {
         } else if (account) {
             new_account.account = account
         } else if (edit_title) {
+
             edit_myAccount.title = edit_title
         } else if (edit_name) {
             edit_myAccount.name = edit_name
