@@ -428,8 +428,8 @@ export default {
             console.log(response)
         })
     },
-    getCheckIn({ commit }, page) {
-        axios.get(`${baseURL}/api/deposits`, {
+    getCheckIn({ commit }, { page: page, status: status }) {
+        axios.get(`${baseURL}/api/deposits?page=${page}&status=${status}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
@@ -445,11 +445,18 @@ export default {
     },
     putCheckIn({ commit, state }, { index: index, status: status }) {
         let id = state.checkIn.data[index].id
+        let amount = Number(state.checkIn.approved_amount) || 0
+
+        if (status === -1) {
+            amount = null
+        } else if (status === 1 && amount === 0) {
+            amount = Number(state.checkIn.data[index].amount)
+        }
         let data = JSON.stringify({
             status: status,
-            approved_amount: state.checkIn.approved_amount
+            approved_amount: amount
         })
-        console.log(id, status)
+        console.log(data)
         axios.put(`${baseURL}/api/deposits/${id}`, data, {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -458,7 +465,7 @@ export default {
             }
         }).then(response => {
             console.log(response)
-            this.dispatch('getCheckIn')
+            this.dispatch('getCheckIn', { status: 0 })
         })
 
     },

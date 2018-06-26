@@ -51,15 +51,33 @@ export default {
                         title: '業務',
                         key: 'sales',
                         width: 120,
-					}, 
+					},
+                    {
+                        title: '回報狀態',
+                        key: 'status',
+                        minWidth:60
+                    },
+                     
                    
 				]}
 		},
 		computed:{
 			getCheckIn(){
                 let data = this.$store.getters.getCheckIn.data
+                console.log(data)
 				data.map(item=>{
-                    
+
+                    switch(item.status){
+                        case 0:
+                        item.status = '審核中'
+                        break;
+                        case -1:
+                        item.status = '拒絕'
+                        break;
+                        case 1:
+                        item.status = '已入金'
+                        break;
+                    }
                     if (item.created_at){
 
                         item.created_at = this.$moment
@@ -82,7 +100,7 @@ export default {
         },
         methods: {
             change(page){
-            this.$store.dispatch('getCheckIn',page)           
+            this.$store.dispatch('getCheckIn',{page})           
             },
         },
 }

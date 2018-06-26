@@ -118,7 +118,7 @@ export default {
 		},
 		methods: {
             change(page){
-            this.$store.dispatch('getCheckIn',page)           
+            this.$store.dispatch('getCheckIn',{page})           
             },
 			show(index){
                  let _vm = this
@@ -127,12 +127,30 @@ export default {
                     content: `<p style="font-size:1.4em">同意該筆入金申請嗎？</p>`,
                     onOk: () => {
                         this.$Message.info('確認送出');
-                        _vm.$store.commit('set_checkout_level1_index',index)
-                        _vm.$store.commit('set_checkout_level1_status',1)
-                        _vm.$store.dispatch('put_checkout_review_pudate',{id:this.$store.state.admin.checkout_level1.index,status:this.$store.state.admin.checkout_level1.status,api:'level1'})
-                        
-                        
+                        _vm.$store.dispatch('putCheckIn',{index,status:1})
                     },
+                    onCancel:()=>{
+                    this.$store.state.checkIn.approved_amount = null
+                    },
+                    render: (h) => {
+                        return h('Input', {
+                            props: {
+                                value: this.$store.getters.getCheckIn.data[index].amount,
+                                autofocus: true,
+                                placeholder: '輸入入金金額'
+                            },
+                            style:{
+                                'margin-top':'15px'
+                            },
+                            on: {
+                                input: (val) => {
+                                this.$store.state.checkIn.approved_amount = val
+
+                                }
+                            },
+                            
+                        })
+                    }
             })
                
             },

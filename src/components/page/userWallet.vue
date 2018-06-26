@@ -104,17 +104,24 @@ export default {
           let wallet_balance
           let data = this.$store.getters.getTransition.histories
          return data.map(item=>{
-             if(item.operation_type === 0 ){
-                item.type = '內部轉入'
-             } else if (item.operation_type === 1) {
+             switch(item.operation_type){
+                 case 0:
+                 item.type = '內部轉入'
+                 break;
+                 case 1:
                  item.type = '內部轉出'
-             }else if (item.operation_type === 2) {
+                 break;
+                 case 2:
                  item.type = '入金'
-             }else if (item.operation_type === 3) {
+                 break;
+                 case 3:
                  item.type = '申請出金'
-             }else if (item.operation_type === 4) {
+                 break;
+                 case 4:
                  item.type = '出金退款'
-             };
+                 break;
+             }
+    
              if(item.relative_user){
                  item.relative_username = item.relative_user.username
              } else {

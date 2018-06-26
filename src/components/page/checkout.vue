@@ -111,22 +111,20 @@ export default {
       getCheckout: function(){
           let data = this.$store.getters.getCheckout.data
          return data.map(item=>{
-     
-             if (item.checkout_status_id === 0)
-             {
-                item.checkout_status_id = '審核中'
-
-             } else if(item.checkout_status_id === -1)
-             {
-                item.checkout_status_id = '拒絕'
-
-             } else if(item.checkout_status_id === 1)
-             {
-                item.checkout_status_id = '撥款中'
-
-             }else if(item.checkout_status_id === 2)
-             {
-                item.checkout_status_id = '已撥款'
+             
+             switch(item.checkout_status_id){
+                 case 0 :
+                 item.checkout_status_id = '審核中'
+                 break;
+                 case -1 :
+                 item.checkout_status_id = '拒絕'
+                 break;
+                 case 1 :
+                 item.checkout_status_id = '撥款中'
+                 break;
+                 case 2 :
+                 item.checkout_status_id = '已撥款'
+                 break;
              }
         
              if (item.created_at){

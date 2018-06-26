@@ -121,20 +121,18 @@ export default {
   
       getCheckIn: function(){
          return this.$store.getters.getCheckIn.data.map(item=>{
-     
-             if (item.status === 0)
-             {
-                item.status = '審核中'
-
-             } else if(item.status === -1)
-             {
-                item.status = '拒絕'
-
-             } else if(item.status === 1)
-             {
-                item.status = '已入金'
-
-             }
+             
+             switch(item.status){
+                        case 0:
+                        item.status = '審核中'
+                        break;
+                        case -1:
+                        item.status = '拒絕'
+                        break;
+                        case 1:
+                        item.status = '已入金'
+                        break;
+                    }
         
              if (item.created_at){
                  item.created_at = this.$moment

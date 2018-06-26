@@ -41,10 +41,24 @@ export default {
           let data = this.$store.getters.getAllWallet
 
           data.map(item=>{
-              if(item.currency === 'TWD'){
+              switch(item.currency){
+                  case 'TWD': 
                   item.currencyName = '新台幣帳戶'
-                
+                  break;
+                  case 'CNY': 
+                  item.currencyName = '人民幣帳戶'
+                  break;
+                  case 'HKD': 
+                  item.currencyName = '港元帳戶'
+                  break;
+                  case 'JPY': 
+                  item.currencyName = '日圓帳戶'
+                  break;
+                  case 'KRW': 
+                  item.currencyName = '韓圓帳戶'
+                  break;
               }
+           
               if(item.balance){
                 let num = new Number(item.balance);
                 let balance = num.toFixed(2)

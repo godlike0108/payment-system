@@ -139,9 +139,9 @@ const getters = {
     getCheckout() {
         return state.checkout
     },
-    getCheckIn() {
-        return state.checkIn.data
-    },
+    // getCheckIn() {
+    //     return state.checkIn.data
+    // },
     getTransition() {
         return state.wallet
     },
