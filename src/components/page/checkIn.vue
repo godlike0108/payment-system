@@ -1,6 +1,6 @@
 <template>
  <div>
-        <Row type="flex" justify="center" align="middle">
+    <Row type="flex" justify="center" align="middle">
         <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
             <TabPane label="入金申請" name="name1">
@@ -180,9 +180,7 @@ export default {
             
         }
   },
-  created(){
-    // this.$store.dispatch('userGetChekout',1)
-  }
+
 }
 </script>
 

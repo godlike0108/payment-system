@@ -91,7 +91,7 @@ export default {
   },
   computed: {
 	  get_user_list(){
-		  return this.$store.getters.get_user_list.map(item=>{
+		  return this.$store.getters.get_user_list.data.map(item=>{
               if(item.wallets[0] != undefined ){
               item.balance = item.wallets[0].balance
               }else{
@@ -112,7 +112,7 @@ export default {
           })
       },
       get_user_list_page_total(){
-          return this.$store.getters.get_user_list_page_total
+          return this.$store.getters.get_user_list.page_total
       }
   },
   methods: {
@@ -131,22 +131,6 @@ export default {
                 },
                 render: (h) => {
                     return h('div', [
-                    //     h('Input', {
-                    //     props: {
-                    //         value: this.value,
-                    //         autofocus: true,
-                    //         value: this.$store.state.admin.user_list[index].username,
-                    //         placeholder: '用戶帳號 6~12位英文數字'
-                    //     },
-                    //     on: {
-                    //         input: (val) => {
-                    //             // this.value = val;
-                    //         //   set_user_review_id(val)
-                            
-                    //         this.$store.state.admin.reset_user.username = val
-                    //         }
-                    //     },   
-                    // }),
                     h('Input', {
                         props: {
                             value: this.value,
@@ -158,9 +142,6 @@ export default {
                                 },
                         on: {
                             input: (val) => {
-                                // this.value = val;
-                            //   set_user_review_id(val)
-                            
                             this.$store.state.admin.reset_user.password = val
                             }
                         },
@@ -224,10 +205,6 @@ export default {
              this.$store.dispatch('update_user_id',index)
            },
   },
-	created(){
-    // this.$store.dispatch('show_user')
-		
-	}
   }
 </script>
 

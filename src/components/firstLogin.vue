@@ -3,11 +3,6 @@
     <i-form  ref="formInline" >
         <form-item class="icon_group">
             <Row>
-                <!-- <Col :xs="2" :sm="2" :md="2" :lg="2">
-                    <router-link to="/">
-                        <icon type="arrow-left-c" size="30"></icon>
-                    </router-link>
-                </Col> -->
                 <Col  :xs="22" :sm="22" :md="22" :lg="22">
                     <h1 style="display: inline-block">首次登入，請更改密碼</h1>
                 </Col>
@@ -16,7 +11,6 @@
         <form-item >
             <i-input type="password"   @input="setOldPassword"   placeholder="輸入用戶舊密碼"  >
                 <icon type="locked" size="20" slot="prepend"></icon>
-                
             </i-input>
         </form-item>
         <form-item >

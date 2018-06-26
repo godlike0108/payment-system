@@ -54,8 +54,7 @@
                    
                 </Header>
                 <Content :style="{margin: '20px', background: '#fff', minHeight: '220px',padding:'20px'}">
-                  <router-view></router-view>
-                  
+                  <router-view></router-view>   
                 </Content>
             </Layout>
         </Layout>
@@ -81,7 +80,6 @@ export default {
   },
   methods: {
       toPath(path){
-        //   console.log(path)
           this.$router.push(`/index/${path}`)
       },
       log_out(){
@@ -95,11 +93,7 @@ export default {
   },
    created() {
     this.$store.commit('setData')
-    // this.$store.dispatch('userGetChekout',1)
-    // this.$store.dispatch('userGetwalletHistories',1)
-    
- 
-}
+    }
 }
 </script>
 

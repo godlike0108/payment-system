@@ -96,15 +96,10 @@ export default {
 		},
 		computed:{
 			get_checkout_level1(){
-                let data = this.$store.getters.get_checkout_level1
+                let data = this.$store.getters.get_checkout_level1.data
 				data.map(item=>{
                     item.user_username = item.user.username
                     if (item.created_at){
-
-                        // item.created_at = this.$moment(item.created_at)
-                        // .tz('Asia/Taipei')
-                        // .format('YYYY-MM-DD HH:mm:ss');
-
                         item.created_at = this.$moment
                         .tz(item.created_at, 'Asia/Taipei')
                         .format('YYYY-MM-DD HH:mm:ss')
@@ -116,11 +111,11 @@ export default {
                     }
 					return item
 				})
-				 return this.$store.getters.get_checkout_level1
+				 return data
                
             },
             get_checkout_level1_page_total(){
-                return this.$store.getters.get_checkout_level1_page_total
+                return this.$store.getters.get_checkout_level1.page_total
             }
 		},
 		methods: {
@@ -158,10 +153,6 @@ export default {
                
             },
 		},
-
-		created(){
-			// this.$store.dispatch('get_checkout_level1',1)
-		}
 }
 </script>
 

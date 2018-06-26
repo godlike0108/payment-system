@@ -1,7 +1,6 @@
 <template>
  <div>
-     
-        <Row type="flex" justify="center" align="middle">
+    <Row type="flex" justify="center" align="middle">
         <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
             <TabPane label="撥款" name="name1">
@@ -36,57 +35,8 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 export default {
   name: 'HelloWorld',
   data () {
-    const validatePass = (rule, value, callback) => {
-            if (value === '') {
-                callback(new Error('請填入轉出帳號'));
-            } else {
-                
-                callback();
-            }
-        };
-    // const validatePassCheck = (rule, value, callback) => {
-    //     if (value === '') {
-    //         callback(new Error('Please enter your password again'));
-    //     } else if (value !== this.formCustom.passwd) {
-    //         callback(new Error('The two input passwords do not match!'));
-    //     } else {
-    //         callback();
-    //     }
-    // };
-    const validateAge = (rule, value, callback) => {
-        if (!value || value <= 0) {
-            return callback(new Error('轉出金額不能為空'));
-        }
-        // 模拟异步验证效果
-        setTimeout(() => {
-            if (!Number.isInteger(value)) {
-                callback(new Error('請填入數字'));
-            } else {
-                
-                    callback();
-                
-            }
-        }, 1000);
-    };
      return {
-        isCollapsed: false,
         notNaN:null,
-       formCustom: {
-            passwd: '',
-            // passwdCheck: '',
-            age: ''
-        },
-        ruleCustom: {
-            passwd: [
-                { validator: validatePass, trigger: 'blur' }
-            ],
-            // passwdCheck: [
-            //     { validator: validatePassCheck, trigger: 'blur' }
-            // ],
-            age: [
-                { validator: validateAge, trigger: 'blur' }
-            ]
-        },
         columns1: [
                     {
                         title: '申請人',
@@ -126,20 +76,7 @@ export default {
                         }
                     }
                 ],
-        
-            
     };
-  },
-  computed: {
-      menuitemClasses: function () {
-          return [
-              'menu-item',
-              this.isCollapsed ? 'collapsed-menu' : ''
-          ]
-      },
-      get_user_review_list(){
-          return this.$store.getters.get_user_review_list
-      }
   },
    methods: {
        ...mapActions({
@@ -177,16 +114,8 @@ export default {
         
         put_user_id(index){
         this.$store.state.admin.user_review_id_index = this.$store.state.admin.user_review_list[index].id
-        this.$store.dispatch('put_user_id')
-        // setTimeout(()=>{
-        //     this.$store.dispatch('userReview')  
-        // },2500)
-        
+        this.$store.dispatch('put_user_id')  
         } 
-    },
-    created(){
-        // this.$store.dispatch('userReview')
-            
     }
 }
 </script>

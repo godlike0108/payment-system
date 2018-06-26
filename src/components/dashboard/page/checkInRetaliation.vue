@@ -7,9 +7,7 @@
                 <Table height="500" :columns="columns1" :data="getCheckIn" ></Table>
             </TabPane>
             </Tabs>
-
         <Page :total="getChekInPage" @on-change="change" style="margin:15px"></Page>
-            
 		</Col>
 	</Row>
  </div>
@@ -87,10 +85,6 @@ export default {
             this.$store.dispatch('getCheckIn',page)           
             },
         },
-
-		created(){
-			// this.$store.dispatch('get_checkout_history',1)
-		}
 }
 </script>
 

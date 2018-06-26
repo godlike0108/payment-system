@@ -1,7 +1,6 @@
 <template>
  <div>
-    
-        <Row type="flex" justify="center" align="middle">
+    <Row type="flex" justify="center" align="middle">
         <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
             <TabPane label="出金申請" name="name1">
@@ -73,9 +72,6 @@ export default {
   name: 'HelloWorld',
   data () {
      return {
-        isCollapsed: false,
-        eyesIcon: 'eye-disabled',
-        type: 'password',
         model8:'',
         columns1: [
                     {
@@ -112,14 +108,9 @@ export default {
     };
   },
   computed: {
-      menuitemClasses: function () {
-          return [
-              'menu-item',
-              this.isCollapsed ? 'collapsed-menu' : ''
-          ]
-      },
       getCheckout: function(){
-         return this.$store.getters.getCheckout.map(item=>{
+          let data = this.$store.getters.getCheckout.data
+         return data.map(item=>{
      
              if (item.checkout_status_id === 0)
              {
@@ -152,7 +143,7 @@ export default {
           })
       },
       get_checkout_total(){
-          return this.$store.getters.get_checkout_total
+          return this.$store.getters.getCheckout.page_total
       },
       getMyAccount(){
           return this.$store.getters.getMyAccount.data
@@ -185,9 +176,6 @@ export default {
         selectAccount(index){
             this.$store.commit('selectAccount',index)
         }
-  },
-  created(){
-    // this.$store.dispatch('userGetChekout',1)
   }
 }
 </script>

@@ -4,7 +4,6 @@
         <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Row type="flex" justify="end" align="top">
             <Col :xs="24" :sm="8" :md="8" :lg="6">身份：<span class="user">{{this.$store.state.user.name}}{{this.$store.state.admin.user}}</span></Col>
-            <!-- <Col :xs="24" :sm="8" :md="8" :lg="6">剩餘金額：<span class="money">5000</span></Col> -->
             </Row>
         </Col>
 
@@ -34,20 +33,12 @@ export default {
                 callback();
             }
         };
-    // const validatePassCheck = (rule, value, callback) => {
-    //     if (value === '') {
-    //         callback(new Error('Please enter your password again'));
-    //     } else if (value !== this.formCustom.passwd) {
-    //         callback(new Error('The two input passwords do not match!'));
-    //     } else {
-    //         callback();
-    //     }
-    // };
+  
     const validateAge = (rule, value, callback) => {
         if (!value || value <= 0) {
             return callback(new Error('轉出金額不能為空'));
         }
-        // 模拟异步验证效果
+      
         setTimeout(() => {
             if (!Number.isInteger(value)) {
                 callback(new Error('請填入數字'));
@@ -57,23 +48,6 @@ export default {
         }, 1000);
     };
      return {
-        isCollapsed: false,
-       formCustom: {
-            passwd: '',
-            // passwdCheck: '',
-            age: ''
-        },
-        ruleCustom: {
-            passwd: [
-                { validator: validatePass, trigger: 'blur' }
-            ],
-            // passwdCheck: [
-            //     { validator: validatePassCheck, trigger: 'blur' }
-            // ],
-            age: [
-                { validator: validateAge, trigger: 'blur' }
-            ]
-        },
         columns1: [
                     {
                         title: '申請人',
@@ -127,18 +101,10 @@ export default {
     };
   },
   computed: {
-      menuitemClasses: function () {
-          return [
-              'menu-item',
-              this.isCollapsed ? 'collapsed-menu' : ''
-          ]
-      },
       get_user_review_list(){
-          return this.$store.getters.get_user_review_list.map(item=>{
+          let data = this.$store.getters.get_user_review_list.data
+          return data.map(item=>{
               if (item.updated_at){
-                //  item.updated_at = this.$moment(item.updated_at)
-                //  .tz('Asia/Taipei')
-                //  .format('YYYY-MM-DD HH:mm:ss');
                  item.updated_at = this.$moment
                     .tz(item.updated_at, 'Asia/Taipei')
                     .format('YYYY-MM-DD HH:mm:ss')
@@ -147,7 +113,7 @@ export default {
           })
       },
       get_user_review_list_page_total(){
-          return this.$store.getters.get_user_review_list_page_total
+          return this.$store.getters.get_user_review_list.page_total
       }
   },
    methods: {
@@ -198,10 +164,6 @@ export default {
            put_user_id(index){
             this.$store.state.admin.user_review_id_index = this.$store.state.admin.user_review_list.data[index].id
             this.$store.dispatch('put_user_id')
-            // setTimeout(()=>{
-            //     this.$store.dispatch('userReview')  
-            // },2500)
-            
            } 
         },
 }

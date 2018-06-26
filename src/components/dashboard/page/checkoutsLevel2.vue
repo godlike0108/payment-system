@@ -97,7 +97,7 @@ export default {
 		},
 		computed:{
 			get_checkout_level2(){
-				let data = this.$store.getters.get_checkout_level2
+				let data = this.$store.getters.get_checkout_level2.data
 				data.map(item=>{
                     item.user_username = item.user.username
                     if (item.created_at){
@@ -112,10 +112,10 @@ export default {
                     }
 					return item
 				})
-				 return this.$store.getters.get_checkout_level2
+				 return data
             },
             get_checkout_level2_page_total(){
-                return this.$store.getters.get_checkout_level2_page_total
+                return this.$store.getters.get_checkout_level2.page_total
             }
 		},
 		methods: {
@@ -153,10 +153,6 @@ export default {
                
             },
 		},
-
-		created(){
-			// this.$store.dispatch('get_checkout_level2',1)
-		}
 }
 </script>
 

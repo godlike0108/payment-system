@@ -73,19 +73,7 @@ export default {
                                         }
                                     }
                                 }, '確認撥款'),
-                                //  h('Button', {
-                                //     props: {
-                                //         type: 'error',
-                                //         size: 'small'
-                                        
-                                //     },
-                                //     on: {
-                                //         click: () => {
-                                //             this.remove(params.index)
-                                //         }
-                                //     }
-                                // }, '刪除')
-                               
+
                             ]);
                         }
                     }  
@@ -94,7 +82,8 @@ export default {
 		},
 		computed:{
 			get_checkout_approval(){
-                let data = this.$store.getters.get_checkout_approval
+                let data = this.$store.getters.get_checkout_approval.data
+                console.log(typeof data)
 				data.map(item=>{
                     item.user_username = item.user.username
                     if (item.created_at){
@@ -109,11 +98,11 @@ export default {
                     }
 					return item
 				})
-				 return this.$store.getters.get_checkout_approval
+				 return data
 				
             },
             get_checkout_approval_page_total(){
-				 return this.$store.getters.get_checkout_approval_page_total
+				 return this.$store.getters.get_checkout_approval.page_total
             },
             
 		},
@@ -152,10 +141,6 @@ export default {
                
             },
 		},
-
-		created(){
-			// this.$store.dispatch('get_checkout_approval',1)
-		}
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
     <div  class="form_container signIn">
-	<i-form ref="formInline"  :rules="ruleInline" >
+	<i-form >
 		<form-item class="icon_group">
             <Row>
                 <Col :xs="2" :sm="2" :md="2" :lg="2">
@@ -13,22 +13,9 @@
                 </Col>
             </Row>
 		</form-item>
-		<!-- <form-item prop="user">
-			<i-input  :value="name" @input="updateName" placeholder="使用者姓名" clearable>
-				<icon type="person" size="20" slot="prepend"></icon>
-			</i-input>
-			<span v-if="needname" class="error">使用者姓名不能為空</span>
-		</form-item> -->
-		<!-- <form-item prop="email">
-			<i-input  :value="email" @input="updateEmail" placeholder="使用者信箱"  clearable>
-				<icon type='email' size="20" slot="prepend"></icon>    
-			</i-input>
-			<span v-if="Notemail" class="error">email 格式錯誤</span>
-		</form-item> -->
         <form-item prop="phone">
 			<i-input :value="mobile" @input="updateMobile"  placeholder="使用者手機"  clearable>
 				<span slot="prepend">+886</span>
-                <!-- <Icon  type="ios-telephone" size="20" slot="prepend"></Icon> -->
 			</i-input>
 		</form-item>
         <form-item >
@@ -43,10 +30,6 @@
 		</form-item>
 	</i-form>
     <Row >
-		<!-- <Col v-if="status_mobile" >
-		<Icon type="close-circled" class="error" size="20"></Icon>
-			<div class="error">手機號碼已註冊</div>
-		</Col> -->
         <Col v-if="status_mobile">
 		<Icon type="close-circled" class="error" size="20"></Icon>
 			<div class="error">手機格式錯誤</div>
@@ -59,12 +42,6 @@
 		<Icon type="checkmark-circled" class="success" size="20"></Icon>
 			<div class="success">申請成功</div>
 		</Col>
-        <!-- <Col class="loading" v-if="isSubmit">
-            <Spin fix >
-                <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
-                <div>Loading</div>
-            </Spin>
-        </Col> -->
     </Row>
     </div>
     
@@ -82,35 +59,12 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 				needname:false,
 				Notemail:false,
 				NotMobil: false,
-				ruleInline: {
-					// user: [{
-					// 	required: true,
-					// 	message: '請填入姓名',
-					// 	trigger: 'blur'
-					// }],
-					// email: [{
-					// 		required: true,
-					// 		message: '請填入信箱',
-					// 		trigger: 'blur'
-					// 	}
-                    // ],
-                    // phone:[{
-                    //     required: true,
-					// 	message: '請填入電話號碼',
-					// 	trigger: 'blur'
-                    // }
-                    // ]
-					
-				}
 			}
 		},
 		computed:{
              ...mapState({
-                    // name: state => state.signIn.name , 
-					// email: state => state.signIn.email,
 					mobile: state => state.findPassword.mobile,
 					sms : state => state.findPassword.sms,
-					// isemail: state => state.signIn.isemail,
 					status_mobile: state => state.findPassword.status.wrong_mobile,
 					status_sms: state => state.findPassword.status.wrong_sms,
 					find_password_success: state => state.findPassword.status.success,					

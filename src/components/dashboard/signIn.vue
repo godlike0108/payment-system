@@ -4,7 +4,7 @@
 
     <Col  :xs="20" :sm="10" :md="6" :lg="6" class="form_container signIn">
     
-	<i-form ref="formInline"  :rules="ruleInline" >
+	<i-form >
 		<form-item class="icon_group">
             <Row>
                 <Col :xs="2" :sm="2" :md="2" :lg="2">
@@ -17,18 +17,18 @@
                 </Col>
             </Row>
 		</form-item>
-		<form-item prop="user">
+		<form-item >
 			<i-input  :value="name" @input="updateName" placeholder="使用者姓名" clearable>
 				<icon type="person" size="20" slot="prepend"></icon>
 			</i-input>
 		</form-item>
-		<form-item prop="email">
+		<form-item >
 			<i-input  :value="email" @input="updateEmail" placeholder="使用者信箱"  clearable>
 				<icon type='email' size="20" slot="prepend"></icon>    
 			</i-input>
 			<span v-if="Notemail">email 格式錯誤</span>
 		</form-item>
-        <form-item prop="phone">
+        <form-item>
 			<i-input  :value="mobile" @input="updateMobile"  placeholder="使用者手機"  clearable>
 				<span slot="prepend">+886</span>
                 <!-- <Icon  type="ios-telephone" size="20" slot="prepend"></Icon> -->
@@ -41,7 +41,7 @@
         <form-item >
             <i-input  :value="sms" class="phonePassword" @input="updateSms"  placeholder="請填入驗證碼共五碼"   clearable></i-input>
         </form-item>
-		<form-item  v-show=" name !=''   && mobile.length === 9 && sms.length === 5 ">
+		<form-item  v-show=" name !='' && mobile.length === 9 && sms.length === 5 ">
 			<i-button class="loginButton" @click="submitSignIn()">提出申請</i-button>
          
 		</form-item>
@@ -81,26 +81,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 				isSubmit: false,
 				Notemail:false,
 				NotMobil: false,
-				ruleInline: {
-					// user: [{
-					// 	required: true,
-					// 	message: '請填入姓名',
-					// 	trigger: 'blur'
-					// }],
-					// email: [{
-					// 		required: true,
-					// 		message: '請填入信箱',
-					// 		trigger: 'blur'
-					// 	}
-                    // ],
-                    // phone:[{
-                    //     required: true,
-					// 	message: '請填入電話號碼',
-					// 	trigger: 'blur'
-                    // }
-                    // ]
-					
-				}
 			}
 		},
 		computed:{
@@ -144,8 +124,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 				
 			},
 			updateMobile(mobile){
-				// if(mobile.length === 10){
-				// 	let a = mobile.replace(/0/g, "886");
 				let reMobile09 = /^0[0-9]{9}$/
 				let reMobile9 = /^9[0-9]{8}$/
 				if (mobile.match(reMobile9) === null ){
@@ -156,7 +134,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 				}
 			},
 			updateSms(sms){
-				
 				this.$store.commit('updateSms', sms)
 			},
 		}

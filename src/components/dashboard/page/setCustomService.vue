@@ -82,7 +82,6 @@ export default {
           ]
       },
       get_servies(){
-          console.log(this.$store.getters.get_servies)
           return this.$store.getters.get_servies
       },
       get_vipServies(){
@@ -260,8 +259,7 @@ export default {
             onOk: () => {
                 this.$Message.info('確認送出');
                 _vm.$store.dispatch('remove_servies',{id:id,index:index})
-                // _vm.$store.commit('set_user_infor_index',index)
-                // _vm.$store.dispatch('remove_user')
+               
                 },
             })
         }else if(id === 1){
@@ -271,8 +269,7 @@ export default {
             onOk: () => {
                 this.$Message.info('確認送出');
                 _vm.$store.dispatch('remove_servies',{id:id,index:index})
-                // _vm.$store.commit('set_user_infor_index',index)
-                // _vm.$store.dispatch('remove_user')
+                
                 },
             })
         }

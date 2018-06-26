@@ -49,17 +49,10 @@ export default {
   name: 'HelloWorld',
   data () {
      return {
-        isCollapsed: false,
-        eyesIcon: 'eye-disabled',
+
     }
   },
   computed: {
-      menuitemClasses: function () {
-          return [
-              'menu-item',
-              this.isCollapsed ? 'collapsed-menu' : ''
-          ]
-      },
       getMyAccount(){
           return this.$store.getters.getMyAccount.data
       },

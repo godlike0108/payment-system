@@ -3,7 +3,7 @@
 <Row  type="flex" justify="center" align="middle">
     <Col  :xs="20" :sm="10" :md="6" :lg="6" class="form_container login">
     
-	<i-form ref="formInline"  :rules="ruleInline" >
+	<i-form >
 		<form-item class="icon_group">
 			<h1 >白金線上支付 管理員登入</h1>
 		</form-item>
@@ -17,12 +17,6 @@
 				<icon type="locked" size="20" slot="prepend"></icon>
 			</i-input>
 		</form-item>
-		
-		<!-- <form-item style="margin-bottom:4px;">
-            <router-link to="/dashboard/sigin">
-			<a href="" class="loginA">申請帳號</a>
-            </router-link>
-		</form-item> -->
 		<form-item>
 			<i-button class="walletButton"  shape="circle" @click="login()">登入</i-button>
 		</form-item>
@@ -40,26 +34,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	props : [''],
 		data() {
 			return {
-				
-				ruleInline: {
-					// user: [{
-					// 	required: true,
-					// 	message: '請填入帳號',
-					// 	trigger: 'blur'
-					// }],
-					// password: [{
-					// 		required: true,
-					// 		message: '請填入密碼',
-					// 		trigger: 'blur'
-					// 	},
-					// 	{
-					// 		type: 'string',
-					// 		min: 6,
-					// 		message: '密碼至少6位數',
-					// 		trigger: 'blur'
-					// 	}
-					// ],
-				}
 			}
         },
         computed:{
@@ -76,7 +50,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
             'login' : 'login'
             }),
             updatePassword (password) {
-               
                 this.$store.commit('setLogin', {password})
             },
             updateUsername (username) {

@@ -96,7 +96,6 @@ export default {
 			getCheckIn(){
                 let data = this.$store.getters.getCheckIn.data
 				data.map(item=>{
-                    
                     if (item.created_at){
 
                         item.created_at = this.$moment
@@ -150,10 +149,6 @@ export default {
                
             },
 		},
-
-		created(){
-			// this.$store.dispatch('get_checkout_level1',1)
-		}
 }
 </script>
 

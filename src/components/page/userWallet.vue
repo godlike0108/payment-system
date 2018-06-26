@@ -56,7 +56,6 @@ export default {
         }, 1000);
     };
      return {
-        isCollapsed: false,
         columns1: [
                     
                     {
@@ -88,29 +87,23 @@ export default {
     };
   },
   computed: {
-      menuitemClasses: function () {
-          return [
-              'menu-item',
-              this.isCollapsed ? 'collapsed-menu' : ''
-          ]
-      },
     getCurrentWallet(){
         let data = this.$store.getters.getCurrentWallet
         return data
     },
     getBalance(){
         let data = this.$store.getters.getBalance
-        var num = new Number(data);
         let balance = num.toFixed(2)
         return balance
     },
      get_wallet_page_total(){
-         return this.$store.getters.get_wallet_page_total
+         return this.$store.getters.getTransition.page_total
      },
       getTransition(){
           let username = ""
           let wallet_balance
-         return this.$store.getters.getTransition.map(item=>{
+          let data = this.$store.getters.getTransition.histories
+         return data.map(item=>{
              if(item.operation_type === 0 ){
                 item.type = '內部轉入'
              } else if (item.operation_type === 1) {

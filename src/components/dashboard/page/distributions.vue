@@ -62,7 +62,7 @@ export default {
 		},
 		computed:{
 			get_checkout_history(){
-                let data = this.$store.getters.get_checkout_history
+                let data = this.$store.getters.get_checkout_history.data
                 data.map(item=>{
                     if(item.user && item.user.username){
                         item.user_username = item.user.username
@@ -84,10 +84,10 @@ export default {
                     
 					return item
 				})
-				 return this.$store.getters.get_checkout_history
+				 return data
             },
             get_checkout_history_page_total(){
-            return this.$store.getters.get_checkout_history_page_total
+            return this.$store.getters.get_checkout_history.page_total
      },
         },
         methods: {

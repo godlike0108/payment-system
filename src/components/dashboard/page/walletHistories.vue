@@ -8,7 +8,6 @@
             </TabPane>
             </Tabs>
         <Page :total="get_checkout_history_page_total" @on-change="change" style="margin:15px"></Page>
-			
 		</Col>
 	</Row>
  </div>
@@ -51,7 +50,7 @@ export default {
 		},
 		computed:{
 			adminGetwalletHistories(){
-				let data = this.$store.getters.getTransition
+				let data = this.$store.getters.getTransition.histories
 				data.map(item=>{
 					item.user_username = item.user.username
 					item.user_phone = item.user.mobile
@@ -63,19 +62,16 @@ export default {
 					}
 					return item
 				})
-				 return this.$store.getters.getTransition
+				 return data
 			},
 			get_checkout_history_page_total(){
-				return this.$store.getters.get_wallet_page_total
+				return this.$store.getters.getTransition.page_total
 			}
 		},
 		methods: {
 			change(page){
             this.$store.dispatch('adminGetwalletHistories',page)           
             },
-		},
-		created(){
-			// this.$store.dispatch('userGetwalletHistories',1)
 		}
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
  <div>
-        <Row type="flex" justify="center" align="middle">
+    <Row type="flex" justify="center" align="middle">
         <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
             <TabPane label="修改密碼" name="name1">
@@ -70,8 +70,7 @@ export default {
   name: 'HelloWorld',
   data () {
      return {
-        isCollapsed: false,
-        eyesIcon: 'eye-disabled',
+
     }
   },
   computed: {
@@ -84,22 +83,11 @@ export default {
                     mobile: state => state.user.mobile,                    
                                      
 				}),
-      menuitemClasses: function () {
-          return [
-              'menu-item',
-              this.isCollapsed ? 'collapsed-menu' : ''
-
-          ]
-      }
   },
   methods: {
         ...mapActions({
         'updateProfile' : 'updateProfile',
         }),
-        toggleIcon(){
-            this.eyesIcon = this.eyesIcon === 'eye-disabled' ? 'eye' : 'eye-disabled'
-            this.type = this.type === 'password' ? 'text' : 'password'
-        },
         setProfileName(name) {
                 this.$store.commit('setProfile', {name})
             },

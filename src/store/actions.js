@@ -429,7 +429,7 @@ export default {
         })
     },
     getCheckIn({ commit }, page) {
-        axios.get(`${baseURL}/api/deposits?page=${page}`, {
+        axios.get(`${baseURL}/api/deposits`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',

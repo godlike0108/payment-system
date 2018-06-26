@@ -1,8 +1,5 @@
 <template>
-
-
  <div>
-
      <Row type="flex" justify="end" align="top" class="userLine">
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Row type="flex" justify="end" align="top">
@@ -10,12 +7,10 @@
             <Col :xs="24" :sm="8" :md="8" :lg="6">剩餘金額：{{getCurrentWallet.currency}}<span class="money">{{getCurrentWallet.balance}}</span></Col>
             </Row>
         </Col>
-
-        </Row>
-        <Row type="flex" justify="center" align="middle">
+    </Row>
+    <Row type="flex" justify="center" align="middle">
         <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
-            
             <TabPane label="轉帳" name="name1">
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="16" :md="16" :lg="16">
@@ -65,27 +60,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 export default {
   name: 'HelloWorld',
   data () {
-    const validatePass = (rule, value, callback) => {
-            if (value === '') {
-                callback(new Error('請填入轉出帳號'));
-            } else {
-                
-                callback();
-            }
-        };
-    const validateAge = (rule, value, callback) => {
-        if (!value || value <= 0) {
-            return callback(new Error('轉出金額不能為空'));
-        }
-        // 模拟异步验证效果
-        setTimeout(() => {
-            if (!Number.isInteger(value)) {
-                callback(new Error('請填入數字'));
-            } else {
-                    callback();
-            }
-        }, 1000);
-    };
      return {
         isCollapsed: false,
         columns1: [
@@ -132,7 +106,6 @@ export default {
         return balance
     },
     getCurrentWallet(){
-        // let all_wallet = this.getAllWallet
         let wallet = this.$store.getters.getCurrentWallet  
         return wallet
     },

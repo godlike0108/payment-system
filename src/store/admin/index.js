@@ -81,43 +81,25 @@ export default {
     },
     getters: {
         get_user_list(state) {
-            return state.user_list.data
-        },
-        get_user_list_page_total(state) {
-            return state.user_list.page_total
+            return state.user_list
         },
         get_user_review_list(state) {
-            return state.user_review_list.data
-        },
-        get_user_review_list_page_total(state) {
-            return state.user_review_list.page_total
+            return state.user_review_list
         },
         get_approval_amount(state) {
             return state.approval_levels_amount
         },
         get_checkout_history(state) {
-            return state.checkout_history.data
-        },
-        get_checkout_history_page_total(state) {
-            return state.checkout_history.page_total
+            return state.checkout_history
         },
         get_checkout_approval(state) {
-            return state.checkout_approval.data
-        },
-        get_checkout_approval_page_total(state) {
-            return state.checkout_approval.page_total
+            return state.checkout_approval
         },
         get_checkout_level2(state) {
-            return state.checkout_level2.data
-        },
-        get_checkout_level2_page_total(state) {
-            return state.checkout_level2.page_total
+            return state.checkout_level2
         },
         get_checkout_level1(state) {
-            return state.checkout_level1.data
-        },
-        get_checkout_level1_page_total(state) {
-            return state.checkout_level1.page_total
+            return state.checkout_level1
         },
         get_servies(state) {
             return state.add_servies.member

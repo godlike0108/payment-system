@@ -1,7 +1,6 @@
 <template>
  <div>
-    
-        <Row type="flex" justify="center" align="middle">
+    <Row type="flex" justify="center" align="middle">
         <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
             <TabPane label="全部" name="name1">
@@ -96,18 +95,9 @@ export default {
   name: 'HelloWorld',
   data () {
      return {
-        isCollapsed: false,
-        eyesIcon: 'eye-disabled',
     }
   },
   computed: {
-      menuitemClasses: function () {
-          return [
-              'menu-item',
-              this.isCollapsed ? 'collapsed-menu' : ''
-
-          ]
-      },
       get_servies(){
           return this.$store.getters.get_servies
       },

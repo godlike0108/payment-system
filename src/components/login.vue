@@ -21,11 +21,6 @@
 			</i-input>
 			 
 		</form-item>
-		<!-- <form-item>
-			<router-link to="/sigup">
-			<a href="" class="loginA">申請帳號</a>
-            </router-link>
-		</form-item> -->
 		<form-item>
 			<i-button class="loginButton" shape="circle" @click="login()">登入</i-button>
 		</form-item>
@@ -47,10 +42,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	props : [''],
 		data() {
 			return {
-				
-				ruleInline: {
-				
-				}
 			}
         },
         computed:{

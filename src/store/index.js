@@ -137,13 +137,13 @@ const getters = {
         return state.Allusers
     },
     getCheckout() {
-        return state.checkout.data
+        return state.checkout
     },
     getCheckIn() {
         return state.checkIn.data
     },
     getTransition() {
-        return state.wallet.histories
+        return state.wallet
     },
     getMyAccount() {
         return state.mybank_account
@@ -151,12 +151,6 @@ const getters = {
     getCheckIn() {
         return state.checkIn
     },
-    get_wallet_page_total() {
-        return state.wallet.page_total
-    },
-    get_checkout_total() {
-        return state.checkout.page_total
-    }
 
 }
 const mutations = {

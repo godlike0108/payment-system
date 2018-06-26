@@ -21,7 +21,6 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
   data () {
 	  return {
 		   columns1: [
@@ -94,13 +93,9 @@ export default {
                         autofocus: true,
                         disabled: true,
                         value: this.$store.state.Admins.admins[index].username,
-                        // placeholder: '管理員帳號 6~12位英文數字'
                     },
                     on: {
                         input: (val) => {
-                            // this.value = val;
-                        //   set_user_review_id(val)
-                        
                         this.$store.state.admin.reset_administrator.username = val
                         }
                     },
@@ -116,9 +111,6 @@ export default {
                             },
                     on: {
                         input: (val) => {
-                            // this.value = val;
-                        //   set_user_review_id(val)
-                        
                         this.$store.state.admin.reset_administrator.password = val
                         }
                     },
@@ -131,9 +123,6 @@ export default {
     put_administrator_id(index){
     this.$store.state.admin.reset_administrator.administrator_id = this.$store.state.Admins.admins[index].id
     this.$store.dispatch('put_administrator_id',index)
-    // setTimeout(()=>{
-    //     this.$store.dispatch('userReview')  
-    // },2500)
     },
     update_new_approval_amount (amount) {
         this.$store.commit('update_new_approval_amount', amount)
@@ -143,12 +132,6 @@ export default {
     }
     
   },
-  created(){
-	// this.$store.dispatch('admins')	
-	// this.$store.dispatch('approval_levels')	
-	
-	  
-  }
 }
 </script>
 
