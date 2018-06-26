@@ -428,10 +428,10 @@ const mutations = {
     removeCheckInInput(state) {
         state.checkIn.currency = null
         state.checkIn.amount = null
-        state.checkIn.business = null
-        state.checkIn.bank_username = null
-        state.checkIn.bank_account = null
-        state.checkIn.mobile = null
+        state.checkIn.sales = null
+        state.checkIn.name = null
+        state.checkIn.account = null
+        state.checkIn.contact = null
         state.checkIn.note = null
     },
     set_account(state, {

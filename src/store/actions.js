@@ -427,6 +427,7 @@ export default {
         }).then(response => {
             console.log(response)
             commit('setCheckIn', { success: true })
+            commit('removeCheckInInput')
             this.dispatch('getCheckIn', { page: 1 })
 
         })

@@ -13,32 +13,32 @@
                             </Select>
                             </form-item> 
                             <form-item >
-                                <i-input  @input="setCheckIn_amount" :placeholder=" '金額'"   clearable>
+                                <i-input :value="amount"  @input="setCheckIn_amount" :placeholder=" '金額'"   clearable>
                                     <icon type="cash" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             <form-item >
-                                <i-input  @input="setCheckIn_sales" :placeholder="'業務'"    clearable>
+                                <i-input :value="sales"  @input="setCheckIn_sales" :placeholder="'業務'"    clearable>
                                     <icon type="card" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             <form-item>
-                                <i-input   @input="setCheckIn_mobile" :placeholder=" '電話'"   clearable>
+                                <i-input  :value="contact" @input="setCheckIn_mobile" :placeholder=" '電話'"   clearable>
                                     <icon type="iphone" size="22" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             <form-item>
-                                <i-input  @input="setCheckIn_name" :placeholder=" '轉入戶名稱'"   clearable>
+                                <i-input :value="name"  @input="setCheckIn_name" :placeholder=" '轉入戶名稱'"   clearable>
                                     <icon type="happy" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             <form-item >
-                                <i-input  @input="setCheckIn_bank_account" :placeholder="'銀行帳戶後五碼'"    clearable>
+                                <i-input :value="account" @input="setCheckIn_bank_account" :placeholder="'銀行帳戶後五碼'"    clearable>
                                     <icon type="card" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
                             <form-item>
-                                 <Input  type="textarea" :autosize="true" @input="setCheckIn_note" placeholder="備註" ></Input>                         
+                                 <Input :value="note" type="textarea" :autosize="true" @input="setCheckIn_note" placeholder="備註" ></Input>                         
                             </form-item>
                             <form-item>
                                 <i-button type="primary" class="walletButton" shape="circle"  @click="userCheckIn" >送出申請</i-button>
@@ -60,7 +60,7 @@
                 </Row>
             </TabPane>
             <TabPane label="入金回報" name="name2">
-            <Table height="450" :columns="columns1" :data="getCheckIn"></Table>
+            <Table height="500" :columns="columns1" :data="getCheckIn"></Table>
             <Page :total="total" @on-change="change" style="margin:15px"></Page>        
             </TabPane>
             </Tabs>
@@ -116,7 +116,14 @@ export default {
       ...mapState({
           success : state => state.checkIn.success,
           error: state => state.checkIn.error,
-          total: state => state.checkIn.page_total
+          total: state => state.checkIn.page_total,
+          amount: state => state.checkIn.amount,
+          name: state => state.checkIn.name,
+          sales:state => state.checkIn.sales,
+          note:state => state.checkIn.note,
+          contact:state => state.checkIn.contact,
+          account:state => state.checkIn.account,
+
       }),
   
       getCheckIn: function(){
