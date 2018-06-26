@@ -8,7 +8,7 @@
                     <Col :xs="22" :sm="16" :md="16" :lg="16">
                         <i-form > 
                             <form-item>  
-                            <Select :placeholder="'選擇入金貨幣'" @on-change="setCurrency" clearable>
+                            <Select :placeholder="'選擇貨幣'" @on-change="setCurrency" clearable>
                                 <Option v-for="(item,index) in currency" :value="item" :key="item">{{ item }}</Option>
                             </Select>
                             </form-item> 
@@ -83,30 +83,31 @@ export default {
                         key: 'name',
                         minWidth:100
                     },
+                    
                     {
-                        title: '銀行名稱',
-                        key: 'bank',
+                        title: '銀行帳號後五碼',
+                        key: 'account',
+                        minWidth:120
+                    },
+                    {
+                        title: '貨幣',
+                        key: 'currency',
                         minWidth:100
                     },
                     {
-                        title: '銀行帳號',
-                        key: 'bank_account',
-                        minWidth:100
-                    },
-                    {
-                        title: '出金金額',
+                        title: '入金金額',
                         key: 'amount',
                         minWidth:100
                     },
                     {
                         title: '處理狀態',
-                        key: 'checkout_status_id',
+                        key: 'status',
                         minWidth:100
                     },
                     {
-                        title: '最後更新時間',
-                        key: 'updated_at',
-                        minWidth:150
+                        title: '業務',
+                        key: 'sales',
+                        minWidth:100
                     }
                 ],
     };
@@ -119,23 +120,21 @@ export default {
       }),
   
       getCheckIn: function(){
-         return this.$store.getters.getCheckIn.map(item=>{
+          console.log(this.$store.getters.getCheckIn.data)
+         return this.$store.getters.getCheckIn.data.map(item=>{
      
-             if (item.checkout_status_id === 0)
+             if (item.status === 0)
              {
-                item.checkout_status_id = '審核中'
+                item.status = '審核中'
 
-             } else if(item.checkout_status_id === -1)
+             } else if(item.status === -1)
              {
-                item.checkout_status_id = '拒絕'
+                item.status = '拒絕'
 
-             } else if(item.checkout_status_id === 1)
+             } else if(item.status === 1)
              {
-                item.checkout_status_id = '撥款中'
+                item.status = '已入金'
 
-             }else if(item.checkout_status_id === 2)
-             {
-                item.checkout_status_id = '已撥款'
              }
         
              if (item.created_at){
@@ -154,7 +153,6 @@ export default {
   },
   methods: {
       ...mapActions({
-            // 'getUserSms' : 'getUserSms',
             'userCheckIn':'userCheckIn'
             }),
         setCheckIn_amount(amount){

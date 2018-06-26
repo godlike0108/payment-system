@@ -147,6 +147,9 @@ const getters = {
     getMyAccount() {
         return state.mybank_account
     },
+    getCheckIn() {
+        return state.checkIn
+    },
     get_wallet_page_total() {
         return state.wallet.page_total
     },
@@ -390,7 +393,9 @@ const mutations = {
         contact: contact,
         name: name,
         account: account,
-        note: note
+        note: note,
+        data: data,
+        page_total: page_total
     }) {
         if (amount) {
             state.checkIn.amount = amount
@@ -406,6 +411,10 @@ const mutations = {
             state.checkIn.account = account
         } else if (note) {
             state.checkIn.note = note
+        } else if (data) {
+            state.checkIn.data = data
+        } else if (page_total) {
+            state.checkIn.page_total = page_total
         }
 
     },

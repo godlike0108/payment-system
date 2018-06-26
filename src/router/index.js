@@ -298,6 +298,11 @@ vueRouter.beforeEach((to, from, next) => {
                 next()
             })
         }
+        if (to.fullPath === '/index/checkIn') {
+            store.dispatch('getCheckIn').then(() => {
+                next()
+            })
+        }
         if (to.fullPath === '/index/account') {
             store.dispatch('get_account', 1).then(() => {
                 next()
@@ -313,10 +318,6 @@ vueRouter.beforeEach((to, from, next) => {
         }
         if (to.fullPath === '/dashboard/index' || to.fullPath === '/dashboard/index/') {
             store.commit('setData')
-                // actionB ({ dispatch, commit }) {
-                //     return dispatch('actionA').then(() => {
-                //       commit('someOtherMutation')
-                //     })
             store.dispatch('admins')
             store.dispatch('show_user', 1)
             store.dispatch('adminGetwalletHistories', 1)
@@ -328,8 +329,6 @@ vueRouter.beforeEach((to, from, next) => {
             store.dispatch('approval_levels')
             store.dispatch('get_Servies')
             store.dispatch('get_vipServies')
-
-            // store.dispatch('getAlluser')
             next()
         }
         if (to.fullPath === '/dashboard/index/checkoutsLevel1') {

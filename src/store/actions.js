@@ -407,7 +407,7 @@ export default {
                 }
             })
     },
-    userCheckIn({ commit, state }) {
+    userCheckIn({ state }) {
         let data = JSON.stringify({
             currency: state.checkIn.currency,
             amount: state.checkIn.amount,
@@ -418,6 +418,30 @@ export default {
             note: state.checkIn.note,
         })
         console.log(data)
+        axios.post(`${baseURL}/api/deposits`, data, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        }).then(response => {
+            console.log(response)
+        })
+    },
+    getCheckIn({ commit }) {
+        axios.get(`${baseURL}/api/deposits`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        }).then(response => {
+            let data = response.data.data
+            let page_total = response.data.last_page
+            commit('setCheckIn', { data })
+            commit('setCheckIn', { page_total })
+
+        })
     },
     admins({ commit, state }) {
         let token = localStorage.getItem('token')
