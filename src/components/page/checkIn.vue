@@ -120,7 +120,6 @@ export default {
       }),
   
       getCheckIn: function(){
-          console.log(this.$store.getters.getCheckIn.data)
          return this.$store.getters.getCheckIn.data.map(item=>{
      
              if (item.status === 0)

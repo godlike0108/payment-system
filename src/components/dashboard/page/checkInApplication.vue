@@ -4,10 +4,10 @@
         <Col :xs="24" :sm="20" :md="20" :lg="20">
             <Tabs value="name1">
             <TabPane label="入金申請" name="name1">
-                <Table height="500" :columns="columns1" :data="get_checkout_level1" ></Table>
+                <Table height="500" :columns="columns1" :data="getCheckIn" ></Table>
             </TabPane>
             </Tabs>
-        <Page :total="get_checkout_level1_page_total" @on-change="change" style="margin:15px"></Page>
+        <Page :total="getChekInPage" @on-change="change" style="margin:15px"></Page>
             
 		</Col>
 	</Row>
@@ -21,39 +21,37 @@ export default {
 			return {
 				 columns1: [
                     {
-                        title: '帳號',
-                        key: 'user_username',
-                        minWidth:100
-
-                    },
-                    {
                         title: '帳戶名稱',
                         key: 'name',
                         minWidth:100
 
                     },
                     {
-                        title: '出金金額',
+                        title: '入金金額',
                         key: 'amount',
                         minWidth:100
 
 					},
 					{
-                        title: '銀行',
-                        key: 'bank',
-                        minWidth:100
+                        title: '銀行帳戶後五碼',
+                        key: 'account',
+                        minWidth:130
 
                     },
                     {
-                        title: '銀行帳戶',
-                        key: 'bank_account',
-                        minWidth:150
-
+                        title: '貨幣',
+                        key: 'currency',
+                        minWidth:60
                     }, 
                     {
-                        title: '申請時間',
-                        key: 'created_at',
-                        width: 150,
+                        title: '聯絡方式',
+                        key: 'contact',
+                        width: 120,
+                    },
+                    {
+                        title: '業務',
+                        key: 'sales',
+                        width: 120,
 					},
 					{
                         title: '審核',
@@ -95,15 +93,11 @@ export default {
 				]}
 		},
 		computed:{
-			get_checkout_level1(){
-                let data = this.$store.getters.get_checkout_level1
+			getCheckIn(){
+                let data = this.$store.getters.getCheckIn.data
 				data.map(item=>{
-                    item.user_username = item.user.username
+                    
                     if (item.created_at){
-
-                        // item.created_at = this.$moment(item.created_at)
-                        // .tz('Asia/Taipei')
-                        // .format('YYYY-MM-DD HH:mm:ss');
 
                         item.created_at = this.$moment
                         .tz(item.created_at, 'Asia/Taipei')
@@ -116,22 +110,22 @@ export default {
                     }
 					return item
 				})
-				 return this.$store.getters.get_checkout_level1
+				 return data
                
             },
-            get_checkout_level1_page_total(){
-                return this.$store.getters.get_checkout_level1_page_total
+            getChekInPage(){
+                return this.$store.getters.getCheckIn.page_total
             }
 		},
 		methods: {
             change(page){
-            this.$store.dispatch('get_checkout_level1',page)           
+            this.$store.dispatch('getCheckIn',page)           
             },
 			show(index){
                  let _vm = this
                 this.$Modal.confirm({
-                     title: `同意出金 `,
-                    content: `<p style="font-size:1.4em">同意該筆出金請求嗎？</p>`,
+                     title: `同意入金 `,
+                    content: `<p style="font-size:1.4em">同意該筆入金申請嗎？</p>`,
                     onOk: () => {
                         this.$Message.info('確認送出');
                         _vm.$store.commit('set_checkout_level1_index',index)
@@ -146,13 +140,11 @@ export default {
 			remove(index){
                  let _vm = this
                 this.$Modal.confirm({
-                     title: `回絕出金`,
-                    content: `<p style="font-size:1.4em">回絕該筆出金請求嗎？</p>`,
+                     title: `回絕入金`,
+                    content: `<p style="font-size:1.4em">回絕該筆入金申請嗎？</p>`,
                     onOk: () => {
                         this.$Message.info('確認送出');
-                        _vm.$store.commit('set_checkout_level1_index',index)
-                        _vm.$store.commit('set_checkout_level1_status',-1)
-                        _vm.$store.dispatch('put_checkout_review_pudate',{id:this.$store.state.admin.checkout_level1.index,status:this.$store.state.admin.checkout_level1.status,api:'level1'})
+                        _vm.$store.dispatch('putCheckIn',{index,status:-1})
                     },
             })
                

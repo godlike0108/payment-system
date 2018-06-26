@@ -101,7 +101,7 @@ export default {
     },
     log_out(){
         this.$store.commit('log_out')
-        this.$router.push('/dashboard')
+        this.$router.push('/')
 
     },
     ...mapGetters({

@@ -72,6 +72,7 @@ const state = {
         note: '',
         contact: null,
         sales: null,
+        approved_amount: null,
         success: false,
         error: false,
         page_total: null

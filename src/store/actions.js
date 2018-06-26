@@ -428,8 +428,8 @@ export default {
             console.log(response)
         })
     },
-    getCheckIn({ commit }) {
-        axios.get(`${baseURL}/api/deposits`, {
+    getCheckIn({ commit }, page) {
+        axios.get(`${baseURL}/api/deposits?page=${page}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
@@ -442,6 +442,25 @@ export default {
             commit('setCheckIn', { page_total })
 
         })
+    },
+    putCheckIn({ commit, state }, { index: index, status: status }) {
+        let id = state.checkIn.data[index].id
+        let data = JSON.stringify({
+            status: status,
+            approved_amount: state.checkIn.approved_amount
+        })
+        console.log(id, status)
+        axios.put(`${baseURL}/api/deposits/${id}`, data, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        }).then(response => {
+            console.log(response)
+            this.dispatch('getCheckIn')
+        })
+
     },
     admins({ commit, state }) {
         let token = localStorage.getItem('token')

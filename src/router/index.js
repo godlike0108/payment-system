@@ -299,7 +299,7 @@ vueRouter.beforeEach((to, from, next) => {
             })
         }
         if (to.fullPath === '/index/checkIn') {
-            store.dispatch('getCheckIn').then(() => {
+            store.dispatch('getCheckIn', 1).then(() => {
                 next()
             })
         }
@@ -348,6 +348,7 @@ vueRouter.beforeEach((to, from, next) => {
                 next()
             })
         }
+
         if (to.fullPath === '/dashboard/index/distributions') {
             store.dispatch('get_checkout_history', 1).then(() => {
                 next()
@@ -355,6 +356,16 @@ vueRouter.beforeEach((to, from, next) => {
         }
         if (to.fullPath === '/dashboard/index/wallet') {
             store.dispatch('userReview', 1).then(() => {
+                next()
+            })
+        }
+        if (to.fullPath === '/dashboard/index/checkInApplication') {
+            store.dispatch('getCheckIn', 1).then(() => {
+                next()
+            })
+        }
+        if (to.fullPath === '/dashboard/index/checkInRetaliation') {
+            store.dispatch('getCheckIn', 1).then(() => {
                 next()
             })
         }

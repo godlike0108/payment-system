@@ -4,11 +4,11 @@
         <Col :xs="24" :sm="20" :md="20" :lg="20">
             <Tabs value="name1">
             <TabPane label="入金回報" name="name1">
-                <Table height="500" :columns="columns1" :data="get_checkout_history" ></Table>
+                <Table height="500" :columns="columns1" :data="getCheckIn" ></Table>
             </TabPane>
             </Tabs>
 
-        <Page :total="get_checkout_history_page_total" @on-change="change" style="margin:15px"></Page>
+        <Page :total="getChekInPage" @on-change="change" style="margin:15px"></Page>
             
 		</Col>
 	</Row>
@@ -22,77 +22,69 @@ export default {
 			return {
 				 columns1: [
                     {
-                        title: '帳號',
-                        key: 'user_username',
-                        minWidth:100
-
-                    },
-                    {
                         title: '帳戶名稱',
                         key: 'name',
                         minWidth:100
 
                     },
                     {
-                        title: '出金金額',
+                        title: '入金金額',
                         key: 'amount',
                         minWidth:100
 
 					},
 					{
-                        title: '銀行',
-                        key: 'bank',
-                        minWidth:100
+                        title: '銀行帳戶後五碼',
+                        key: 'account',
+                        minWidth:130
 
                     },
                     {
-                        title: '銀行帳戶',
-                        key: 'bank_account',
-                        minWidth:100
-
+                        title: '貨幣',
+                        key: 'currency',
+                        minWidth:60
                     }, 
                     {
-                        title: '申請時間',
-                        key: 'created_at',
-                        minWidth:100
-
-                    },  
+                        title: '聯絡方式',
+                        key: 'contact',
+                        width: 120,
+                    },
+                    {
+                        title: '業務',
+                        key: 'sales',
+                        width: 120,
+					}, 
                    
 				]}
 		},
 		computed:{
-			get_checkout_history(){
-                let data = this.$store.getters.get_checkout_history
-                data.map(item=>{
-                    if(item.user && item.user.username){
-                        item.user_username = item.user.username
-                        
-                    } else {
-                        item.user_username = ''
-                    }
+			getCheckIn(){
+                let data = this.$store.getters.getCheckIn.data
+				data.map(item=>{
                     
                     if (item.created_at){
+
                         item.created_at = this.$moment
                         .tz(item.created_at, 'Asia/Taipei')
                         .format('YYYY-MM-DD HH:mm:ss')
                     }
                     if(item.amount){
-                     let num = new Number(item.amount);
-                    let amount = num.toFixed(2)
-                    item.amount = amount   
+                        let num = new Number(item.amount);
+                        let amount = num.toFixed(2)
+                        item.amount = amount
                     }
-                    
 					return item
 				})
-				 return this.$store.getters.get_checkout_history
+				 return data
+               
             },
-            get_checkout_history_page_total(){
-            return this.$store.getters.get_checkout_history_page_total
-     },
+            getChekInPage(){
+                return this.$store.getters.getCheckIn.page_total
+            }
         },
         methods: {
             change(page){
-            this.$store.dispatch('get_checkout_history',page)           
+            this.$store.dispatch('getCheckIn',page)           
             },
         },
 
