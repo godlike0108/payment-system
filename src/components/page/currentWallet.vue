@@ -38,6 +38,7 @@ export default {
   },
   computed:{
       getAllWallet(){
+         
           let data = this.$store.getters.getAllWallet
 
           data.map(item=>{
@@ -57,6 +58,8 @@ export default {
                   case 'KRW': 
                   item.currencyName = '韓圓帳戶'
                   break;
+                  default:
+                  console.log('getAllWallet fail.')
               }
            
               if(item.balance){

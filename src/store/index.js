@@ -410,6 +410,8 @@ const mutations = {
             state.checkIn.data = data
         } else if (page_total) {
             state.checkIn.page_total = page_total
+        } else {
+            console.log('setCheckIn fail.')
         }
 
     },
