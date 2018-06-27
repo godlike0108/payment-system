@@ -300,6 +300,7 @@ export default {
             })
     },
     post_checkout({ commit, state }) {
+
         let token = localStorage.getItem('token')
         let id = state.checkout_approval.index
         axios.post(`${baseURL}/api/checkout/${id}`, null, {
@@ -319,6 +320,7 @@ export default {
             })
     },
     add_servies({ commit, state }, user_type) {
+
         let name = null;
         let type = null;
         let contact = null;

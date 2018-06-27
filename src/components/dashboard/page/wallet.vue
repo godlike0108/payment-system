@@ -83,7 +83,7 @@ export default {
         'adminTransactions' : 'adminTransactions',
     }),
        updateToUserName(to_username){
-          this.$store.commit('updateToUserName', to_username)
+          this.$store.commit('setTransition', {to_username})
       },
       updateToAmount(amount){
           let r = /^[0-9]*[1-9][0-9]*$/
@@ -94,7 +94,7 @@ export default {
             if (amount === 0){
 
             } else {
-            this.$store.commit('updateToAmount', amount)              
+            this.$store.commit('setTransition', {amount})              
             }
           }
           

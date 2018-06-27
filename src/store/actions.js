@@ -408,6 +408,7 @@ export default {
             })
     },
     userCheckIn({ commit, state }) {
+        let token = localStorage.getItem('token')
         let data = JSON.stringify({
             currency: state.checkIn.currency,
             amount: state.checkIn.amount,
@@ -449,6 +450,7 @@ export default {
         })
     },
     putCheckIn({ commit, state }, { index: index, status: status }) {
+        let token = localStorage.getItem('token')
         let id = state.checkIn.data[index].id
         let amount = Number(state.checkIn.approved_amount) || 0
 
@@ -534,7 +536,7 @@ export default {
     },
     post_add_account({ commit, state }) {
         let new_data = state.mybank_account.new_account
-
+        let token = localStorage.getItem('token')
         let data = JSON.stringify(new_data)
         axios.post(`${baseURL}/api/bank-accounts`, data, {
                 headers: {
@@ -580,6 +582,7 @@ export default {
     },
     remove_account({ commit, state }, index) {
         let id = state.mybank_account.data[index].id
+        let token = localStorage.getItem('token')
         console.log(id)
         axios.delete(`${baseURL}/api/bank-accounts/${id}`, {
             headers: {
