@@ -400,13 +400,18 @@ export default {
         let contact = state.edit_servies.contact
         let type = id
         let servies_id
+        let data
         if (type === 0) {
             servies_id = state.add_vip_servies.member[index].id
         } else if (type === 1) {
             servies_id = state.add_servies.member[index].id
 
         }
-        let data = { type: type, name: name, contact: contact }
+        if (!name) {
+            data = { type: type, contact: contact }
+        } else if (!contact) {
+            data = { type: type, name: name }
+        }
         axios.put(`${baseURL}/api/customer-services/${servies_id}`, data, {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -414,7 +419,7 @@ export default {
                 'Accept': 'application/json',
             }
         }).then((response) => {
-            let type = response.data.type
+
             if (type === 0) {
                 this.dispatch('get_vipServies')
             } else if (type === 1) {
