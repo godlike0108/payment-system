@@ -4,7 +4,7 @@
         <Col :xs="20" :sm="16" :md="16" :lg="16">
             <Row type="flex" justify="end" align="top">
             <Col :xs="24" :sm="8" :md="8" :lg="6">用戶：<span class="user">{{this.$store.state.user.name}}</span></Col>
-            <Col :xs="24" :sm="8" :md="8" :lg="6">剩餘金額：{{getCurrentWallet.currency}}<span class="money">{{getCurrentWallet.balance}}</span></Col>
+            <!-- <Col :xs="24" :sm="8" :md="8" :lg="6">剩餘金額：{{getCurrentWallet.currency}}<span class="money">{{getCurrentWallet.balance}}</span></Col> -->
             </Row>
         </Col>
     </Row>
@@ -15,6 +15,14 @@
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="16" :md="16" :lg="16">
                         <Form ref="formCustom" >
+                            <form-item>  
+                            <Select :placeholder="'選擇錢包'" @on-change="setWallet"  clearable>
+                                <Option v-for="(item,index) in getWallet" :value="index" :key="index" >{{ item.currency }}錢包</Option>
+                            </Select>
+                            </form-item> 
+                            <form-item v-if="isSelect">
+                                餘額：{{getWallet[wIndex].balance}}
+                            </form-item>
                             <FormItem label="轉出帳號" >
                                 <Input :value="this.$store.state.transition.to_username" type="text"  @input="updateToUserName"></Input>
                             </FormItem>
@@ -34,7 +42,7 @@
                             </Col>
                         </Row>
                         <Row >
-                            <Col v-if="this.$store.state.transition.status.noamount" >
+                            <Col v-if="Insufficient_balance">
                             <Icon type="close-circled" class="error" size="20"></Icon>
                                 <div class="error">錢包餘額不足</div>
                             </Col>
@@ -62,6 +70,9 @@ export default {
   data () {
      return {
         isCollapsed: false,
+        Insufficient_balance: false,
+        wIndex: 0,
+        isSelect:false,
         columns1: [
                     
                     {
@@ -93,6 +104,9 @@ export default {
     };
   },
   computed: {
+      ...mapState({
+          walletIndex:state => state.checkout.walletIndex
+      }),
       menuitemClasses: function () {
           return [
               'menu-item',
@@ -109,23 +123,45 @@ export default {
         let wallet = this.$store.getters.getCurrentWallet  
         return wallet
     },
-    getAllWallet(){
-        return this.$store.getters.getAllWallet
-    }
+    getWallet(){
+          let data = this.$store.getters.getAllWallet
+          data.map(item=>{
+              if(item.balance){
+                  let num = new Number(item.balance)
+                  let balance = num.toFixed(2)
+                  item.balance = balance
+              }
+              return item
+          })
+          return data
+      }
     
      
   },
    methods: {
-       change(page){
+    change(page){
         this.$store.dispatch('userGetwalletHistories',page)           
-        },
-       updateToUserName(to_username){
+    },
+    updateToUserName(to_username){
         //   this.$store.commit('non_existent_account', true)
-          this.$store.commit('setTransition', {to_username})
-      },
-      updateToAmount(amount){
-             this.$store.commit('setTransition', {amount})
-      },
+        this.$store.commit('setTransition', {to_username})
+    },
+    updateToAmount(amount){
+        let walletIndex = this.walletIndex
+            let balance 
+            if(walletIndex === 0 || walletIndex){
+                balance =  this.$store.state.user.wallet[walletIndex].balance 
+                if(balance - amount < 0){
+                    this.Insufficient_balance = true
+                }else {
+                    this.Insufficient_balance = false
+                    this.$store.commit('setTransition', {amount})
+                }
+            }else{
+                this.$store.commit('setTransition', {amount})
+            }
+        
+    },
     handleSubmit (name) {
         this.$refs[name].validate((valid) => {
             if (valid) {
@@ -143,14 +179,12 @@ export default {
         this.$store.commit('removeTransactionsInput')
 
     },
-    ...mapActions({
-        // 'userTransactions' : 'userTransactions',
-    })
+    setWallet(index){
+        this.wIndex = index
+        this.isSelect = true
+        this.$store.commit('setCheckout',{index}) 
     },
-    created(){
-        // this.$store.dispatch('userGetChekout')
-        // this.$store.dispatch('userGetwalletHistories',1)
-    }
+    },
 }
 </script>
 

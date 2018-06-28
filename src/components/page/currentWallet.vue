@@ -8,7 +8,7 @@
                         <ul class="allWallet">
                             <li v-for="(item,index) in getAllWallet" @click="selectWallet(index)">
                                 <Row>
-                                    <Col :xs="8" :sm="8" :md="8" :lg="8" style="line-height:60px;padding-left:20px">{{item.currencyName}}</Col>
+                                    <Col :xs="24" :sm="8" :md="8" :lg="8" class="currencyName" >{{item.currencyName}}</Col>
                                     <Col :xs="14" :sm="14" :md="14" :lg="14">
                                     <ul>
                                         <li><span class="title">餘額</span></li>
@@ -17,7 +17,7 @@
                                         </li>
                                     </ul>
                                     </Col>
-                                    <Col :xs="2" :sm="2" :md="2" :lg="2" style="line-height:60px"><Icon type="arrow-right-c" size="22"></Icon></Col>
+                                    <Col :xs="{span:2,offset:0}" :sm="{span:2,offset:0}" :md="{span:2,offset:0}" :lg="{span:2,offset:0}" style="line-height:60px"><Icon type="arrow-right-c" size="22"></Icon></Col>
                                 </Row>
                             </li>
                         </ul>
@@ -105,6 +105,16 @@ export default {
 .currency{
     font-size: 0.8em;
     padding-right:  5px
+}
+.currencyName {
+    line-height:60px;
+    padding-left:20px
+}
+@media (max-width: 767px) {
+    .currencyName {
+        line-height:40px;
+        padding-left:0px
+    }
 }
 ul {
     list-style-type:none

@@ -297,6 +297,7 @@ export default {
                     commit('removeTransactionsInput')
                     this.dispatch('front_end_show_user')
                     this.dispatch('userGetwalletHistories', 1)
+                    this.dispatch('getNewestWallet')
                 }).catch((error) => {
                     if (error.response.status === 404) {
                         commit('wrong_transactions')
@@ -381,10 +382,11 @@ export default {
             amount: state.checkout.amount,
             sms: state.checkout.sms
         })
+        let walletIndex = state.checkout.walletIndex
         let wallets = localStorage.getItem('wallets')
         let token = localStorage.getItem('token')
-        let id = JSON.parse(wallets)["0"].id
-            // console.log(id)
+        let id = JSON.parse(wallets)[walletIndex].id
+            // console.log(data, id)
         axios.post(`${baseURL}/api/wallets/${id}/checkout`, data, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -397,7 +399,7 @@ export default {
                 commit('removeCheckoutInput')
                 commit('checkout_success')
                 this.dispatch('userGetChekout', 1)
-
+                this.dispatch('getNewestWallet')
 
             }).catch((error) => {
                 commit('checkout_error')
@@ -431,6 +433,24 @@ export default {
             commit('removeCheckInInput')
             this.dispatch('getCheckIn', { page: 1 })
 
+        })
+    },
+    getNewestWallet({ commit, state }) {
+        let token = localStorage.getItem('token')
+        let id = localStorage.getItem('id')
+        axios.get(`${baseURL}/api/users/${id}/wallets`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        }).then(response => {
+
+            let data = response.data
+                // let wallets = data.wallets
+            localStorage.setItem('wallets', JSON.stringify(data));
+            commit('setData')
+                // console.log(data)
         })
     },
     getCheckIn({ commit }, { page: page, status: status }) {

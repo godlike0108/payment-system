@@ -51,6 +51,12 @@ export default {
 
                     }, 
                     {
+                        title: '貨幣',
+                        key: 'wallet_currency',
+                        minWidth:100
+
+                    },
+                    {
                         title: '申請時間',
                         key: 'created_at',
                         width: 150,
@@ -83,7 +89,7 @@ export default {
 		computed:{
 			get_checkout_approval(){
                 let data = this.$store.getters.get_checkout_approval.data
-                console.log(typeof data)
+                console.log(data)
 				data.map(item=>{
                     item.user_username = item.user.username
                     if (item.created_at){

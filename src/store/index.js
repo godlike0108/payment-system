@@ -59,6 +59,7 @@ const state = {
         bank_account: null,
         amount: null,
         sms: null,
+        walletIndex: null,
         page_total: null,
         success: false,
         error: false
@@ -139,9 +140,7 @@ const getters = {
     getCheckout() {
         return state.checkout
     },
-    // getCheckIn() {
-    //     return state.checkIn.data
-    // },
+
     getTransition() {
         return state.wallet
     },
@@ -353,7 +352,8 @@ const mutations = {
         bank: bank,
         account: account,
         amount: amount,
-        sms: sms
+        sms: sms,
+        index: index
     }) {
         if (name) {
             state.checkout.name = name
@@ -363,12 +363,17 @@ const mutations = {
             state.checkout.bank_account = account
         } else if (amount) {
             state.checkout.amount = amount
+                // console.log(state.checkout.amount)
         } else if (sms) {
             state.checkout.sms = sms
+        } else if (index === 0 || index) {
+            state.checkout.walletIndex = index
+
         }
 
     },
     removeCheckoutInput(state) {
+        state.checkout.currency = null
         state.checkout.name = null
         state.checkout.bank = null
         state.checkout.bank_account = null

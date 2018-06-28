@@ -8,9 +8,17 @@
                     <Col :xs="22" :sm="16" :md="16" :lg="16">
                         <i-form  >
                             <form-item>
-                                <Select :placeholder="'選擇常用帳戶'" @on-change="selectAccount" clearable>
+                                <Select :placeholder="'選擇常用帳戶'" @on-change="selectAccount"  clearable>
                                     <Option v-for=" (item,index) in getMyAccount" :value="index" :key="item.account">{{ item.title }}</Option>
                                 </Select>
+                            </form-item>
+                            <form-item>  
+                            <Select :placeholder="'選擇錢包'" @on-change="setWallet"  clearable>
+                                <Option v-for="(item,index) in getWallet" :value="index" :key="item.value" >{{ item.currency }}錢包</Option>
+                            </Select>
+                            </form-item> 
+                            <form-item v-if="isSelect">
+                                餘額：{{getWallet[wIndex].balance}}
                             </form-item>
                             <form-item>
                                 <i-input :value="this.$store.state.checkout.name"  @input="setCheckoutName" :placeholder=" '銀行帳戶名稱'"   clearable>
@@ -55,6 +63,12 @@
                         <div class="error">申請資料有誤，請輸入正確資料</div>
                     </Col>
                 </Row>
+                <Row >
+                    <Col v-if="Insufficient_balance">
+                    <Icon type="close-circled" class="error" size="20"></Icon>
+                        <div class="error">錢包餘額不足</div>
+                    </Col>
+                </Row>
             </TabPane>
             <TabPane label="出金回報" name="name2">
             <Table height="450" :columns="columns1" :data="getCheckout"></Table>
@@ -72,12 +86,15 @@ export default {
   name: 'HelloWorld',
   data () {
      return {
-        model8:'',
+        Insufficient_balance: false,
+        wIndex: 0,
+        isSelect:false,
+        currency:['USD','TWD','CNY','HKD','JPY','KRW'],
         columns1: [
                     {
                         title: '銀行用戶名稱',
                         key: 'name',
-                        minWidth:100
+                        minWidth:120
                     },
                     {
                         title: '銀行名稱',
@@ -95,6 +112,11 @@ export default {
                         minWidth:100
                     },
                     {
+                        title: '貨幣',
+                        key: 'wallet_currency',
+                        minWidth:100
+                    },
+                    {
                         title: '處理狀態',
                         key: 'checkout_status_id',
                         minWidth:100
@@ -108,6 +130,9 @@ export default {
     };
   },
   computed: {
+      ...mapState({
+          walletIndex:state => state.checkout.walletIndex
+      }),
       getCheckout: function(){
           let data = this.$store.getters.getCheckout.data
          return data.map(item=>{
@@ -145,6 +170,18 @@ export default {
       },
       getMyAccount(){
           return this.$store.getters.getMyAccount.data
+      },
+      getWallet(){
+          let data = this.$store.getters.getAllWallet
+          data.map(item=>{
+              if(item.balance){
+                  let num = new Number(item.balance)
+                  let balance = num.toFixed(2)
+                  item.balance = balance
+              }
+              return item
+          })
+          return data
       }
   },
   methods: {
@@ -163,17 +200,36 @@ export default {
             this.$store.commit('setCheckout',{account})
         },
         setCheckout_amount(amount){
-            this.$store.commit('setCheckout',{amount})
+            let walletIndex = this.walletIndex
+            let balance 
+            if(walletIndex === 0 || walletIndex){
+                balance =  this.$store.state.user.wallet[walletIndex].balance 
+                if(balance - amount < 0){
+                    this.Insufficient_balance = true
+                }else {
+                    this.Insufficient_balance = false
+                    this.$store.commit('setCheckout',{amount})
+                }
+            }else{
+                this.$store.commit('setCheckout',{amount})
+            }
+            
         },
         setCheckout_sms(sms){
             this.$store.commit('setCheckout',{sms})
+        },
+        setWallet(index){
+            this.wIndex = index
+            this.isSelect = true
+            this.$store.commit('setCheckout',{index}) 
         },
         change(page){
         this.$store.dispatch('userGetChekout',page)           
         },
         selectAccount(index){
             this.$store.commit('selectAccount',index)
-        }
+        },
+        
   }
 }
 </script>

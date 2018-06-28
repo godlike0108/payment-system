@@ -81,7 +81,7 @@ export default {
                     {
                         title: '銀行用戶名稱',
                         key: 'name',
-                        minWidth:100
+                        minWidth:120
                     },
                     
                     {
@@ -97,6 +97,11 @@ export default {
                     {
                         title: '入金金額',
                         key: 'amount',
+                        minWidth:100
+                    },
+                    {
+                        title: '確認入金',
+                        key: 'approved_amount',
                         minWidth:100
                     },
                     {
@@ -128,18 +133,17 @@ export default {
   
       getCheckIn: function(){
          return this.$store.getters.getCheckIn.data.map(item=>{
-             
              switch(item.status){
-                        case 0:
-                        item.status = '審核中'
-                        break;
-                        case -1:
-                        item.status = '拒絕'
-                        break;
-                        case 1:
-                        item.status = '已入金'
-                        break;
-                    }
+                case 0:
+                item.status = '審核中'
+                break;
+                case -1:
+                item.status = '拒絕'
+                break;
+                case 1:
+                item.status = '已入金'
+                break;
+            }
         
              if (item.created_at){
                  item.created_at = this.$moment
@@ -150,6 +154,11 @@ export default {
                 let num = new Number(item.amount);
                 let amount = num.toFixed(2)
                 item.amount = amount
+             }
+             if(item.approved_amount){
+                let num = new Number(item.approved_amount);
+                let approved_amount = num.toFixed(2)
+                item.approved_amount = approved_amount
              }
              return item
           })
@@ -181,8 +190,7 @@ export default {
             this.$store.dispatch('userGetChekout',page)           
         },
         setCurrency(currency){
-            this.$store.commit('setCheckIn',{currency})
-            
+            this.$store.commit('setCheckIn',{currency}) 
         }
   },
 

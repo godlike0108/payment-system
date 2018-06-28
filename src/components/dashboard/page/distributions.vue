@@ -50,7 +50,13 @@ export default {
                         key: 'bank_account',
                         minWidth:100
 
-                    }, 
+                    },
+                    {
+                        title: '貨幣',
+                        key: 'wallet_currency',
+                        minWidth:100
+
+                    },
                     {
                         title: '申請時間',
                         key: 'created_at',
@@ -94,11 +100,7 @@ export default {
             change(page){
             this.$store.dispatch('get_checkout_history',page)           
             },
-        },
-
-		created(){
-			// this.$store.dispatch('get_checkout_history',1)
-		}
+        }
 }
 </script>
 

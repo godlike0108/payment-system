@@ -89,6 +89,11 @@ export default {
   computed: {
     getCurrentWallet(){
         let data = this.$store.getters.getCurrentWallet
+        if(data.balance){
+                let num = new Number(data.balance)
+                let balance = num.toFixed(2)
+                data.balance = balance
+            }
         return data
     },
     getBalance(){
@@ -104,6 +109,7 @@ export default {
           let wallet_balance
           let data = this.$store.getters.getTransition.histories
          return data.map(item=>{
+             console.log(item)
              switch(item.operation_type){
                  case 0:
                  item.type = '內部轉入'

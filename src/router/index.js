@@ -280,6 +280,7 @@ vueRouter.beforeEach((to, from, next) => {
         }
         if (to.fullPath === '/index/transaction') {
             store.dispatch('front_end_show_user')
+            store.dispatch('getNewestWallet')
         }
         if (from.fullPath === '/index/currentWallet' && to.fullPath === '/index/') {
             store.dispatch('front_end_show_user')
@@ -294,6 +295,7 @@ vueRouter.beforeEach((to, from, next) => {
         }
         if (to.fullPath === '/index/checkout') {
             store.dispatch('get_account')
+            store.dispatch('getNewestWallet')
             store.dispatch('userGetChekout', 1).then(() => {
                 next()
             })

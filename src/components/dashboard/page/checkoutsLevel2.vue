@@ -51,6 +51,11 @@ export default {
 
                     }, 
                     {
+                        title: '貨幣',
+                        key: 'wallet_currency',
+                        minWidth:100
+                    },
+                    {
                         title: '申請時間',
                         key: 'created_at',
                         minWidth:100

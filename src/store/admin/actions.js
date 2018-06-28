@@ -405,7 +405,6 @@ export default {
             servies_id = state.add_vip_servies.member[index].id
         } else if (type === 1) {
             servies_id = state.add_servies.member[index].id
-
         }
         if (!name) {
             data = { type: type, contact: contact }
