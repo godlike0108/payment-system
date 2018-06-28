@@ -30,6 +30,12 @@ export default {
                         key: 'amount',
                         minWidth:100
 
+                    },
+                    {
+                        title: '核可金額',
+                        key: 'approved_amount',
+                        minWidth:100
+
 					},
 					{
                         title: '銀行帳戶後五碼',
@@ -64,7 +70,7 @@ export default {
 		computed:{
 			getCheckIn(){
                 let data = this.$store.getters.getCheckIn.data
-                console.log(data)
+                // console.log(data)
 				data.map(item=>{
 
                     switch(item.status){
@@ -88,6 +94,9 @@ export default {
                         let num = new Number(item.amount);
                         let amount = num.toFixed(2)
                         item.amount = amount
+                    }
+                    if(!item.approved_amount){
+                        item.approved_amount = item.amount
                     }
 					return item
 				})
