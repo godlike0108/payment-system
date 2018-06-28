@@ -262,6 +262,7 @@ export default {
             })
             .then((response) => {
                 let data = response.data
+                console.log(data)
                 commit('userGetwalletHistories', data)
 
             }).catch((error) => {
@@ -274,14 +275,16 @@ export default {
     userTransactions({ commit, state }) {
         let token = localStorage.getItem('token')
         let wallets = localStorage.getItem('wallets')
-        let id = JSON.parse(wallets)["0"].id
+        let walletIndex = state.transition.walletIndex
+        let id = JSON.parse(wallets)[walletIndex].id
         let balance = state.user.balance
         let amount = state.transition.amount
         let username = state.transition.to_username
         let data = JSON.stringify({
-            to_username: username,
-            amount: amount
-        })
+                to_username: username,
+                amount: amount
+            })
+            // console.log(id)
         if (parseFloat(balance) - parseFloat(amount) < 0) {
             commit('Insufficient_balance', true)
         } else {

@@ -82,6 +82,7 @@ const state = {
         data: [],
         to_username: null,
         amount: null,
+        walletIndex: null,
         status: {
             success: false,
             wrongUserName: null,
@@ -276,12 +277,15 @@ const mutations = {
     },
     setTransition(state, {
         to_username: to_username,
-        amount: amount
+        amount: amount,
+        index: index
     }) {
         if (to_username) {
             state.transition.to_username = to_username
         } else if (amount) {
             state.transition.amount = amount
+        } else if (index === 0 || index) {
+            state.transition.walletIndex = index
         }
 
     },

@@ -105,7 +105,7 @@ export default {
   },
   computed: {
       ...mapState({
-          walletIndex:state => state.checkout.walletIndex
+          walletIndex:state => state.transition.walletIndex
       }),
       menuitemClasses: function () {
           return [
@@ -182,7 +182,7 @@ export default {
     setWallet(index){
         this.wIndex = index
         this.isSelect = true
-        this.$store.commit('setCheckout',{index}) 
+        this.$store.commit('setTransition',{index}) 
     },
     },
 }

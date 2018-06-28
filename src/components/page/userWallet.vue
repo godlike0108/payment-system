@@ -107,7 +107,9 @@ export default {
       getTransition(){
           let username = ""
           let wallet_balance
+          
           let data = this.$store.getters.getTransition.histories
+          console.log(data)
          return data.map(item=>{
              console.log(item)
              switch(item.operation_type){
