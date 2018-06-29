@@ -6,7 +6,10 @@
             <TabPane label="全部" name="name1">
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="20" :md="20" :lg="20">
-                    <ul class="servies_member">
+                     <Table height="auto" :columns="columns1" :data="get_vipServies" class="service_table"></Table>
+                      <Table height="auto" :columns="columns2" :data="get_servies" class="service_table"></Table>
+        <!-- <Page :total="get_account_total" @on-change="change" style="margin:15px"></Page> -->
+                    <!-- <ul class="servies_member">
                         <li class="head">
                             <Row>
                                 <Col :xs="10" :sm="10" :md="10" :lg="10" >VIP客服人員名稱</Col>
@@ -22,8 +25,8 @@
                                
                             </Row>
                         </li>
-                    </ul>
-                    <ul class="servies_member">
+                    </ul> -->
+                    <!-- <ul class="servies_member">
                         <li class="head">
                             <Row>
                                 <Col :xs="10" :sm="10" :md="10" :lg="10" >一般客服人員名稱</Col>
@@ -36,14 +39,15 @@
                                 <Col :xs="14" :sm="14" :md="14" :lg="14"><span class="currency">{{item.contact}}</span></Col>
                             </Row>
                         </li>
-                    </ul>
+                    </ul> -->
                     </Col>
                 </Row>
             </TabPane>
             <TabPane label="VIP" name="name2">
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="20" :md="20" :lg="20">
-                    <ul class="servies_member">
+                     <Table height="auto" :columns="columns1" :data="get_vipServies" class="service_table"></Table>
+                    <!-- <ul class="servies_member">
                         <li class="head">
                             <Row>
                                 <Col :xs="10" :sm="10" :md="10" :lg="10" >VIP客服人員名稱</Col>
@@ -59,14 +63,15 @@
                                
                             </Row>
                         </li>
-                    </ul>
+                    </ul> -->
                     </Col>
                 </Row>
             </TabPane>
             <TabPane label="客服" name="name3">
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="20" :md="20" :lg="20">
-                    <ul class="servies_member">
+                      <Table height="auto" :columns="columns2" :data="get_servies" class="service_table"></Table>
+                    <!-- <ul class="servies_member">
                         <li class="head">
                             <Row>
                                 <Col :xs="10" :sm="10" :md="10" :lg="10" >一般客服人員名稱</Col>
@@ -79,7 +84,7 @@
                                 <Col :xs="14" :sm="14" :md="14" :lg="14"><span class="currency">{{item.contact}}</span></Col>
                             </Row>
                         </li>
-                    </ul>
+                    </ul> -->
                     </Col>
                 </Row>
             </TabPane>
@@ -95,6 +100,30 @@ export default {
   name: 'HelloWorld',
   data () {
      return {
+          columns1: [
+                    {
+                        title: 'VIP客服人員名稱',
+                        key: 'name',
+                        minWidth:100
+                    },
+                    {
+                        title: '聯絡方式',
+                        key: 'contact',
+                        minWidth:100
+                    },
+                   ],
+        columns2: [
+                    {
+                        title: '客服人員名稱',
+                        key: 'name',
+                        minWidth:100
+                    },
+                    {
+                        title: '聯絡方式',
+                        key: 'contact',
+                        minWidth:100
+                    },
+                   ]
     }
   },
   computed: {
@@ -205,5 +234,8 @@ export default {
        color: #fff;
        font-size: 0.8em;
        font-weight: 800
+   }
+   .service_table{
+       margin: 30px auto
    }
 </style>
