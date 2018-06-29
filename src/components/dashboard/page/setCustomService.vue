@@ -8,7 +8,8 @@
             <TabPane label="VIP" name="name1">
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="20" :md="20" :lg="20">
-                    <ul class="servies_member">
+                    <Table height="auto" :columns="columns1" :data="get_vipServies"></Table>
+                    <!-- <ul class="servies_member">
                         <li class="head">
                             <Row>
                                 <Col :xs="8" :sm="8" :md="8" :lg="8" >VIP客服人員名稱</Col>
@@ -27,7 +28,7 @@
                                 </Col>
                             </Row>
                         </li>
-                    </ul>
+                    </ul> -->
                     <Button type="primary" class="walletButton"  shape="circle" @click="vipHandleRender(0)">新增 VIP 客服員</Button>
                     </Col>
                 </Row>
@@ -35,7 +36,8 @@
             <TabPane label="客服" name="name2">
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="20" :md="20" :lg="20">
-                    <ul class="servies_member">
+                    <Table height="auto" :columns="columns2" :data="get_servies"></Table>
+                    <!-- <ul class="servies_member">
                         <li class="head">
                             <Row>
                                 <Col :xs="8" :sm="8" :md="8" :lg="8" >一般客服人員名稱</Col>
@@ -52,7 +54,7 @@
                                 </Col>
                             </Row>
                         </li>
-                    </ul>
+                    </ul> -->
                         <Button type="primary" class="walletButton"  shape="circle" @click="HandleRender(1)">新增客服員</Button>                       
                     </Col>
                 </Row>
@@ -71,16 +73,103 @@ export default {
      return {
         isCollapsed: false,
         eyesIcon: 'eye-disabled',
+        columns1: [
+                    {
+                        title: 'VIP客服人員名稱',
+                        key: 'name',
+                        minWidth:100
+                    },
+                    {
+                        title: '聯絡方式',
+                        key: 'contact',
+                        minWidth:100
+                    },
+                    {
+                        title: '修改/刪除',
+                        minWidth:140,
+                        render: (h, params) => {
+                            return h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small'
+                                        
+                                    },
+                                    style: {
+                                        marginRight: '15px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.edit_servies({index:params.index,id:0})
+                                        }
+                                    }
+                                }, '修改'), h('Button', {
+                                    props: {
+                                        type: 'error',
+                                        size: 'small'
+                                        
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.remove({id:0,index:params.index})
+                                        }
+                                    }
+                                }, '刪除')
+                               
+                            ]);
+                        }
+                    },
+                    ],
+        columns2: [
+                    {
+                        title: 'VIP客服人員名稱',
+                        key: 'name',
+                        minWidth:100
+                    },
+                    {
+                        title: '聯絡方式',
+                        key: 'contact',
+                        minWidth:100
+                    },
+                    {
+                        title: '修改/刪除',
+                        minWidth:140,
+                        render: (h, params) => {
+                            return h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small'
+                                        
+                                    },
+                                    style: {
+                                        marginRight: '15px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.edit_servies({id:1,index:params.index})
+                                        }
+                                    }
+                                }, '修改'), h('Button', {
+                                    props: {
+                                        type: 'error',
+                                        size: 'small'
+                                        
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.remove({id:1,index:params.index})
+                                        }
+                                    }
+                                }, '刪除')
+                               
+                            ]);
+                        }
+                    },
+                    ]
     }
   },
   computed: {
-      menuitemClasses: function () {
-          return [
-              'menu-item',
-              this.isCollapsed ? 'collapsed-menu' : ''
-
-          ]
-      },
       get_servies(){
           return this.$store.getters.get_servies
       },
@@ -356,6 +445,7 @@ export default {
     .walletButton {
 		width: 220px;
 		height: 38px;
+        margin:30px auto;
 		color: #fff;
 		/* background-color: rgb(238, 238, 238); */
 		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
