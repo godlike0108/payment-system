@@ -1,11 +1,13 @@
 import axios from 'axios'
 import router from '@/router'
+import api from './api'
 
 const baseURL = 'http://wallet-staging.ap-northeast-1.elasticbeanstalk.com'
 
 let token = localStorage.getItem('token')
 export default {
     login({ commit, state }) {
+
         axios.post(`${baseURL}/api/login`, {
                 username: state.user.username,
                 password: state.user.password
@@ -273,6 +275,7 @@ export default {
             })
     },
     userTransactions({ commit, state }) {
+
         let token = localStorage.getItem('token')
         let wallets = localStorage.getItem('wallets')
         let walletIndex = state.transition.walletIndex
@@ -281,10 +284,10 @@ export default {
         let amount = state.transition.amount
         let username = state.transition.to_username
         let data = JSON.stringify({
-                to_username: username,
-                amount: amount
-            })
-            // console.log(id)
+            to_username: username,
+            amount: amount
+        })
+        console.log(id)
         if (parseFloat(balance) - parseFloat(amount) < 0) {
             commit('Insufficient_balance', true)
         } else {

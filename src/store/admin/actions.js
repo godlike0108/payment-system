@@ -345,9 +345,9 @@ export default {
             .then((response) => {
                 let type = response.data.type
                 if (type === 0) {
-                    this.dispatch('get_vipServies')
+                    this.dispatch('get_vipServies', 1)
                 } else if (type === 1) {
-                    this.dispatch('get_Servies')
+                    this.dispatch('get_Servies', 1)
                 }
             }).catch((error) => {
                 if (error.response.status === 401) {
@@ -356,9 +356,9 @@ export default {
                 }
             })
     },
-    get_Servies({ commit, state }) {
+    get_Servies({ commit, state }, page) {
         let token = localStorage.getItem('token')
-        axios.get(`${baseURL}/api/customer-services?type=1`, {
+        axios.get(`${baseURL}/api/customer-services?type=1&page=${page}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -375,9 +375,9 @@ export default {
                 }
             })
     },
-    get_vipServies({ commit, state }) {
+    get_vipServies({ commit, state }, page) {
         let token = localStorage.getItem('token')
-        axios.get(`${baseURL}/api/customer-services?type=0`, {
+        axios.get(`${baseURL}/api/customer-services?type=0&page=${page}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -420,9 +420,9 @@ export default {
         }).then((response) => {
 
             if (type === 0) {
-                this.dispatch('get_vipServies')
+                this.dispatch('get_vipServies', 1)
             } else if (type === 1) {
-                this.dispatch('get_Servies')
+                this.dispatch('get_Servies', 1)
             }
         }).catch((error) => {
             if (error.response.status === 401) {
@@ -451,9 +451,9 @@ export default {
 
             // let type = response.data.type
             if (type === 0) {
-                this.dispatch('get_vipServies')
+                this.dispatch('get_vipServies', 1)
             } else if (type === 1) {
-                this.dispatch('get_Servies')
+                this.dispatch('get_Servies', 1)
             }
         }).catch((error) => {
             // if (error.response.status === 401) {

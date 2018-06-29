@@ -102,10 +102,10 @@ export default {
             return state.checkout_level1
         },
         get_servies(state) {
-            return state.add_servies.member
+            return state.add_servies
         },
         get_vipServies(state) {
-            return state.add_vip_servies.member
+            return state.add_vip_servies
         }
     },
     mutations: {

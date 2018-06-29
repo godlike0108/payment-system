@@ -9,6 +9,8 @@
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="20" :md="20" :lg="20">
                     <Table height="auto" :columns="columns1" :data="get_vipServies"></Table>
+                 <Page :total="get_vipServies_total"  @on-change="vipchange" style="margin:15px"></Page>
+
                     <!-- <ul class="servies_member">
                         <li class="head">
                             <Row>
@@ -37,6 +39,8 @@
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="20" :md="20" :lg="20">
                     <Table height="auto" :columns="columns2" :data="get_servies"></Table>
+                 <Page :total="get_servies_total" @on-change="change" style="margin:15px"></Page>
+
                     <!-- <ul class="servies_member">
                         <li class="head">
                             <Row>
@@ -82,7 +86,7 @@ export default {
                     {
                         title: '聯絡方式',
                         key: 'contact',
-                        minWidth:100
+                        minWidth:150
                     },
                     {
                         title: '修改/刪除',
@@ -129,7 +133,7 @@ export default {
                     {
                         title: '聯絡方式',
                         key: 'contact',
-                        minWidth:100
+                        minWidth:150
                     },
                     {
                         title: '修改/刪除',
@@ -171,10 +175,16 @@ export default {
   },
   computed: {
       get_servies(){
-          return this.$store.getters.get_servies
+          return this.$store.getters.get_servies.member
+      },
+      get_servies_total(){
+          return this.$store.getters.get_servies.page_total
       },
       get_vipServies(){
-          return this.$store.getters.get_vipServies
+          return this.$store.getters.get_vipServies.member
+      },
+      get_vipServies_total(){
+          return this.$store.getters.get_vipServies.page_total
       }
   },
   methods: {
@@ -364,6 +374,13 @@ export default {
         }
         
 
+    },
+    change(page){
+          this.$store.dispatch('get_Servies',page) 
+      },
+    vipchange(page){
+        this.$store.dispatch('get_vipServies',page) 
+        
     }
 
 }

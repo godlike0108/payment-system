@@ -258,8 +258,8 @@ vueRouter.beforeEach((to, from, next) => {
                 store.dispatch('get_checkout_approval', 1)
                 store.dispatch('get_checkout_history', 1)
                 store.dispatch('approval_levels')
-                store.dispatch('get_Servies')
-                store.dispatch('get_vipServies')
+                store.dispatch('get_Servies', 1)
+                store.dispatch('get_vipServies', 1)
                     // store.dispatch('getAlluser')
                 next()
             }
@@ -267,8 +267,8 @@ vueRouter.beforeEach((to, from, next) => {
         }
         if (to.fullPath === '/index/' || to.fullPath === '/index') {
             store.dispatch('userGetChekout', 1)
-            store.dispatch('get_Servies')
-            store.dispatch('get_vipServies')
+            store.dispatch('get_Servies', 1)
+            store.dispatch('get_vipServies', 1)
             store.dispatch('front_end_show_user')
             if (store.state.current_wallet_index === -1) {
                 next({ path: '/index/currentWallet' })
@@ -311,8 +311,8 @@ vueRouter.beforeEach((to, from, next) => {
             })
         }
         if (to.fullPath === '/index/customerService') {
-            store.dispatch('get_Servies').then(() => {
-                store.dispatch('get_vipServies').then(() => {
+            store.dispatch('get_Servies', 1).then(() => {
+                store.dispatch('get_vipServies', 1).then(() => {
                     next()
                 })
             })
@@ -329,8 +329,8 @@ vueRouter.beforeEach((to, from, next) => {
             store.dispatch('get_checkout_approval', 1)
             store.dispatch('get_checkout_history', 1)
             store.dispatch('approval_levels')
-            store.dispatch('get_Servies')
-            store.dispatch('get_vipServies')
+            store.dispatch('get_Servies', 1)
+            store.dispatch('get_vipServies', 1)
             next()
         }
         if (to.fullPath === '/dashboard/index/checkoutsLevel1') {
@@ -390,8 +390,8 @@ vueRouter.beforeEach((to, from, next) => {
             })
         }
         if (to.fullPath === '/dashboard/index/setCustomService') {
-            store.dispatch('get_vipServies').then(() => {
-                store.dispatch('get_Servies')
+            store.dispatch('get_vipServies', 1).then(() => {
+                store.dispatch('get_Servies', 1)
                 next()
             })
         }

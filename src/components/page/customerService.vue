@@ -7,8 +7,9 @@
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="20" :md="20" :lg="20">
                      <Table height="auto" :columns="columns1" :data="get_vipServies" class="service_table"></Table>
+                 <Page :total="get_vipservice_total"  @on-change="vipchange" style="margin:15px"></Page>
                       <Table height="auto" :columns="columns2" :data="get_servies" class="service_table"></Table>
-        <!-- <Page :total="get_account_total" @on-change="change" style="margin:15px"></Page> -->
+                 <Page :total="get_service_total" @on-change="change" style="margin:15px"></Page>
                     <!-- <ul class="servies_member">
                         <li class="head">
                             <Row>
@@ -128,13 +129,26 @@ export default {
   },
   computed: {
       get_servies(){
-          return this.$store.getters.get_servies
+          return this.$store.getters.get_servies.member
+      },
+      get_service_total(){
+          return this.$store.getters.get_servies.page_total
       },
       get_vipServies(){
-          return this.$store.getters.get_vipServies
-      }
+          return this.$store.getters.get_vipServies.member
+      },
+      get_vipservice_total(){
+          return this.$store.getters.get_vipServies.page_total
+      },
   },
   methods: {
+      change(page){
+          this.$store.dispatch('get_Servies',page) 
+      },
+      vipchange(page){
+          this.$store.dispatch('get_vipServies',page) 
+         
+      }
 }
 }
 
