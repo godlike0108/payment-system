@@ -36,18 +36,19 @@ export default {
                         key: 'approved_amount',
                         minWidth:100
 
-					},
-					{
-                        title: '銀行帳戶後五碼',
-                        key: 'account',
-                        minWidth:130
-
                     },
                     {
                         title: '貨幣',
                         key: 'currency',
                         minWidth:60
                     }, 
+					{
+                        title: '銀行帳戶後五碼',
+                        key: 'account',
+                        minWidth:130
+
+                    },
+                    
                     {
                         title: '聯絡方式',
                         key: 'contact',

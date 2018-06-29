@@ -38,7 +38,13 @@ export default {
                         key: 'amount',
                         minWidth:100
 
-					},
+                    },
+                    {
+                        title: '貨幣',
+                        key: 'wallet_currency',
+                        minWidth:100
+
+                    },
 					{
                         title: '銀行',
                         key: 'bank',
@@ -51,12 +57,7 @@ export default {
                         minWidth:100
 
                     },
-                    {
-                        title: '貨幣',
-                        key: 'wallet_currency',
-                        minWidth:100
-
-                    },
+                    
                     {
                         title: '申請時間',
                         key: 'created_at',

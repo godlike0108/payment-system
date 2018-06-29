@@ -8,8 +8,7 @@
             </TabPane>
             </Tabs>
         <Page :total="getChekInPage" @on-change="change" style="margin:15px"></Page>
-            
-		</Col>
+        </Col>
 	</Row>
  </div>
 </template>
@@ -31,18 +30,19 @@ export default {
                         key: 'amount',
                         minWidth:100
 
-					},
+                    },
+                    {
+                        title: '貨幣',
+                        key: 'currency',
+                        minWidth:60
+                    },
 					{
                         title: '銀行帳戶後五碼',
                         key: 'account',
                         minWidth:130
 
                     },
-                    {
-                        title: '貨幣',
-                        key: 'currency',
-                        minWidth:60
-                    }, 
+                     
                     {
                         title: '聯絡方式',
                         key: 'contact',
