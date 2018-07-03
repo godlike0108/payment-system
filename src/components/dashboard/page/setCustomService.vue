@@ -1,10 +1,10 @@
 <template>
  <div>
-    
+
         <Row type="flex" justify="center" align="middle">
         <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
-            
+
             <TabPane label="VIP" name="name1">
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="20" :md="20" :lg="20">
@@ -59,7 +59,7 @@
                             </Row>
                         </li>
                     </ul> -->
-                        <Button type="primary" class="walletButton"  shape="circle" @click="HandleRender(1)">新增客服員</Button>                       
+                        <Button type="primary" class="walletButton"  shape="circle" @click="HandleRender(1)">新增客服員</Button>
                     </Col>
                 </Row>
             </TabPane>
@@ -97,7 +97,7 @@ export default {
                                     props: {
                                         type: 'primary',
                                         size: 'small'
-                                        
+
                                     },
                                     style: {
                                         marginRight: '15px'
@@ -111,7 +111,7 @@ export default {
                                     props: {
                                         type: 'error',
                                         size: 'small'
-                                        
+
                                     },
                                     on: {
                                         click: () => {
@@ -119,14 +119,14 @@ export default {
                                         }
                                     }
                                 }, '刪除')
-                               
+
                             ]);
                         }
                     },
                     ],
         columns2: [
                     {
-                        title: 'VIP客服人員名稱',
+                        title: '客服人員名稱',
                         key: 'name',
                         minWidth:100
                     },
@@ -144,7 +144,7 @@ export default {
                                     props: {
                                         type: 'primary',
                                         size: 'small'
-                                        
+
                                     },
                                     style: {
                                         marginRight: '15px'
@@ -158,7 +158,7 @@ export default {
                                     props: {
                                         type: 'error',
                                         size: 'small'
-                                        
+
                                     },
                                     on: {
                                         click: () => {
@@ -166,7 +166,7 @@ export default {
                                         }
                                     }
                                 }, '刪除')
-                               
+
                             ]);
                         }
                     },
@@ -209,7 +209,7 @@ export default {
                 [h('Input', {
                     props: {
                         value: this.value,
-                        autofocus: true,                        
+                        autofocus: true,
                         placeholder: '填寫 VIP 客服員名稱'
                     },
                     on: {
@@ -217,7 +217,7 @@ export default {
                         this.$store.commit('set_vipServies_name',val)
                         }
                     },
-                    
+
                 }),h('Input', {
                     props: {
                         value: this.value,
@@ -232,7 +232,7 @@ export default {
                         this.$store.commit('set_vipServies_contact',val)
                         }
                     },
-                    
+
                 })
                 ])
             }
@@ -259,15 +259,15 @@ export default {
                 [h('Input', {
                     props: {
                         value: this.value,
-                        autofocus: true,                        
+                        autofocus: true,
                         placeholder: '填寫客服員名稱'
                     },
                     on: {
                         input: (val) => {
-                        this.$store.commit('set_servies_name',val)  
+                        this.$store.commit('set_servies_name',val)
                         }
                     },
-                    
+
                 }),h('Input', {
                     props: {
                         value: this.value,
@@ -282,7 +282,7 @@ export default {
                         this.$store.commit('set_servies_contact',val)
                         }
                     },
-                    
+
                 })
                 ])
             }
@@ -295,7 +295,7 @@ export default {
             onOk: () => {
                 this.$Message.info('確認送出');
                 _vm.set_edit_servies({id:id,index:index})
-                
+
             },
             onCancel:()=>{
                 _vm.$store.commit('reset_edit_servies')
@@ -310,15 +310,15 @@ export default {
                 [h('Input', {
                     props: {
                         value: this.value,
-                        autofocus: true,                        
+                        autofocus: true,
                         placeholder: '修改客服員名稱'
                     },
                     on: {
                         input: (val) => {
-                        this.$store.commit('edit_servies_name',val)  
+                        this.$store.commit('edit_servies_name',val)
                         }
                     },
-                    
+
                 }),h('Input', {
                     props: {
                         value: this.value,
@@ -333,7 +333,7 @@ export default {
                         this.$store.commit('edit_servies_contact',val)
                         }
                     },
-                    
+
                 })
                 ])
             }
@@ -358,7 +358,7 @@ export default {
             onOk: () => {
                 this.$Message.info('確認送出');
                 _vm.$store.dispatch('remove_servies',{id:id,index:index})
-               
+
                 },
             })
         }else if(id === 1){
@@ -368,19 +368,19 @@ export default {
             onOk: () => {
                 this.$Message.info('確認送出');
                 _vm.$store.dispatch('remove_servies',{id:id,index:index})
-                
+
                 },
             })
         }
-        
+
 
     },
     change(page){
-          this.$store.dispatch('get_Servies',page) 
+          this.$store.dispatch('get_Servies',page)
       },
     vipchange(page){
-        this.$store.dispatch('get_vipServies',page) 
-        
+        this.$store.dispatch('get_vipServies',page)
+
     }
 
 }
@@ -406,7 +406,7 @@ export default {
     background: #ed3f14;
     border: 0px;
     line-height: 20px
-    
+
 }
 .user {
   font-size: 2em
@@ -465,7 +465,7 @@ export default {
         margin:30px auto;
 		color: #fff;
 		/* background-color: rgb(238, 238, 238); */
-		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
+		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%);
     }
     .servies_member{
         list-style: none;

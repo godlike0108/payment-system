@@ -10,7 +10,7 @@
 				<Row type="flex" justify="center" align="middle">
 					<Col span="24" class="review_amount">覆核金額限制：{{get_approval_amount}}元</Col>
 					<Col span="24"><Input @input="update_new_approval_amount" placeholder="更改覆核金額" clearable style="width: 200px" ></Input></Col>
-					<Col span="24" class="review_amount"><Button @click="update_approval_amount" type="primary" >送出設定</Button></Col>					
+					<Col span="24" class="review_amount"><Button @click="update_approval_amount" type="primary" >送出設定</Button></Col>
 				</Row>
             </TabPane>
         </Tabs>
@@ -23,6 +23,7 @@
 export default {
   data () {
 	  return {
+       repassword: '',
 		   columns1: [
                     {
                         title: '帳號',
@@ -50,7 +51,7 @@ export default {
                                 h('Button', {
                                     props: {
                                         type: 'primary',
-                                        
+
                                     },
                                     style: {
                                         marginRight: '5px'
@@ -80,8 +81,13 @@ export default {
         let _vm = this
         this.$Modal.confirm({
             onOk: () => {
-                this.$Message.info('確認送出');
-                _vm.put_administrator_id(index)
+              if(this.$store.state.admin.reset_administrator.password == this.repassword){
+                  this.$Modal.remove();
+                  this.$Message.info('確認送出');
+                  _vm.put_administrator_id(index)
+              }else{
+                this.$Message.error('密碼重複輸入不正確');
+              }
             },
             onCancel:()=>{
                     _vm.$store.commit('reset_administrator_id')
@@ -89,7 +95,6 @@ export default {
             render: (h) => {
                 return h('div', [h('Input', {
                     props: {
-                        value: this.value,
                         autofocus: true,
                         disabled: true,
                         value: this.$store.state.Admins.admins[index].username,
@@ -99,12 +104,12 @@ export default {
                         this.$store.state.admin.reset_administrator.username = val
                         }
                     },
-                    
+
                 }),h('Input', {
                     props: {
-                        value: this.value,
                         autofocus: true,
-                        placeholder: '管理員密碼 6~12位英文數字'
+                        placeholder: '管理員密碼 6~12位英文數字',
+                        type: 'password'
                     },
                     style: {
                                 marginTop: '15px'
@@ -114,7 +119,21 @@ export default {
                         this.$store.state.admin.reset_administrator.password = val
                         }
                     },
-                    
+
+                }),h('Input', {
+                    props: {
+                        placeholder: '再次確認密碼',
+                        type: 'password',
+                    },
+                    style: {
+                                marginTop: '15px',
+                            },
+                    on: {
+                        input: (val) => {
+                        this.repassword = val
+                        }
+                    },
+
                 })
                 ])
             }
@@ -130,7 +149,7 @@ export default {
     update_approval_amount(){
         this.$store.dispatch('update_approval_amount')
     }
-    
+
   },
 }
 </script>

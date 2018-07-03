@@ -7,10 +7,10 @@
 			<Col :xs="12" :sm="12" :md="12" :lg="12" >
 			<router-link to="/sigup" tag="div"  class="head_btn active">註冊</router-link>
 			</Col>
-		</Row> 
+		</Row>
 	<div class="form_container signIn">
 	<i-form >
-		
+
 		<form-item >
 			<i-input  :value="name" @input="updateName" placeholder="使用者姓名" clearable>
 				<icon type="person" size="20" slot="prepend"></icon>
@@ -19,7 +19,7 @@
 		</form-item>
 		<form-item >
 			<i-input  :value="email" @input="updateEmail" placeholder="使用者信箱"  clearable>
-				<icon type='email' size="20" slot="prepend"></icon>    
+				<icon type='email' size="20" slot="prepend"></icon>
 			</i-input>
 			<span v-if="Notemail" class="error">email 格式錯誤</span>
 		</form-item>
@@ -30,7 +30,7 @@
 			</i-input>
 			<span v-if="NotMobil" class="error">手機格式錯誤</span>
 		</form-item>
-        
+
         <form-item >
             <i-input  :value="sms" class="phonePassword" @input="updateSms"  placeholder="請填入驗證碼共五碼"   clearable></i-input>
         </form-item>
@@ -53,7 +53,7 @@
 		</Col>
 		<Col v-if="sign_success">
 		<Icon type="checkmark-circled" class="success" size="20"></Icon>
-			<div class="success">申請成功</div>
+			<div class="success">註冊成功，審核通過將發送 email 通知</div>
 		</Col>
         <Col class="loading" v-if="isSubmit">
             <Spin fix >
@@ -64,7 +64,7 @@
     </Row>
 	</div>
     </div>
-    
+
 
 
 </template>
@@ -83,17 +83,17 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		},
 		computed:{
              ...mapState({
-                    name: state => state.signIn.name , 
+                    name: state => state.signIn.name ,
 					email: state => state.signIn.email,
 					mobile: state => state.signIn.mobile,
 					sms : state => state.signIn.sms,
 					isemail: state => state.signIn.isemail,
 					status_mobile: state => state.signup_status.phone_is_singup,
 					status_sms: state => state.signup_status.wrong_sms,
-					sign_success: state => state.signup_status.success,					
-					
+					sign_success: state => state.signup_status.success,
+
 				}),
-			
+
         },
 		methods:{
 			...mapActions({
@@ -105,7 +105,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 				let reMobile9 = /^9[0-9]{8}$/
 				let mobile = this.$store.state.signIn.mobile
 				let email = this.$store.state.signIn.email
-				let name = 	this.$store.state.signIn.name	
+				let name = 	this.$store.state.signIn.name
 				if (mobile.match(reMobile9) === null && mobile.match(reMobile09) === null ){
 					this.NotMobil = true
 					if(reEmail.test(email) === false){
@@ -172,14 +172,14 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		margin: 0px;
 		display: inline-block;
 	}
-	
+
 	.loginButton {
 		width: 220px;
 		height: 38px;
 		background-color: rgb(238, 238, 238);
-        
+
 	}
-	
+
 	.loginA {
 		color: #888;
 		width: 108px;
@@ -203,7 +203,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		width: 100%;
 		padding: 13px ;
 		color: #fff;
-		background-image:linear-gradient(to bottom, #1883C3 0%, #013D7E 100%); 
+		background-image:linear-gradient(to bottom, #1883C3 0%, #013D7E 100%);
 	}
 	.head_btn{
 		color: #fff;

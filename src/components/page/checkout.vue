@@ -12,11 +12,11 @@
                                     <Option v-for=" (item,index) in getMyAccount" :value="index" :key="item.account">{{ item.title }}</Option>
                                 </Select>
                             </form-item>
-                            <form-item>  
+                            <form-item>
                             <Select :placeholder="'選擇錢包'" @on-change="setWallet"  clearable>
                                 <Option v-for="(item,index) in getWallet" :value="index" :key="item.value" >{{ item.currency }}錢包</Option>
                             </Select>
-                            </form-item> 
+                            </form-item>
                             <form-item v-if="isSelect">
                                 餘額：{{getWallet[wIndex].balance}}
                             </form-item>
@@ -25,7 +25,7 @@
                                     <icon type="happy" size="20" slot="prepend"></icon>
                                 </i-input>
                             </form-item>
-                            
+
                             <form-item >
                                 <i-input :value="this.$store.state.checkout.amount" @input="setCheckout_amount" :placeholder=" '金額'"   clearable>
                                     <icon type="cash" size="20" slot="prepend"></icon>
@@ -72,7 +72,7 @@
             </TabPane>
             <TabPane label="出金回報" name="name2">
             <Table height="450" :columns="columns1" :data="getCheckout"></Table>
-            <Page :total="get_checkout_total" @on-change="change" style="margin:15px"></Page>        
+            <Page :total="get_checkout_total" @on-change="change" style="margin:15px"></Page>
             </TabPane>
             </Tabs>
         </Col>
@@ -136,7 +136,7 @@ export default {
       getCheckout: function(){
           let data = this.$store.getters.getCheckout.data
          return data.map(item=>{
-             
+
              switch(item.checkout_status_id){
                  case 0 :
                  item.checkout_status_id = '審核中'
@@ -151,7 +151,7 @@ export default {
                  item.checkout_status_id = '已撥款'
                  break;
              }
-        
+
              if (item.created_at){
                  item.created_at = this.$moment
                         .tz(item.created_at, 'Asia/Taipei')
@@ -189,7 +189,7 @@ export default {
             'getUserSms' : 'getUserSms',
             'userCheckout':'userCheckout'
             }),
-        
+
         setCheckoutName(name){
             this.$store.commit('setCheckout',{name})
         },
@@ -201,9 +201,9 @@ export default {
         },
         setCheckout_amount(amount){
             let walletIndex = this.walletIndex
-            let balance 
+            let balance
             if(walletIndex === 0 || walletIndex){
-                balance =  this.$store.state.user.wallet[walletIndex].balance 
+                balance =  this.$store.state.user.wallet[walletIndex].balance
                 if(balance - amount < 0){
                     this.Insufficient_balance = true
                 }else {
@@ -213,7 +213,7 @@ export default {
             }else{
                 this.$store.commit('setCheckout',{amount})
             }
-            
+
         },
         setCheckout_sms(sms){
             this.$store.commit('setCheckout',{sms})
@@ -221,15 +221,15 @@ export default {
         setWallet(index){
             this.wIndex = index
             this.isSelect = true
-            this.$store.commit('setCheckout',{index}) 
+            this.$store.commit('setCheckout',{index})
         },
         change(page){
-        this.$store.dispatch('userGetChekout',page)           
+        this.$store.dispatch('userGetChekout',page)
         },
         selectAccount(index){
             this.$store.commit('selectAccount',index)
         },
-        
+
   }
 }
 </script>
@@ -307,6 +307,6 @@ export default {
 		height: 38px;
 		color: #fff;
 		/* background-color: rgb(238, 238, 238); */
-		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
+		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%);
 	}
 </style>

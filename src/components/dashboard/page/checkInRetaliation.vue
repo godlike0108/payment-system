@@ -41,14 +41,14 @@ export default {
                         title: '貨幣',
                         key: 'currency',
                         minWidth:60
-                    }, 
-					{
+                    },
+					          {
                         title: '銀行帳戶後五碼',
                         key: 'account',
                         minWidth:130
 
                     },
-                    
+
                     {
                         title: '聯絡方式',
                         key: 'contact',
@@ -58,14 +58,22 @@ export default {
                         title: '業務',
                         key: 'sales',
                         width: 120,
-					},
+					          },
+                    {
+                        title: '操作人員',
+                        minWidth:90,
+                        render: (h, params)=>{
+                          return h('div', params.row.operator.name)
+                        }
+                    },
                     {
                         title: '回報狀態',
                         key: 'status',
-                        minWidth:60
+                        minWidth:90
                     },
-                     
-                   
+
+
+
 				]}
 		},
 		computed:{
@@ -102,7 +110,7 @@ export default {
 					return item
 				})
 				 return data
-               
+
             },
             getChekInPage(){
                 return this.$store.getters.getCheckIn.page_total
@@ -110,7 +118,7 @@ export default {
         },
         methods: {
             change(page){
-            this.$store.dispatch('getCheckIn',{ page, status: '' })           
+            this.$store.dispatch('getCheckIn',{ page, status: '' })
             },
         },
 }

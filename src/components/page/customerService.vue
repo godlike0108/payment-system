@@ -23,7 +23,7 @@
                                 <Col :xs="14" :sm="14" :md="14" :lg="14">
                                     <span class="currency">{{item.contact}}</span>
                                 </Col>
-                               
+
                             </Row>
                         </li>
                     </ul> -->
@@ -61,7 +61,7 @@
                                 <Col :xs="14" :sm="14" :md="14" :lg="14">
                                     <span class="currency">{{item.contact}}</span>
                                 </Col>
-                               
+
                             </Row>
                         </li>
                     </ul> -->
@@ -143,11 +143,11 @@ export default {
   },
   methods: {
       change(page){
-          this.$store.dispatch('get_Servies',page) 
+          this.$store.dispatch('get_Servies',page)
       },
       vipchange(page){
-          this.$store.dispatch('get_vipServies',page) 
-         
+          this.$store.dispatch('get_vipServies',page)
+
       }
 }
 }
@@ -172,7 +172,7 @@ export default {
     background: #ed3f14;
     border: 0px;
     line-height: 20px
-    
+
 }
 .user {
   font-size: 2em
@@ -230,7 +230,7 @@ export default {
 		height: 38px;
 		color: #fff;
 		/* background-color: rgb(238, 238, 238); */
-		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
+		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%);
     }
     .servies_member{
         list-style: none;

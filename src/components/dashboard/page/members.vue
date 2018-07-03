@@ -20,7 +20,7 @@ export default {
   data () {
      return {
        columns1: [
-                    
+
                     {
                         title: '會員名稱',
                         key: 'name',
@@ -33,32 +33,32 @@ export default {
                         minWidth:100
 
                     },
-                    {
-                        title: '餘額',
-                        key: 'balance',
-                        minWidth:100
-
-                    },
+                    // {
+                    //     title: '餘額',
+                    //     key: 'balance',
+                    //     minWidth:100
+                    //
+                    // },
                     {
                         title: 'email',
                         key: 'email',
                         width: 180,
-                    }, 
+                    },
                     {
                         title: '創建時間',
                         key: 'created_at',
                         width: 170,
-                    },  
+                    },
                     {
                         title: '修改/刪除',
-                        minWidth:150,                        
+                        minWidth:150,
                         render: (h, params) => {
                             return h('div', [
                                 h('Button', {
                                     props: {
                                         type: 'primary',
                                         size: 'small'
-                                        
+
                                     },
                                     style: {
                                         marginRight: '15px'
@@ -73,7 +73,7 @@ export default {
                                     props: {
                                         type: 'error',
                                         size: 'small'
-                                        
+
                                     },
                                     on: {
                                         click: () => {
@@ -81,11 +81,11 @@ export default {
                                         }
                                     }
                                 }, '刪除')
-                               
+
                             ]);
                         }
                     }
-                   
+
                 ]
     }
   },
@@ -117,7 +117,7 @@ export default {
   },
   methods: {
       change(page){
-            this.$store.dispatch('show_user',page)           
+            this.$store.dispatch('show_user',page)
             },
       show (index) {
             let _vm = this
@@ -145,7 +145,7 @@ export default {
                             this.$store.state.admin.reset_user.password = val
                             }
                         },
-                        
+
                     }),
                     ,h('Input', {
                         props: {
@@ -157,12 +157,12 @@ export default {
                                     marginTop: '15px'
                                 },
                         on: {
-                            input: (val) => {   
-                             
+                            input: (val) => {
+
                             this.$store.state.admin.reset_user.phone = val
                             }
                         },
-                        
+
                     }),
                     ,h('Input', {
                         props: {
@@ -178,7 +178,7 @@ export default {
                                 this.$store.state.admin.reset_user.email = val
                             }
                         },
-                        
+
                     })
                     ])
                 }
@@ -195,7 +195,7 @@ export default {
                         _vm.$store.dispatch('remove_user')
                     },
             })
-               
+
             },
             reset_user_id(index){
             let phone = this.$store.state.admin.reset_user.phone
