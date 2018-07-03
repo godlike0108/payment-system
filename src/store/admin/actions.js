@@ -2,8 +2,9 @@ import axios from 'axios'
 import router from '@/router'
 import { isNull } from 'util'
 import { resolve } from 'path'
+import config from '@/envConfig/index.js'
 
-const baseURL = 'http://wallet-staging.ap-northeast-1.elasticbeanstalk.com'
+const baseURL = config.baseURL
 
 export default {
     userReview({ commit, state }, payload) {

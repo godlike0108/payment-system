@@ -1,8 +1,9 @@
 import axios from 'axios'
 import router from '@/router'
 import api from './api'
+import config from '@/envConfig/index.js'
 
-const baseURL = 'http://wallet-staging.ap-northeast-1.elasticbeanstalk.com'
+const baseURL = config.baseURL
 
 let token = localStorage.getItem('token')
 export default {
