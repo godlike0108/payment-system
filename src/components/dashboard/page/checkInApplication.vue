@@ -34,9 +34,13 @@ export default {
                     {
                         title: '貨幣',
                         key: 'currency',
-                        minWidth:60
+                        minWidth:110,
+                        render: (h, params)=>{
+                          var _vm = this;
+                          return h('div', params.row.currency + ' ' + _vm.$store.state.currency[params.row.currency])
+                        }
                     },
-					{
+					          {
                         title: '銀行帳戶後五碼',
                         key: 'account',
                         minWidth:130

@@ -92,7 +92,11 @@ export default {
                     {
                         title: '貨幣',
                         key: 'currency',
-                        minWidth:100
+                        minWidth:110,
+                        render: (h, params)=>{
+                          var _vm = this;
+                          return h('div', params.row.currency + ' ' + _vm.$store.state.currency[params.row.currency])
+                        }
                     },
                     {
                         title: '入金金額',

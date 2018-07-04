@@ -41,7 +41,11 @@ export default {
                     {
                         title: '貨幣',
                         key: 'wallet_currency',
-                        minWidth:100
+                        minWidth:110,
+                        render: (h, params)=>{
+                          var _vm = this;
+                          return h('div', params.row.wallet_currency + ' ' + _vm.$store.state.currency[params.row.wallet_currency])
+                        }
                     },
 					{
                         title: '銀行',

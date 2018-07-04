@@ -8,6 +8,14 @@ import admin from './admin/index'
 
 Vue.use(Vuex)
 const state = {
+    currency: {
+      'USD': '美金',
+      'TWD': '新台幣',
+      'CNY': '人民幣',
+      'HKD': '港幣',
+      'JPY': '日圓',
+      'KRW': '韓元',
+    },
     login: {
         wrongLogin: null
     },

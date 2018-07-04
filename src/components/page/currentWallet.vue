@@ -53,7 +53,7 @@ export default {
                   item.currencyName = '人民幣帳戶'
                   break;
                   case 'HKD':
-                  item.currencyName = '港元帳戶'
+                  item.currencyName = '港幣帳戶'
                   break;
                   case 'JPY':
                   item.currencyName = '日圓帳戶'
