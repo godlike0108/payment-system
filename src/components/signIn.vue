@@ -209,7 +209,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		color: #fff;
 		width: 100%;
 		font-size: 16px;
-		padding: 23px 55px;
+		padding: 23px;
 		cursor: pointer;
 		background-image:linear-gradient(to bottom, #4498D2 0%, #154C83 100%)
 	}

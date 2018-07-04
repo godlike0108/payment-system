@@ -3,7 +3,7 @@
 <Row  type="flex" justify="center" align="middle">
 
     <Col  :xs="20" :sm="10" :md="6" :lg="6" class="form_container signIn">
-    
+
 	<i-form >
 		<form-item class="icon_group">
             <Row>
@@ -24,7 +24,7 @@
 		</form-item>
 		<form-item >
 			<i-input  :value="email" @input="updateEmail" placeholder="使用者信箱"  clearable>
-				<icon type='email' size="20" slot="prepend"></icon>    
+				<icon type='email' size="20" slot="prepend"></icon>
 			</i-input>
 			<span v-if="Notemail">email 格式錯誤</span>
 		</form-item>
@@ -43,7 +43,7 @@
         </form-item>
 		<form-item  v-show=" name !='' && mobile.length === 9 && sms.length === 5 ">
 			<i-button class="loginButton" @click="submitSignIn()">提出申請</i-button>
-         
+
 		</form-item>
 	</i-form>
     <Row >
@@ -67,7 +67,7 @@
         </Col>
     </Row>
     </Col>
-    
+
 </Row>
 
 </template>
@@ -85,17 +85,17 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		},
 		computed:{
              ...mapState({
-                    name: state => state.signIn.name , 
+                    name: state => state.signIn.name ,
 					email: state => state.signIn.email,
 					mobile: state => state.signIn.mobile,
 					sms : state => state.signIn.sms,
 					isemail: state => state.signIn.isemail,
 					status_mobile: state => state.signup_status.phone_is_singup,
 					status_sms: state => state.signup_status.wrong_sms,
-					sign_success: state => state.signup_status.success,					
-					
+					sign_success: state => state.signup_status.success,
+
 				}),
-			
+
         },
 		methods:{
 			...mapActions({
@@ -106,22 +106,22 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 				this.$store.commit('updateName', name)
 			},
 			updateEmail(email){
-				
+
 				  var reEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 				if(email.match(reEmail) === null){
 					setTimeout(()=>{
 						this.Notemail = true
 					},1500)
 					this.$store.commit('updateEmail', email.match(reEmail))
-				  	
-					
+
+
 				}else{
 					this.Notemail = false
 					this.$store.commit('updateEmail', email)
-					
+
 				}
 
-				
+
 			},
 			updateMobile(mobile){
 				let reMobile09 = /^0[0-9]{9}$/
@@ -174,14 +174,14 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		margin: 0px;
 		display: inline-block;
 	}
-	
+
 	.loginButton {
 		width: 220px;
 		height: 38px;
 		background-color: rgb(238, 238, 238);
-        
+
 	}
-	
+
 	.loginA {
 		color: #888;
 		width: 108px;

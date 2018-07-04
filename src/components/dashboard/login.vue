@@ -2,7 +2,7 @@
 
 <Row  type="flex" justify="center" align="middle">
     <Col  :xs="20" :sm="10" :md="6" :lg="6" class="form_container login">
-    
+
 	<i-form >
 		<form-item class="icon_group">
 			<h1 >白金線上支付 管理員登入</h1>
@@ -38,7 +38,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
         },
         computed:{
              ...mapState({
-                    password: state => state.user.password , 
+                    password: state => state.user.password ,
                     username: state => state.user.username
 				}),
 			...mapGetters({
@@ -81,14 +81,14 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		margin: 0px;
 		display: inline-block;
 	}
-	
+
 	.loginButton {
 		width: 220px;
 		height: 38px;
 		background-color: rgb(238, 238, 238);
-        
+
 	}
-	
+
 	.loginA {
 		color: #888;
 		width: 108px;
@@ -96,13 +96,13 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	}
     .login {
         padding: 20px;
-        margin-top: 100px
+        /* margin-top: 100px */
 	}
 	.walletButton {
 		width: 220px;
 		height: 38px;
 		color: #fff;
 		/* background-color: rgb(238, 238, 238); */
-		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
+		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%);
 	}
 </style>

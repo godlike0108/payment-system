@@ -44,10 +44,10 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
   methods:{
       firstChagePassword(password){
         this.$store.commit('firstChagePassword',{password})
-        
+
       },
        setOldPassword(oldpassword){
-           
+
             this.$store.commit('firstChagePassword',{oldpassword})
         },
       put_firstChagePassword(){
@@ -57,7 +57,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
   },
    created() {
     this.$store.commit('setData')
- 
+
 }
 }
 </script>
@@ -71,13 +71,13 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	}
 .login {
         padding: 20px;
-        margin-top: 100px
+        /* margin-top: 100px */
     }
 .walletButton {
 		width: 220px;
 		height: 38px;
 		color: #fff;
 		/* background-color: rgb(238, 238, 238); */
-		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
+		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%);
 	}
 </style>
