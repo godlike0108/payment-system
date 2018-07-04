@@ -127,7 +127,10 @@ export default {
                  item.type = '申請出金'
                  break;
                  case 4:
-                 item.type = '出金退款'
+                 item.type = '內部轉入'
+                 break;
+                 case 5:
+                 item.type = '內部轉出'
                  break;
              }
 
@@ -136,6 +139,9 @@ export default {
              } else {
                  item.relative_username = ""
              }
+             if(item.operation_type == 4) item.relative_username = '預扣出金退回'
+             if(item.operation_type == 5) item.relative_username = '申請出金預扣'
+
              if (item.wallet_balance){
                 let num = new Number(item.wallet_balance);
                 let balance = num.toFixed(2)

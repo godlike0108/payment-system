@@ -15,18 +15,18 @@
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="16" :md="16" :lg="16">
                         <Form ref="formCustom" >
-                            <form-item>  
+                            <form-item>
                             <Select :placeholder="'選擇錢包'" @on-change="setWallet"  clearable>
                                 <Option v-for="(item,index) in getWallet" :value="index" :key="index" >{{ item.currency }}錢包</Option>
                             </Select>
-                            </form-item> 
+                            </form-item>
                             <form-item v-if="isSelect">
                                 餘額：{{getWallet[wIndex].balance}}
                             </form-item>
                             <FormItem label="轉出帳號" >
                                 <Input :value="this.$store.state.transition.to_username" type="text"  @input="updateToUserName"></Input>
                             </FormItem>
-                            
+
                             <FormItem label="轉出金額" >
                                 <Input :value="this.$store.state.transition.amount" type="text" @input="updateToAmount"  ></Input>
                             </FormItem>
@@ -59,7 +59,7 @@
         </Tabs>
         </Col>
     </Row>
-    
+
  </div>
 </template>
 
@@ -74,7 +74,7 @@ export default {
         wIndex: 0,
         isSelect:false,
         columns1: [
-                    
+
                     {
                         title: '內容',
                         key: 'type',
@@ -89,17 +89,17 @@ export default {
                         title: '金額',
                         key: 'relative_amount',
                         minWidth:100
-                    }, 
+                    },
                     {
                         title: '餘額',
                         key: 'wallet_balance',
                         minWidth:100
-                    },  
+                    },
                     {
                         title: '時間',
                         key: 'created_at',
                         minWidth:100
-                    }    
+                    }
                 ]
     };
   },
@@ -120,7 +120,7 @@ export default {
         return balance
     },
     getCurrentWallet(){
-        let wallet = this.$store.getters.getCurrentWallet  
+        let wallet = this.$store.getters.getCurrentWallet
         return wallet
     },
     getWallet(){
@@ -135,12 +135,12 @@ export default {
           })
           return data
       }
-    
-     
+
+
   },
    methods: {
     change(page){
-        this.$store.dispatch('userGetwalletHistories',page)           
+        this.$store.dispatch('userGetwalletHistories',page)
     },
     updateToUserName(to_username){
         //   this.$store.commit('non_existent_account', true)
@@ -148,9 +148,9 @@ export default {
     },
     updateToAmount(amount){
         let walletIndex = this.walletIndex
-            let balance 
+            let balance
             if(walletIndex === 0 || walletIndex){
-                balance =  this.$store.state.user.wallet[walletIndex].balance 
+                balance =  this.$store.state.user.wallet[walletIndex].balance
                 if(balance - amount < 0){
                     this.Insufficient_balance = true
                 }else {
@@ -160,7 +160,7 @@ export default {
             }else{
                 this.$store.commit('setTransition', {amount})
             }
-        
+
     },
     handleSubmit (name) {
         this.$refs[name].validate((valid) => {
@@ -175,14 +175,14 @@ export default {
         this.$refs[name].resetFields();
     },
     userTransactions(){
-        this.$store.dispatch('userTransactions') 
+        this.$store.dispatch('userTransactions')
         this.$store.commit('removeTransactionsInput')
 
     },
     setWallet(index){
         this.wIndex = index
         this.isSelect = true
-        this.$store.commit('setTransition',{index}) 
+        this.$store.commit('setTransition',{index})
     },
     },
 }
@@ -259,6 +259,6 @@ export default {
 		height: 38px;
 		color: #fff;
 		/* background-color: rgb(238, 238, 238); */
-		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
+		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%);
 	}
 </style>

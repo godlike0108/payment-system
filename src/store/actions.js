@@ -276,19 +276,18 @@ export default {
             })
     },
     userTransactions({ commit, state }) {
-
         let token = localStorage.getItem('token')
         let wallets = localStorage.getItem('wallets')
         let walletIndex = state.transition.walletIndex
         let id = JSON.parse(wallets)[walletIndex].id
-        let balance = state.user.balance
+        let balance = state.user.wallet[walletIndex].balance
         let amount = state.transition.amount
         let username = state.transition.to_username
         let data = JSON.stringify({
             to_username: username,
             amount: amount
         })
-        console.log(id)
+
         if (parseFloat(balance) - parseFloat(amount) < 0) {
             commit('Insufficient_balance', true)
         } else {
