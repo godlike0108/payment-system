@@ -122,8 +122,21 @@ export default {
             let _vm = this
             this.$Modal.confirm({
                 onOk: () => {
-                    this.$Message.info('確認送出');
-                    _vm.reset_user_id(index)
+                    var phone = _vm.$store.state.admin.reset_user.phone
+                    var email = _vm.$store.state.admin.reset_user.email
+
+                    let phoneRule = /^886[0]?9[0-9]{8}$/
+                    let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
+
+                    if( phone && !phoneRule.test(phone)){
+                      this.$Message.error('電話格式錯誤')
+                    }else if( email && !emailRule.test(email)){
+                      this.$Message.error('Email 格式錯誤')
+                    }else{
+                      this.$Message.info('確認送出');
+                      _vm.reset_user_id(index)
+                    }
+
                 },
                 onCancel:()=>{
                     _vm.$store.commit('reset_reset_user_id')

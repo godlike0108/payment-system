@@ -103,7 +103,7 @@ export default {
         let email = state.reset_user.email
         let phone = state.reset_user.phone
         let password = state.reset_user.password
-        let phoneRule = /^8869[0-9]{8}$/
+        let phoneRule = /^886[0]?9[0-9]{8}$/
         let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
         let put_data = {}
 
