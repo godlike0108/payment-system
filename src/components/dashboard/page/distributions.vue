@@ -9,7 +9,7 @@
             </Tabs>
 
         <Page :total="get_checkout_history_page_total" @on-change="change" style="margin:15px"></Page>
-            
+
 		</Col>
 	</Row>
  </div>
@@ -57,14 +57,14 @@ export default {
                         minWidth:100
 
                     },
-                    
+
                     {
                         title: '申請時間',
                         key: 'created_at',
                         minWidth:100
 
-                    },  
-                   
+                    },
+
 				]}
 		},
 		computed:{
@@ -73,22 +73,21 @@ export default {
                 data.map(item=>{
                     if(item.user && item.user.username){
                         item.user_username = item.user.username
-                        
+
                     } else {
                         item.user_username = ''
                     }
-                    
+
                     if (item.created_at){
-                        item.created_at = this.$moment
-                        .tz(item.created_at, 'Asia/Taipei')
-                        .format('YYYY-MM-DD HH:mm:ss')
+                      item.created_at = this.$moment(item.created_at+' +0000')
+                      .format('YYYY-MM-DD HH:mm:ss')
                     }
                     if(item.amount){
                      let num = new Number(item.amount);
                     let amount = num.toFixed(2)
-                    item.amount = amount   
+                    item.amount = amount
                     }
-                    
+
 					return item
 				})
 				 return data
@@ -99,7 +98,7 @@ export default {
         },
         methods: {
             change(page){
-            this.$store.dispatch('get_checkout_history',page)           
+            this.$store.dispatch('get_checkout_history',page)
             },
         }
 }

@@ -25,7 +25,7 @@
         </Tabs>
         </Col>
     </Row>
-    
+
  </div>
 </template>
 
@@ -38,7 +38,7 @@ export default {
             if (value === '') {
                 callback(new Error('請填入轉出帳號'));
             } else {
-                
+
                 callback();
             }
         };
@@ -57,7 +57,7 @@ export default {
     };
      return {
         columns1: [
-                    
+
                     {
                         title: '內容',
                         key: 'type',
@@ -72,17 +72,17 @@ export default {
                         title: '金額',
                         key: 'relative_amount',
                         minWidth:100
-                    }, 
+                    },
                     {
                         title: '餘額',
                         key: 'wallet_balance',
                         minWidth:100
-                    },  
+                    },
                     {
                         title: '時間',
                         key: 'created_at',
                         minWidth:100
-                    }    
+                    }
                 ]
     };
   },
@@ -108,11 +108,11 @@ export default {
       getTransition(){
           let username = ""
           let wallet_balance
-          
+
           let data = this.$store.getters.getTransition.histories
-          console.log(data)
+          // console.log(data)
          return data.map(item=>{
-             console.log(item)
+             // console.log(item)
              switch(item.operation_type){
                  case 0:
                  item.type = '內部轉入'
@@ -130,7 +130,7 @@ export default {
                  item.type = '出金退款'
                  break;
              }
-    
+
              if(item.relative_user){
                  item.relative_username = item.relative_user.username
              } else {
@@ -142,23 +142,22 @@ export default {
                  item.wallet_balance = balance
              }
 
-             if(item.created_at) { 
-                 item.created_at = this.$moment
-                        .tz('Asia/Taipei')
-                        .format('YYYY-MM-DD HH:mm:ss')
+             if(item.created_at) {
+               item.created_at = this.$moment(item.created_at+' +0000')
+               .format('YYYY-MM-DD HH:mm:ss')
              }
-             
+
              return item
           })
-      
+
   }
   },
    methods: {
        change(page){
-        this.$store.dispatch('userGetwalletHistories',page)           
+        this.$store.dispatch('userGetwalletHistories',page)
         },
     }
-    
+
 }
 </script>
 
@@ -233,7 +232,7 @@ export default {
 		height: 38px;
 		color: #fff;
 		/* background-color: rgb(238, 238, 238); */
-		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
+		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%);
     }
     .back {
         color: #666;

@@ -29,16 +29,16 @@ export default {
             if (value === '') {
                 callback(new Error('請填入轉出帳號'));
             } else {
-                
+
                 callback();
             }
         };
-  
+
     const validateAge = (rule, value, callback) => {
         if (!value || value <= 0) {
             return callback(new Error('轉出金額不能為空'));
         }
-      
+
         setTimeout(() => {
             if (!Number.isInteger(value)) {
                 callback(new Error('請填入數字'));
@@ -81,7 +81,7 @@ export default {
                                 h('Button', {
                                     props: {
                                         type: 'primary',
-                                        
+
                                     },
                                     style: {
                                         marginRight: '5px'
@@ -96,8 +96,8 @@ export default {
                         }
                     }
                 ],
-        
-            
+
+
     };
   },
   computed: {
@@ -105,9 +105,8 @@ export default {
           let data = this.$store.getters.get_user_review_list.data
           return data.map(item=>{
               if (item.updated_at){
-                 item.updated_at = this.$moment
-                    .tz(item.updated_at, 'Asia/Taipei')
-                    .format('YYYY-MM-DD HH:mm:ss')
+                item.updated_at = this.$moment(item.created_at+' +0000')
+                .format('YYYY-MM-DD HH:mm:ss')
              }
              return item
           })
@@ -118,7 +117,7 @@ export default {
   },
    methods: {
        change(page){
-            this.$store.dispatch('userReview',page)           
+            this.$store.dispatch('userReview',page)
             },
             handleSubmit (name) {
                 this.$refs[name].validate((valid) => {
@@ -133,7 +132,7 @@ export default {
                 this.$refs[name].resetFields();
             },
              show (index) {
-                 
+
                 let _vm = this
                 this.$Modal.confirm({
                     onOk: () => {
@@ -156,7 +155,7 @@ export default {
 
                                 }
                             },
-                            
+
                         })
                     }
                 })
@@ -164,7 +163,7 @@ export default {
            put_user_id(index){
             this.$store.state.admin.user_review_id_index = this.$store.state.admin.user_review_list.data[index].id
             this.$store.dispatch('put_user_id')
-           } 
+           }
         },
 }
 </script>

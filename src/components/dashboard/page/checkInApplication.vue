@@ -42,7 +42,7 @@ export default {
                         minWidth:130
 
                     },
-                     
+
                     {
                         title: '聯絡方式',
                         key: 'contact',
@@ -56,14 +56,14 @@ export default {
 					{
                         title: '審核',
                         width: 140,
-                        
+
                         render: (h, params) => {
                             return h('div', [
                                 h('Button', {
                                     props: {
                                         type: 'primary',
                                         size: 'small'
-                                        
+
                                     },
                                     style: {
                                         marginRight: '15px'
@@ -77,7 +77,7 @@ export default {
                                     props: {
                                         type: 'error',
                                         size: 'small'
-                                        
+
                                     },
                                     on: {
                                         click: () => {
@@ -85,11 +85,11 @@ export default {
                                         }
                                     }
                                 }, '拒絕')
-                               
+
                             ]);
                         }
-                    }  
-                   
+                    }
+
 				]}
 		},
 		computed:{
@@ -97,10 +97,8 @@ export default {
                 let data = this.$store.getters.getCheckIn.data
 				data.map(item=>{
                     if (item.created_at){
-
-                        item.created_at = this.$moment
-                        .tz(item.created_at, 'Asia/Taipei')
-                        .format('YYYY-MM-DD HH:mm:ss')
+                      item.created_at = this.$moment(item.created_at+' +0000')
+                      .format('YYYY-MM-DD HH:mm:ss')
                     }
                     if(item.amount){
                         let num = new Number(item.amount);
@@ -110,7 +108,7 @@ export default {
 					return item
 				})
 				 return data
-               
+
             },
             getChekInPage(){
                 return this.$store.getters.getCheckIn.page_total
@@ -118,7 +116,7 @@ export default {
 		},
 		methods: {
             change(page){
-            this.$store.dispatch('getCheckIn',{ page, status: 0 })           
+            this.$store.dispatch('getCheckIn',{ page, status: 0 })
             },
 			show(index){
                  let _vm = this
@@ -148,11 +146,11 @@ export default {
 
                                 }
                             },
-                            
+
                         })
                     }
             })
-               
+
             },
 			remove(index){
                  let _vm = this
@@ -164,7 +162,7 @@ export default {
                         _vm.$store.dispatch('putCheckIn',{index,status:-1})
                     },
             })
-               
+
             },
 		},
 }

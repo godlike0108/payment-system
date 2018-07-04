@@ -38,39 +38,39 @@ export default {
   },
   computed:{
       getAllWallet(){
-         
+
           let data = this.$store.getters.getAllWallet
 
           data.map(item=>{
               switch(item.currency){
-                  case 'USD': 
+                  case 'USD':
                   item.currencyName = '美元帳戶'
                   break;
-                  case 'TWD': 
+                  case 'TWD':
                   item.currencyName = '新台幣帳戶'
                   break;
-                  case 'CNY': 
+                  case 'CNY':
                   item.currencyName = '人民幣帳戶'
                   break;
-                  case 'HKD': 
+                  case 'HKD':
                   item.currencyName = '港元帳戶'
                   break;
-                  case 'JPY': 
+                  case 'JPY':
                   item.currencyName = '日圓帳戶'
                   break;
-                  case 'KRW': 
+                  case 'KRW':
                   item.currencyName = '韓圓帳戶'
                   break;
                   default:
-                  console.log('getAllWallet fail.')
+                  // console.log('getAllWallet fail.')
               }
-           
+
               if(item.balance){
                 let num = new Number(item.balance);
                 let balance = num.toFixed(2)
                  item.balance = balance
               }
-              
+
             return item
           })
           return data

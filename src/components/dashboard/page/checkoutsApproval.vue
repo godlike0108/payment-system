@@ -8,7 +8,7 @@
             </TabPane>
             </Tabs>
         <Page :total="get_checkout_approval_page_total" @on-change="change" style="margin:15px"></Page>
-            
+
 		</Col>
 	</Row>
  </div>
@@ -55,8 +55,8 @@ export default {
                         key: 'bank_account',
                         minWidth:100
 
-                    }, 
-                    
+                    },
+
                     {
                         title: '申請時間',
                         key: 'created_at',
@@ -64,12 +64,12 @@ export default {
 					},
 					{
                         title: '確認撥款',
-                        minWidth:100,                        
+                        minWidth:100,
                         render: (h, params) => {
                             return h('div', [
                                 h('Button', {
                                     props: {
-                                        type: 'primary',   
+                                        type: 'primary',
                                     },
                                     style: {
                                         marginRight: '15px'
@@ -83,20 +83,19 @@ export default {
 
                             ]);
                         }
-                    }  
-                   
+                    }
+
 				]}
 		},
 		computed:{
 			get_checkout_approval(){
                 let data = this.$store.getters.get_checkout_approval.data
-                console.log(data)
+                // console.log(data)
 				data.map(item=>{
                     item.user_username = item.user.username
                     if (item.created_at){
-                        item.created_at = this.$moment
-                        .tz(item.created_at, 'Asia/Taipei')
-                        .format('YYYY-MM-DD HH:mm:ss')
+                      item.created_at = this.$moment(item.created_at+' +0000')
+                      .format('YYYY-MM-DD HH:mm:ss')
                     }
                     if(item.amount){
                         let num = new Number(item.amount);
@@ -106,16 +105,16 @@ export default {
 					return item
 				})
 				 return data
-				
+
             },
             get_checkout_approval_page_total(){
 				 return this.$store.getters.get_checkout_approval.page_total
             },
-            
+
 		},
 		methods: {
             change(page){
-            this.$store.dispatch('get_checkout_approval',page)           
+            this.$store.dispatch('get_checkout_approval',page)
             },
 			show(index){
                  let _vm = this
@@ -127,10 +126,10 @@ export default {
                         _vm.$store.commit('set_checkout_approval_index',index)
                         _vm.$store.commit('set_checkout_approval_status',2)
                         _vm.$store.dispatch('post_checkout')
-                    
+
                     },
             })
-               
+
             },
 			remove(index){
                  let _vm = this
@@ -142,10 +141,10 @@ export default {
                         _vm.$store.commit('set_checkout_approval_index',index)
                         _vm.$store.commit('set_checkout_approval_status',-1)
                         _vm.$store.dispatch('put_checkout_review_pudate',{id:this.$store.state.admin.checkout_level1.index,status:this.$store.state.admin.checkout_level1.status,api:'approval'})
-                        
+
                     },
             })
-               
+
             },
 		},
 }

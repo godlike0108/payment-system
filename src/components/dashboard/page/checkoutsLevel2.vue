@@ -8,7 +8,7 @@
             </TabPane>
             </Tabs>
         <Page :total="get_checkout_level2_page_total" @on-change="change" style="margin:15px"></Page>
-            
+
 		</Col>
 	</Row>
  </div>
@@ -54,8 +54,8 @@ export default {
                         key: 'bank_account',
                         minWidth:100
 
-                    }, 
-                   
+                    },
+
                     {
                         title: '申請時間',
                         key: 'created_at',
@@ -65,14 +65,14 @@ export default {
 					{
                         title: '審核',
                         width: 170,
-                        
+
                         render: (h, params) => {
                             return h('div', [
                                 h('Button', {
                                     props: {
                                         type: 'primary',
                                         size: 'small'
-                                        
+
                                     },
                                     style: {
                                         marginRight: '15px'
@@ -86,7 +86,7 @@ export default {
                                     props: {
                                         type: 'error',
                                         size: 'small'
-                                        
+
                                     },
                                     on: {
                                         click: () => {
@@ -94,11 +94,11 @@ export default {
                                         }
                                     }
                                 }, '拒絕')
-                               
+
                             ]);
                         }
-                    }  
-                   
+                    }
+
 				]}
 		},
 		computed:{
@@ -107,9 +107,8 @@ export default {
 				data.map(item=>{
                     item.user_username = item.user.username
                     if (item.created_at){
-                        item.created_at = this.$moment
-                        .tz(item.created_at, 'Asia/Taipei')
-                        .format('YYYY-MM-DD HH:mm:ss')
+                      item.created_at = this.$moment(item.created_at+' +0000')
+                      .format('YYYY-MM-DD HH:mm:ss')
                     }
                     if(item.amount){
                         let num = new Number(item.amount);
@@ -126,7 +125,7 @@ export default {
 		},
 		methods: {
             change(page){
-            this.$store.dispatch('get_checkout_level2',page)           
+            this.$store.dispatch('get_checkout_level2',page)
             },
 			show(index){
                  let _vm = this
@@ -138,10 +137,10 @@ export default {
                         _vm.$store.commit('set_checkout_level2_index',index)
                         _vm.$store.commit('set_checkout_level2_status',1)
                         _vm.$store.dispatch('put_checkout_review_pudate',{id:this.$store.state.admin.checkout_level2.index,status:this.$store.state.admin.checkout_level2.status,api:'level2'})
-                        
+
                     },
             })
-               
+
             },
 			remove(index){
                  let _vm = this
@@ -153,10 +152,10 @@ export default {
                         _vm.$store.commit('set_checkout_level2_index',index)
                         _vm.$store.commit('set_checkout_level2_status',-1)
                         _vm.$store.dispatch('put_checkout_review_pudate',{id:this.$store.state.admin.checkout_level2.index,status:this.$store.state.admin.checkout_level2.status,api:'level2'})
-                        
+
                     },
             })
-               
+
             },
 		},
 }

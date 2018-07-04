@@ -25,27 +25,27 @@ export default {
                         minWidth:100
 
 					 },
-                    
+
                     {
                         title: '入金帳號',
 						key: 'relative_username',
                         minWidth:100
-						
+
                     },
                     {
                         title: '撥款金額',
 						key: 'relative_amount',
                         minWidth:100
-						
+
                     },
-                     
+
                     {
                         title: '撥款時間',
 						key: 'created_at',
                         minWidth:100
-						
-                    },  
-                   
+
+                    },
+
 				]}
 		},
 		computed:{
@@ -56,9 +56,8 @@ export default {
 					item.user_phone = item.user.mobile
 					item.relative_username = item.relative_user.username
 					if (item.created_at){
-						item.created_at = this.$moment
-                        .tz(item.created_at, 'Asia/Taipei')
-                        .format('YYYY-MM-DD HH:mm:ss')
+            item.created_at = this.$moment(item.created_at+' +0000')
+            .format('YYYY-MM-DD HH:mm:ss')
 					}
 					return item
 				})
@@ -70,7 +69,7 @@ export default {
 		},
 		methods: {
 			change(page){
-            this.$store.dispatch('adminGetwalletHistories',page)           
+            this.$store.dispatch('adminGetwalletHistories',page)
             },
 		}
 }
