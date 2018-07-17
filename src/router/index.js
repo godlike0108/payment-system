@@ -25,6 +25,7 @@ import dashboard_index from '@/components/dashboard/page/index'
 import signup_requests from '@/components/dashboard/page/signupRequests'
 import admins from '@/components/dashboard/page/admins'
 import members from '@/components/dashboard/page/members'
+import exchangeRate from '@/components/dashboard/page/exchangeRate'
 import signupRequests from '@/components/dashboard/page/signupRequests'
 import checkoutsLevel1 from '@/components/dashboard/page/checkoutsLevel1'
 import checkoutsLevel2 from '@/components/dashboard/page/checkoutsLevel2'
@@ -168,6 +169,11 @@ const vueRouter = new Router({
                     path: 'members',
                     name: 'dashboard_members',
                     component: members
+                },
+                {
+                    path: 'exchangeRate',
+                    name: 'dashboard_exchangeRate',
+                    component: exchangeRate
                 },
                 {
                     path: 'checkoutsLevel1',

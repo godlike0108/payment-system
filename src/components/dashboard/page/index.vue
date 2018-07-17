@@ -3,7 +3,7 @@
         <Layout class="container">
             <Sider breakpoint="md" collapsible :collapsed-width="78" v-model="isCollapsed">
                 <Menu active-name="1-1" theme="dark" width="auto" :class="menuitemClasses">
-                  
+
                     <MenuItem name="1-1"  @click.native="toPath('')">
                     <Icon type="person-add" size="18"></Icon>
                         <span>註冊申請</span>
@@ -40,6 +40,10 @@
                     <MenuItem name="1-11" @click.native="toPath('checkInRetaliation')">
                         <Icon type="filing" size="18"></Icon>
                         <span>入金回報</span>
+                    </MenuItem>
+                    <MenuItem name="2-1" @click.native="toPath('exchangeRate')">
+                        <Icon type="calculator" size="18"></Icon>
+                        <span>匯率設定</span>
                     </MenuItem>
                     <MenuItem name="1-12" @click.native="toPath('members')">
                        <Icon type="person-stalker" size="18"></Icon>

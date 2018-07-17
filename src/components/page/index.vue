@@ -16,9 +16,6 @@
                     <div class="account-id">
                       {{this.$store.state.user.name}}
                     </div>
-                    <!-- <div class="account-balance">
-                      $ 88888
-                    </div> -->
                   </div>
                   <MenuItem name="1" @click.native="toPath('currentWallet')">
                       <span>賬戶總覽</span>
@@ -34,7 +31,7 @@
                           <span>轉帳記錄</span>
                       </MenuItem>
                       <MenuItem name="2-3" @click.native="toPath('exchange')">
-                          <span>換匯</span>
+                          <span>匯率轉換</span>
                       </MenuItem>
                   </Submenu>
                   <Submenu name="3">
@@ -103,7 +100,7 @@
                               <span>轉賬記錄</span>
                             </li>
                             <li :class="{active: (submenu==3)}" @click.stop="submenuActive(3);toPath('exchange')">
-                              <span>換匯</span>
+                              <span>匯率轉換</span>
                             </li>
                           </ul>
                         </li>
@@ -167,6 +164,7 @@
 </template>
 
 <script>
+// import '@/theme/user.less'
 import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 export default {
   name: 'HelloWorld',
@@ -214,7 +212,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang='less' scoped>
 .money {
   color: red;
   font-size: 2em
@@ -350,5 +348,36 @@ export default {
   height: 75px;
   width: 100%;
 }
+
+// customize
+.ivu-layout-sider, .ivu-menu, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item,
+.ivu-menu-submenu-title,
+.ivu-menu-submenu,
+.ivu-menu-item-active,
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item,
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item:hover{
+  background-color: rgb(0,108,175)!important;
+  background-image: none!important;
+}
+.ivu-layout-sider-zero-width-trigger{
+  display: none;
+}
+.ivu-menu-item,
+.ivu-menu-submenu-title{
+  text-align: left;
+  font-size: 18px;
+  padding-left: 16px!important;
+  padding-right: 0px!important;
+}
+.ivu-menu-submenu .ivu-menu-item{
+  padding-left: 30px!important;
+  padding-top: 0px;
+  font-size: 16px;
+}
+
+
+
+
+// end
 
 </style>
