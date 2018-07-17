@@ -5,13 +5,6 @@ import config from '@/envConfig/index.js'
 
 const baseURL = config.baseURL
 
-let token = localStorage.getItem('token')
-let headers = {
-  headers:{
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json',
-  }
-}
 export default {
     login({ commit, state }) {
 
@@ -633,13 +626,16 @@ export default {
     getRate({}, data){
       return axios.get(`${baseURL}/api/exchange-rates/${data.from}/to/${data.to}`, {
           headers: {
-              'Authorization': `Bearer ${token}`,
+              'Authorization': `Bearer ` + localStorage.getItem('token'),
               'Content-Type': 'application/json',
           }
       })
     },
     exchange({}, data){
       let url = `${baseURL}/api/exchange-currency`
-      return axios.post( url, data, headers)
+      return axios.post( url, data, {
+        'Authorization': `Bearer ` + localStorage.getItem('token') ,
+        'Content-Type': 'application/json',
+      })
     }
 }

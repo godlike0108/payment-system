@@ -463,5 +463,31 @@ export default {
             // }
         })
 
-    }
+    },
+    getRates(){
+      let url = `${baseURL}/api/exchange-rates`
+      return axios.get( url, {
+          headers: {
+              'Authorization': `Bearer ` + localStorage.getItem('token') ,
+              'Content-Type': 'application/json',
+          }
+      })
+    },
+    getBankRates(){
+      let url = `https://tw.rter.info/capi.php`
+      return axios.get(url)
+    },
+    updateRate({}, rate){
+
+      let url = `${baseURL}/api/exchange-rates/${rate.id}`
+      return axios.put( url, {
+            rate: rate.rate
+          },{
+          headers: {
+              'Authorization': `Bearer ` + localStorage.getItem('token') ,
+              'Content-Type': 'application/json',
+          }
+      })
+    },
+
 }
