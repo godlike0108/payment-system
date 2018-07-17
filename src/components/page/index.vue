@@ -139,7 +139,7 @@
                               <span>常用帳戶</span>
                             </li>
                             <li :class="{active: (submenu==2)}" @click.stop="submenuActive(2);toPath('userProfile')">
-                              <span>修改資料</span>
+                              <span>修改密碼</span>
                             </li>
                             <li :class="{active: (submenu==3)}" @click.stop="submenuActive(3);toPath('customerService')">
                               <span>聯絡我們</span>
