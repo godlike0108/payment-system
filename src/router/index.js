@@ -7,6 +7,7 @@ import store from '@/store'
 import index from '@/components/page/index'
 import userWallet from '@/components/page/userWallet'
 import userProfile from '@/components/page/userProfile'
+import exchange from '@/components/page/exchange'
 import userTransaction from '@/components/page/userTransaction'
 import currentWallet from '@/components/page/currentWallet'
 import customerService from '@/components/page/customerService'
@@ -121,6 +122,12 @@ const vueRouter = new Router({
                     path: 'customerService',
                     name: 'checkout',
                     component: customerService,
+                    meta: { requiresAuth: true },
+                },
+                {
+                    path: 'exchange',
+                    name: 'exchange',
+                    component: exchange,
                     meta: { requiresAuth: true },
                 }
             ]

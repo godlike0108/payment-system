@@ -36,7 +36,7 @@
 				</div>
 			</Col>
 		</Row>
-		
+
     </Col>
 	<Col  :xs="0" :sm="24" :md="24" :lg="24" >
 		<h3 class="slogn ">白金支付完美支援各種行動裝置，理財高枕無憂。</h3>
@@ -83,7 +83,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 			}
         },
         computed:{
-           
+
         },
 		methods:{
 		}
@@ -111,7 +111,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	}
 	.slider{
 		position: relative;
-		
+
 	}
 	.slider img {
 		width: 100%;
@@ -163,7 +163,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		font-weight:400;
 		margin: 15px 0;
 		font-size:1em
-		
+
 	}
 	.mobil-footer .line{
 		height: 1px;

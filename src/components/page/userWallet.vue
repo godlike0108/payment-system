@@ -90,11 +90,11 @@ export default {
     getCurrentWallet(){
         let data = this.$store.getters.getCurrentWallet
         // console.log(data)
-        if(data.balance){
-                let num = new Number(data.balance)
-                let balance = num.toFixed(2)
-                data.balance = balance
-            }
+        // if(data.balance){
+        //         let num = new Number(data.balance)
+        //         let balance = num.toFixed(2)
+        //         data.balance = balance
+        //     }
         return data
     },
     getBalance(){

@@ -8,7 +8,7 @@
                     <Icon type="person-add" size="18"></Icon>
                         <span>註冊申請</span>
                     </MenuItem>
-                  
+
                     <MenuItem  name="1-2" @click.native="toPath('checkoutsLevel1')">
                         <Icon type="ios-calculator" size="18"></Icon>
                         <span>出金初審</span>
@@ -53,7 +53,7 @@
                         <Icon type="person-stalker" size="18"></Icon>
                         <span>聯絡我們</span>
                     </MenuItem>
-                  
+
                 </Menu>
                 <div slot="trigger"></div>
             </Sider>
@@ -66,11 +66,11 @@
                     <Col :xs="2" :sm="4" :md="4" :lg="4" >
                     <Icon @click="log_out()" type="log-out" size="22" :style="{color: '#fff'}"></Icon></Col>
                   </Row>
-                   
+
                 </Header>
                 <Content :style="{margin: '20px', background: '#fff', minHeight: '220px',padding:'20px'}">
                   <router-view></router-view>
-                  
+
                 </Content>
             </Layout>
         </Layout>
@@ -87,7 +87,7 @@ export default {
     };
   },
   computed: {
-      
+
       menuitemClasses: function () {
           return [
               'menu-item',
@@ -110,11 +110,11 @@ export default {
   },
    created() {
     this.$store.commit('setData')
-   
-    
-    
-    
- 
+
+
+
+
+
 }
 }
 </script>
