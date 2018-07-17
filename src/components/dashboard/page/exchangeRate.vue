@@ -133,7 +133,7 @@ export default {
 .th .ivu-table-cell{
 }
 th, td{
-  text-align: center;
+  text-align: center!important;
 }
 .rate{
   text-decoration: none;
