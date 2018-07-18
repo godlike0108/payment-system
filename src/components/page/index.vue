@@ -65,7 +65,7 @@
                         <span>常用帳戶</span>
                     </MenuItem>
                     <MenuItem name="5-2" @click.native="toPath('userProfile')">
-                        <span>修改密碼</span>
+                        <span>修改資訊</span>
                     </MenuItem>
                     <MenuItem name="5-3" @click.native="toPath('customerService')">
                         <span>聯絡我們</span>
@@ -136,7 +136,7 @@
                               <span>常用帳戶</span>
                             </li>
                             <li :class="{active: (submenu==2)}" @click.stop="submenuActive(2);toPath('userProfile')">
-                              <span>修改密碼</span>
+                              <span>修改資訊</span>
                             </li>
                             <li :class="{active: (submenu==3)}" @click.stop="submenuActive(3);toPath('customerService')">
                               <span>聯絡我們</span>
@@ -185,7 +185,12 @@ export default {
   },
   methods: {
       toPath(path){
+        if(path == 'checkout' && this.$store.state.user.id_card_status_id != 1){
+            this.$Message.error('出金申請需要經過身份驗證')
+            this.$router.push(`/index/${path}`)
+        }else{
           this.$router.push(`/index/${path}`)
+        }
       },
       log_out(){
           this.$store.commit('log_out')

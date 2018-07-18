@@ -1,6 +1,7 @@
 import axios from 'axios'
 import router from '@/router'
 import api from './api'
+import moment from 'moment'
 import config from '@/envConfig/index.js'
 
 const baseURL = config.baseURL
@@ -198,7 +199,7 @@ export default {
 
 
     },
-    updateProfile({ commit, state }) {
+    updateProfile_({ commit, state }) {
         let password = state.updateProfile.password
         let oldPassword = state.updateProfile.oldpassword
         let data = JSON.stringify({
@@ -636,6 +637,50 @@ export default {
       return axios.post( url, data, {
         'Authorization': `Bearer ` + localStorage.getItem('token') ,
         'Content-Type': 'application/json',
+      })
+    },
+    getUser({state}, data){
+      return axios.get(`${baseURL}/api/users/${state.user.id}`, {
+          headers: {
+              'Authorization': `Bearer ` + localStorage.getItem('token'),
+              'Content-Type': 'application/json',
+          }
+      })
+    },
+    updateProfile({state}, data){
+      let allow = ['name', 'birthday', 'id_number', 'gender', 'permanent_address', 'id_card_issue_date', 'password', 'oldpassword'];
+      let postData = {}
+      allow.forEach((key) => {
+        if(key == 'birthday' || key == 'id_card_issue_date') {
+            data[key] = moment(data[key]).format('YYYY-MM-DD')
+        }
+        if(data[key] && data[key] != 'Invalid date') {
+          if(key == 'birthday' || key == 'id_card_issue_date') {
+              postData[key] = moment(data[key]).format('YYYY-MM-DD')
+          }else{
+              postData[key] = data[key]
+          }
+        }
+        // if(data['gender'] == '0'){
+        //   postData['gender'] = 0
+        // }
+      })
+      return axios.put(`${baseURL}/api/users/${state.user.id}`, JSON.stringify(postData), {
+          headers: {
+              'Authorization': `Bearer ` + localStorage.getItem('token'),
+              'Content-Type': 'application/json',
+          }
+      })
+    },
+    uploadFile({state}, data){
+      let formData = new FormData();
+      formData.append('id-card', data['id-card'])
+      formData.append('type_id', data['type_id'])
+      return axios.post(`${baseURL}/api/users/${state.user.id}/id-card`, formData, {
+          headers: {
+              'Authorization': `Bearer ` + localStorage.getItem('token'),
+              'Content-Type': 'multipart/form-data'
+          }
       })
     }
 }

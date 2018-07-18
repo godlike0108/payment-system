@@ -478,7 +478,6 @@ export default {
       return axios.get(url)
     },
     updateRate({}, rate){
-
       let url = `${baseURL}/api/exchange-rates/${rate.id}`
       return axios.put( url, {
             rate: rate.rate
@@ -489,5 +488,31 @@ export default {
           }
       })
     },
+    getPendingUsers({}, page){
+      let url = `${baseURL}/api/users?status=active&page=${page}`
+      return axios.get( url, {
+          headers: {
+              'Authorization': `Bearer ` + localStorage.getItem('token') ,
+              'Content-Type': 'application/json',
+          }
+      })
+    },
+    changeIDState({}, data){
+      let url = `${baseURL}/api/users/${data.user}/id-card-status`
+      return axios.put( url, data, {
+          headers: {
+              'Authorization': `Bearer ` + localStorage.getItem('token') ,
+              'Content-Type': 'application/json',
+          }
+      })
+    },
+    getImage({}, url){
+      return axios.get( url, {
+          responseType: 'arraybuffer',
+          headers: {
+              'Authorization': `Bearer ` + localStorage.getItem('token'),
+          }
+      })
+    }
 
 }

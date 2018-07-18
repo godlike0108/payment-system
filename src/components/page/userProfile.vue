@@ -2,63 +2,63 @@
  <div>
     <Row type="flex" justify="center" align="middle">
         <Col :xs="24" :sm="16" :md="16" :lg="16">
-            <Tabs value="name1">
-            <TabPane label="修改密碼" name="name1">
+          <div class='layout-container'>
+            <div class='layout-head'>
+              修改資訊
+            </div>
+            <div class='layout-body'>
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="16" :md="16" :lg="16">
-                        <i-form >
-<!--                             <form-item >
-                                <i-input  @input="setProfileName" :value="name" :placeholder=" '用戶名稱'"   clearable>
-                                    <icon type="happy" size="20" slot="prepend"></icon>
-                                </i-input>
-                            </form-item>
-                            <form-item >
-                                <i-input   :placeholder="email"  disabled>
-                                    <icon type="email" size="20" slot="prepend"></icon>    
-                                </i-input>
-                            </form-item>
-                            <form-item >
-                                <i-input  :placeholder="mobile" disabled>
-                                    <Icon type="ios-telephone" size="20" slot="prepend"></Icon>
-                                </i-input>
-                            </form-item>
-                            <form-item>
-                                <i-input @input="setProfileUsername" :value="username" :placeholder=" '用戶帳號'"   clearable disabled>
-                                    <icon type="person" size="20" slot="prepend"></icon>
-                                </i-input>
-                            </form-item> -->
-                            <form-item >
-                                <i-input type="password" :value="oldpassword" ref="togglePassword" @input="setOldPassword"   :placeholder=" '輸入用戶舊密碼'"  >
-                                    <icon type="locked" size="20" slot="prepend"></icon>
-                                    
-                                </i-input>
-                            </form-item>
-                            <form-item >
-                                <i-input type="password" :value="password" ref="togglePassword" @input="setProfilePassword"   :placeholder=" '更改用戶密碼'"  >
-                                    <icon type="locked" size="20" slot="prepend"></icon>
-                                    
-                                </i-input>
-                            </form-item>
-                            <form-item>
-                                <i-button type="primary" class="walletButton" shape="circle"  @click="updateProfile">儲存變更</i-button>
-                            </form-item>
+                        <!-- <Alert v-if='!user.id_card_status_id' type="warning" show-icon>帳號未審核</Alert> -->
+
+                        <i-form :model='user' ref='form' :label-width="90">
+                          <FormItem label="姓名">
+                              <Input v-model="user.name" placeholder="使用者姓名"></Input>
+                          </FormItem>
+                          <FormItem label="生日" class='text-left'>
+                              <DatePicker type="date" placeholder="請選擇日期" v-model="user.birthday"></DatePicker>
+                          </FormItem>
+                          <FormItem label="身分證字號">
+                              <Input v-model="user.id_number" placeholder="請輸入身分證字號"></Input>
+                          </FormItem>
+                          <FormItem label="性別" class='text-left'>
+                              <RadioGroup v-model="user.gender">
+                                  <Radio label="1">男性</Radio>
+                                  <Radio label="2">女性</Radio>
+                              </RadioGroup>
+                          </FormItem>
+                          <FormItem label="戶籍地址">
+                              <Input v-model="user.permanent_address" placeholder="請輸入戶籍地址"></Input>
+                          </FormItem>
+                          <FormItem label="發證日期" class='text-left'>
+                              <DatePicker type="date" placeholder="請選擇日期" v-model="user.id_card_issue_date"></DatePicker>
+                          </FormItem>
+                          <FormItem label="新密碼" error="123">
+                              <Input type="password" v-model="user.password" placeholder="請輸入新密碼"></Input>
+                          </FormItem>
+                          <FormItem label="舊密碼" v-show="user.password" :error="old_password_error">
+                              <Input type="password" v-model="user.oldpassword" placeholder="若要更新密碼，需要舊密碼"></Input>
+                          </FormItem>
+                          <FormItem label="身分證正面照" class='text-left'>
+                            <Upload :before-upload="handleUploadFront" action=''>
+                                <Button type="ghost" icon="ios-cloud-upload-outline">正面照</Button>
+                                <span v-if='files.front.name'> - {{files.front.name}}</span>
+                            </Upload>
+                          </FormItem>
+                          <FormItem label="身分證背面照" class='text-left'>
+                            <Upload :before-upload="handleUploadBack" action=''>
+                                <Button type="ghost" icon="ios-cloud-upload-outline">背面照</Button>
+                                <span v-if='files.back.name'> - {{files.back.name}}</span>
+                            </Upload>
+                          </FormItem>
+                          <FormItem>
+                            <Button type="primary" @click="updateProfile">儲存資料</Button>
+                          </FormItem>
                         </i-form>
                     </Col>
                 </Row>
-            </TabPane>
-            </Tabs>
-            <Row >
-                <Col v-if="this.$store.state.updateProfile.success">
-                <Icon type="checkmark-circled" class="success" size="20"></Icon>
-                    <div class="success">修改密碼成功</div>
-                </Col>
-            </Row>
-            <Row >
-                <Col v-if="this.$store.state.updateProfile.wrong">
-                <Icon type="close-circled" class="error" size="20"></Icon>
-                    <div class="error">舊密碼填寫錯誤</div>
-                </Col>
-            </Row>
+            </div>
+          </div>
         </Col>
     </Row>
  </div>
@@ -70,38 +70,82 @@ export default {
   name: 'HelloWorld',
   data () {
      return {
-
+       user: {
+         password: '',
+         oldpassword: '',
+       },
+       old_password_error: '',
+       files:{
+         front: {},
+         back:{},
+       }
     }
   },
+  mounted: function(){
+    this.$store.dispatch('getUser').then((res)=>{
+      this.user = res.data
+      this.user.gender = this.user.gender + ""
+    })
+  },
   computed: {
-      ...mapState({
-                    name: state => state.user.name , 
-                    username: state => state.user.username,
-                    password: state => state.updateProfile.password,
-                    oldpassword: state => state.updateProfile.oldpassword,
-                    email: state => state.user.email,
-                    mobile: state => state.user.mobile,                    
-                                     
-				}),
   },
   methods: {
-        ...mapActions({
-        'updateProfile' : 'updateProfile',
-        }),
-        setProfileName(name) {
-                this.$store.commit('setProfile', {name})
-            },
-        setProfileUsername(username) {
-                this.$store.commit('setProfile', {username})
-            },
-         setProfilePassword(password) {
-                this.$store.commit('setProfile', {password})
-            },
-        setOldPassword(OldPassword){
-            this.$store.commit('setProfile',{OldPassword})
-        }
-  
-}
+    handleUploadFront(file){
+      this.files.front = file
+      return false;
+    },
+    handleUploadBack(file){
+      this.files.back = file
+      return false;
+    },
+    checkPassword(){
+      this.old_password_error = (!this.user.oldpassword && this.user.password)? '修改密碼需要輸入舊密碼' : ''
+    },
+    updateProfile(){
+      if(this.old_password_error){
+        this.$Message.error('儲存失敗')
+      }else{
+        this.$store.dispatch('updateProfile', this.user).then((res)=>{
+            if(this.files.front.name || this.files.back.name){
+              const uploadMsg = this.$Message.loading({
+                  content: '檔案上傳中...',
+                  duration: 0
+              });
+              let uploads = [];
+              if(this.files.front.name){
+                let data = {
+                  'id-card': this.files.front,
+                  type_id: 0
+                }
+                uploads.push(this.$store.dispatch('uploadFile', data))
+              }
+              if(this.files.back.name){
+                let data = {
+                  'id-card': this.files.back,
+                  type_id: 1
+                }
+                uploads.push(this.$store.dispatch('uploadFile', data))
+              }
+              Promise.all(uploads).then(()=>{
+                uploadMsg()
+                this.$Message.success('儲存成功')
+              })
+
+            }else{
+                this.$Message.success('儲存成功')
+            }
+        })
+      }
+    },
+  },
+  watch: {
+    'user.password': function(){
+      this.checkPassword()
+    },
+    'user.oldpassword': function(){
+      this.checkPassword()
+    },
+  }
 }
 
 </script>
@@ -176,6 +220,6 @@ export default {
 		height: 38px;
 		color: #fff;
 		/* background-color: rgb(238, 238, 238); */
-		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
+		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%);
 	}
 </style>

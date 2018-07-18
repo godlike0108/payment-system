@@ -8,7 +8,10 @@
                     <Icon type="person-add" size="18"></Icon>
                         <span>註冊申請</span>
                     </MenuItem>
-
+                    <MenuItem name="1-1-1"  @click.native="toPath('activeUser')">
+                    <Icon type="person-add" size="18"></Icon>
+                        <span>審核會員</span>
+                    </MenuItem>
                     <MenuItem  name="1-2" @click.native="toPath('checkoutsLevel1')">
                         <Icon type="ios-calculator" size="18"></Icon>
                         <span>出金初審</span>
