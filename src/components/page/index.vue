@@ -185,9 +185,9 @@ export default {
   },
   methods: {
       toPath(path){
-        if(path == 'checkout' && this.$store.state.user.id_card_status_id != 1){
+        if(path == 'checkout' && this.$store.state.user.id_card_status_id != '1'){
             this.$Message.error('出金申請需要經過身份驗證')
-            this.$router.push(`/index/${path}`)
+            // this.$router.push(`/index/${path}`)
         }else{
           this.$router.push(`/index/${path}`)
         }

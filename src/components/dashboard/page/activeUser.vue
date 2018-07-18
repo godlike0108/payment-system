@@ -26,7 +26,7 @@
 
                     <td class="" v-for="field in fields">
                       <div class="ivu-table-cell">
-                        <span v-if="field.key == 'files'" class="" @click="showFile(user)">
+                        <span v-if="field.key == 'files'" class="file" @click="showFile(user)">
                           {{user.documents.length}}
                         </span>
                         <span v-else-if="field.key == 'created_at'" class="" v-html="moment(user.created_at)"></span>
@@ -269,6 +269,12 @@ th, td{
 }
 .ivu-select-item-selected, .ivu-select-item-selected:hover{
   color: inherit;
+}
+.file{
+  padding: 2px;
+  cursor: pointer;
+  border-bottom: 1px dashed #ccc;
+  display: inline-block;
 }
 
 </style>

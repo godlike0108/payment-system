@@ -60,6 +60,7 @@ export default {
     front_end_show_user({ commit, state }) {
         let id = localStorage.getItem('id', id)
         let token = localStorage.getItem('token')
+
         axios.get(`${baseURL}/api/users/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -78,6 +79,7 @@ export default {
             let user_status_id = data.user_status_id
             let id = data.id
             let wallets = data.wallets
+            let id_card_status_id = data.id_card_status_id
 
             localStorage.setItem('password', password)
             localStorage.setItem('email', email)
@@ -89,6 +91,7 @@ export default {
             localStorage.setItem('id', id)
             localStorage.setItem('balance', balance)
             localStorage.setItem('wallets', JSON.stringify(wallets));
+            localStorage.setItem('id_card_status_id', id_card_status_id);
 
             commit('setData', data)
         }).catch((error) => {
@@ -210,6 +213,7 @@ export default {
         });
         let id = localStorage.getItem('id')
         let token = localStorage.getItem('token')
+
         axios.put(`${baseURL}/api/users/${id}`, data, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -552,6 +556,7 @@ export default {
         let oldpassword = state.updateProfile.oldpassword
         let password = state.updateProfile.password
         let data = JSON.stringify({ old_password: oldpassword, password: password })
+        
         axios.put(`${baseURL}/api/users/${id}`, data, {
                 headers: {
                     'Authorization': `Bearer ${token}`,

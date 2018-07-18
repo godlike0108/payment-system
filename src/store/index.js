@@ -48,6 +48,7 @@ const state = {
         mobile: '',
         role_id: '',
         balance: '',
+        id_card_status_id: '',
         id: '',
         wallet: []
     },
@@ -522,11 +523,13 @@ const mutations = {
         let user_status_id = localStorage.getItem('user_status_id');
         let balance = localStorage.getItem('balance')
         let id = localStorage.getItem('id')
+        let id_card_status_id = localStorage.getItem('id_card_status_id')
         state.user.email = email
         state.user.token = token
         state.user.mobile = mobile
         state.user.name = name
         state.user.username = username
+        state.user.id_card_status_id = id_card_status_id
         state.user.wallet = JSON.parse(wallets)
 
         state.user.role_id = role_id
