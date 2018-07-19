@@ -1,17 +1,12 @@
 <template>
  <div>
-     <Row type="flex" justify="end" align="top" class="userLine">
-        <Col :xs="20" :sm="16" :md="16" :lg="16">
-            <Row type="flex" justify="end" align="top">
-            <Col :xs="24" :sm="8" :md="8" :lg="6">用戶：<span class="user">{{this.$store.state.user.name}}</span></Col>
-            <!-- <Col :xs="24" :sm="8" :md="8" :lg="6">剩餘金額：{{getCurrentWallet.currency}}<span class="money">{{getCurrentWallet.balance}}</span></Col> -->
-            </Row>
-        </Col>
-    </Row>
     <Row type="flex" justify="center" align="middle">
         <Col :xs="24" :sm="16" :md="16" :lg="16">
-            <Tabs value="name1">
-            <TabPane label="轉帳" name="name1">
+          <div class='layout-container'>
+            <div class='layout-head'>
+              轉帳
+            </div>
+            <div class='layout-body'>
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="16" :md="16" :lg="16">
                         <Form ref="formCustom" >
@@ -55,8 +50,8 @@
                         </Row>
                     </Col>
                 </Row>
-            </TabPane>
-        </Tabs>
+              </div>
+            </div>
         </Col>
     </Row>
 

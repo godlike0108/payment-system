@@ -1,79 +1,16 @@
 <template>
  <div>
     <Row type="flex" justify="center" align="middle">
-        <Col :xs="24" :sm="16" :md="16" :lg="16">
+        <Col :xs="24" :sm="24" :md="24" :lg="20">
           <div class='layout-container'>
             <div class='layout-head'>
-              出金申請
+              出金記錄
             </div>
             <div class='layout-body'>
-                <Row type="flex" justify="center" align="middle">
-                    <Col :xs="22" :sm="16" :md="16" :lg="16">
-                        <i-form  >
-                            <form-item>
-                                <Select :placeholder="'選擇常用帳戶'" @on-change="selectAccount"  clearable>
-                                    <Option v-for=" (item,index) in getMyAccount" :value="index" :key="item.account">{{ item.title }}</Option>
-                                </Select>
-                            </form-item>
-                            <form-item>
-                            <Select :placeholder="'選擇錢包'" @on-change="setWallet"  clearable>
-                                <Option v-for="(item,index) in getWallet" :value="index" :key="item.value" >{{ item.currency }}錢包</Option>
-                            </Select>
-                            </form-item>
-                            <form-item v-if="isSelect">
-                                餘額：{{getWallet[wIndex].balance}}
-                            </form-item>
-                            <form-item>
-                                <i-input :value="this.$store.state.checkout.name"  @input="setCheckoutName" :placeholder=" '銀行帳戶名稱'"   clearable>
-                                    <icon type="happy" size="20" slot="prepend"></icon>
-                                </i-input>
-                            </form-item>
-
-                            <form-item >
-                                <i-input :value="this.$store.state.checkout.amount" @input="setCheckout_amount" :placeholder=" '金額'"   clearable>
-                                    <icon type="cash" size="20" slot="prepend"></icon>
-                                </i-input>
-                            </form-item>
-                            <form-item >
-                                <i-input :value="this.$store.state.checkout.bank" @input="setCheckoutBank" :placeholder="'銀行名稱'"    clearable>
-                                    <icon type="card" size="20" slot="prepend"></icon>
-                                </i-input>
-                            </form-item>
-                            <form-item >
-                                <i-input :value="this.$store.state.checkout.bank_account"  @input="setCheckout_bank_account" :placeholder=" '銀行帳號'"   > </i-input>
-                            </form-item>
-                            <form-item>
-                                <i-input :value="this.$store.state.checkout.sms" @input="setCheckout_sms" class="phonePassword"  placeholder="請填入驗證碼共五碼"  clearable></i-input>
-                            </form-item>
-                            <form-item >
-                                <i-button class="walletButton" shape="circle" @click="getUserSms">取得手機驗證碼</i-button>
-                            </form-item>
-                            <form-item>
-                                <i-button type="primary" class="walletButton" shape="circle"  @click="userCheckout" >送出申請</i-button>
-                            </form-item>
-                        </i-form>
-                    </Col>
-                </Row>
-                <Row >
-                    <Col v-if="this.$store.state.checkout.success">
-                    <Icon type="checkmark-circled" class="success" size="20"></Icon>
-                        <div class="success">出金申請成功</div>
-                    </Col>
-                </Row>
-                <Row >
-                    <Col v-if="this.$store.state.checkout.error">
-                    <Icon type="close-circled" class="error" size="20"></Icon>
-                        <div class="error">申請資料有誤，請輸入正確資料</div>
-                    </Col>
-                </Row>
-                <Row >
-                    <Col v-if="Insufficient_balance">
-                    <Icon type="close-circled" class="error" size="20"></Icon>
-                        <div class="error">錢包餘額不足</div>
-                    </Col>
-                </Row>
-              </div>
+              <Table :columns="columns1" :data="getCheckout"></Table>
+              <Page :total="get_checkout_total" @on-change="change" style="margin:15px"></Page>
             </div>
+          </div>
         </Col>
     </Row>
  </div>
@@ -82,7 +19,7 @@
 <script>
 import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 export default {
-  name: 'Checkout',
+  name: 'CheckoutList',
   data () {
      return {
         Insufficient_balance: false,

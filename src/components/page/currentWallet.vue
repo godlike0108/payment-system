@@ -2,9 +2,11 @@
     <div class="current">
         <Row type="flex" justify="center" align="middle">
             <Col :xs="24" :sm="16" :md="16" :lg="16">
-
-                <Tabs value="name1">
-                    <TabPane label="貨幣帳戶" name="name1">
+              <div class='layout-container'>
+                <div class='layout-head'>
+                  帳戶總攬
+                </div>
+                <div class='layout-body'>
                         <ul class="allWallet">
                             <li v-for="(item,index) in getAllWallet" @click="selectWallet(index)">
                                 <Row>
@@ -21,8 +23,8 @@
                                 </Row>
                             </li>
                         </ul>
-                    </TabPane>
-                </Tabs>
+                </div>
+              </div>
             </Col>
         </Row>
     </div>

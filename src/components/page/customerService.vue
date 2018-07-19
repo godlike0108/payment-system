@@ -2,6 +2,11 @@
  <div>
     <Row type="flex" justify="center" align="middle">
         <Col :xs="24" :sm="16" :md="16" :lg="16">
+          <div class='layout-container'>
+            <div class='layout-head'>
+              聯絡我們
+            </div>
+            <div class='layout-body'>
             <Tabs value="name1">
             <TabPane label="全部" name="name1">
                 <Row type="flex" justify="center" align="middle">
@@ -90,6 +95,8 @@
                 </Row>
             </TabPane>
             </Tabs>
+            </div>
+            </div>
         </Col>
     </Row>
  </div>

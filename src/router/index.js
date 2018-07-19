@@ -13,7 +13,9 @@ import currentWallet from '@/components/page/currentWallet'
 import customerService from '@/components/page/customerService'
 import userAccount from '@/components/page/userAccount'
 import checkout from '@/components/page/checkout'
+import checkoutList from '@/components/page/checkoutList'
 import checkIn from '@/components/page/checkIn'
+import checkInList from '@/components/page/checkInList'
 import firstlogin from '@/components/firstLogin'
 import findPassword from '@/components/forgotPassword'
 
@@ -109,9 +111,21 @@ const vueRouter = new Router({
                     meta: { requiresAuth: true },
                 },
                 {
+                    path: 'checkoutList',
+                    name: 'checkoutList',
+                    component: checkoutList,
+                    meta: { requiresAuth: true },
+                },
+                {
                     path: 'checkin',
-                    name: 'checkout',
+                    name: 'checkin',
                     component: checkIn,
+                    meta: { requiresAuth: true },
+                },
+                {
+                    path: 'checkInList',
+                    name: 'checkInList',
+                    component: checkInList,
                     meta: { requiresAuth: true },
                 },
                 {

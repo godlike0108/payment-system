@@ -41,7 +41,7 @@
                     <MenuItem name="3-1" @click.native="toPath('checkout')">
                         <span>出金申請</span>
                     </MenuItem>
-                    <MenuItem name="3-2" @click.native="toPath('')">
+                    <MenuItem name="3-2" @click.native="toPath('checkoutList')">
                         <span>出金記錄</span>
                     </MenuItem>
                   </Submenu>
@@ -52,7 +52,7 @@
                     <MenuItem name="4-1" @click.native="toPath('checkIn')">
                         <span>入金申請</span>
                     </MenuItem>
-                    <MenuItem name="4-2" @click.native="toPath('')">
+                    <MenuItem name="4-2" @click.native="toPath('checkInList')">
                         <span>入金記錄</span>
                     </MenuItem>
                   </Submenu>
@@ -111,7 +111,7 @@
                             <li :class="{active: (submenu==1)}" @click.stop="submenuActive(1);toPath('checkout')">
                               <span>出金申請</span>
                             </li>
-                            <li :class="{active: (submenu==2)}" @click.stop="submenuActive(2);toPath('')">
+                            <li :class="{active: (submenu==2)}" @click.stop="submenuActive(2);toPath('checkoutList')">
                               <span>出金記錄</span>
                             </li>
                           </ul>
@@ -123,7 +123,7 @@
                             <li :class="{active: (submenu==1)}" @click.stop="submenuActive(1);toPath('checkIn')">
                               <span>入金申請</span>
                             </li>
-                            <li :class="{active: (submenu==2)}" @click.stop="submenuActive(2);toPath('')">
+                            <li :class="{active: (submenu==2)}" @click.stop="submenuActive(2);toPath('checkInList')">
                               <span>入金記錄</span>
                             </li>
                           </ul>

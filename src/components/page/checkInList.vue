@@ -1,66 +1,14 @@
 <template>
  <div>
     <Row type="flex" justify="center" align="middle">
-        <Col :xs="24" :sm="16" :md="16" :lg="16">
+        <Col :xs="24" :sm="24" :md="20" :lg="18">
           <div class='layout-container'>
             <div class='layout-head'>
-              入金申請
+              入金記錄
             </div>
             <div class='layout-body'>
-                <Row type="flex" justify="center" align="middle">
-                    <Col :xs="22" :sm="16" :md="16" :lg="16">
-                        <i-form >
-                            <form-item>
-                            <Select :placeholder="'選擇貨幣'" @on-change="setCurrency" clearable>
-                                <Option v-for="(item,index) in currency" :value="item" :key="item">{{ item }}</Option>
-                            </Select>
-                            </form-item>
-                            <form-item >
-                                <i-input :value="amount"  @input="setCheckIn_amount" :placeholder=" '金額'"   clearable>
-                                    <icon type="cash" size="20" slot="prepend"></icon>
-                                </i-input>
-                            </form-item>
-                            <form-item >
-                                <i-input :value="sales"  @input="setCheckIn_sales" :placeholder="'業務'"    clearable>
-                                    <icon type="card" size="20" slot="prepend"></icon>
-                                </i-input>
-                            </form-item>
-                            <form-item>
-                                <i-input  :value="contact" @input="setCheckIn_mobile" :placeholder=" '電話'"   clearable>
-                                    <icon type="iphone" size="22" slot="prepend"></icon>
-                                </i-input>
-                            </form-item>
-                            <form-item>
-                                <i-input :value="name"  @input="setCheckIn_name" :placeholder=" '轉入戶名稱'"   clearable>
-                                    <icon type="happy" size="20" slot="prepend"></icon>
-                                </i-input>
-                            </form-item>
-                            <form-item >
-                                <i-input :value="account" @input="setCheckIn_bank_account" :placeholder="'銀行帳戶後五碼'"    clearable>
-                                    <icon type="card" size="20" slot="prepend"></icon>
-                                </i-input>
-                            </form-item>
-                            <form-item>
-                                 <Input :value="note" type="textarea" :autosize="true" @input="setCheckIn_note" placeholder="備註" ></Input>
-                            </form-item>
-                            <form-item>
-                                <i-button type="primary" class="walletButton" shape="circle"  @click="userCheckIn" >送出申請</i-button>
-                            </form-item>
-                        </i-form>
-                    </Col>
-                </Row>
-                <Row >
-                    <Col v-if="success">
-                    <Icon type="checkmark-circled" class="success" size="20"></Icon>
-                        <div class="success">入金申請成功</div>
-                    </Col>
-                </Row>
-                <Row >
-                    <Col v-if="error">
-                    <Icon type="close-circled" class="error" size="20"></Icon>
-                        <div class="error">申請資料有誤，請輸入正確資料</div>
-                    </Col>
-                </Row>
+              <Table :columns="columns1" :data="getCheckIn"></Table>
+              <Page :total="total" @on-change="change" style="margin:15px"></Page>
             </div>
           </div>
         </Col>
@@ -71,7 +19,7 @@
 <script>
 import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 export default {
-  name: 'checkIn',
+  name: 'CheckInList',
   data () {
      return {
         isCollapsed: false,

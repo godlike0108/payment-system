@@ -2,13 +2,16 @@
  <div>
     <Row type="flex" justify="center" align="middle">
         <Col :xs="24" :sm="16" :md="16" :lg="16">
-            <Tabs value="name1">
-            <TabPane label="常用帳戶管理" name="name1">
+          <div class='layout-container'>
+            <div class='layout-head'>
+              常用帳戶管理
+            </div>
+            <div class='layout-body'>
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="24" :md="24" :lg="24">
                     <Table height="450" :columns="columns1" :data="getMyAccount"></Table>
-        <Page :total="get_account_total" @on-change="change" style="margin:15px"></Page>
-  
+                    <Page :total="get_account_total" @on-change="change" style="margin:15px"></Page>
+
                     <!-- <ul class="account_list">
                         <li class="head">
                             <Row>
@@ -39,8 +42,8 @@
                     <Button type="primary" class="walletButton"  shape="circle" @click="addAccount()">新增常用銀行帳戶</Button>
                     </Col>
                 </Row>
-            </TabPane>
-            </Tabs>
+            </div>
+          </div>
         </Col>
     </Row>
  </div>
@@ -81,7 +84,7 @@ export default {
                                     props: {
                                         type: 'primary',
                                         size: 'small'
-                                        
+
                                     },
                                     style: {
                                         marginRight: '15px'
@@ -95,7 +98,7 @@ export default {
                                     props: {
                                         type: 'error',
                                         size: 'small'
-                                        
+
                                     },
                                     on: {
                                         click: () => {
@@ -103,11 +106,11 @@ export default {
                                         }
                                     }
                                 }, '刪除')
-                               
+
                             ]);
                         }
                     },
-                   
+
 
                 ]
     }
@@ -142,7 +145,7 @@ export default {
                 [h('Input', {
                     props: {
                         value: this.value,
-                        autofocus: true,                        
+                        autofocus: true,
                         placeholder: '設定此筆名稱'
                     },
                     on: {
@@ -150,18 +153,18 @@ export default {
                         if(title.length === 0){
                             this.$store.state.mybank_account.new_account.title = null
                         }else {
-                            this.$store.commit('set_account',{title:title}) 
+                            this.$store.commit('set_account',{title:title})
                         }
-                        
-                        
-                         
+
+
+
                         }
                     },
-                    
+
                 }),h('Input', {
                     props: {
                         value: this.value,
-                        autofocus: true,                        
+                        autofocus: true,
                         placeholder: '填寫銀行帳戶名稱'
                     },
                     style: {
@@ -172,11 +175,11 @@ export default {
                             if(name.length === 0){
                             this.$store.state.mybank_account.new_account.name = null
                         }else {
-                        this.$store.commit('set_account',{name:name}) 
+                        this.$store.commit('set_account',{name:name})
                         }
                         }
                     },
-                    
+
                 }),h('Input', {
                     props: {
                         value: this.value,
@@ -195,7 +198,7 @@ export default {
                         }
                         }
                     },
-                    
+
                 }),h('Input', {
                     props: {
                         value: this.value,
@@ -214,7 +217,7 @@ export default {
                         }
                         }
                     },
-                    
+
                 })
                 ])
             }
@@ -226,7 +229,7 @@ export default {
             title: `修改常用帳戶`,
             onOk: () => {
                 this.$Message.info('確認送出');
-                _vm.put_edit_account(index)      
+                _vm.put_edit_account(index)
             },
             onCancel:()=>{
                 _vm.$store.commit('reset_edit_account')
@@ -241,7 +244,7 @@ export default {
                 [h('Input', {
                     props: {
                         value: this.value,
-                        autofocus: true,                        
+                        autofocus: true,
                         placeholder: '修改資料名稱'
                     },
                     on: {
@@ -249,15 +252,15 @@ export default {
                         if(edit_title.length === 0){
                             this.$store.state.mybank_account.edit_account.title = null
                         } else {
-                            this.$store.commit('set_account',{edit_title}) 
+                            this.$store.commit('set_account',{edit_title})
                         }
                         }
                     },
-                    
+
                 }),h('Input', {
                     props: {
                         value: this.value,
-                        autofocus: true,                        
+                        autofocus: true,
                         placeholder: '修改銀行帳戶名稱'
                     },
                     style: {
@@ -268,12 +271,12 @@ export default {
                         if(edit_name.length === 0){
                             this.$store.state.mybank_account.edit_account.name = null
                         }else {
-                            this.$store.commit('set_account',{edit_name})  
+                            this.$store.commit('set_account',{edit_name})
                         }
-                        
+
                         }
                     },
-                    
+
                 }),h('Input', {
                     props: {
                         value: this.value,
@@ -288,12 +291,12 @@ export default {
                         if(edit_bank.length === 0){
                             this.$store.state.mybank_account.edit_account.bank = null
                         }else {
-                            this.$store.commit('set_account',{edit_bank}) 
+                            this.$store.commit('set_account',{edit_bank})
                         }
-                        
+
                         }
                     },
-                    
+
                 })
                 ,h('Input', {
                     props: {
@@ -309,11 +312,11 @@ export default {
                         if(edit_account.length === 0){
                             this.$store.state.mybank_account.edit_account.account = null
                         }else {
-                            this.$store.commit('set_account',{edit_account}) 
+                            this.$store.commit('set_account',{edit_account})
                         }
                         }
                     },
-                    
+
                 })
                 ])
             }
@@ -336,10 +339,10 @@ export default {
     },
     put_edit_account(index){
        this.$store.dispatch('put_edit_account',index)
-        
+
     },
     change(page){
-        this.$store.dispatch('userGetChekout',page)           
+        this.$store.dispatch('userGetChekout',page)
         },
 }
 }
@@ -364,7 +367,7 @@ export default {
     background: #ed3f14;
     border: 0px;
     line-height: 20px
-    
+
 }
 .user {
   font-size: 2em
@@ -422,7 +425,7 @@ export default {
 		height: 38px;
 		color: #fff;
 		/* background-color: rgb(238, 238, 238); */
-		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%); 
+		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%);
     }
     .account_list{
         list-style: none;
