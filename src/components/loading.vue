@@ -46,7 +46,9 @@
 			<Col  :xs="24" :sm="22" :md="20" :lg="20" >
 				<Row type="flex" justify="space-between" align="middle" class="link">
 					<Col :sm="12" :md="12" :lg="12" class="left"><span class="line-item">聯絡我們</span><span class="line-item">交易安全</span></Col>
-					<Col :sm="6" :md="6" :lg="6" class="right"></Col>
+					<Col :sm="6" :md="6" :lg="6" class="right">
+            <img class='visa' src="../assets/visa-master.png" alt="" >
+          </Col>
 				</Row>
 			</Col>
 			<Col :xs="24" :sm="22" :md="20" :lg="20" class="divider"></Col>
@@ -156,7 +158,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	.mobil-footer{
 		width: 100%;
 		background: #fff;
-		height: 121px;
+		height: 60px;
 	}
 	.mobil-footer h3 {
 		color:#9B9B9B;
@@ -204,4 +206,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 	@media( max-width: 765px) {
 		.storyArea{position: relative;top:0}
 	}
+  .visa{
+    width: 100px;
+  }
 </style>

@@ -9,17 +9,17 @@
 		</Col>
 	</Row>
 	<div class="form_container login">
-	<i-form >
+	<i-form class='high'>
 		<form-item >
-			<i-input type="text" :value="username" @input="updateUsername" placeholder="使用者帳號" clearable>
+			<i-input size="large" type="text" :value="username" @input="updateUsername" placeholder="使用者帳號" clearable>
 				<icon type="person" size="20" slot="prepend"></icon>
 			</i-input>
 		</form-item>
 		<form-item prop="password">
-			<i-input type="password" :value="password" @input="updatePassword" placeholder="使用者密碼" clearable>
-				<icon type="locked" size="20" slot="prepend"></icon>
+			<i-input size="large" type="password" :value="password" @input="updatePassword" placeholder="使用者密碼" clearable>
+				<icon type="key" size="20" slot="prepend"></icon>
 			</i-input>
-			 
+
 		</form-item>
 		<form-item>
 			<i-button class="loginButton" shape="circle" @click="login()">登入</i-button>
@@ -33,7 +33,7 @@
 	</i-form>
 	</div>
     </div>
-   
+
 </template>
 
 <script>
@@ -46,7 +46,7 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
         },
         computed:{
              ...mapState({
-                    password: state => state.user.password , 
+                    password: state => state.user.password ,
                     username: state => state.user.username
 				}),
 			...mapGetters({
@@ -68,7 +68,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 </script>
 
 <style scoped>
-
 .worngLogin {
 	color: red;
 	font-size: 1.2em
@@ -79,9 +78,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		z-index: 30;
 		background-color: rgba(255, 255, 255, 1);
 	}
-	.ivu-input {
-		height: 36px;
-	}
 
 	.codeImg {
 		width: 60px;
@@ -89,12 +85,12 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 		margin: 0px;
 		display: inline-block;
 	}
-	
+
 	.loginButton {
 		width: 100%;
 		padding: 13px ;
 		color: #fff;
-		background-image:linear-gradient(to bottom, #1883C3 0%, #013D7E 100%); 
+		background-image:linear-gradient(to bottom, #1883C3 0%, #013D7E 100%);
 	}
 	.loginA {
 		color: #2195C1;

@@ -164,7 +164,6 @@
 </template>
 
 <script>
-// import '@/theme/user.less'
 import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 export default {
   name: 'HelloWorld',

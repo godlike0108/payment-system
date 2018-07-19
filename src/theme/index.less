@@ -5,9 +5,14 @@
 @menu-dark-title: #155d78;
 @input-placeholder-color: #666;
 @input-border-color: #eee;
-@input-bg: #eee;
+@input-bg: rgb(247,247,247);
+@input-group-bg: rgb(247,247,247);
 @btn-padding-base : 6px 15px;
 
+.ivu-input-group-prepend, .ivu-input-group-append{
+  background-color: rgb(247,247,247);
+  border: none;
+}
 
 .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu), .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu){
     color:#fff
@@ -66,8 +71,10 @@
 .clickable{
   cursor: pointer;
 }
-.ivu-input{
-  background-color: #fff;
+.ivu-input, .ivu-input:focus, .ivu-input:hover{
+  border: none;
+  box-shadow: none;
+  outline: 0;
 }
 .layout-container{
   border: 1px solid rgb(226, 225, 231);
@@ -88,4 +95,12 @@
 img.responsive{
   max-width: 100%;
   max-height: 400px;
+}
+.walletButton, .loginButton{
+  background-image: linear-gradient(to bottom, rgb(249, 167, 56) 0%, rgb(246, 140, 50) 100%)!important;
+  border: none;
+}
+.walletButton[disabled], .loginButton[disabled]{
+    color: #fff!important;
+    background-image: linear-gradient(to bottom, rgb(237, 236, 240) 0%, rgb(214, 213, 220) 100%)!important;
 }
