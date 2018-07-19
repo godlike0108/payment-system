@@ -83,6 +83,7 @@ export default {
         {
           label: '會員名稱',
           key: 'name',
+          width: '120xp'
         },
         {
           label: '生日',
@@ -102,6 +103,7 @@ export default {
         {
           label: '戶籍地址',
           key: 'permanent_address',
+          width: '150px'
         },
         {
           label: '發證日期',
@@ -121,6 +123,7 @@ export default {
         {
           label: '審核',
           key: 'active',
+          width: '120px'
         },
       ],
       viewFile: false,
@@ -275,6 +278,9 @@ th, td{
   cursor: pointer;
   border-bottom: 1px dashed #ccc;
   display: inline-block;
+}
+.ivu-table-header{
+  overflow: auto;
 }
 
 </style>
