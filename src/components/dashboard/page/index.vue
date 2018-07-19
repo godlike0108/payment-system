@@ -48,6 +48,10 @@
                         <Icon type="calculator" size="18"></Icon>
                         <span>匯率設定</span>
                     </MenuItem>
+                    <MenuItem name="2-2" @click.native="toPath('adjustment')">
+                        <Icon type="calculator" size="18"></Icon>
+                        <span>行政費用</span>
+                    </MenuItem>
                     <MenuItem name="1-12" @click.native="toPath('members')">
                        <Icon type="person-stalker" size="18"></Icon>
                         <span>會員管理</span>
@@ -144,10 +148,10 @@ export default {
   margin: 10px 0 20px 0
 }
  .layout{
-        border: 1px solid #d7dde4;
+        /* border: 1px solid #d7dde4; */
         background: #f5f7f9;
         position: relative;
-        border-radius: 4px;
+        /* border-radius: 4px; */
         overflow: hidden;
         min-height: 100vh
     }

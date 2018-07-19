@@ -33,6 +33,7 @@ import signupRequests from '@/components/dashboard/page/signupRequests'
 import checkoutsLevel1 from '@/components/dashboard/page/checkoutsLevel1'
 import checkoutsLevel2 from '@/components/dashboard/page/checkoutsLevel2'
 import checkoutsApproval from '@/components/dashboard/page/checkoutsApproval'
+import adjustment from '@/components/dashboard/page/adjustment'
 import checkInApplication from '@/components/dashboard/page/checkInApplication'
 import checkInRetaliation from '@/components/dashboard/page/checkInRetaliation'
 import distributions from '@/components/dashboard/page/distributions'
@@ -189,6 +190,11 @@ const vueRouter = new Router({
                     path: 'exchangeRate',
                     name: 'dashboard_exchangeRate',
                     component: exchangeRate
+                },
+                {
+                    path: 'adjustment',
+                    name: 'dashboard_adjustment',
+                    component: adjustment
                 },
                 {
                     path: 'activeUser',
