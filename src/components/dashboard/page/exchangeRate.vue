@@ -138,7 +138,7 @@ th, td{
 .rate{
   text-decoration: none;
   border-bottom:1px dashed #aaa;
-  width: 50px;
+  width: 70px;
   margin: 0 auto;
 }
 </style>

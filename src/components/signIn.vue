@@ -155,8 +155,6 @@ import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
         return re.test(value)
       },
 			submitSignIn(){
-        this.$store.commit('success_signup');
-        return
 
 				let reEmail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 				let reMobile09 = /^09[0-9]{8}$/

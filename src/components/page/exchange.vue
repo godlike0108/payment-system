@@ -181,7 +181,8 @@ export default {
       this.$store.dispatch('exchange', {
         "from_wallet_id" : this.from.id,
       	"to_wallet_id" : this.to.id,
-      	"amount" : this.exchange.balance
+      	"amount" : this.exchange.balance,
+      	"base_currency" : this.exchange.currency
       }).then((res)=>{
         this.$Message.success('換匯成功');
         this.$store.dispatch('getNewestWallet')
