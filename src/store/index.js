@@ -368,16 +368,16 @@ const mutations = {
         sms: sms,
         index: index
     }) {
-        if (name) {
+        if (name || name == '') {
             state.checkout.name = name
-        } else if (bank) {
+        } else if (bank || bank == '') {
             state.checkout.bank = bank
-        } else if (account) {
+        } else if (account || account == '') {
             state.checkout.bank_account = account
-        } else if (amount) {
+        } else if (amount || amount == '') {
             state.checkout.amount = amount
                 // console.log(state.checkout.amount)
-        } else if (sms) {
+        } else if (sms || sms == '') {
             state.checkout.sms = sms
         } else if (index === 0 || index) {
             state.checkout.walletIndex = index

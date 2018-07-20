@@ -12,6 +12,9 @@
                         <!-- <Alert v-if='!user.id_card_status_id' type="warning" show-icon>帳號未審核</Alert> -->
 
                         <i-form :model='user' ref='form' :label-width="90">
+                          <!-- <FormItem label="電話">
+                              <Input v-model="user.mobile" placeholder=""></Input>
+                          </FormItem> -->
                           <FormItem label="姓名">
                               <Input v-model="user.name" placeholder="使用者姓名"></Input>
                           </FormItem>
