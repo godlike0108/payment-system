@@ -28,14 +28,14 @@
                         <Icon type="ios-calculator" size="18"></Icon>
                         <span>出金紀錄</span>
                     </MenuItem>
-                    <MenuItem name="1-6" @click.native="toPath('wallet')">
+                    <!-- <MenuItem name="1-6" @click.native="toPath('wallet')">
                         <Icon type="filing" size="18"></Icon>
                         <span>入金</span>
                     </MenuItem>
                     <MenuItem name="1-9" @click.native="toPath('walletHistories')">
                         <Icon type="filing" size="18"></Icon>
                         <span>入金紀錄</span>
-                    </MenuItem>
+                    </MenuItem> -->
                     <MenuItem name="1-10" @click.native="toPath('checkInApplication')">
                         <Icon type="filing" size="18"></Icon>
                         <span>入金申請</span>

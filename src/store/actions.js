@@ -556,7 +556,7 @@ export default {
         let oldpassword = state.updateProfile.oldpassword
         let password = state.updateProfile.password
         let data = JSON.stringify({ old_password: oldpassword, password: password })
-        
+
         axios.put(`${baseURL}/api/users/${id}`, data, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -640,8 +640,10 @@ export default {
     exchange({}, data){
       let url = `${baseURL}/api/exchange-currency`
       return axios.post( url, data, {
-        'Authorization': `Bearer ` + localStorage.getItem('token') ,
-        'Content-Type': 'application/json',
+        headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+        }
       })
     },
     getUser({state}, data){
@@ -687,5 +689,16 @@ export default {
               'Content-Type': 'multipart/form-data'
           }
       })
-    }
+    },
+    getWallet({ commit, state }) {
+        let token = localStorage.getItem('token')
+        let id = localStorage.getItem('id')
+        return axios.get(`${baseURL}/api/users/${id}/wallets`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        })
+    },
 }

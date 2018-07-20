@@ -11,8 +11,8 @@
           <Row type="flex" align="bottom">
             <Col :xs="24" :sm="10" :md="10" :lg="10">
               <div class='label text-left'>轉出錢包</div>
-              <Select ref="from" :placeholder="'請選擇錢包'" @on-change="setFrom"  clearable>
-                  <Option v-for="(item,index) in getWallet" :value="index" :key="index" >{{ item.currencyName }}帳戶 ${{item.balance}}</Option>
+              <Select ref="from" :placeholder="'請選擇錢包'" @on-change="setFrom" @on-open-change="getWallet" clearable>
+                  <Option v-for="(item,index) in wallets" :value="index" :key="index" >{{ item.currencyName }}帳戶 ${{item.balance}}</Option>
               </Select>
             </Col>
             <Col :xs="0" :sm="4" :md="4" :lg="4">
@@ -20,8 +20,8 @@
             </Col>
             <Col :xs="24" :sm="10" :md="10" :lg="10">
               <div class='label text-left'>轉入錢包</div>
-              <Select ref="to" :placeholder="'請選擇錢包'" @on-change="setTo"  clearable>
-                  <Option v-for="(item,index) in getWallet" :value="index" :key="index" >{{ item.currencyName }}帳戶 ${{item.balance}}</Option>
+              <Select ref="to" :placeholder="'請選擇錢包'" @on-change="setTo"  @on-open-change="getWallet" clearable>
+                  <Option v-for="(item,index) in wallets" :value="index" :key="index" >{{ item.currencyName }}帳戶 ${{item.balance}}</Option>
               </Select>
             </Col>
           </Row>
@@ -87,53 +87,54 @@ export default {
       accountError: '',
       exchangeError: '',
       rate: 0,
+      wallets: [],
     };
   },
+  mounted: function(){
+    this.getWallet()
+  },
   computed: {
-    getWallet() {
 
-      let data = this.$store.getters.getAllWallet
-
-      data.map(item => {
-        switch (item.currency) {
-          case 'USD':
-            item.currencyName = '美元'
-            break;
-          case 'TWD':
-            item.currencyName = '新台幣'
-            break;
-          case 'CNY':
-            item.currencyName = '人民幣'
-            break;
-          case 'HKD':
-            item.currencyName = '港幣'
-            break;
-          case 'JPY':
-            item.currencyName = '日圓'
-            break;
-          case 'KRW':
-            item.currencyName = '韓圓'
-            break;
-          default:
-            // console.log('getAllWallet fail.')
-        }
-
-        if (item.balance) {
-          let num = new Number(item.balance);
-          let balance = num.toFixed(2)
-          item.balance = balance
-        }
-
-        return item
-      })
-      return data
-    },
-    // getExchangeCurrency(){
-    //   if(this.direction == '') return '---'
-    //   return (this.direction == '1')? this.from.currency: this.to.currency
-    // }
   },
   methods: {
+    getWallet() {
+      this.$store.dispatch('getWallet').then((res)=>{
+        let data = res.data
+        data.map(item => {
+          switch (item.currency) {
+            case 'USD':
+              item.currencyName = '美元'
+              break;
+            case 'TWD':
+              item.currencyName = '新台幣'
+              break;
+            case 'CNY':
+              item.currencyName = '人民幣'
+              break;
+            case 'HKD':
+              item.currencyName = '港幣'
+              break;
+            case 'JPY':
+              item.currencyName = '日圓'
+              break;
+            case 'KRW':
+              item.currencyName = '韓圓'
+              break;
+            default:
+              // console.log('getAllWallet fail.')
+          }
+
+          if (item.balance) {
+            let num = new Number(item.balance);
+            let balance = num.toFixed(2)
+            item.balance = balance
+          }
+
+          return item
+        })
+        this.wallets = data
+      })
+    },
     setRate(){
       if(this.exchange.currency != undefined && this.target.currency != undefined){
         this.$store.dispatch('getRate', {
@@ -147,13 +148,13 @@ export default {
       }
     },
     setFrom(index){
-      this.from = this.getWallet[index];
+      this.from = this.wallets[index];
       if(this.from.currency == this.to.currency) this.accountError='請選擇兩個不同的帳戶';
       else this.accountError = '';
       this.updateExchangeCurrency(this.direction)
     },
     setTo(index){
-      this.to = this.getWallet[index];
+      this.to = this.wallets[index];
       if(this.from.currency == this.to.currency) this.accountError='請選擇兩個不同的帳戶';
       else this.accountError = '';
       this.updateExchangeCurrency(this.direction)
@@ -186,15 +187,21 @@ export default {
       }).then((res)=>{
         this.$Message.success('換匯成功');
         this.$store.dispatch('getNewestWallet')
-        this.from = {}
-        this.to = {}
-        this.target = {}
-        this.exchange = {
-          currency: '---'
-        }
-        this.rate = 0
-        this.$refs.from.clearSingleSelect()
-        this.$refs.to.clearSingleSelect()
+
+        this.getWallet()
+        setTimeout(()=>{
+          this.from = {}
+          this.to = {}
+          this.target = {}
+          this.exchange = {
+            currency: '---'
+          }
+          this.rate = 0
+          this.$refs.from.clearSingleSelect()
+          this.$refs.to.clearSingleSelect()
+          this.$refs.from.$forceUpdate()
+          this.$refs.to.$forceUpdate()
+        }, 1000)
       })
     },
   },

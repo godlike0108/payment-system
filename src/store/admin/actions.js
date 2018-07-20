@@ -513,6 +513,15 @@ export default {
               'Authorization': `Bearer ` + localStorage.getItem('token'),
           }
       })
+    },
+    getExchangeLog({}, page){
+      let url = `${baseURL}/api/currency-exchange-logs?page=${page}`
+      return axios.get( url, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
     }
 
 }

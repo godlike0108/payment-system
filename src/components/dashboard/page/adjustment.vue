@@ -8,7 +8,8 @@
         行政費用
       </div>
       <div class='layout-body'>
-
+        <Table border :columns="columns" :data="log"></Table>
+        <Page :total="page_total" :page-size='page_size' @on-change="changePage" style="margin:15px"></Page>
       </div>
     </div>
     </Col>
@@ -17,71 +18,65 @@
 </template>
 
 <script>
-import {
-  mapActions,
-  mapState,
-  mapGetters,
-  mapMutations
-} from 'vuex'
 export default {
   data() {
     return {
-      currency: ['USD', 'TWD', 'CNY', 'HKD', 'JPY', 'KRW'],
-      rates: {},
-      editRateModal: false,
-      selectedRate: {},
+      columns: [
+        {
+            title: '單號',
+            key: 'id'
+        },
+        {
+            title: '幣別',
+            key: 'base_currency',
+            render: (h, params) => {
+              return h('div', `${params.row.base_currency} ${this.$store.state.currency[params.row.base_currency]}`)
+            }
+        },
+        {
+            title: '原始金額',
+            key: 'system_amount'
+        },
+        {
+            title: '成交金額',
+            key: 'transaction_amount'
+        },
+        {
+            title: '獲利金額',
+            key: 'profit'
+        },
+        {
+            title: '日期',
+            key: 'created_at',
+            render: (h, params) => {
+              return h('div', this.$moment(params.row.created_at+' +0000').format('YYYY-MM-DD HH:mm:ss'))
+            }
+        },
+      ],
+      log: [],
+      page_total: 0,
+      page_size: 15,
     }
   },
   name: 'adjustment',
   beforeMount: function() {
-    this.currency.forEach((fromCurrency) => {
-      this.rates[fromCurrency] = {}
-      this.currency.forEach((toCurrency) => {
-        this.rates[fromCurrency][toCurrency] = { rate: ''}
-      })
-    })
-    this.$store.dispatch('getRates').then((res) => {
-      res.data.forEach((obj) => {
-        this.rates[obj.from_currency][obj.to_currency] = obj
-        this.$forceUpdate()
-      })
-    })
-    // this.$store.dispatch('getBankRates').then((res)=>{
-    //
-    // })
+    this.changePage(0)
   },
   computed: {
 
   },
   methods: {
-    updateRate(){
-      this.$store.dispatch('updateRate', this.selectedRate).then((res)=>{
-        this.$Message.success('修改成功')
-        this.rates[this.selectedRate.from_currency][this.selectedRate.to_currency] = selectedRate
+    changePage(page){
+      this.$store.dispatch('getExchangeLog', page).then((res)=>{
+        this.log = res.data.data
+        this.page_total = res.data.total
       })
-    },
-    selectRate(rate){
-      this.selectedRate = rate
-      this.editRateModal = true
-    },
+    }
   },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
-.ivu-table table{
-  width: 100%;
-}
-.th .ivu-table-cell{
-}
-th, td{
-  text-align: center!important;
-}
-.rate{
-  text-decoration: none;
-  border-bottom:1px dashed #aaa;
-  width: 70px;
-  margin: 0 auto;
-}
+
 </style>
