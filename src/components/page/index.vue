@@ -165,6 +165,7 @@
 
 <script>
 import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
+import '@/theme/frontend.less'
 export default {
   name: 'HelloWorld',
   data () {

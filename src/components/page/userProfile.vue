@@ -39,13 +39,13 @@
                           <FormItem label="舊密碼" v-show="user.password" :error="old_password_error">
                               <Input type="password" v-model="user.oldpassword" placeholder="若要更新密碼，需要舊密碼"></Input>
                           </FormItem>
-                          <FormItem label="身分證正面照" class='text-left'>
+                          <FormItem label="身分證正面照" class='text-left' v-if="user.id_card_status_id != 1">
                             <Upload :before-upload="handleUploadFront" action=''>
                                 <Button type="ghost" icon="ios-cloud-upload-outline">正面照</Button>
                                 <span v-if='files.front.name'> - {{files.front.name}}</span>
                             </Upload>
                           </FormItem>
-                          <FormItem label="身分證背面照" class='text-left'>
+                          <FormItem label="身分證背面照" class='text-left' v-if="user.id_card_status_id != 1">
                             <Upload :before-upload="handleUploadBack" action=''>
                                 <Button type="ghost" icon="ios-cloud-upload-outline">背面照</Button>
                                 <span v-if='files.back.name'> - {{files.back.name}}</span>
