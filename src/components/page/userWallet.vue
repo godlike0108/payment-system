@@ -19,7 +19,7 @@
         <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
             <TabPane label="金流紀錄" name="name1" class="1">
-                <Table height="500" :columns="columns1" :data="getTransition" ></Table>
+                <Table stripe height="500" :columns="columns1" :data="getTransition" class="pg-table"></Table>
                 <Page :total="get_wallet_page_total" @on-change="change" style="margin:15px" ></Page>
             </TabPane>
         </Tabs>
@@ -57,32 +57,74 @@ export default {
     };
      return {
         columns1: [
-
                     {
-                        title: '內容',
-                        key: 'type',
-                        minWidth:100
+                        title: '時間',
+                        key: 'created_at',
+                        width:100,
+                        className: 'date'
                     },
+                    // {
+                    //     title: '內容',
+                    //     key: 'type',
+                    //     minWidth:100
+                    // },
                     {
                         title: '進/出帳號',
                         key: 'relative_username',
-                        minWidth:100
+                        className: 'text-left',
+                        render: (h, params)=>{
+                          return h(
+                            'div',
+                            [
+                                h(
+                                  'div',
+                                  {
+                                    class: 'account'
+                                  },
+                                  `對方帳戶  ID ${params.row.relative_username}`
+                                ),
+                                h( 'div',
+                                  {
+                                    class: 'balance'
+                                  },
+                                  `本帳戶餘額 ${params.row.wallet_balance}`
+                                )
+                            ]
+                          )
+                        }
                     },
                     {
                         title: '金額',
                         key: 'relative_amount',
-                        minWidth:100
+                        width:100,
+                        className: ['text-right', 'last-td'],
+                        render: (h, params)=>{
+                          return h(
+                            'div',
+                            [
+                                h(
+                                  'div',
+                                  {
+                                    class: 'amount'
+                                  },
+                                  `$${params.row.relative_amount}`
+                                ),
+                                h( 'div',
+                                  {
+                                    class: ['type', params.row.color]
+                                  },
+                                  params.row.type
+                                )
+                            ]
+                          )
+                        }
                     },
-                    {
-                        title: '餘額',
-                        key: 'wallet_balance',
-                        minWidth:100
-                    },
-                    {
-                        title: '時間',
-                        key: 'created_at',
-                        minWidth:100
-                    }
+                    // {
+                    //     title: '餘額',
+                    //     key: 'wallet_balance',
+                    //     minWidth:100
+                    // },
+
                 ]
     };
   },
@@ -116,21 +158,35 @@ export default {
              switch(item.operation_type){
                  case 0:
                  item.type = '內部轉入'
+                 item.color = 'green'
                  break;
                  case 1:
                  item.type = '內部轉出'
+                 item.color = 'blue'
                  break;
                  case 2:
                  item.type = '入金'
+                 item.color = 'green'
                  break;
                  case 3:
                  item.type = '申請出金'
+                 item.color = 'blue'
                  break;
                  case 4:
                  item.type = '內部轉入'
+                 item.color = 'green'
                  break;
                  case 5:
                  item.type = '內部轉出'
+                 item.color = 'blue'
+                 break;
+                 case 6:
+                 item.type = '匯率轉出'
+                 item.color = 'blue'
+                 break;
+                 case 7:
+                 item.type = '匯率轉入'
+                 item.color = 'green'
                  break;
              }
 
@@ -150,7 +206,8 @@ export default {
 
              if(item.created_at) {
                item.created_at = this.$moment(item.created_at+' +0000')
-               .format('YYYY-MM-DD HH:mm:ss')
+               // .format('YYYY-MM-DD HH:mm:ss')
+               .format('MM/DD')
              }
 
              return item
@@ -246,4 +303,5 @@ export default {
         margin: 10px;
         display: block
     }
+
 </style>
