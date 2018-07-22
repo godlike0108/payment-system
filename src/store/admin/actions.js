@@ -522,6 +522,15 @@ export default {
             'Content-Type': 'application/json',
           }
       })
-    }
+    },
+    getOfficialRate({}, page){
+      let url = `${baseURL}/api/official-exchange-rate`
+      return axios.get( url, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+    },
 
 }

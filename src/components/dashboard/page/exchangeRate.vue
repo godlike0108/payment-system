@@ -39,7 +39,7 @@
                         <span v-else class='clickable' @click="selectRate(rates[fromCurrency][toCurrency])">
                           <!-- {{fromCurrency}} -> {{toCurrency}} -->
                           <div class='rate'>{{rates[fromCurrency][toCurrency].rate}}</div>
-                          <div>參考值: 30.131</div>
+                          <div>參考值: {{rates[fromCurrency][toCurrency].officialRate}}</div>
                         </span>
                       </div>
                     </td>
@@ -61,7 +61,7 @@
                     <Input v-model="selectedRate.rate"></Input>
                   </Col>
                   <Col span="8" offset="1">
-                    參考值: 30.131
+                    參考值: {{selectedRate.officialRate}}
                   </Col>
                 </Row>
               </FormItem>
@@ -97,12 +97,26 @@ export default {
         this.rates[fromCurrency][toCurrency] = { rate: ''}
       })
     })
-    this.$store.dispatch('getRates').then((res) => {
-      res.data.forEach((obj) => {
+    Promise.all([
+      this.$store.dispatch('getRates'),
+      this.$store.dispatch('getOfficialRate')
+    ]).then((res)=>{
+      res[0].data.forEach((obj) => {
         this.rates[obj.from_currency][obj.to_currency] = obj
         this.$forceUpdate()
       })
+      res[1].data.forEach((obj) => {
+        this.rates[obj.from_currency][obj.to_currency].officialRate = obj.rate
+        this.$forceUpdate()
+      })
     })
+    // this.$store.dispatch('getRates').then((res) => {
+    //   res.data.forEach((obj) => {
+    //     this.rates[obj.from_currency][obj.to_currency] = obj
+    //     this.$forceUpdate()
+    //
+    //   })
+    // })
     // this.$store.dispatch('getBankRates').then((res)=>{
     //
     // })

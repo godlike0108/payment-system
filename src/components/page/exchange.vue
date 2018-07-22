@@ -45,7 +45,9 @@
                   <span slot="prepend">{{exchange.currency}} {{exchange.currencyName}}</span>
               </Input>
               <div v-if="target.balance" class='text-right'>
-                約等於 {{target.balance}} {{target.currency}} {{target.currencyName}} (匯率 {{rate}})
+                約等於 {{target.balance}} {{target.currency}} {{target.currencyName}}<br>
+                (匯率 {{rate}}, 台銀參考 {{officialRate}})<br>
+
               </div>
             </Col>
           </Row>
@@ -87,11 +89,16 @@ export default {
       accountError: '',
       exchangeError: '',
       rate: 0,
+      officialRate: 0,
+      officialRates: [],
       wallets: [],
     };
   },
   mounted: function(){
-    this.getWallet()
+    this.getWallet(),
+    this.$store.dispatch('getOfficialRate').then((res)=>{
+      this.officialRates = res.data
+    })
   },
   computed: {
 
@@ -142,7 +149,7 @@ export default {
           to: this.target.currency,
         }).then((res)=>{
           this.rate = res.data.rate
-          this.target.balance = this.exchange.balance * this.rate
+          // this.target.balance = this.exchange.balance * this.rate
         })
 
       }
@@ -168,7 +175,11 @@ export default {
     },
     setTargetBalance(){
       if( this.rate && this.exchange.balance){
-        this.target.balance = this.rate * this.exchange.balance
+        this.target.balance = Math.round(this.rate * this.exchange.balance*100)/100
+        this.officialRate = this.officialRates.find((rate)=>{
+          return rate.from_currency == this.exchange.currency && rate.to_currency == this.target.currency
+        }).rate
+
         this.exchangeError = ''
         if( this.direction == '1' && this.from.balance < this.exchange.balance){
           this.exchangeError = '錢包餘額不足'
