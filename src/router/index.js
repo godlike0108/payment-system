@@ -7,6 +7,7 @@ import store from '@/store'
 import index from '@/components/page/index'
 import userWallet from '@/components/page/userWallet'
 import userProfile from '@/components/page/userProfile'
+import userActive from '@/components/page/userActive'
 import exchange from '@/components/page/exchange'
 import userTransaction from '@/components/page/userTransaction'
 import currentWallet from '@/components/page/currentWallet'
@@ -103,6 +104,12 @@ const vueRouter = new Router({
                     path: 'userProfile',
                     name: 'userProfile',
                     component: userProfile,
+                    meta: { requiresAuth: true },
+                },
+                {
+                    path: 'userActive',
+                    name: 'userActive',
+                    component: userActive,
                     meta: { requiresAuth: true },
                 },
                 {
@@ -280,7 +287,7 @@ vueRouter.beforeEach((to, from, next) => {
             return record.meta.requiresAuth;
         })) {
         if (to.fullPath === null) {
-            if (from.fullPath === '/index' || from.fullPath === '/index/checkout' || from.fullPath === '/index/userProfile' || from.fullPath === '/index/wallet') {
+            if (from.fullPath === '/index' || from.fullPath === '/index/checkout' || from.fullPath === '/index/userProfile' || from.fullPath === '/index/userActive' || from.fullPath === '/index/wallet') {
                 store.commit('setData')
                 store.commit('reset_user_checkout')
                 store.dispatch('userGetChekout', 1)
@@ -327,7 +334,7 @@ vueRouter.beforeEach((to, from, next) => {
                 next({ path: '/index/currentWallet' })
             }
         }
-        if (from.fullPath === '/index/checkout' || from.fullPath === '/index/userProfile') {
+        if (from.fullPath === '/index/checkout' || from.fullPath === '/index/userProfile' || from.fullPath === '/index/userActive') {
             if (to.fullPath === '/index/') {
                 store.dispatch('front_end_show_user')
             }

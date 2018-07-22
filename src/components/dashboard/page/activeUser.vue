@@ -33,9 +33,10 @@
                         <span v-else-if="field.key == 'gender'" class="">{{gender(user.gender)}}</span>
                         <span v-else-if="field.key == 'active'" class="">
                           <Select @on-change="changeState(user.id_card_status_id, user.id)" v-model="user.id_card_status_id" style="width:100px;" :class="optionColor(user.id_card_status_id)" :placeholder='optionText(user.id_card_status_id)'>
-                              <Option value="-1" ><span class='option-2'>審核拒絕</span></Option>
-                              <!-- <Option value="0" ><span class='option-0'>未審核</span></Option> -->
-                              <Option value="1" ><span class='option-1'>審核通過</span></Option>
+                              <Option value="-1" ><span class='option-m1'>審核拒絕</span></Option>
+                              <Option value="0" ><span class='option-0'>未審核</span></Option>
+                              <Option value="1" ><span class='option-1'>送審</span></Option>
+                              <Option value="2" ><span class='option-2'>審核通過</span></Option>
                           </Select>
                         </span>
                         <span v-else class="">{{user[field.key]}}</span>
@@ -183,6 +184,9 @@ export default {
           return 'option-1';
           break;
         case '-1':
+          return 'option-m1';
+          break;
+        case '2':
           return 'option-2';
           break;
       }
@@ -260,10 +264,10 @@ th, td{
 .option-0{
 
 }
-.option-1{
+.option-2{
   color: green;
 }
-.option-2{
+.option-m1{
   color: red;
 }
 .ivu-select-item-selected.ivu-select-item-focus,

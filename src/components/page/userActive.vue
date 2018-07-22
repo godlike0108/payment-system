@@ -15,7 +15,7 @@
                           <!-- <FormItem label="電話">
                               <Input v-model="user.mobile" placeholder=""></Input>
                           </FormItem> -->
-                          <FormItem label="姓名">
+                          <!-- <FormItem label="姓名">
                               <Input v-model="user.name" placeholder="使用者姓名"></Input>
                           </FormItem>
                           <FormItem label="生日" class='text-left'>
@@ -35,27 +35,33 @@
                           </FormItem>
                           <FormItem label="發證日期" class='text-left'>
                               <DatePicker type="date" placeholder="請選擇日期" v-model="user.id_card_issue_date"></DatePicker>
-                          </FormItem>
-                          <FormItem label="新密碼" error="123">
-                              <Input type="password" v-model="user.password" placeholder="請輸入新密碼"></Input>
-                          </FormItem>
-                          <FormItem label="舊密碼" v-show="user.password" :error="old_password_error">
-                              <Input type="password" v-model="user.oldpassword" placeholder="若要更新密碼，需要舊密碼"></Input>
-                          </FormItem>
-                          <!-- <FormItem label="身分證正面照" class='text-left' v-if="user.id_card_status_id != 1">
+                          </FormItem> -->
+                          <div class='text-left active-text'>
+                            <h3>PGPay需要您提供 身分證件驗證身分：</h3>
+                            <p>所有證明文件要求：</p>
+                            <ul>
+                              <li>證明文件拍攝完整，不出現缺角</li>
+                              <li>各項訊息及頭像清晰可見，容易識別</li>
+                              <li>證名文件必須真實拍攝，不能使用複印件</li>
+                              <li>圖片中無反光，無遮擋，無水印，無 Logo 等情況</li>
+                              <li>圖片僅支援 jpg, jpeg, bmp 圖片格式，檔案大小不得大於 5MB</li>
+                            </ul>
+
+                          </div>
+                          <FormItem label="身分證正面照" class='text-left'>
                             <Upload :before-upload="handleUploadFront" action=''>
                                 <Button type="ghost" icon="ios-cloud-upload-outline">正面照</Button>
                                 <span v-if='files.front.name'> - {{files.front.name}}</span>
                             </Upload>
                           </FormItem>
-                          <FormItem label="身分證背面照" class='text-left' v-if="user.id_card_status_id != 1">
+                          <FormItem label="身分證背面照" class='text-left'>
                             <Upload :before-upload="handleUploadBack" action=''>
                                 <Button type="ghost" icon="ios-cloud-upload-outline">背面照</Button>
                                 <span v-if='files.back.name'> - {{files.back.name}}</span>
                             </Upload>
-                          </FormItem> -->
+                          </FormItem>
                           <FormItem>
-                            <Button type="primary" @click="updateProfile">儲存資料</Button>
+                            <Button type="primary" @click="updateProfile">送出驗證要求</Button>
                           </FormItem>
                         </i-form>
                     </Col>
@@ -70,7 +76,7 @@
 <script>
 import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 export default {
-  name: 'userProfile',
+  name: 'userActive',
   data () {
      return {
        user: {
@@ -225,4 +231,18 @@ export default {
 		/* background-color: rgb(238, 238, 238); */
 		background-image:linear-gradient(to bottom, #2c91ac 0%, #155d78 100%);
 	}
+  .active-text{
+    margin-left: 8px;
+  }
+  .active-text p{
+    margin-bottom: 10px;
+  }
+  .active-text {
+    margin-bottom: 20px;
+  }
+  .active-text li{
+    margin-left: 12px;
+    list-style-type: decimal;
+    margin-bottom: 5px;
+  }
 </style>

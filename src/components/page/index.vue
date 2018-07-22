@@ -38,7 +38,7 @@
                     <template slot="title" >
                         出金
                     </template>
-                    <MenuItem name="3-1" @click.native="toPath('checkout')">
+                    <MenuItem v-if="$store.state.user.id_card_status_id==2" name="3-1" @click.native="toPath('checkout')">
                         <span>出金申請</span>
                     </MenuItem>
                     <MenuItem name="3-2" @click.native="toPath('checkoutList')">
@@ -67,7 +67,10 @@
                     <MenuItem name="5-2" @click.native="toPath('userProfile')">
                         <span>修改資訊</span>
                     </MenuItem>
-                    <MenuItem name="5-3" @click.native="toPath('customerService')">
+                    <MenuItem v-if="$store.state.user.id_card_status_id!=2" name="5-3" @click.native="toPath('userActive')">
+                        <span>帳號驗證</span>
+                    </MenuItem>
+                    <MenuItem name="5-4" @click.native="toPath('customerService')">
                         <span>聯絡我們</span>
                     </MenuItem>
                   </Submenu>
@@ -108,7 +111,7 @@
                           <span>出金</span>
                           <Icon type="chevron-down"></Icon>
                           <ul class='main-submenu' v-if="menu==2">
-                            <li :class="{active: (submenu==1)}" @click.stop="submenuActive(1);toPath('checkout')">
+                            <li v-if="$store.state.user.id_card_status_id==2" :class="{active: (submenu==1)}" @click.stop="submenuActive(1);toPath('checkout')">
                               <span>出金申請</span>
                             </li>
                             <li :class="{active: (submenu==2)}" @click.stop="submenuActive(2);toPath('checkoutList')">
@@ -138,7 +141,10 @@
                             <li :class="{active: (submenu==2)}" @click.stop="submenuActive(2);toPath('userProfile')">
                               <span>修改資訊</span>
                             </li>
-                            <li :class="{active: (submenu==3)}" @click.stop="submenuActive(3);toPath('customerService')">
+                            <li v-if="$store.state.user.id_card_status_id!=2" :class="{active: (submenu==3)}" @click.stop="submenuActive(3);toPath('userActive')">
+                              <span>帳號驗證</span>
+                            </li>
+                            <li :class="{active: (submenu==4)}" @click.stop="submenuActive(4);toPath('customerService')">
                               <span>聯絡我們</span>
                             </li>
                           </ul>
@@ -185,12 +191,7 @@ export default {
   },
   methods: {
       toPath(path){
-        if(path == 'checkout' && this.$store.state.user.id_card_status_id != '1'){
-            this.$Message.error('出金申請需要經過身份驗證')
-            // this.$router.push(`/index/${path}`)
-        }else{
-          this.$router.push(`/index/${path}`)
-        }
+        this.$router.push(`/index/${path}`)
       },
       log_out(){
           this.$store.commit('log_out')
@@ -314,7 +315,7 @@ export default {
   height: 64px;
 }
 .main-submenu{
-  width: 300px;
+  width: 400px;
   line-height: 75px;
 }
 .main-menu > li, .main-submenu > li{
