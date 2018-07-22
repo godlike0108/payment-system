@@ -35,7 +35,7 @@
                           <Select @on-change="changeState(user.id_card_status_id, user.id)" v-model="user.id_card_status_id" style="width:100px;" :class="optionColor(user.id_card_status_id)" :placeholder='optionText(user.id_card_status_id)'>
                               <Option value="-1" ><span class='option-m1'>審核拒絕</span></Option>
                               <Option value="0" ><span class='option-0'>未審核</span></Option>
-                              <Option value="1" ><span class='option-1'>送審</span></Option>
+                              <Option value="1" ><span class='option-1'>送審中</span></Option>
                               <Option value="2" ><span class='option-2'>審核通過</span></Option>
                           </Select>
                         </span>
@@ -136,6 +136,7 @@ export default {
       users: [],
       page_total: 0,
       page_size: 15,
+      current_page: 0,
       allow_change_state: false,
     }
   },
@@ -168,10 +169,13 @@ export default {
     changeState(state, id){
       if(this.allow_change_state){
           this.$store.dispatch('changeIDState', {
-            id_card_status_id: state,
+            id_card_status_id: parseInt(state),
             user: id,
           }).then((res)=>{
             this.$Message.success('修改完成')
+          }).catch(()=>{
+            this.$Message.error('修改失敗')
+            this.changePage(this.current_page)
           })
       }
     },
@@ -197,6 +201,9 @@ export default {
           return '未審核';
           break;
         case '1':
+          return '送審中';
+          break;
+        case '2':
           return '審核通過';
           break;
         case '-1':
@@ -205,6 +212,7 @@ export default {
       }
     },
     changePage(page){
+      this.current_page = page
       let self = this
       this.allow_change_state = false
       this.$store.dispatch('getPendingUsers',page).then((res)=>{
