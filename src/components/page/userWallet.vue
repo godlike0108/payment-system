@@ -9,7 +9,7 @@
         </Col>
         <Col :xs="20" :sm="{span:16,offset:5}" :md="{span:16,offset:5}" :lg="{span:16,offset:5}" :offset-lg="5">
             <Row type="flex" justify="end" align="top">
-            <Col :xs="24" :sm="8" :md="8" :lg="6">用戶：<span class="user">{{this.$store.state.user.name}}</span></Col>
+            <!-- <Col :xs="24" :sm="8" :md="8" :lg="6">用戶：<span class="user">{{this.$store.state.user.name}}</span></Col> -->
             <Col :xs="24" :sm="12" :md="8" :lg="8">剩餘金額：{{getCurrentWallet.currency}}<span class="money">{{getCurrentWallet.balance}}</span></Col>
             </Row>
         </Col>
@@ -19,7 +19,7 @@
         <Col :xs="24" :sm="16" :md="16" :lg="16">
             <Tabs value="name1">
             <TabPane label="金流紀錄" name="name1" class="1">
-                <Table stripe height="500" :columns="columns1" :data="getTransition" class="pg-table"></Table>
+                <Table ref='table' stripe :columns="columns1" :data="getTransition" class="pg-table" @on-row-click="triggerExpand"></Table>
                 <Page :total="get_wallet_page_total" @on-change="change" style="margin:15px" ></Page>
             </TabPane>
         </Tabs>
@@ -59,8 +59,8 @@ export default {
         columns1: [
                     {
                         title: '時間',
-                        key: 'created_at',
-                        width:100,
+                        key: 'shortTime',
+                        width: 90,
                         className: 'date'
                     },
                     // {
@@ -71,7 +71,7 @@ export default {
                     {
                         title: '進/出帳號',
                         key: 'relative_username',
-                        className: 'text-left',
+                        className: 'text-left content',
                         render: (h, params)=>{
                           return h(
                             'div',
@@ -96,8 +96,8 @@ export default {
                     {
                         title: '金額',
                         key: 'relative_amount',
-                        width:100,
-                        className: ['text-right', 'last-td'],
+                        width:110,
+                        className: ['text-right last-td'],
                         render: (h, params)=>{
                           return h(
                             'div',
@@ -119,6 +119,25 @@ export default {
                           )
                         }
                     },
+                    {
+                      type: 'expand',
+                      width: -1,
+                      render: (h, params) => {
+                          return h( 'div',
+                          [
+                            h( 'div', { class: 'expand-label'}, '進/出帳' ),
+                            h( 'div', { class: 'expand-value'}, params.row.type ),
+                            h( 'div', { class: 'expand-label'}, '時間' ),
+                            h( 'div', { class: 'expand-value'}, params.row.created_at ),
+                            h( 'div', { class: 'expand-label'}, '進/出帳號' ),
+                            h( 'div', { class: 'expand-value'}, params.row.relative_username ),
+                            h( 'div', { class: 'expand-label'}, '進/出帳金額' ),
+                            h( 'div', { class: 'expand-value'}, '$'+params.row.relative_amount ),
+                            h( 'div', { class: 'expand-label'}, '本帳戶餘額' ),
+                            h( 'div', { class: 'expand-value'}, '$'+params.row.wallet_balance ),
+                          ])
+                      }
+                    }
                     // {
                     //     title: '餘額',
                     //     key: 'wallet_balance',
@@ -155,6 +174,7 @@ export default {
           // console.log(data)
          return data.map(item=>{
              // console.log(item)
+             item._expanded = false
              switch(item.operation_type){
                  case 0:
                  item.type = '內部轉入'
@@ -205,9 +225,10 @@ export default {
              }
 
              if(item.created_at) {
-               item.created_at = this.$moment(item.created_at+' +0000')
-               // .format('YYYY-MM-DD HH:mm:ss')
+               item.shortTime = this.$moment(item.created_at+' +0000')
                .format('MM/DD')
+               item.created_at = this.$moment(item.created_at+' +0000')
+               .format('YYYY-MM-DD HH:mm:ss')
              }
 
              return item
@@ -216,9 +237,12 @@ export default {
   }
   },
    methods: {
-       change(page){
+      change(page){
         this.$store.dispatch('userGetwalletHistories',page)
-        },
+      },
+      triggerExpand(row, index){
+        this.$refs.table.toggleExpand(index)
+      }
     }
 
 }
@@ -303,5 +327,6 @@ export default {
         margin: 10px;
         display: block
     }
+
 
 </style>

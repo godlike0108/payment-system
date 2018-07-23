@@ -574,6 +574,9 @@ const mutations = {
         this.commit('removeCheckInInput')
 
     },
+    triggerExpand(state, data){
+      state.wallet.histories[data.index]._expanded = !state.wallet.histories[data.index]._expanded
+    }
 
 }
 export default new Vuex.Store({
