@@ -13,7 +13,7 @@
             篩選結果：
           </label>
           <Select class='text-center' style='width: 150px;' v-model="selectedType" @on-change="changeType" :class="optionColor(selectedType)" :placeholder='optionText(selectedType)'>
-            <Option value=""><span class='option-0'>全部</span></Option>
+            <Option value="all"><span class='option-0'>全部</span></Option>
             <Option value="0"><span class='option-0'>未審核</span></Option>
             <Option value="1"><span class='option-1'>送審中</span></Option>
             <Option value="2"><span class='option-2'>審核通過</span></Option>
@@ -150,7 +150,7 @@ export default {
       page_size: 15,
       current_page: 0,
       allow_change_state: false,
-      selectedType: '',
+      selectedType: 'all',
     }
   },
   beforeMount: function() {
@@ -214,7 +214,7 @@ export default {
     },
     optionText(active){
       switch(active){
-        case '':
+        case 'all':
           return '全部';
           break;
         case '0':

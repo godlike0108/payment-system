@@ -489,7 +489,14 @@ export default {
       })
     },
     getPendingUsers({}, data){
-      let url = `${baseURL}/api/users?status=active&page=${data.page}&id_cars_status_id=${data.type}`
+      let url = ''
+      if(data.type == 'all'){
+        url = `${baseURL}/api/users?status=active&page=${data.page}`
+      }
+      else{
+        url = `${baseURL}/api/users?status=active&page=${data.page}&id_card_status_id=${data.type}`
+      }
+
       return axios.get( url, {
           headers: {
               'Authorization': `Bearer ` + localStorage.getItem('token') ,
