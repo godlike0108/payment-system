@@ -8,6 +8,18 @@
         審核會員
       </div>
       <div class='layout-body'>
+        <div class='text-right' style='margin-bottom: 10px;'>
+          <label style='width: 200px;'>
+            篩選結果：
+          </label>
+          <Select class='text-center' style='width: 150px;' v-model="selectedType" @on-change="changeType" :class="optionColor(selectedType)" :placeholder='optionText(selectedType)'>
+            <Option value=""><span class='option-0'>全部</span></Option>
+            <Option value="0"><span class='option-0'>未審核</span></Option>
+            <Option value="1"><span class='option-1'>送審中</span></Option>
+            <Option value="2"><span class='option-2'>審核通過</span></Option>
+            <Option value="-1"><span class='option-m1'>審核拒絕</span></Option>
+          </Select>
+        </div>
         <div class="ivu-table-wrapper">
           <div class="ivu-table ivu-table-border">
             <div class="ivu-table-header">
@@ -33,10 +45,10 @@
                         <span v-else-if="field.key == 'gender'" class="">{{gender(user.gender)}}</span>
                         <span v-else-if="field.key == 'active'" class="">
                           <Select @on-change="changeState(user.id_card_status_id, user.id)" v-model="user.id_card_status_id" style="width:100px;" :class="optionColor(user.id_card_status_id)" :placeholder='optionText(user.id_card_status_id)'>
-                              <Option value="-1" ><span class='option-m1'>審核拒絕</span></Option>
                               <Option value="0" ><span class='option-0'>未審核</span></Option>
                               <Option value="1" ><span class='option-1'>送審中</span></Option>
                               <Option value="2" ><span class='option-2'>審核通過</span></Option>
+                              <Option value="-1" ><span class='option-m1'>審核拒絕</span></Option>
                           </Select>
                         </span>
                         <span v-else class="">{{user[field.key]}}</span>
@@ -138,10 +150,11 @@ export default {
       page_size: 15,
       current_page: 0,
       allow_change_state: false,
+      selectedType: '',
     }
   },
   beforeMount: function() {
-    this.changePage(0)
+    this.changePage(0, this.selectedType)
   },
   computed: {
     getImageFront(){
@@ -166,6 +179,10 @@ export default {
     },
   },
   methods: {
+    changeType(type){
+      this.selectedType = type
+      this.changePage(0 , type)
+    },
     changeState(state, id){
       if(this.allow_change_state){
           this.$store.dispatch('changeIDState', {
@@ -197,6 +214,9 @@ export default {
     },
     optionText(active){
       switch(active){
+        case '':
+          return '全部';
+          break;
         case '0':
           return '未審核';
           break;
@@ -215,7 +235,10 @@ export default {
       this.current_page = page
       let self = this
       this.allow_change_state = false
-      this.$store.dispatch('getPendingUsers',page).then((res)=>{
+      this.$store.dispatch('getPendingUsers', {
+        page: page,
+        type: this.selectedType
+      }).then((res)=>{
         this.users = res.data.data.map((user)=>{
           user.id_card_status_id = user.id_card_status_id + ""
           return user
