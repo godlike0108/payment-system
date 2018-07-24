@@ -56,6 +56,10 @@
                        <Icon type="person-stalker" size="18"></Icon>
                         <span>會員管理</span>
                     </MenuItem>
+                    <MenuItem name="3-1" @click.native="toPath('groups')">
+                       <Icon type="person-stalker" size="18"></Icon>
+                        <span>群組管理</span>
+                    </MenuItem>
                     <MenuItem v-if="this.$store.state.user.role_id === '1'" name="1-13" @click.native="toPath('admins')">
                         <Icon type="coffee" size="18"></Icon>
                         <span>後台管理</span>

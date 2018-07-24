@@ -539,5 +539,50 @@ export default {
           }
       })
     },
+    getGroups({}){
+      let url = `${baseURL}/api/groups`
+      return axios.get( url, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+    },
+    createGroups({}, name){
+      let url = `${baseURL}/api/groups`
+      return axios.post( url, {name}, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+    },
+    updateGroups({}, data){
+      let url = `${baseURL}/api/groups/${data.id}`
+      return axios.put( url, { name: data.name}, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+    },
+    deleteGroups({}, id){
+      let url = `${baseURL}/api/groups/${id}`
+      return axios.delete( url, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+    },
+    joinGroups({}, data){
+      let url = `${baseURL}/api/users/${data.user}/groups`
+      return axios.post( url, {group_id_list: data.groups}, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+    },
 
 }

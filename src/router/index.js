@@ -30,6 +30,7 @@ import admins from '@/components/dashboard/page/admins'
 import members from '@/components/dashboard/page/members'
 import exchangeRate from '@/components/dashboard/page/exchangeRate'
 import activeUser from '@/components/dashboard/page/activeUser'
+import groups from '@/components/dashboard/page/groups'
 import signupRequests from '@/components/dashboard/page/signupRequests'
 import checkoutsLevel1 from '@/components/dashboard/page/checkoutsLevel1'
 import checkoutsLevel2 from '@/components/dashboard/page/checkoutsLevel2'
@@ -207,6 +208,11 @@ const vueRouter = new Router({
                     path: 'activeUser',
                     name: 'dashboard_activeUser',
                     component: activeUser
+                },
+                {
+                    path: 'groups',
+                    name: 'dashboard_groups',
+                    component: groups
                 },
                 {
                     path: 'checkoutsLevel1',
