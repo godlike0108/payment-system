@@ -23,9 +23,13 @@ export default {
             }
         })
     },
-    show_user({ commit, state }, payload) {
+    show_user({ commit, state }, data) {
         let token = localStorage.getItem('token')
-        axios.get(`${baseURL}/api/users?status=active&page=${payload}`, {
+        let url = `${baseURL}/api/users?status=active&page=${data.page}`
+        if(data.group != 'all'){
+          url = url + `&group_id=${data.group}`
+        }
+        axios.get( url, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -33,6 +37,8 @@ export default {
             .then((response) => {
                 let data = response.data
                 commit('set_user_list', data)
+                if(data.callback) data.callback()
+
             }).catch((error) => {
                 if (error.response.status === 401) {
                     commit('log_out')

@@ -4,7 +4,16 @@
     <Col :xs="24" :sm="20" :md="20" :lg="20">
     <Tabs value="name1">
       <TabPane label="會員清單" name="name1">
-        <Table height="500" :columns="columns1" :data="get_user_list"></Table>
+        <div class='text-right' style='margin-bottom: 10px;'>
+          <label style='width: 200px;'>
+            篩選群組：
+          </label>
+          <Select class='text-center' style='width: 150px;' v-model="selectedGroup" @on-change="changeGroup" placeholder='全部'>
+            <Option value="all"><span>全部</span></Option>
+            <Option v-for="group in groups" :value="group.id"><span>{{group.name}}</span></Option>
+          </Select>
+        </div>
+        <Table ref='table' height="500" :columns="columns1" :data="get_user_list"></Table>
       </TabPane>
     </Tabs>
     <Page :total="get_user_list_page_total" @on-change="change" style="margin:15px"></Page>
@@ -36,6 +45,8 @@ export default {
   data() {
     return {
       groups: [],
+      selectedGroup: 'all',
+      selectedPage: 0,
       selectedMember: {},
       showGroupsModal: false,
       columns1: [
@@ -158,7 +169,10 @@ export default {
   },
   methods: {
     change(page) {
-      this.$store.dispatch('show_user', page)
+      this.selectedPage = page
+      this.$store.dispatch('show_user', {page: this.selectedPage, group: this.selectedGroup, callback: ()=>{
+        this.$refs.table.$forceUpdate()
+      }})
     },
     show(index) {
       let _vm = this
@@ -267,6 +281,9 @@ export default {
       this.$store.dispatch('getGroups').then((res)=>{
         this.groups = res.data
       })
+    },
+    changeGroup(group_id){
+      this.change(this.selectedPage)
     },
   },
 }
