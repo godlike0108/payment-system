@@ -44,6 +44,13 @@ export default {
               key: 'name'
           },
           {
+              title: '創建時間',
+              key: 'created_at',
+              render: (h, params)=>{
+                return h('div', this.$moment(params.row.created_at+' +0000').format('YYYY-MM-DD HH:mm:ss'))
+              }
+          },
+          {
               title: '修改/刪除',
               key: 'id',
               width: 150,

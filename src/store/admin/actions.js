@@ -577,12 +577,20 @@ export default {
     },
     joinGroups({}, data){
       let url = `${baseURL}/api/users/${data.user}/groups`
-      return axios.post( url, {group_id_list: data.groups}, {
+      return axios.put( url, {group_id_list: data.groups}, {
           headers: {
             'Authorization': `Bearer ` + localStorage.getItem('token') ,
             'Content-Type': 'application/json',
           }
       })
     },
-
+    getMember({}, id){
+      let url = `${baseURL}/api/users/${id}`
+      return axios.get( url, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+    },
 }
