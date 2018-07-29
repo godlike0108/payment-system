@@ -201,11 +201,11 @@ export default {
                  item.color = 'blue'
                  break;
                  case 6:
-                 item.type = '匯率轉出'
+                 item.type = '賣匯'
                  item.color = 'blue'
                  break;
                  case 7:
-                 item.type = '匯率轉入'
+                 item.type = '買匯'
                  item.color = 'green'
                  break;
              }
