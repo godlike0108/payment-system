@@ -28,9 +28,9 @@ export default {
         },
         {
             title: '幣別',
-            key: 'base_currency',
+            key: 'profit_currency',
             render: (h, params) => {
-              return h('div', `${params.row.base_currency} ${this.$store.state.currency[params.row.base_currency]}`)
+              return h('div', `${params.row.profit_currency} ${this.$store.state.currency[params.row.profit_currency]}`)
             }
         },
         {
