@@ -10,7 +10,7 @@
           </label>
           <Select class='text-center' style='width: 150px;' v-model="selectedGroup" @on-change="changeGroup" placeholder='全部'>
             <Option value="all"><span>全部</span></Option>
-            <Option v-for="group in groups" :value="group.id"><span>{{group.name}}</span></Option>
+            <Option v-for="group in groups" :key="group.id" :value="group.id"><span>{{group.name}}</span></Option>
           </Select>
         </div>
         <Table ref='table' height="500" :columns="columns1" :data="get_user_list"></Table>
@@ -22,12 +22,18 @@
       <i-form :label-width="80">
         <FormItem label="群組名稱">
           <CheckboxGroup v-model="selectedMember.groups">
-            <Checkbox v-for="group in groups" :label="group.id">
+            <Checkbox v-for="group in groups" :key="group.id" :label="group.id">
                 <span>{{group.name}}</span>
             </Checkbox>
         </CheckboxGroup>
         </FormItem>
       </i-form>
+    </Modal>
+    <Modal v-model="showWalletsModal" cancel-text="" okText="關閉" title="使用者錢包">
+      <div v-for="wallet in wallets">
+        <div class='wallet-label'>{{wallet.currency}} {{$store.state.currency[wallet.currency]}}錢包</div>
+        <div class='wallet-value'>{{wallet.balance}}</div>
+      </div>
     </Modal>
   </Row>
 </div>
@@ -45,16 +51,24 @@ export default {
   data() {
     return {
       groups: [],
+      wallets: [],
       selectedGroup: 'all',
       selectedPage: 0,
       selectedMember: {},
       showGroupsModal: false,
+      showWalletsModal: false,
       columns1: [
 
         {
           title: '會員名稱',
           key: 'name',
-          minWidth: 100
+          minWidth: 80
+
+        },
+        {
+          title: '會員代號',
+          key: 'username',
+          minWidth: 80
 
         },
         {
@@ -72,18 +86,37 @@ export default {
         {
           title: 'email',
           key: 'email',
-          width: 180,
+          width: 170,
         },
         {
           title: '創建時間',
           key: 'created_at',
-          width: 170,
+          width: 100,
         },
         {
           title: '修改/刪除',
-          minWidth: 170,
+          minWidth: 190,
           render: (h, params) => {
             return h('div', [
+              h('Button', {
+                props: {
+                  type: 'default',
+                  size: 'small'
+
+                },
+                style: {
+                  marginRight: '5px'
+                },
+                on: {
+                  click: () => {
+                    this.showWalletsModal = true
+                    this.wallets = []
+                    this.$store.dispatch('getMember', params.row.id).then((res)=>{
+                      this.wallets = res.data.wallets
+                    })
+                  }
+                }
+              }, '錢包'),
               h('Button', {
                 props: {
                   type: 'info',
@@ -91,7 +124,7 @@ export default {
 
                 },
                 style: {
-                  marginRight: '15px'
+                  marginRight: '5px'
                 },
                 on: {
                   click: () => {
@@ -110,7 +143,7 @@ export default {
 
                 },
                 style: {
-                  marginRight: '15px'
+                  marginRight: '5px'
                 },
                 on: {
                   click: () => {
@@ -293,5 +326,15 @@ export default {
 <style scoped>
 .ivu-checkbox-group-item{
   width: 100%;
+}
+.wallet-label{
+  display: inline-block;
+  width: 120px;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  text-align: right;
+}
+.wallet-value{
+  display: inline-block;
 }
 </style>
