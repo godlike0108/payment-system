@@ -29,6 +29,9 @@ export default {
         if(data.group != 'all'){
           url = url + `&group_id=${data.group}`
         }
+        if(data.query != ''){
+          url = url + `&query=${data.query}`
+        }
         axios.get( url, {
                 headers: {
                     'Authorization': `Bearer ${token}`

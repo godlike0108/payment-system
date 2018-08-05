@@ -4,7 +4,14 @@
     <Col :xs="24" :sm="20" :md="20" :lg="20">
     <Tabs value="name1">
       <TabPane label="會員清單" name="name1">
-        <div class='text-right' style='margin-bottom: 10px;'>
+        <div class='text-left' style='float: left; margin-bottom: 10px;'>
+          <label style='width: 200px;'>
+            搜尋名稱：
+          </label>
+          <Input v-model="query" style='width: 200px;'></Input>
+          <Button @click="change(1)">搜尋</Button>
+        </div>
+        <div class='text-right' style='float: right; margin-bottom: 10px;'>
           <label style='width: 200px;'>
             篩選群組：
           </label>
@@ -13,6 +20,7 @@
             <Option v-for="group in groups" :key="group.id" :value="group.id"><span>{{group.name}}</span></Option>
           </Select>
         </div>
+        <div class='clearfix'></div>
         <Table ref='table' height="500" :columns="columns1" :data="get_user_list"></Table>
       </TabPane>
     </Tabs>
@@ -50,6 +58,7 @@ export default {
   name: 'members',
   data() {
     return {
+      query: '',
       groups: [],
       wallets: [],
       selectedGroup: 'all',
@@ -203,7 +212,7 @@ export default {
   methods: {
     change(page) {
       this.selectedPage = page
-      this.$store.dispatch('show_user', {page: this.selectedPage, group: this.selectedGroup, callback: ()=>{
+      this.$store.dispatch('show_user', {page: this.selectedPage, group: this.selectedGroup, query: this.query, callback: ()=>{
         this.$refs.table.$forceUpdate()
       }})
     },
