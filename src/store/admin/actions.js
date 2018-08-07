@@ -105,7 +105,7 @@ export default {
             //     data = JSON.stringify({ username: username, password: password })
             // }
     },
-    update_user_id({ commit, state }, index) {
+    update_user_id({ commit, state }, {index, callback}) {
         let token = localStorage.getItem('token')
         let id = state.reset_user.user_id
         let username = state.user_list.data[index].username
@@ -133,7 +133,8 @@ export default {
                 }
             })
             .then((response) => {
-                this.dispatch('show_user', 1)
+                // this.dispatch('show_user', 1)
+                callback();
                 this.commit('reset_reset_user_id')
             }).catch((error) => {
                 if (error.response.status === 401) {
@@ -180,9 +181,8 @@ export default {
             }
         })
     },
-    remove_user({ commit, state }) {
+    remove_user({ commit, state }, {id, callback}) {
         let token = localStorage.getItem('token')
-        let id = state.edit_user_infor
         axios.delete(`${baseURL}/api/users/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -192,7 +192,8 @@ export default {
             })
             .then((response) => {
                 let data = response.data.data
-                this.dispatch('show_user', 1)
+                // this.dispatch('show_user', 1)
+                callback();
 
             }).catch((error) => {
                 if (error.response.status === 401) {

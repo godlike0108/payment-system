@@ -211,7 +211,7 @@ export default {
   },
   methods: {
     change(page) {
-      this.selectedPage = page
+      if(page) this.selectedPage = page
       this.$store.dispatch('show_user', {page: this.selectedPage, group: this.selectedGroup, query: this.query, callback: ()=>{
         this.$refs.table.$forceUpdate()
       }})
@@ -294,13 +294,15 @@ export default {
     },
     remove(index) {
       let _vm = this
+      let _index = index
       this.$Modal.confirm({
         title: `刪除會員資料 `,
         content: `<p style="font-size:1.4em">確認刪除<h2>${this.$store.state.admin.user_list.data[index].name}</h2>的會員資料嗎？</p>`,
         onOk: () => {
           this.$Message.info('確認送出');
-          _vm.$store.commit('set_user_infor_index', index)
-          _vm.$store.dispatch('remove_user')
+          _vm.$store.dispatch('remove_user', { id: _index, callback: ()=>{
+            this.change()
+          }})
         },
       })
 
@@ -310,7 +312,9 @@ export default {
       let email = this.$store.state.admin.reset_user.email
       this.$store.state.admin.reset_user.user_id = this.$store.state.admin.user_list.data[index].id
 
-      this.$store.dispatch('update_user_id', index)
+      this.$store.dispatch('update_user_id', {index, callback: ()=>{
+        this.change()
+      }})
     },
     updateGroup(){
       this.$store.dispatch('joinGroups', {user: this.selectedMember.id, groups: this.selectedMember.groups}).then((res)=>{
