@@ -48,6 +48,8 @@ export default {
         }, 1000);
     };
      return {
+        bank_account: '',
+        username: '',
         columns1: [
                     {
                         title: '申請人',
@@ -136,33 +138,60 @@ export default {
                 let _vm = this
                 this.$Modal.confirm({
                     onOk: () => {
-                        this.$Message.info('確認送出');
-                        _vm.put_user_id(index)
+                        if(this.username.length < 6){
+                          this.$Message.error('用戶帳號必須為 6~12 位英文數字');
+                        }else if(!(/[\d]{5}$/.test(this.bank_account))){
+                          this.$Message.error('銀行帳號必須為 5 位數字');
+                        }else{
+                          this.$Message.info('確認送出');
+                          _vm.put_user_id(index)
+                        }
+
                     },
                     onCancel:()=>{
                     this.$store.state.admin.user_review_id = null
                 },
                     render: (h) => {
-                        return h('Input', {
-                            props: {
-                                value: this.value,
-                                autofocus: true,
-                                placeholder: '用戶帳號 6~12位英文數字'
-                            },
-                            on: {
-                                input: (val) => {
-                                this.$store.state.admin.user_review_id = val
+                        return [
+                          h('Input', {
+                              props: {
+                                  value: this.value,
+                                  autofocus: true,
+                                  placeholder: '用戶帳號 6~12位英文數字'
+                              },
+                              on: {
+                                  input: (val) => {
+                                  this.$store.state.admin.user_review_id = val
+                                  this.username = val
+                                  }
+                              },
 
-                                }
-                            },
+                          }),
+                          h('Input', {
+                              style: 'margin-top: 10px',
+                              props: {
+                                  // value: this.value,
+                                  // autofocus: true,
+                                  placeholder: '銀行帳號 5 位數字'
+                              },
+                              on: {
+                                  input: (val) => {
+                                  this.bank_account = val
 
-                        })
+                                  }
+                              },
+
+                          })
+                        ]
                     }
                 })
             },
            put_user_id(index){
             this.$store.state.admin.user_review_id_index = this.$store.state.admin.user_review_list.data[index].id
-            this.$store.dispatch('put_user_id')
+            this.$store.dispatch('put_user_id', {
+              username: this.$store.state.admin.user_review_id,
+              bank_account: this.bank_account,
+            })
            }
         },
 }

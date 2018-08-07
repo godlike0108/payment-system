@@ -49,11 +49,11 @@ export default {
                 }
             })
     },
-    put_user_id({ commit, state }) {
+    put_user_id({ commit, state }, {username, bank_account}) {
         let token = localStorage.getItem('token')
         let id = state.user_review_id_index
-        let username = state.user_review_id
-        let data = JSON.stringify({ username: username })
+        // let username = state.user_review_id
+        let data = JSON.stringify({ username, bank_account})
 
         axios.put(`${baseURL}/api/users/${id}`, data, {
                 headers: {
