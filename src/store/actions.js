@@ -288,7 +288,7 @@ export default {
         let amount = state.transition.amount
         let username = state.transition.to_username
         let data = JSON.stringify({
-            to_username: username,
+            to_bank_account: username,
             amount: amount
         })
 
@@ -352,7 +352,7 @@ export default {
         let amount = state.transition.amount
         let username = state.transition.to_username
         let data = JSON.stringify({
-            to_username: username,
+            to_bank_account: username,
             amount: amount
         })
         console.log(balance)
