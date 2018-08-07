@@ -16,6 +16,7 @@ export default {
             .then((response) => {
                 let data = response.data
                 let token = data.api_token
+                let bank_account = data.bank_account
                 let email = data.email
                 let mobile = data.mobile
                 let name = data.name
@@ -27,6 +28,7 @@ export default {
                 let user_status_id = data.user_status_id
                 let id = data.id
 
+                localStorage.setItem('bank_account', bank_account)
                 localStorage.setItem('email', email)
                 localStorage.setItem('token', token)
                 localStorage.setItem('mobile', mobile)
@@ -70,6 +72,7 @@ export default {
         }).then((response) => {
             let data = response.data
             let email = data.email
+            let bank_account = data.bank_account
             let mobile = data.mobile
             let name = data.name
             let username = data.username
@@ -83,6 +86,7 @@ export default {
 
             localStorage.setItem('password', password)
             localStorage.setItem('email', email)
+            localStorage.setItem('bank_account', bank_account)
             localStorage.setItem('mobile', mobile)
             localStorage.setItem('name', name)
             localStorage.setItem('username', username)

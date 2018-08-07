@@ -40,6 +40,7 @@ const state = {
         }
     },
     user: {
+        bank_account: '',
         username: '',
         // password: '',
         name: '',
@@ -514,6 +515,7 @@ const mutations = {
     setData(state, data) {
         let email = localStorage.getItem('email')
         let token = localStorage.getItem('token')
+        let bank_account = localStorage.getItem('bank_account')
         let mobile = localStorage.getItem('mobile')
         let name = localStorage.getItem('name')
         let username = localStorage.getItem('username')
@@ -527,6 +529,7 @@ const mutations = {
         state.user.email = email
         state.user.token = token
         state.user.mobile = mobile
+        state.user.bank_account = bank_account
         state.user.name = name
         state.user.username = username
         state.user.id_card_status_id = id_card_status_id
@@ -545,6 +548,7 @@ const mutations = {
         let token = localStorage.removeItem('token')
         let mobile = localStorage.removeItem('mobile')
         let name = localStorage.removeItem('name')
+        let bank_account = localStorage.removeItem('bank_account')
         let username = localStorage.removeItem('username')
         let password = localStorage.removeItem('password')
         let role_id = localStorage.removeItem('role_id')
@@ -555,6 +559,7 @@ const mutations = {
         state.user.token = token
         state.user.mobile = mobile
         state.user.name = name
+        state.user.bank_account = bank_account
         state.user.username = username
         state.user.password = password
         state.user.role_id = role_id
