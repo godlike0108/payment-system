@@ -38,9 +38,11 @@ export default {
         isCollapsed: false
     };
   },
+  mounted: function(){
+    this.$store.dispatch('front_end_show_user')
+  },
   computed:{
       getAllWallet(){
-
           let data = this.$store.getters.getAllWallet
 
           data.map(item=>{
