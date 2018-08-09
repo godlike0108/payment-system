@@ -29,11 +29,11 @@
     <Modal v-model="showGroupsModal" okText="修改" cancel-text="取消" title="設定群組" @on-ok="updateGroup">
       <i-form :label-width="80">
         <FormItem label="群組名稱">
-          <CheckboxGroup v-model="selectedMember.groups">
-            <Checkbox v-for="group in groups" :key="group.id" :label="group.id">
-                <span>{{group.name}}</span>
-            </Checkbox>
-        </CheckboxGroup>
+          <RadioGroup v-model="selectedMemberGroup">
+            <Radio v-for="group in groups" :key="group.id" :label="group.id">
+                <span>{{group.name}}{{group.id}}</span>
+            </Radio>
+        </RadioGroup>
         </FormItem>
       </i-form>
     </Modal>
@@ -64,6 +64,7 @@ export default {
       selectedGroup: 'all',
       selectedPage: 0,
       selectedMember: {},
+      selectedMemberGroup: '',
       showGroupsModal: false,
       showWalletsModal: false,
       columns1: [
@@ -141,6 +142,7 @@ export default {
                     this.$store.dispatch('getMember', params.row.id).then((res)=>{
                       res.data.groups = res.data.groups.map(obj => obj.group_id)
                       this.selectedMember = res.data
+                      this.selectedMemberGroup = res.data.groups[0]
                     })
                   }
                 }
@@ -317,7 +319,7 @@ export default {
       }})
     },
     updateGroup(){
-      this.$store.dispatch('joinGroups', {user: this.selectedMember.id, groups: this.selectedMember.groups}).then((res)=>{
+      this.$store.dispatch('joinGroups', {user: this.selectedMember.id, group: this.selectedMemberGroup}).then((res)=>{
         this.$Message.success('修改完成')
         this.showGroupsModal = false
         this.selectedMember = {}
@@ -337,7 +339,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.ivu-checkbox-group-item{
+.ivu-radio-group-item{
   width: 100%;
 }
 .wallet-label{
