@@ -126,10 +126,15 @@ export default {
   },
   methods: {
     updateRate(){
-      this.$store.dispatch('updateRate', this.selectedRate).then((res)=>{
-        this.$Message.success('修改成功')
-        this.rates[this.selectedRate.from_currency][this.selectedRate.to_currency] = selectedRate
-      })
+      if(Math.abs((this.selectedRate.officialRate - this.selectedRate.rate) / this.selectedRate.officialRate) > 0.1){
+        if(confirm('誤差超過 10%，確認修改？')){
+          this.$store.dispatch('updateRate', this.selectedRate).then((res)=>{
+            this.$Message.success('修改成功')
+            this.rates[this.selectedRate.from_currency][this.selectedRate.to_currency] = this.selectedRate
+          })
+        }
+      }
+
     },
     selectRate(rate){
       this.selectedRate = rate
