@@ -7,6 +7,7 @@ import store from '@/store'
 import index from '@/components/page/index'
 import userWallet from '@/components/page/userWallet'
 import userProfile from '@/components/page/userProfile'
+import userPassword from '@/components/page/userPassword'
 import userActive from '@/components/page/userActive'
 import exchange from '@/components/page/exchange'
 import userTransaction from '@/components/page/userTransaction'
@@ -105,6 +106,12 @@ const vueRouter = new Router({
                     path: 'userProfile',
                     name: 'userProfile',
                     component: userProfile,
+                    meta: { requiresAuth: true },
+                },
+                {
+                    path: 'userPassword',
+                    name: 'userPassword',
+                    component: userPassword,
                     meta: { requiresAuth: true },
                 },
                 {

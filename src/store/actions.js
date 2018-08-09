@@ -659,10 +659,10 @@ export default {
       })
     },
     updateProfile({state}, data){
-      let allow = ['name', 'birthday', 'id_number', 'gender', 'permanent_address', 'id_card_issue_date', 'password', 'oldpassword'];
+      let allow = ['name', 'birthday', 'id_number', 'gender', 'address', 'permanent_address', 'id_card_issue_date', 'password', 'oldpassword'];
       let postData = {}
       allow.forEach((key) => {
-        if(key == 'birthday' || key == 'id_card_issue_date') {
+        if(data[key] && (key == 'birthday' || key == 'id_card_issue_date')) {
             data[key] = moment(data[key]).format('YYYY-MM-DD')
         }
         if(data[key] && data[key] != 'Invalid date') {
@@ -677,6 +677,14 @@ export default {
         // }
       })
       return axios.put(`${baseURL}/api/users/${state.user.id}`, JSON.stringify(postData), {
+          headers: {
+              'Authorization': `Bearer ` + localStorage.getItem('token'),
+              'Content-Type': 'application/json',
+          }
+      })
+    },
+    updatePassword({state}, data){
+      return axios.put(`${baseURL}/api/users/${state.user.id}`, JSON.stringify(data), {
           headers: {
               'Authorization': `Bearer ` + localStorage.getItem('token'),
               'Content-Type': 'application/json',

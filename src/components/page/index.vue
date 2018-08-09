@@ -67,10 +67,13 @@
                     <MenuItem name="5-2" @click.native="toPath('userProfile')">
                         <span>修改資訊</span>
                     </MenuItem>
-                    <MenuItem v-if="$store.state.user.id_card_status_id!=2" name="5-3" @click.native="toPath('userActive')">
+                    <MenuItem name="5-3" @click.native="toPath('userPassword')">
+                        <span>修改密碼</span>
+                    </MenuItem>
+                    <MenuItem v-if="$store.state.user.id_card_status_id!=2" name="5-4" @click.native="toPath('userActive')">
                         <span>帳號驗證</span>
                     </MenuItem>
-                    <MenuItem name="5-4" @click.native="toPath('customerService')">
+                    <MenuItem name="5-5" @click.native="toPath('customerService')">
                         <span>聯絡我們</span>
                     </MenuItem>
                   </Submenu>
@@ -141,10 +144,13 @@
                             <li :class="{active: (submenu==2)}" @click.stop="submenuActive(2);toPath('userProfile')">
                               <span>修改資訊</span>
                             </li>
-                            <li v-if="$store.state.user.id_card_status_id!=2" :class="{active: (submenu==3)}" @click.stop="submenuActive(3);toPath('userActive')">
+                            <li :class="{active: (submenu==3)}" @click.stop="submenuActive(3);toPath('userPassword')">
+                              <span>修改密碼</span>
+                            </li>
+                            <li v-if="$store.state.user.id_card_status_id!=2" :class="{active: (submenu==4)}" @click.stop="submenuActive(4);toPath('userActive')">
                               <span>帳號驗證</span>
                             </li>
-                            <li :class="{active: (submenu==4)}" @click.stop="submenuActive(4);toPath('customerService')">
+                            <li :class="{active: (submenu==5)}" @click.stop="submenuActive(5);toPath('customerService')">
                               <span>聯絡我們</span>
                             </li>
                           </ul>
@@ -315,7 +321,7 @@ export default {
   height: 64px;
 }
 .main-submenu{
-  width: 400px;
+  width: 600px;
   line-height: 75px;
 }
 .main-menu > li, .main-submenu > li{
