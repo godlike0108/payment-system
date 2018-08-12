@@ -18,7 +18,7 @@
                             <form-item v-if="isSelect">
                                 餘額：{{getWallet[wIndex].balance}}
                             </form-item>
-                            <FormItem label="轉出帳號" >
+                            <FormItem label="帳戶號碼" >
                                 <Input :value="this.$store.state.transition.to_username" type="text"  @input="updateToUserName"></Input>
                             </FormItem>
 
