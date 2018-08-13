@@ -623,4 +623,24 @@ export default {
       })
       return res.data
     },
+    async getTransferFee({}, {group_id}){
+      let url = `${baseURL}/api/transfer-fees?group_id=${group_id}`
+      let res = await axios.get( url, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+      return res.data
+    },
+    async setTransferFee({}, data){
+      let url = `${baseURL}/api/transfer-fees`
+      let res = await axios.post( url, data, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+      return res.data
+    },
 }

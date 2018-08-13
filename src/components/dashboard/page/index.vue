@@ -56,6 +56,10 @@
                         <Icon type="calculator" size="18"></Icon>
                         <span>行政費用</span>
                     </MenuItem>
+                    <MenuItem name="2-4" @click.native="toPath('transferFee')">
+                        <Icon type="calculator" size="18"></Icon>
+                        <span>轉帳手續費</span>
+                    </MenuItem>
                     <MenuItem name="1-12" @click.native="toPath('members')">
                        <Icon type="person-stalker" size="18"></Icon>
                         <span>會員管理</span>
@@ -173,7 +177,7 @@ export default {
     .menu-item span{
         display: inline-block;
         overflow: hidden;
-        width: 69px;
+        width: 77px;
         text-overflow: ellipsis;
         white-space: nowrap;
         vertical-align: bottom;
