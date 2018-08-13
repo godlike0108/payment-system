@@ -292,7 +292,7 @@ export default {
         let amount = state.transition.amount
         let username = state.transition.to_username
         let data = JSON.stringify({
-            to_bank_account: username,
+            to_bank_account: username.replace(/-/g, ''),
             amount: amount
         })
 

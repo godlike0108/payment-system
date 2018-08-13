@@ -5,14 +5,14 @@
               <div class='layout-container'>
                 <div class='layout-head'>
                   <div>我的帳戶號碼</div>
-                  <div class='bank_account'>{{$store.state.user.bank_account}}</div>
+                  <div class='bank_account'>{{$store.state.user.bank_account | account}}</div>
                 </div>
                 <div class='layout-body'>
                         <ul class="allWallet">
                             <li v-for="(item,index) in getAllWallet" @click="selectWallet(index)">
                                 <Row>
                                     <Col :xs="24" :sm="8" :md="8" :lg="8" class="currencyName" >
-                                      <div class='bank_account'>{{$store.state.user.bank_account}}</div>
+                                      <div class='bank_account'>{{$store.state.user.bank_account | account}}</div>
                                       {{item.currencyName}}
                                     </Col>
                                     <Col :xs="14" :sm="14" :md="14" :lg="14">

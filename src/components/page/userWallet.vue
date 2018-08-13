@@ -211,7 +211,7 @@ export default {
              }
 
              if(item.relative_user){
-                 item.relative_username = item.relative_user.username
+                 item.relative_username = this.$options.filters.account(item.relative_user.bank_account)
              } else {
                  item.relative_username = ""
              }

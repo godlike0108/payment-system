@@ -139,6 +139,7 @@ export default {
     },
     updateToUserName(to_username){
         //   this.$store.commit('non_existent_account', true)
+        to_username = this.$options.filters.account(to_username.replace(/-/g, ''))
         this.$store.commit('setTransition', {to_username})
     },
     updateToAmount(amount){
