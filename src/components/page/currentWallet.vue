@@ -1,5 +1,5 @@
 <template>
-    <div class="current">
+    <div class="current currentWallet">
         <Row type="flex" justify="center" align="middle">
             <Col :xs="24" :sm="16" :md="16" :lg="16">
               <div class='layout-container'>
@@ -127,7 +127,7 @@ export default {
 ul {
     list-style-type:none
 }
-.layout-head{
+.currentWallet .layout-head{
   height: 80px!important;
 }
 .layout-head .bank_account{

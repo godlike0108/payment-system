@@ -30,6 +30,7 @@ import signup_requests from '@/components/dashboard/page/signupRequests'
 import admins from '@/components/dashboard/page/admins'
 import members from '@/components/dashboard/page/members'
 import exchangeRate from '@/components/dashboard/page/exchangeRate'
+import exchangeSwitch from '@/components/dashboard/page/exchangeSwitch'
 import activeUser from '@/components/dashboard/page/activeUser'
 import groups from '@/components/dashboard/page/groups'
 import signupRequests from '@/components/dashboard/page/signupRequests'
@@ -205,6 +206,11 @@ const vueRouter = new Router({
                     path: 'exchangeRate',
                     name: 'dashboard_exchangeRate',
                     component: exchangeRate
+                },
+                {
+                    path: 'exchangeSwitch',
+                    name: 'dashboard_exchangeSwitch',
+                    component: exchangeSwitch
                 },
                 {
                     path: 'adjustment',

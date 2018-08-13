@@ -603,4 +603,24 @@ export default {
           }
       })
     },
+    async getSetting({}){
+      let url = `${baseURL}/api/system-settings`
+      let res = await axios.get( url, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+      return res.data
+    },
+    async setSetting({}, data){
+      let url = `${baseURL}/api/system-settings`
+      let res = await axios.post( url, data, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+      return res.data
+    },
 }

@@ -48,7 +48,11 @@
                         <Icon type="calculator" size="18"></Icon>
                         <span>匯率設定</span>
                     </MenuItem>
-                    <MenuItem name="2-2" @click.native="toPath('adjustment')">
+                    <MenuItem name="2-2" @click.native="toPath('exchangeSwitch')">
+                        <Icon type="calculator" size="18"></Icon>
+                        <span>換匯開關</span>
+                    </MenuItem>
+                    <MenuItem name="2-3" @click.native="toPath('adjustment')">
                         <Icon type="calculator" size="18"></Icon>
                         <span>行政費用</span>
                     </MenuItem>
