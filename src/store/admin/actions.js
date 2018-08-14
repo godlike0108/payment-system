@@ -643,4 +643,15 @@ export default {
       })
       return res.data
     },
+    async updatePrivileges({}, data){
+      let url = `${baseURL}/api/users/${data[0].user_id}/privileges`
+      data.forEach(async (privilege) => {
+        let res = await axios.put( url, privilege, {
+            headers: {
+              'Authorization': `Bearer ` + localStorage.getItem('token') ,
+              'Content-Type': 'application/json',
+            }
+        })
+      })
+    },
 }
