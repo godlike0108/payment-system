@@ -43,227 +43,221 @@ import wallet from '@/components/dashboard/page/wallet'
 import walletHistories from '@/components/dashboard/page/walletHistories'
 import setCustomService from '@/components/dashboard/page/setCustomService'
 
-
-
 Vue.use(Router)
 
 const vueRouter = new Router({
-    mode: '',
-    base: __dirname,
-    routes: [{
-            path: '/',
-            name: 'loading',
-            component: loading,
-            meta: { requiresAuth: false },
-            children: [{
-                    path: '/',
-                    name: 'login',
-                    component: login
-                },
-                {
-                    path: '/sigup',
-                    name: 'sigup',
-                    component: sigup
-                },
-                {
-                    path: '/find-password',
-                    name: 'findPassword',
-                    component: findPassword
-                },
-                {
-                    path: '/firstlogin',
-                    name: 'firstlogin',
-                    component: firstlogin
-                },
-            ]
+  mode: '',
+  base: __dirname,
+  routes: [
+    {
+      path: '/',
+      name: 'loading',
+      component: loading,
+      meta: { requiresAuth: false },
+      children: [
+        {
+          path: '/',
+          name: 'login',
+          component: login
         },
         {
-            path: '/index',
-            name: 'index',
-            component: index,
-            meta: { requiresAuth: true },
-            children: [{
-                    path: '',
-                    name: 'userWallet',
-                    component: userWallet,
-                    meta: { requiresAuth: true },
-                },
-                {
-                    path: 'currentWallet',
-                    name: 'currentWallet',
-                    component: currentWallet,
-                    meta: { requiresAuth: true },
-                },
-
-                {
-                    path: 'transaction',
-                    name: 'userTransaction',
-                    component: userTransaction,
-                    meta: { requiresAuth: true },
-                },
-                {
-                    path: 'userProfile',
-                    name: 'userProfile',
-                    component: userProfile,
-                    meta: { requiresAuth: true },
-                },
-                {
-                    path: 'userActive',
-                    name: 'userActive',
-                    component: userActive,
-                    meta: { requiresAuth: true },
-                },
-                {
-                    path: 'checkout',
-                    name: 'checkout',
-                    component: checkout,
-                    meta: { requiresAuth: true },
-                },
-                {
-                    path: 'checkoutList',
-                    name: 'checkoutList',
-                    component: checkoutList,
-                    meta: { requiresAuth: true },
-                },
-                {
-                    path: 'checkin',
-                    name: 'checkin',
-                    component: checkIn,
-                    meta: { requiresAuth: true },
-                },
-                {
-                    path: 'checkInList',
-                    name: 'checkInList',
-                    component: checkInList,
-                    meta: { requiresAuth: true },
-                },
-                {
-                    path: 'account',
-                    name: 'account',
-                    component: userAccount,
-                    meta: { requiresAuth: true },
-                },
-                {
-                    path: 'customerService',
-                    name: 'checkout',
-                    component: customerService,
-                    meta: { requiresAuth: true },
-                },
-                {
-                    path: 'exchange',
-                    name: 'exchange',
-                    component: exchange,
-                    meta: { requiresAuth: true },
-                }
-            ]
+          path: '/sigup',
+          name: 'sigup',
+          component: sigup
         },
         {
-            path: '/dashboard',
-            name: 'dashboard_login',
-            component: dashboard_login,
-            meta: { requiresAuth: false },
+          path: '/find-password',
+          name: 'findPassword',
+          component: findPassword
         },
         {
-            path: '/dashboard/sigin',
-            name: 'dashboard_signin',
-            component: dashboard_signin
-        },
-        // {
-        //     path: '/dashboard/firstlogin',
-        //     name: 'firstlogin',
-        //     component: firstlogin
-        // },
+          path: '/firstlogin',
+          name: 'firstlogin',
+          component: firstlogin
+        }
+      ]
+    },
+    {
+      path: '/index',
+      name: 'index',
+      component: index,
+      meta: { requiresAuth: true },
+      children: [
         {
-            path: '/dashboard/index',
-            name: 'dashboard_index',
-            component: dashboard_index,
-            meta: { requiresAuth: true },
-            children: [{
-                    path: '',
-                    name: 'signup_requests',
-                    component: signup_requests,
-                    meta: { requiresAuth: true },
-                },
-                {
-                    path: 'admins',
-                    name: 'dashboard_admins',
-                    component: admins
-                },
-                {
-                    path: 'members',
-                    name: 'dashboard_members',
-                    component: members
-                },
-                {
-                    path: 'exchangeRate',
-                    name: 'dashboard_exchangeRate',
-                    component: exchangeRate
-                },
-                {
-                    path: 'adjustment',
-                    name: 'dashboard_adjustment',
-                    component: adjustment
-                },
-                {
-                    path: 'activeUser',
-                    name: 'dashboard_activeUser',
-                    component: activeUser
-                },
-                {
-                    path: 'groups',
-                    name: 'dashboard_groups',
-                    component: groups
-                },
-                {
-                    path: 'checkoutsLevel1',
-                    name: 'dashboard_checkoutsLevel1',
-                    component: checkoutsLevel1
-                },
-                {
-                    path: 'checkoutsLevel2',
-                    name: 'dashboard_checkoutsLevel2',
-                    component: checkoutsLevel2
-                },
-                {
-                    path: 'checkoutsApproval',
-                    name: 'dashboard_checkoutsLevel1',
-                    component: checkoutsApproval
-                },
-                {
-                    path: 'distributions',
-                    name: 'dashboard_distributions',
-                    component: distributions
-                },
-                {
-                    path: 'checkInApplication',
-                    name: 'dashboard_checkInApplication',
-                    component: checkInApplication
-                },
-                {
-                    path: 'checkInRetaliation',
-                    name: 'dashboard_checkInRetaliation',
-                    component: checkInRetaliation
-                },
-                {
-                    path: 'wallet',
-                    name: 'dashboard_wallet',
-                    component: wallet
-                },
-                {
-                    path: 'walletHistories',
-                    name: 'dashboard_walletHistories',
-                    component: walletHistories
-                },
-                {
-                    path: 'setCustomService',
-                    name: 'dashboard_setCustomService',
-                    component: setCustomService
-                },
-
-            ]
+          path: '',
+          name: 'userWallet',
+          component: userWallet,
+          meta: { requiresAuth: true }
         },
-        // { path: '/*', redirect: '/login' }
-    ]
+        {
+          path: 'currentWallet',
+          name: 'currentWallet',
+          component: currentWallet,
+          meta: { requiresAuth: true }
+        },
+        {
+          path: 'transaction',
+          name: 'userTransaction',
+          component: userTransaction,
+          meta: { requiresAuth: true }
+        },
+        {
+          path: 'userProfile',
+          name: 'userProfile',
+          component: userProfile,
+          meta: { requiresAuth: true }
+        },
+        {
+          path: 'userActive',
+          name: 'userActive',
+          component: userActive,
+          meta: { requiresAuth: true }
+        },
+        {
+          path: 'checkout',
+          name: 'checkout',
+          component: checkout,
+          meta: { requiresAuth: true }
+        },
+        {
+          path: 'checkoutList',
+          name: 'checkoutList',
+          component: checkoutList,
+          meta: { requiresAuth: true }
+        },
+        {
+          path: 'checkin',
+          name: 'checkin',
+          component: checkIn,
+          meta: { requiresAuth: true }
+        },
+        {
+          path: 'checkInList',
+          name: 'checkInList',
+          component: checkInList,
+          meta: { requiresAuth: true }
+        },
+        {
+          path: 'account',
+          name: 'account',
+          component: userAccount,
+          meta: { requiresAuth: true }
+        },
+        {
+          path: 'customerService',
+          name: 'checkout',
+          component: customerService,
+          meta: { requiresAuth: true }
+        },
+        {
+          path: 'exchange',
+          name: 'exchange',
+          component: exchange,
+          meta: { requiresAuth: true }
+        }
+      ]
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard_login',
+      component: dashboard_login,
+      meta: { requiresAuth: false },
+    },
+    {
+      path: '/dashboard/sigin',
+      name: 'dashboard_signin',
+      component: dashboard_signin
+    },
+    {
+      path: '/dashboard/index',
+      name: 'dashboard_index',
+      component: dashboard_index,
+      meta: { requiresAuth: true },
+      children: [
+        {
+          path: '',
+          name: 'signup_requests',
+          component: signup_requests,
+          meta: { requiresAuth: true }
+        },
+        {
+          path: 'admins',
+          name: 'dashboard_admins',
+          component: admins
+        },
+        {
+          path: 'members',
+          name: 'dashboard_members',
+          component: members
+        },
+        {
+          path: 'exchangeRate',
+          name: 'dashboard_exchangeRate',
+          component: exchangeRate
+        },
+        {
+          path: 'adjustment',
+          name: 'dashboard_adjustment',
+          component: adjustment
+        },
+        {
+          path: 'activeUser',
+          name: 'dashboard_activeUser',
+          component: activeUser
+        },
+        {
+          path: 'groups',
+          name: 'dashboard_groups',
+          component: groups
+        },
+        {
+          path: 'checkoutsLevel1',
+          name: 'dashboard_checkoutsLevel1',
+          component: checkoutsLevel1
+        },
+        {
+          path: 'checkoutsLevel2',
+          name: 'dashboard_checkoutsLevel2',
+          component: checkoutsLevel2
+        },
+        {
+          path: 'checkoutsApproval',
+          name: 'dashboard_checkoutsLevel1',
+          component: checkoutsApproval
+        },
+        {
+          path: 'distributions',
+          name: 'dashboard_distributions',
+          component: distributions
+        },
+        {
+          path: 'checkInApplication',
+          name: 'dashboard_checkInApplication',
+          component: checkInApplication
+        },
+        {
+          path: 'checkInRetaliation',
+          name: 'dashboard_checkInRetaliation',
+          component: checkInRetaliation
+        },
+        {
+          path: 'wallet',
+          name: 'dashboard_wallet',
+          component: wallet
+        },
+        {
+          path: 'walletHistories',
+          name: 'dashboard_walletHistories',
+          component: walletHistories
+        },
+        {
+          path: 'setCustomService',
+          name: 'dashboard_setCustomService',
+          component: setCustomService
+        },
+      ]
+    },
+  ]
 })
 
 
@@ -458,5 +452,4 @@ vueRouter.beforeEach((to, from, next) => {
     } else {
         next(); // 往下繼續執行
     }
-
 });
