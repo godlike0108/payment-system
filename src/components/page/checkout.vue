@@ -171,6 +171,10 @@ export default {
     };
   },
   mounted: function(){
+    if(!this.$store.state.user.privileges.find(item => item.operation == 'checkout').isEnable){
+      this.$Message.error('使用者不允許進入此頁面')
+      this.$router.push('/index')
+    }
     this.$refs.passcode[0].focus()
   },
   computed: {

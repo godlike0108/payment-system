@@ -98,6 +98,12 @@ export default {
                 ]
     };
   },
+  mounted(){
+    if(!this.$store.state.user.privileges.find(item => item.operation == 'transfer').isEnable){
+      this.$Message.error('使用者不允許進入此頁面')
+      this.$router.push('/index')
+    }
+  },
   computed: {
       ...mapState({
           walletIndex:state => state.transition.walletIndex

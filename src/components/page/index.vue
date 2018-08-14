@@ -99,7 +99,7 @@
                           <span>轉賬</span>
                           <Icon type="chevron-down"></Icon>
                           <ul class='main-submenu' v-if="menu==1">
-                            <li :class="{active: (submenu==1)}" @click.stop="submenuActive(1);toPath('transaction')">
+                            <li v-if="getPrivilege('transfer')" :class="{active: (submenu==1)}" @click.stop="submenuActive(1);toPath('transaction')">
                               <span>轉賬</span>
                             </li>
                             <li :class="{active: (submenu==2)}" @click.stop="submenuActive(2);toPath('currentWallet')">
@@ -114,7 +114,7 @@
                           <span>出金</span>
                           <Icon type="chevron-down"></Icon>
                           <ul class='main-submenu' v-if="menu==2">
-                            <li v-if="$store.state.user.id_card_status_id==2" :class="{active: (submenu==1)}" @click.stop="submenuActive(1);toPath('checkout')">
+                            <li v-if="$store.state.user.id_card_status_id==2 && getPrivilege('checkout')" :class="{active: (submenu==1)}" @click.stop="submenuActive(1);toPath('checkout')">
                               <span>出金申請</span>
                             </li>
                             <li :class="{active: (submenu==2)}" @click.stop="submenuActive(2);toPath('checkoutList')">
@@ -187,15 +187,23 @@ export default {
         submenu: 0,
     };
   },
+  mounted(){
+    console.log(this.getPrivilege('transfer'))
+  },
   computed: {
       menuitemClasses: function () {
           return [
               'menu-item',
               this.isCollapsed ? 'collapsed-menu' : ''
           ]
-      }
+      },
   },
   methods: {
+      getPrivilege: function(operation){
+        return this.$store.state.user.privileges.find((item)=>{
+          return item.operation == operation
+        }).isEnable
+      },
       toPath(path){
         this.$router.push(`/index/${path}`)
       },
