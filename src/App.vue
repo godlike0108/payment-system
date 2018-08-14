@@ -7,17 +7,16 @@
 <script>
 export default {
   name: 'App',
-  data () {
+  data(){
     return {
 
     }
-  }
+  },
 }
 </script>
 
 <style>
 body {
-  /* background-image: linear-gradient(to right, #0acffe 0%, #495aff 100%); */
 
 }
 #app {
@@ -26,8 +25,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-image: linear-gradient(to right, #004a8b 0%, #02bef7 50%, #004a8b 100%);
 }
-
-
-
 </style>
