@@ -5,7 +5,7 @@
 		<router-link to="/" tag="div" class="head_btn active">登入</router-link>
 		</Col>
 		<Col :xs="12" :sm="12" :md="12" :lg="12" >
-		<router-link to="/sigup" tag="div"  class="head_btn">註冊</router-link>
+		<router-link to="/signUp" tag="div"  class="head_btn">註冊</router-link>
 		</Col>
 	</Row>
 	<div class="form_container login">

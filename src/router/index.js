@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import loading from '@/components/loading'
-import sigup from '@/components/signIn'
+import Entry from '@/components/Entry'
+import signUp from '@/components/signIn'
 import login from '@/components/login'
 import store from '@/store'
 import index from '@/components/page/index'
@@ -51,31 +52,33 @@ const vueRouter = new Router({
   routes: [
     {
       path: '/',
-      name: 'loading',
-      component: loading,
-      meta: { requiresAuth: false },
-      children: [
-        {
-          path: '/',
-          name: 'login',
-          component: login
-        },
-        {
-          path: '/sigup',
-          name: 'sigup',
-          component: sigup
-        },
-        {
-          path: '/find-password',
-          name: 'findPassword',
-          component: findPassword
-        },
-        {
-          path: '/firstlogin',
-          name: 'firstlogin',
-          component: firstlogin
-        }
-      ]
+      name: 'Entry',
+      component: Entry,
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login,
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/signUp',
+      name: 'signUp',
+      component: signUp,
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/find-password',
+      name: 'findPassword',
+      component: findPassword,
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/firstlogin',
+      name: 'firstlogin',
+      component: firstlogin,
+      meta: { requiresAuth: false }
     },
     {
       path: '/index',
@@ -269,7 +272,7 @@ vueRouter.beforeEach((to, from, next) => {
     let role_id = localStorage.getItem('role_id')
     let user_status_id = localStorage.getItem('user_status_id');
     if (to.fullPath === '/') {
-        window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #004a8b 0%,#02bef7 50%,#004a8b 100%); ");
+        // window.document.body.setAttribute("style", "background-image:linear-gradient(to right, #004a8b 0%,#02bef7 50%,#004a8b 100%); ");
 
         if (token) {
             next({ path: '/index/' });
