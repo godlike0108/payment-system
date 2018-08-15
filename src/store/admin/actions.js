@@ -654,4 +654,14 @@ export default {
         })
       })
     },
+    async getReportTransferFee({}, page){
+      let url = `${baseURL}/api/reports/transfer-fee?page=${page}`
+      let res = await axios.get( url, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+      return res.data
+    },
 }

@@ -8,8 +8,16 @@
         行政費用
       </div>
       <div class='layout-body'>
-        <Table border :columns="columns" :data="log"></Table>
-        <Page :total="page_total" :page-size='page_size' @on-change="changePage" style="margin:15px"></Page>
+        <Tabs value="tab_1">
+          <TabPane label="換匯手續費" name="tab_1">
+            <Table border :columns="columnsExchange" :data="exchangeFees"></Table>
+            <Page :total="exchange_page_total" :page-size='exchange_page_size' @on-change="exchangeChangePage" style="margin:15px"></Page>
+          </TabPane>
+          <TabPane label="轉帳手續費" name="tab_2">
+            <Table border :columns="columnsTransfer" :data="transferFees"></Table>
+            <Page :total="transfer_page_total" :page-size='transfer_page_size' @on-change="exchangeChangePage" style="margin:15px"></Page>
+          </TabPane>
+        </Tabs>
       </div>
     </div>
     </Col>
@@ -21,7 +29,7 @@
 export default {
   data() {
     return {
-      columns: [
+      columnsExchange: [
         {
             title: '單號',
             key: 'id'
@@ -53,23 +61,70 @@ export default {
             }
         },
       ],
-      log: [],
-      page_total: 0,
-      page_size: 15,
+      columnsTransfer: [
+        {
+            title: 'ID',
+            key: 'id'
+        },
+        {
+            title: '轉帳金額',
+            key: 'transfer_amount'
+        },
+        {
+            title: '手續費類型',
+            key: 'fee_type',
+            render: (h, params) => {
+
+              let types = {
+                'fixed': '固定',
+                'percentage': '百分比',
+              }
+              return h('div', `${types[params.row.fee_type]}`)
+            }
+        },
+        {
+            title: '手續費計算',
+            key: 'fee_value'
+        },
+        {
+            title: '手續費',
+            key: 'fee'
+        },
+        {
+            title: '日期',
+            key: 'created_at',
+            render: (h, params) => {
+              return h('div', this.$moment(params.row.created_at+' +0000').format('YYYY-MM-DD HH:mm:ss'))
+            }
+        },
+      ],
+      exchangeFees: [],
+      transferFees: [],
+      exchange_page_total: 0,
+      exchange_page_size: 15,
+      transfer_page_total: 0,
+      transfer_page_size: 15,
     }
   },
   name: 'adjustment',
   beforeMount: function() {
-    this.changePage(0)
+    this.exchangeChangePage(0)
+    this.transferChangePage(0)
   },
   computed: {
 
   },
   methods: {
-    changePage(page){
+    exchangeChangePage(page){
       this.$store.dispatch('getExchangeLog', page).then((res)=>{
-        this.log = res.data.data
-        this.page_total = res.data.total
+        this.exchangeFees = res.data.data
+        this.exchange_page_total = res.data.total
+      })
+    },
+    transferChangePage(page){
+      this.$store.dispatch('getReportTransferFee', page).then((res)=>{
+        this.transferFees = res.data.data
+        this.transfer_page_total = res.data.total
       })
     }
   },

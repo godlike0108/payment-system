@@ -26,7 +26,11 @@
               <input v-model="level.floor" disabled class="ivu-input" />
                ~
               <input v-model="level.ceil" class="ivu-input" @input="setCeil(index)" ></Input>
-              <span style="margin: 0px 10px">=></span> 手續費 <input v-model="level.fee" class="ivu-input" @input="checkError"/>
+              <span style="margin: 0px 10px">=></span> 手續費
+              <div class='input-fee'>
+                <input v-model="level.fee" class="ivu-input" @input="checkError"/>
+                <span v-if="level.fee_type == 'percentage'">%</span>
+              </div>
               <RadioGroup v-model="level.fee_type">
                   <Radio label="fixed">
                       <span>固定</span>
@@ -194,5 +198,17 @@ export default {
   width: 100px;
   background-color: #ffffff;
   border: 1px solid #dddee1;
+}
+.input-fee{
+  display: inline-block;
+  position: relative;
+  & input{
+    padding: 0 20px 0 10px;
+  }
+}
+.input-fee span{
+  position: absolute;
+  top: 8px;
+  right: 10px;
 }
 </style>
