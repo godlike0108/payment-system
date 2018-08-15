@@ -664,4 +664,14 @@ export default {
       })
       return res.data
     },
+    async getCurrency({}){
+      let url = `${baseURL}/api/reports/currency`
+      let res = await axios.get( url, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+      return res.data
+    },
 }

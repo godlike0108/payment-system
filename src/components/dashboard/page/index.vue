@@ -60,6 +60,10 @@
                         <Icon type="calculator" size="18"></Icon>
                         <span>轉帳手續費</span>
                     </MenuItem>
+                    <MenuItem name="2-5" @click.native="toPath('currencyRepost')">
+                        <Icon type="calculator" size="18"></Icon>
+                        <span>貨幣總量</span>
+                    </MenuItem>
                     <MenuItem name="1-12" @click.native="toPath('members')">
                        <Icon type="person-stalker" size="18"></Icon>
                         <span>會員管理</span>

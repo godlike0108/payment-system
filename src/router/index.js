@@ -45,6 +45,7 @@ import distributions from '@/components/dashboard/page/distributions'
 import wallet from '@/components/dashboard/page/wallet'
 import walletHistories from '@/components/dashboard/page/walletHistories'
 import setCustomService from '@/components/dashboard/page/setCustomService'
+import currencyRepost from '@/components/dashboard/page/currencyRepost'
 
 
 
@@ -222,6 +223,11 @@ const vueRouter = new Router({
                     path: 'adjustment',
                     name: 'dashboard_adjustment',
                     component: adjustment
+                },
+                {
+                    path: 'currencyRepost',
+                    name: 'dashboard_currencyRepost',
+                    component: currencyRepost
                 },
                 {
                     path: 'activeUser',
