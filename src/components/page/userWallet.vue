@@ -73,6 +73,7 @@ export default {
                         key: 'relative_username',
                         className: 'text-left content',
                         render: (h, params)=>{
+                          let displayName = (params.row.relative_username)? `對方帳戶  ID ${params.row.relative_username}` : `交易結果`
                           return h(
                             'div',
                             [
@@ -81,7 +82,7 @@ export default {
                                   {
                                     class: 'account'
                                   },
-                                  `對方帳戶  ID ${params.row.relative_username}`
+                                  `${displayName}`
                                 ),
                                 h( 'div',
                                   {
