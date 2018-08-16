@@ -6,7 +6,9 @@
       <Col :lg="{ span: 3 }" class="sub-header">
         <img class="logo" src="/static/images/entry/logo.png" alt="">
         <img class="logo-mobile" src="/static/images/entry/logo_mobile.png" alt="">
-        <button class="head-btn">會員登入</button>
+        <button class="head-btn">
+          <router-link :to="'/login'">會員登入</router-link>
+        </button>
       </Col>
       <Col class="menu-container" :xs="{ span: 24 }" :lg="{ span: 10, offset: 11 }">
         <ul class="menu">
@@ -14,7 +16,9 @@
           <li>安全保證</li>
           <li>關於我們</li>
           <li>線上支援</li>
-          <li class="menu-phone">會員登入</li>
+          <li class="menu-phone">
+            <router-link :to="'/login'">會員登入</router-link>
+          </li>
         </ul>
       </Col>
     </Row>
@@ -81,7 +85,9 @@
   <h2>{{ this.entryData.section5.title }}</h2>
   <h4>{{ this.entryData.section5.text }}</h4>
   <br><br>
-  <button class="slogan-btn">開始免費註冊</button>
+  <button class="slogan-btn">
+    <router-link :to="'/signup'">開始免費註冊</router-link>
+  </button>
 </section>
 <section class="section-6">
   <Row>
@@ -91,13 +97,19 @@
         <li>安全保證</li>
         <li>關於我們</li>
         <li>線上支援</li>
-        <li>會員登入</li>
+        <li>
+          <router-link :to="'/login'">會員登入</router-link>
+        </li>
       </ul>
     </Col>
   </Row>
   <Row class="sec6-mobile" type="flex" :gutter="20" justify="center">
-    <Col :xs="{ span: 12 }" :lg="{ span: 4 }"><button>會員登入</button></Col>
-    <Col :xs="{ span: 12 }" :lg="{ span: 4 }"><button>會員註冊</button></Col>
+    <Col :xs="{ span: 12 }" :lg="{ span: 4 }"><button>
+      <router-link :to="'/login'">會員登入</router-link>
+    </button></Col>
+    <Col :xs="{ span: 12 }" :lg="{ span: 4 }"><button>
+      <router-link :to="'/signup'">會員註冊</router-link>
+    </button></Col>
   </Row>
   <Row>
     <Col :lg="{ offset: 8, span: 8 }">
@@ -202,6 +214,9 @@ export default {
       @media(min-width: @media-lg ) {
         display: none;
       }
+      a {
+        color: @text-primary;
+      }
     }
   }
   .sec-1-content {
@@ -271,6 +286,9 @@ export default {
     padding: 5px 0px;
     display: block;
     width: 100%;
+    a {
+      color: ;
+    }
     &:last-child {
       @media( max-width: @media-lg ) {
         display: none;
@@ -310,6 +328,9 @@ export default {
   i {
     padding: 0px 5px;
     vertical-align: middle;
+  }
+  a {
+    color: @text-green;
   }
 }
 
@@ -498,7 +519,6 @@ export default {
     }
   }
 }
-
 
 .footer-menu {
   width: 100%;
