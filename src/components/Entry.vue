@@ -179,6 +179,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@media-md: 600px;
 @media-lg: 1200px;
 @bg-phone-head: #0939b3; /* 背景藍 */
 @bg-primary: #bbe2ec; /* 背景藍 */
@@ -195,6 +196,7 @@ export default {
 @text-size-h2: 36px; /* 標題文字大小 */
 @text-size-mob-h2: 28px; /* 標語文字大小 */
 @text-size-h3: 30px; /* 標題文字大小 */
+@text-size-mob-h3: 24px; /* 標題文字大小 */
 @text-size-h4: 24px; /* 標題文字大小 */
 @border-green: rgba(12, 210, 139, 0.2); /* 文字綠 */
 
@@ -275,6 +277,9 @@ export default {
   footer {
     bottom: 0;
     height: 100px;
+    p {
+      text-align: center;
+    }
   }
 }
 
@@ -384,7 +389,7 @@ export default {
 .section-3 {
   padding: 100px;
   @media( max-width: @media-lg ) {
-    padding: 50px;
+    padding: 100px 50px;
   }
   font-size: @text-size;
   @media( max-width: @media-lg) {
@@ -394,8 +399,14 @@ export default {
   width: 100%;
   height: 400px;
   background: url('/static/images/entry/quote_background.jpg') center/cover no-repeat ;
+  .quote {
+    font-size: 72px;
+  }
   h3 {
     font-size: @text-size-h3;
+    @media( max-width: @media-md) {
+      font-size: @text-size-mob-h3;
+    }
     margin-bottom: 0.5rem;
   }
   p {
@@ -405,6 +416,16 @@ export default {
 
 .section-4 {
   width: 100%;
+  font-size: @text-size;
+  @media( max-width: @media-lg) {
+    font-size: @text-size-mob;
+  }
+  .ivu-row {
+    @media( min-width: @media-lg ) {
+      display: flex;
+      align-items: stretch;
+    }
+  }
   .sec-4-feature {
     padding: 50px 100px;
     @media( max-width: @media-lg ) {
@@ -413,7 +434,17 @@ export default {
     border: 1px solid @border-green;
     &:hover {
       border: none;
-      box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+      &:before {
+        border: 10px solid @text-white;
+        z-index: 10;
+        content:"";
+        position: absolute;
+        top: -1%;
+        left: -1%;
+        width: 102%;
+        height: 102%;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+      }
     }
     img {
       max-width: 128px;
