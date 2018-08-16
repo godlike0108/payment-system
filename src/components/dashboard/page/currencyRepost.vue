@@ -39,7 +39,7 @@ export default {
 
         },
         {
-          title: '總收金量',
+          title: '總入金量',
           key: 'checkIn',
           minWidth: 80
         },
@@ -50,10 +50,8 @@ export default {
         },
         {
           title: '系統總量',
-          render: (h, params) => {
-            let total = Number(params.row.checkIn) - Number(params.row.checkout)
-            return h('div', `${total}`)
-          }
+          key: 'remains',
+          minWidth: 80
         },
       ],
     }
