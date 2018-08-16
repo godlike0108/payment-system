@@ -61,7 +61,8 @@
                             </Upload>
                           </FormItem>
                           <FormItem>
-                            <Button type="primary" @click="updateProfile">送出驗證要求</Button>
+                            <Button v-if="$store.state.user.id_card_status_id==1" type="primary" @click="updateProfile" disabled>等待審核中...</Button>
+                            <Button v-else type="primary" @click="updateProfile">送出驗證要求</Button>
                           </FormItem>
                         </i-form>
                     </Col>
@@ -91,6 +92,10 @@ export default {
     }
   },
   mounted: function(){
+    if(this.$store.state.user.id_card_status_id==2){
+      this.$Message.error('使用者已完成驗證')
+      this.$router.push('/index')
+    }
     this.$store.dispatch('getUser').then((res)=>{
       this.user = res.data
       this.user.gender = this.user.gender + ""
@@ -114,36 +119,36 @@ export default {
       if(this.old_password_error){
         this.$Message.error('儲存失敗')
       }else{
-        this.$store.dispatch('updateProfile', this.user).then((res)=>{
-            if(this.files.front.name || this.files.back.name){
-              const uploadMsg = this.$Message.loading({
-                  content: '檔案上傳中...',
-                  duration: 0
-              });
-              let uploads = [];
-              if(this.files.front.name){
-                let data = {
-                  'id-card': this.files.front,
-                  type_id: 0
-                }
-                uploads.push(this.$store.dispatch('uploadFile', data))
-              }
-              if(this.files.back.name){
-                let data = {
-                  'id-card': this.files.back,
-                  type_id: 1
-                }
-                uploads.push(this.$store.dispatch('uploadFile', data))
-              }
-              Promise.all(uploads).then(()=>{
-                uploadMsg()
-                this.$Message.success('儲存成功')
-              })
-
-            }else{
-                this.$Message.success('儲存成功')
+        // this.$store.dispatch('updateProfile', this.user).then((res)=>{
+        if(this.files.front.name || this.files.back.name){
+          const uploadMsg = this.$Message.loading({
+              content: '檔案上傳中...',
+              duration: 0
+          });
+          let uploads = [];
+          if(this.files.front.name){
+            let data = {
+              'id-card': this.files.front,
+              type_id: 0
             }
-        })
+            uploads.push(this.$store.dispatch('uploadFile', data))
+          }
+          if(this.files.back.name){
+            let data = {
+              'id-card': this.files.back,
+              type_id: 1
+            }
+            uploads.push(this.$store.dispatch('uploadFile', data))
+          }
+          Promise.all(uploads).then(()=>{
+            uploadMsg()
+            this.$Message.success('儲存成功')
+          })
+
+        }else{
+            this.$Message.error('請上傳證件照片')
+        }
+        // })
       }
     },
   },
