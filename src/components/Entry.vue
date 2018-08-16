@@ -26,7 +26,7 @@
   <div class="sec-1-content sec-1-width">
     <Row class="slogan-container">
       <Col :lg="{ span: 10 }">
-        <p class="slogan">{{ this.entryData.section1.text1 }}</p>
+        <p v-html="this.entryData.section1.text1" class="slogan"></p>
         <p class="sub-slogan">{{ this.entryData.section1.text2 }}</p>
         <br>
         <p><button class="slogan-btn">
@@ -59,7 +59,7 @@
   <p>{{ this.entryData.section2.text }}</p>
 </section>
 <section class="section-3">
-  <h3>{{ this.entryData.section3.quote }}</h3>
+  <h3 v-html="this.entryData.section3.quote"></h3>
   <br>
   <p>{{ this.entryData.section3.author }}</p>
 </section>
