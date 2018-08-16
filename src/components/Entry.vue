@@ -22,8 +22,8 @@
   <div class="sec-1-content sec-1-width">
     <Row class="slogan-container">
       <Col :lg="{ span: 10 }">
-        <p class="slogan">無論身在何處<br>轉帳就是這麼輕鬆</p>
-        <p class="sub-slogan">白金支付提供您業界最頂尖的電子錢包服務，免費註冊，安全無虞，火速到款</p>
+        <p class="slogan">{{ this.entryData.section1.text1 }}</p>
+        <p class="sub-slogan">{{ this.entryData.section1.text2 }}</p>
         <br>
         <p><button class="slogan-btn">
           <Icon type="ios-plus-outline" size="24" /><span>建立你的電子錢包</span>
@@ -49,76 +49,27 @@
   </footer>
 </section>
 <section class="section-2">
-  <h2>DGPay 的優勢</h2>
-  <h4>Our Adventage</h4>
+  <h2>{{ this.entryData.section2.title }}</h2>
+  <h4>{{ this.entryData.section2.subtitle }}</h4>
   <br><br>
-  <p>著教對員問那結小黨條，界議。
-也給當密成化立冷而多，紀充紙半們作到等費：中舉之雙們什政一，下精得爭的約去，究弟人出生一想他再：童長生上……一建天下無難業半以他步夫什：的在家其的不國入方，常創奇主然力係著未布火天出委過法的心且大成小家會起或巴數人面間都但師望可館情中口來的總歌在運生天密區直經第其同斷次了。張福可演記？黑滿不商結不雄招？有樓子時生學需有應！賽向觀媽地指話樣沒特來……說近節在不。活量大以我們性樓近：們什死，遠打更會中間眼離參始然有。你走山爸興道；意物是相；運可依大我到來老是否山模共一過我色！</p>
+  <p>{{ this.entryData.section2.text }}</p>
 </section>
 <section class="section-3">
-  <h3>使用 DGPay ，讓我投資理財無往不利<br>不再受到地區與國家的限制</h3>
+  <h3>{{ this.entryData.section3.quote }}</h3>
   <br>
-  <p>洪先生 - 科技公司負責人</p>
+  <p>{{ this.entryData.section3.author }}</p>
 </section>
 <section class="section-4">
   <Row>
-    <Col class="sec-4-feature" :lg="{ span: 12 }">
+    <Col v-for="(item, key) in this.entryData.section4" :key="key" class="sec-4-feature" :lg="{ span: 12 }">
       <Row :gutter="20">
         <Col :lg="{ span: 4 }">
-          <img src="/static/images/entry/icon_feature_01.png" alt="">
+          <img :src="item.img" alt="">
         </Col>
         <Col :lg="{ span: 20 }">
-          <h2>安全無虞</h2>
-          <h4>Security Foundation</h4>
-          <p>著教對員問那結小黨條，界議。
-    也給當密成化立冷而多，紀充紙半們作到等費：中舉之雙們什政一，下精得爭的約去，究弟人出生一想他再：童長生上……一建天下無難業半以他步夫什：的在家其的不國入方，常創奇主然力係著未布火天出委過法的心且大成小家會起或巴數人面間都但師望可館情中口來的總歌在運生天密區直經第其同斷次了。張福可演記？</p>
-          <br>
-          <button class="feature-btn">詳細資料</button>
-        </Col>
-      </Row>
-    </Col>
-    <Col class="sec-4-feature" :lg="{ span: 12 }">
-      <Row :gutter="20">
-        <Col :lg="{ span: 4 }">
-          <img src="/static/images/entry/icon_feature_02.png" alt="">
-        </Col>
-        <Col :lg="{ span: 20 }">
-          <h2>完全支援各種行動裝置</h2>
-          <h4>Cross-Platform Support</h4>
-          <p>著教對員問那結小黨條，界議。
-    也給當密成化立冷而多，紀充紙半們作到等費：中舉之雙們什政一，下精得爭的約去，究弟人出生一想他再：童長生上……一建天下無難業半以他步夫什：的在家其的不國入方，常創奇主然力係著未布火天出委過法的心且大成小家會起或巴數人面間都但師望可館情中口來的總歌在運生天密區直經第其同斷次了。張福可演記？</p>
-          <br>
-          <button class="feature-btn">詳細資料</button>
-        </Col>
-      </Row>
-    </Col>
-  </Row>
-  <Row>
-    <Col class="sec-4-feature" :lg="{ span: 12 }">
-      <Row :gutter="20">
-        <Col :lg="{ span: 4 }">
-          <img src="/static/images/entry/icon_feature_01.png" alt="">
-        </Col>
-        <Col :lg="{ span: 20 }">
-          <h2>安全無虞</h2>
-          <h4>Security Foundation</h4>
-          <p>著教對員問那結小黨條，界議。
-    也給當密成化立冷而多，紀充紙半們作到等費：中舉之雙們什政一，下精得爭的約去，究弟人出生一想他再：童長生上……一建天下無難業半以他步夫什：的在家其的不國入方，常創奇主然力係著未布火天出委過法的心且大成小家會起或巴數人面間都但師望可館情中口來的總歌在運生天密區直經第其同斷次了。張福可演記？</p>
-          <br>
-          <button class="feature-btn">詳細資料</button>
-        </Col>
-      </Row>
-    </Col>
-    <Col class="sec-4-feature" :lg="{ span: 12 }">
-      <Row :gutter="20">
-        <Col :lg="{ span: 4 }">
-          <img src="/static/images/entry/icon_feature_02.png" alt="">
-        </Col>
-        <Col :lg="{ span: 20 }">
-          <h2>完全支援各種行動裝置</h2>
-          <h4>Cross-Platform Support</h4>
-          <p>著教對員問那結小黨條，界議。
-    也給當密成化立冷而多，紀充紙半們作到等費：中舉之雙們什政一，下精得爭的約去，究弟人出生一想他再：童長生上……一建天下無難業半以他步夫什：的在家其的不國入方，常創奇主然力係著未布火天出委過法的心且大成小家會起或巴數人面間都但師望可館情中口來的總歌在運生天密區直經第其同斷次了。張福可演記？</p>
+          <h2>{{ item.title }}</h2>
+          <h4>{{ item.subtitle }}</h4>
+          <p>{{ item.text}}</p>
           <br>
           <button class="feature-btn">詳細資料</button>
         </Col>
@@ -127,8 +78,8 @@
   </Row>
 </section>
 <section class="section-5">
-  <h2>立即免費體驗 DGPay</h2>
-  <h4>只有開始使用，你才能體會 DGPay 前所未有的便利</h4>
+  <h2>{{ this.entryData.section5.title }}</h2>
+  <h4>{{ this.entryData.section5.text }}</h4>
   <br><br>
   <button class="slogan-btn">開始免費註冊</button>
 </section>
@@ -166,11 +117,17 @@
 </template>
 
 <script>
+// 匯入內容
+import data from '@/assets/data/entry/entry'
 export default {
 
   name: 'Entry',
+  mounted() {
+    this.entryData = data
+  },
   data () {
     return {
+      entryData: {},
       customerQuantity: 13000
     }
   },
@@ -554,7 +511,4 @@ export default {
 
   }
 }
-
-
-
 </style>
