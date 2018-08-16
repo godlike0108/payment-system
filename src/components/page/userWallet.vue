@@ -207,6 +207,9 @@ export default {
                  case 7:
                  item.type = '買匯'
                  item.color = 'green'
+                 case 8:
+                 item.type = '轉帳手續費'
+                 item.color = 'blue'
                  break;
              }
 
