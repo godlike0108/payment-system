@@ -16,28 +16,28 @@
                               <Input v-model="user.mobile" placeholder=""></Input>
                           </FormItem> -->
                           <FormItem label="姓名">
-                              <Input v-model="user.name" placeholder="使用者姓名" :disabled="$store.state.user.id_card_status_id==2"></Input>
+                              <Input v-model="user.name" placeholder="使用者姓名" :disabled="userVerified"></Input>
                           </FormItem>
                           <FormItem label="生日" class='text-left'>
                               <DatePicker type="date" placeholder="請選擇日期" v-model="user.birthday"></DatePicker>
                           </FormItem>
                           <FormItem label="身分證字號">
-                              <Input v-model="user.id_number" placeholder="請輸入身分證字號" :disabled="$store.state.user.id_card_status_id==2"></Input>
+                              <Input v-model="user.id_number" placeholder="請輸入身分證字號" :disabled="userVerified"></Input>
                           </FormItem>
                           <FormItem label="性別" class='text-left'>
                               <RadioGroup v-model="user.gender">
-                                  <Radio label="1" :disabled="$store.state.user.id_card_status_id==2">男性</Radio>
-                                  <Radio label="2" :disabled="$store.state.user.id_card_status_id==2">女性</Radio>
+                                  <Radio label="1" :disabled="userVerified">男性</Radio>
+                                  <Radio label="2" :disabled="userVerified">女性</Radio>
                               </RadioGroup>
                           </FormItem>
                           <FormItem label="通訊地址">
                               <Input v-model="user.address" placeholder="請輸入通訊地址"></Input>
                           </FormItem>
                           <FormItem label="戶籍地址">
-                              <Input v-model="user.permanent_address" placeholder="請輸入戶籍地址" :disabled="$store.state.user.id_card_status_id==2"></Input>
+                              <Input v-model="user.permanent_address" placeholder="請輸入戶籍地址" :disabled="userVerified"></Input>
                           </FormItem>
                           <FormItem label="發證日期" class='text-left'>
-                              <DatePicker type="date" placeholder="請選擇日期" v-model="user.id_card_issue_date" :disabled="$store.state.user.id_card_status_id==2" :readonly="$store.state.user.id_card_status_id==2"></DatePicker>
+                              <DatePicker type="date" placeholder="請選擇日期" v-model="user.id_card_issue_date" :disabled="userVerified" :readonly="userVerified"></DatePicker>
                           </FormItem>
                           <!-- <FormItem label="新密碼" error="123">
                               <Input type="password" v-model="user.password" placeholder="請輸入新密碼"></Input>
@@ -94,6 +94,9 @@ export default {
     })
   },
   computed: {
+    userVerified(){
+      return this.$store.state.user.id_card_status_id == 2
+    },
   },
   methods: {
     handleUploadFront(file){
@@ -111,10 +114,19 @@ export default {
       if(this.old_password_error){
         this.$Message.error('儲存失敗')
       }else{
-        this.$store.dispatch('updateProfile', {
+        let updateData = (this.userVerified)? {
           address: this.user.address,
           birthday: this.user.birthday,
-        }).then((res)=>{
+        } : {
+          address: this.user.address,
+          birthday: this.user.birthday,
+          id_number: this.user.id_number,
+          gender: this.user.gender,
+          permanent_address: this.user.permanent_address,
+          id_card_issue_date: this.user.id_card_issue_date,
+        }
+
+        this.$store.dispatch('updateProfile', updateData).then((res)=>{
           this.$Message.success('儲存成功')
         })
       }
