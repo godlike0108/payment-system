@@ -58,7 +58,7 @@
               <FormItem label="匯率">
                 <Row>
                   <Col span="8">
-                    <Input v-model="selectedRate.rate"></Input>
+                    <Input v-model="enterRate" ></Input>
                   </Col>
                   <Col span="8" offset="1">
                     參考值: {{selectedRate.officialRate}}
@@ -88,6 +88,7 @@ export default {
       rates: {},
       editRateModal: false,
       selectedRate: {},
+      enterRate: '',
     }
   },
   beforeMount: function() {
@@ -126,14 +127,24 @@ export default {
   },
   methods: {
     updateRate(){
-      this.$store.dispatch('updateRate', this.selectedRate).then((res)=>{
-        this.$Message.success('修改成功')
-        this.rates[this.selectedRate.from_currency][this.selectedRate.to_currency] = selectedRate
-      })
+      let tmpRate = this.selectedRate.rate
+      this.selectedRate.rate = this.enterRate
+      if(Math.abs((this.selectedRate.officialRate - this.selectedRate.rate) / this.selectedRate.officialRate) > 0.1){
+        if(confirm('誤差超過 10%，確認修改？')){
+          this.$store.dispatch('updateRate', this.selectedRate).then((res)=>{
+            this.$Message.success('修改成功')
+            this.rates[this.selectedRate.from_currency][this.selectedRate.to_currency] = this.selectedRate
+          })
+        }else{
+          this.selectedRate.rate = tmpRate
+        }
+      }
+
     },
     selectRate(rate){
       this.selectedRate = rate
       this.editRateModal = true
+      this.enterRate = rate.rate
     },
   },
 }

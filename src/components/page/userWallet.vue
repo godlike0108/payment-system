@@ -73,6 +73,7 @@ export default {
                         key: 'relative_username',
                         className: 'text-left content',
                         render: (h, params)=>{
+                          let displayName = (params.row.relative_username)? `對方帳戶  ID ${params.row.relative_username}` : `交易結果`
                           return h(
                             'div',
                             [
@@ -81,7 +82,7 @@ export default {
                                   {
                                     class: 'account'
                                   },
-                                  `對方帳戶  ID ${params.row.relative_username}`
+                                  `${displayName}`
                                 ),
                                 h( 'div',
                                   {
@@ -207,11 +208,14 @@ export default {
                  case 7:
                  item.type = '買匯'
                  item.color = 'green'
+                 case 8:
+                 item.type = '轉帳手續費'
+                 item.color = 'blue'
                  break;
              }
 
              if(item.relative_user){
-                 item.relative_username = item.relative_user.username
+                 item.relative_username = this.$options.filters.account(item.relative_user.bank_account)
              } else {
                  item.relative_username = ""
              }

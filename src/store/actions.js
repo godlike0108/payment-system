@@ -27,6 +27,7 @@ export default {
                 let balance
                 let user_status_id = data.user_status_id
                 let id = data.id
+                let privileges = data.privileges
 
                 localStorage.setItem('bank_account', bank_account)
                 localStorage.setItem('email', email)
@@ -37,6 +38,7 @@ export default {
                 localStorage.setItem('role_id', role_id)
                 localStorage.setItem('user_status_id', user_status_id)
                 localStorage.setItem('id', id)
+                localStorage.setItem('privileges', JSON.stringify(privileges))
                 localStorage.setItem('wallets', JSON.stringify(wallets));
 
                 commit('setData')
@@ -83,6 +85,7 @@ export default {
             let id = data.id
             let wallets = data.wallets
             let id_card_status_id = data.id_card_status_id
+            let privileges = data.privileges
 
             localStorage.setItem('password', password)
             localStorage.setItem('email', email)
@@ -96,6 +99,7 @@ export default {
             localStorage.setItem('balance', balance)
             localStorage.setItem('wallets', JSON.stringify(wallets));
             localStorage.setItem('id_card_status_id', id_card_status_id);
+            localStorage.setItem('privileges', JSON.stringify(privileges));
 
             commit('setData', data)
         }).catch((error) => {
@@ -292,7 +296,7 @@ export default {
         let amount = state.transition.amount
         let username = state.transition.to_username
         let data = JSON.stringify({
-            to_bank_account: username,
+            to_bank_account: username.replace(/-/g, ''),
             amount: amount
         })
 
@@ -659,10 +663,10 @@ export default {
       })
     },
     updateProfile({state}, data){
-      let allow = ['name', 'birthday', 'id_number', 'gender', 'permanent_address', 'id_card_issue_date', 'password', 'oldpassword'];
+      let allow = ['name', 'birthday', 'id_number', 'gender', 'address', 'permanent_address', 'id_card_issue_date', 'password', 'oldpassword'];
       let postData = {}
       allow.forEach((key) => {
-        if(key == 'birthday' || key == 'id_card_issue_date') {
+        if(data[key] && (key == 'birthday' || key == 'id_card_issue_date')) {
             data[key] = moment(data[key]).format('YYYY-MM-DD')
         }
         if(data[key] && data[key] != 'Invalid date') {
@@ -677,6 +681,14 @@ export default {
         // }
       })
       return axios.put(`${baseURL}/api/users/${state.user.id}`, JSON.stringify(postData), {
+          headers: {
+              'Authorization': `Bearer ` + localStorage.getItem('token'),
+              'Content-Type': 'application/json',
+          }
+      })
+    },
+    updatePassword({state}, data){
+      return axios.put(`${baseURL}/api/users/${state.user.id}`, JSON.stringify(data), {
           headers: {
               'Authorization': `Bearer ` + localStorage.getItem('token'),
               'Content-Type': 'application/json',

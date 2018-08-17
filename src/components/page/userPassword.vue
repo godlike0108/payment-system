@@ -4,47 +4,27 @@
         <Col :xs="24" :sm="16" :md="16" :lg="16">
           <div class='layout-container'>
             <div class='layout-head'>
-              修改資訊
+              修改密碼
             </div>
             <div class='layout-body'>
                 <Row type="flex" justify="center" align="middle">
                     <Col :xs="24" :sm="16" :md="16" :lg="16">
                         <!-- <Alert v-if='!user.id_card_status_id' type="warning" show-icon>帳號未審核</Alert> -->
 
-                        <i-form :model='user' ref='form' :label-width="90">
+                        <i-form :model='user' ref='form' :label-width="100">
                           <!-- <FormItem label="電話">
                               <Input v-model="user.mobile" placeholder=""></Input>
                           </FormItem> -->
-                          <FormItem label="姓名">
-                              <Input v-model="user.name" placeholder="使用者姓名" :disabled="userVerified"></Input>
-                          </FormItem>
-                          <FormItem label="生日" class='text-left'>
-                              <DatePicker type="date" placeholder="請選擇日期" v-model="user.birthday"></DatePicker>
-                          </FormItem>
-                          <FormItem label="身分證字號">
-                              <Input v-model="user.id_number" placeholder="請輸入身分證字號" :disabled="userVerified"></Input>
-                          </FormItem>
-                          <FormItem label="性別" class='text-left'>
-                              <RadioGroup v-model="user.gender">
-                                  <Radio label="1" :disabled="userVerified">男性</Radio>
-                                  <Radio label="2" :disabled="userVerified">女性</Radio>
-                              </RadioGroup>
-                          </FormItem>
-                          <FormItem label="通訊地址">
-                              <Input v-model="user.address" placeholder="請輸入通訊地址"></Input>
-                          </FormItem>
-                          <FormItem label="戶籍地址">
-                              <Input v-model="user.permanent_address" placeholder="請輸入戶籍地址" :disabled="userVerified"></Input>
-                          </FormItem>
-                          <FormItem label="發證日期" class='text-left'>
-                              <DatePicker type="date" placeholder="請選擇日期" v-model="user.id_card_issue_date" :disabled="userVerified" :readonly="userVerified"></DatePicker>
-                          </FormItem>
-                          <!-- <FormItem label="新密碼" error="123">
+
+                          <FormItem label="新密碼" error="123">
                               <Input type="password" v-model="user.password" placeholder="請輸入新密碼"></Input>
                           </FormItem>
-                          <FormItem label="舊密碼" v-show="user.password" :error="old_password_error">
+                          <FormItem label="再次輸入新密碼" :error="password_check">
+                              <Input type="password" v-model="user.checkpassword" placeholder="再次輸入新密碼"></Input>
+                          </FormItem>
+                          <FormItem label="舊密碼" :error="old_password_error">
                               <Input type="password" v-model="user.oldpassword" placeholder="若要更新密碼，需要舊密碼"></Input>
-                          </FormItem> -->
+                          </FormItem>
                           <!-- <FormItem label="身分證正面照" class='text-left' v-if="user.id_card_status_id != 1">
                             <Upload :before-upload="handleUploadFront" action=''>
                                 <Button type="ghost" icon="ios-cloud-upload-outline">正面照</Button>
@@ -58,7 +38,7 @@
                             </Upload>
                           </FormItem> -->
                           <FormItem>
-                            <Button type="primary" @click="updateProfile">儲存資料</Button>
+                            <Button type="primary" @click="updateProfile">更改密碼</Button>
                           </FormItem>
                         </i-form>
                     </Col>
@@ -73,13 +53,14 @@
 <script>
 import { mapActions,mapState,mapGetters,mapMutations } from 'vuex'
 export default {
-  name: 'userProfile',
+  name: 'userPassword',
   data () {
      return {
        user: {
          password: '',
          oldpassword: '',
        },
+       password_check: '',
        old_password_error: '',
        files:{
          front: {},
@@ -94,9 +75,6 @@ export default {
     })
   },
   computed: {
-    userVerified(){
-      return this.$store.state.user.id_card_status_id == 2
-    },
   },
   methods: {
     handleUploadFront(file){
@@ -109,37 +87,30 @@ export default {
     },
     checkPassword(){
       this.old_password_error = (!this.user.oldpassword && this.user.password)? '修改密碼需要輸入舊密碼' : ''
+      this.password_check = (this.user.checkpassword == this.user.password)? '' : '兩次密碼輸入不同'
     },
     updateProfile(){
-      if(this.old_password_error){
+      this.checkPassword()
+      if(this.old_password_error || this.password_check){
         this.$Message.error('儲存失敗')
       }else{
-        let updateData = (this.userVerified)? {
-          address: this.user.address,
-          birthday: this.user.birthday,
-        } : {
-          address: this.user.address,
-          birthday: this.user.birthday,
-          id_number: this.user.id_number,
-          gender: this.user.gender,
-          permanent_address: this.user.permanent_address,
-          id_card_issue_date: this.user.id_card_issue_date,
-        }
-
-        this.$store.dispatch('updateProfile', updateData).then((res)=>{
+        this.$store.dispatch('updatePassword', {
+          password: this.user.password,
+          old_password: this.user.oldpassword
+        }).then((res)=>{
           this.$Message.success('儲存成功')
         })
       }
     },
   },
-  watch: {
-    'user.password': function(){
-      this.checkPassword()
-    },
-    'user.oldpassword': function(){
-      this.checkPassword()
-    },
-  }
+  // watch: {
+  //   'user.password': function(){
+  //     this.checkPassword()
+  //   },
+  //   'user.oldpassword': function(){
+  //     this.checkPassword()
+  //   },
+  // }
 }
 
 </script>

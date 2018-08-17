@@ -587,7 +587,7 @@ export default {
     },
     joinGroups({}, data){
       let url = `${baseURL}/api/users/${data.user}/groups`
-      return axios.put( url, {group_id_list: data.groups}, {
+      return axios.put( url, {group_id_list: [data.group], group_id: [data.group]}, {
           headers: {
             'Authorization': `Bearer ` + localStorage.getItem('token') ,
             'Content-Type': 'application/json',
@@ -602,5 +602,76 @@ export default {
             'Content-Type': 'application/json',
           }
       })
+    },
+    async getSetting({}){
+      let url = `${baseURL}/api/system-settings`
+      let res = await axios.get( url, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+      return res.data
+    },
+    async setSetting({}, data){
+      let url = `${baseURL}/api/system-settings`
+      let res = await axios.post( url, data, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+      return res.data
+    },
+    async getTransferFee({}, {group_id}){
+      let url = `${baseURL}/api/transfer-fees?group_id=${group_id}`
+      let res = await axios.get( url, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+      return res.data
+    },
+    async setTransferFee({}, data){
+      let url = `${baseURL}/api/transfer-fees`
+      let res = await axios.post( url, data, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+      return res.data
+    },
+    async updatePrivileges({}, data){
+      let url = `${baseURL}/api/users/${data[0].user_id}/privileges`
+      data.forEach(async (privilege) => {
+        let res = await axios.put( url, privilege, {
+            headers: {
+              'Authorization': `Bearer ` + localStorage.getItem('token') ,
+              'Content-Type': 'application/json',
+            }
+        })
+      })
+    },
+    async getReportTransferFee({}, page){
+      let url = `${baseURL}/api/reports/transfer-fee?page=${page}`
+      let res = await axios.get( url, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+      return res.data
+    },
+    async getCurrency({}){
+      let url = `${baseURL}/api/reports/currency`
+      let res = await axios.get( url, {
+          headers: {
+            'Authorization': `Bearer ` + localStorage.getItem('token') ,
+            'Content-Type': 'application/json',
+          }
+      })
+      return res.data
     },
 }

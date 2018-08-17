@@ -18,7 +18,7 @@
                             <form-item v-if="isSelect">
                                 餘額：{{getWallet[wIndex].balance}}
                             </form-item>
-                            <FormItem label="轉出帳號" >
+                            <FormItem label="帳戶號碼" >
                                 <Input :value="this.$store.state.transition.to_username" type="text"  @input="updateToUserName"></Input>
                             </FormItem>
 
@@ -98,6 +98,12 @@ export default {
                 ]
     };
   },
+  mounted(){
+    if(!this.$store.state.user.privileges.find(item => item.operation == 'transfer').isEnable){
+      this.$Message.error('使用者不允許進入此頁面')
+      this.$router.push('/index')
+    }
+  },
   computed: {
       ...mapState({
           walletIndex:state => state.transition.walletIndex
@@ -139,6 +145,7 @@ export default {
     },
     updateToUserName(to_username){
         //   this.$store.commit('non_existent_account', true)
+        to_username = this.$options.filters.account(to_username.replace(/-/g, ''))
         this.$store.commit('setTransition', {to_username})
     },
     updateToAmount(amount){

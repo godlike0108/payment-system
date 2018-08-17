@@ -14,6 +14,18 @@ Vue.use(iview)
 Vue.prototype.$moment = moment
 Vue.config.productionTip = false
 
+Vue.filter('account', function (value) {
+  var ret = [];
+  var i;
+  var len;
+
+  for(i = 0, len = value.length; i < len; i += 4) {
+     ret.push(value.substr(i, 4))
+  }
+  return ret.join('-')
+})
+
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

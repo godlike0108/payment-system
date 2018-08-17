@@ -48,9 +48,21 @@
                         <Icon type="calculator" size="18"></Icon>
                         <span>匯率設定</span>
                     </MenuItem>
-                    <MenuItem name="2-2" @click.native="toPath('adjustment')">
+                    <MenuItem name="2-2" @click.native="toPath('exchangeSwitch')">
+                        <Icon type="calculator" size="18"></Icon>
+                        <span>換匯開關</span>
+                    </MenuItem>
+                    <MenuItem name="2-3" @click.native="toPath('adjustment')">
                         <Icon type="calculator" size="18"></Icon>
                         <span>行政費用</span>
+                    </MenuItem>
+                    <MenuItem name="2-4" @click.native="toPath('transferFee')">
+                        <Icon type="calculator" size="18"></Icon>
+                        <span>轉帳手續費</span>
+                    </MenuItem>
+                    <MenuItem name="2-5" @click.native="toPath('currencyRepost')">
+                        <Icon type="calculator" size="18"></Icon>
+                        <span>貨幣總量</span>
                     </MenuItem>
                     <MenuItem name="1-12" @click.native="toPath('members')">
                        <Icon type="person-stalker" size="18"></Icon>
@@ -169,7 +181,7 @@ export default {
     .menu-item span{
         display: inline-block;
         overflow: hidden;
-        width: 69px;
+        width: 77px;
         text-overflow: ellipsis;
         white-space: nowrap;
         vertical-align: bottom;

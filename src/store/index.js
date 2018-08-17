@@ -524,6 +524,7 @@ const mutations = {
         let role_id = localStorage.getItem('role_id')
         let user_status_id = localStorage.getItem('user_status_id');
         let balance = localStorage.getItem('balance')
+        let privileges = localStorage.getItem('privileges')
         let id = localStorage.getItem('id')
         let id_card_status_id = localStorage.getItem('id_card_status_id')
         state.user.email = email
@@ -539,6 +540,7 @@ const mutations = {
         state.user.user_status_id = user_status_id
         state.user.balance = balance
         state.user.id = id
+        state.user.privileges = JSON.parse(privileges)
 
         state.updateProfile.name = name
         state.updateProfile.username = username
@@ -554,6 +556,7 @@ const mutations = {
         let role_id = localStorage.removeItem('role_id')
         let user_status_id = localStorage.removeItem('user_status_id');
         let wallets = localStorage.removeItem('wallets');
+        let privileges = localStorage.removeItem('privileges');
 
         state.user.email = email
         state.user.token = token

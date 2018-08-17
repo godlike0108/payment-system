@@ -21,7 +21,7 @@
             <Col :xs="24" :sm="10" :md="10" :lg="10">
               <div class='label text-left'>轉入錢包</div>
               <Select ref="to" :placeholder="'請選擇錢包'" @on-change="setTo"  @on-open-change="getWallet" clearable>
-                  <Option v-for="(item,index) in wallets" :value="index" :key="index" >{{ item.currencyName }}帳戶 ${{item.balance}}</Option>
+                  <Option v-for="(item,index) in wallets" :disabled="!switches[item.currency]" :value="index" :key="index" >{{ item.currencyName }}帳戶 ${{item.balance}}</Option>
               </Select>
             </Col>
           </Row>
@@ -92,7 +92,15 @@ export default {
       officialRate: 0,
       officialRates: [],
       wallets: [],
+      switches: {},
     };
+  },
+  beforeMount: function() {
+    this.$store.dispatch('getSetting').then((setting)=>{
+      setting.currency_exchange_switches.forEach((item)=>{
+        this.switches[item.currency] = item.isEnable
+      })
+    })
   },
   mounted: function(){
     this.getWallet(),

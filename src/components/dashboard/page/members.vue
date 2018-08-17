@@ -1,7 +1,7 @@
 <template>
 <div>
   <Row type="flex" justify="center" align="middle">
-    <Col :xs="24" :sm="20" :md="20" :lg="20">
+    <Col :xs="24" :sm="24" :md="24" :lg="24">
     <Tabs value="name1">
       <TabPane label="會員清單" name="name1">
         <div class='text-left' style='float: left; margin-bottom: 10px;'>
@@ -29,11 +29,11 @@
     <Modal v-model="showGroupsModal" okText="修改" cancel-text="取消" title="設定群組" @on-ok="updateGroup">
       <i-form :label-width="80">
         <FormItem label="群組名稱">
-          <CheckboxGroup v-model="selectedMember.groups">
-            <Checkbox v-for="group in groups" :key="group.id" :label="group.id">
-                <span>{{group.name}}</span>
-            </Checkbox>
-        </CheckboxGroup>
+          <RadioGroup v-model="selectedMemberGroup">
+            <Radio v-for="group in groups" :key="group.id" :label="group.id">
+                <span>{{group.name}}{{group.id}}</span>
+            </Radio>
+        </RadioGroup>
         </FormItem>
       </i-form>
     </Modal>
@@ -41,6 +41,20 @@
       <div v-for="wallet in wallets">
         <div class='wallet-label'>{{wallet.currency}} {{$store.state.currency[wallet.currency]}}錢包</div>
         <div class='wallet-value'>{{wallet.balance}}</div>
+      </div>
+    </Modal>
+    <Modal v-model="showPrivilegesModal" cancel-text="" okText="修改" title="使用者權限" @on-ok="updatePrivileges">
+      <div class="" v-for='item in privileges' style="margin-left: 20px;">
+        {{privilegesMapping[item.operation]}}
+        <RadioGroup v-model="item.isEnable" style="line-height: 30px;">
+            <Radio label='1' style="margin-left: 15px; width: 40px; display: inline-block;">
+                <span>允許</span>
+            </Radio>
+            <Radio label='0' style="width: 40px; display: inline-block;">
+                <span>拒絕</span>
+            </Radio>
+        </RadioGroup>
+
       </div>
     </Modal>
   </Row>
@@ -64,8 +78,16 @@ export default {
       selectedGroup: 'all',
       selectedPage: 0,
       selectedMember: {},
+      selectedMemberGroup: '',
       showGroupsModal: false,
       showWalletsModal: false,
+      showPrivilegesModal: false,
+      privileges: [],
+      privilegesMapping: {
+        checkout: '出金',
+        transfer: '轉帳',
+        login: '登入',
+      },
       columns1: [
 
         {
@@ -104,7 +126,7 @@ export default {
         },
         {
           title: '修改/刪除',
-          minWidth: 190,
+          minWidth: 210,
           render: (h, params) => {
             return h('div', [
               h('Button', {
@@ -141,6 +163,7 @@ export default {
                     this.$store.dispatch('getMember', params.row.id).then((res)=>{
                       res.data.groups = res.data.groups.map(obj => obj.group_id)
                       this.selectedMember = res.data
+                      this.selectedMemberGroup = res.data.groups[0]
                     })
                   }
                 }
@@ -160,7 +183,31 @@ export default {
                     this.show(params.index)
                   }
                 }
-              }, '修改')
+              }, '修改'),
+              h('Button', {
+                props: {
+                  type: 'default',
+                  size: 'small'
+
+                },
+                style: {
+                  marginRight: '5px'
+                },
+                on: {
+                  click: () => {
+                    this.showPrivilegesModal = true
+                    this.$store.dispatch('getMember', params.row.id).then((res)=>{
+                      this.privileges = res.data.privileges.map((item)=>{
+                        return {
+                          user_id: item.user_id,
+                          operation: item.operation,
+                          isEnable: item.isEnable + '',
+                        }
+                      })
+                    })
+                  }
+                }
+              }, '權限'),
               , h('Button', {
                 props: {
                   type: 'error',
@@ -317,7 +364,7 @@ export default {
       }})
     },
     updateGroup(){
-      this.$store.dispatch('joinGroups', {user: this.selectedMember.id, groups: this.selectedMember.groups}).then((res)=>{
+      this.$store.dispatch('joinGroups', {user: this.selectedMember.id, group: this.selectedMemberGroup}).then((res)=>{
         this.$Message.success('修改完成')
         this.showGroupsModal = false
         this.selectedMember = {}
@@ -331,13 +378,18 @@ export default {
     changeGroup(group_id){
       this.change(this.selectedPage)
     },
+    updatePrivileges(){
+      this.$store.dispatch('updatePrivileges', this.privileges).then(()=>{
+        this.$Message.success('修改成功')
+      })
+    }
   },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.ivu-checkbox-group-item{
+.ivu-radio-group-item{
   width: 100%;
 }
 .wallet-label{
