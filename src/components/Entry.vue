@@ -26,8 +26,8 @@
   <div class="sec-1-content sec-1-width">
     <Row class="slogan-container">
       <Col :lg="{ span: 10 }">
-        <p v-html="this.entryData.section1.text1" class="slogan"></p>
-        <p class="sub-slogan">{{ this.entryData.section1.text2 }}</p>
+        <p v-html="entryData.section1.text1" class="slogan"></p>
+        <p class="sub-slogan">{{ entryData.section1.text2 }}</p>
         <br>
         <p><button class="slogan-btn">
           <Icon type="ios-plus-outline" size="24" /><span>建立你的電子錢包</span>
@@ -53,19 +53,19 @@
   </footer>
 </section>
 <section class="section-2">
-  <h2>{{ this.entryData.section2.title }}</h2>
-  <h4>{{ this.entryData.section2.subtitle }}</h4>
+  <h2>{{ entryData.section2.title }}</h2>
+  <h4>{{ entryData.section2.subtitle }}</h4>
   <br><br>
-  <p>{{ this.entryData.section2.text }}</p>
+  <p>{{ entryData.section2.text }}</p>
 </section>
 <section class="section-3">
-  <h3 v-html="this.entryData.section3.quote"></h3>
+  <h3 v-html="entryData.section3.quote"></h3>
   <br>
-  <p>{{ this.entryData.section3.author }}</p>
+  <p>{{ entryData.section3.author }}</p>
 </section>
 <section class="section-4">
   <Row>
-    <Col v-for="(item, key) in this.entryData.section4" :key="key" class="sec-4-feature" :lg="{ span: 12 }">
+    <Col v-for="(item, key) in entryData.section4" :key="key" class="sec-4-feature" :lg="{ span: 12 }">
       <Row :gutter="20">
         <Col :lg="{ span: 4 }">
           <img :src="item.img" alt="">
@@ -82,8 +82,8 @@
   </Row>
 </section>
 <section class="section-5">
-  <h2>{{ this.entryData.section5.title }}</h2>
-  <h4>{{ this.entryData.section5.text }}</h4>
+  <h2>{{ entryData.section5.title }}</h2>
+  <h4>{{ entryData.section5.text }}</h4>
   <br><br>
   <button class="slogan-btn">
     <router-link :to="'/signup'">開始免費註冊</router-link>
@@ -134,7 +134,7 @@ import data from '@/assets/data/entry/entry'
 export default {
 
   name: 'Entry',
-  mounted() {
+  created() {
     this.entryData = data
   },
   data () {
@@ -399,6 +399,7 @@ export default {
     font-size: @text-size-mob;
   }
   .ivu-row {
+    flex-wrap: wrap;
     @media( min-width: @media-lg ) {
       display: flex;
       align-items: stretch;
